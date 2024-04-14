@@ -1,0 +1,573 @@
+Items: {
+	BrainFocus: {
+		DisplayName: Brain Focus
+		Tooltip: Hold out to charge. Higher charge means higher damage!
+	}
+
+	BloodyFlower: {
+		DisplayName: Bloodied Flower
+		Tooltip: Always be angry
+	}
+
+	DeadFlower: {
+		DisplayName: Dead Flower
+		Tooltip: Always be sad
+	}
+
+	Flower: {
+		DisplayName: A Flower
+		Tooltip: Always be happy
+	}
+
+	AngryArrow: {
+		DisplayName: Annoying Arrow
+		Tooltip: Makes enemies it hits angry!
+	}
+
+	HappyArrow: {
+		DisplayName: Party Arrow
+		Tooltip: Makes enemies it hits happy!
+	}
+
+	SadArrow: {
+		DisplayName: Depressing Arrow
+		Tooltip: Makes enemies it hits sad!
+	}
+
+	AngryArrowPlus: {
+		DisplayName: Annoying Arrow+
+		Tooltip:
+			'''
+			Makes enemies it hits angry!
+			Homes in!
+			'''
+	}
+
+	HappyArrowPlus: {
+		DisplayName: Party Arrow+
+		Tooltip:
+			'''
+			Makes enemies it hits happy!
+			Splits midair!
+			'''
+	}
+
+	SadArrowPlus: {
+		DisplayName: Depressing Arrow+
+		Tooltip:
+			'''
+			Makes enemies it hits sad!
+			Penetrating Arrows!
+			'''
+	}
+
+	AngryBullet: {
+		DisplayName: Annoying Bullet
+		Tooltip: Makes enemies it hits angry!
+	}
+
+	HappyBullet: {
+		DisplayName: Party Bullet
+		Tooltip: Makes enemies it hits happy!
+	}
+
+	SadBullet: {
+		DisplayName: Depressing Bullet
+		Tooltip: Makes enemies it hits sad!
+	}
+
+	AngryBulletPlus: {
+		DisplayName: Annoying Bullet+
+		Tooltip:
+			'''
+			Makes enemies it hits angry!
+			Homes in on it's enemies!
+			'''
+	}
+
+	HappyBulletPlus: {
+		DisplayName: Party Bullet+
+		Tooltip:
+			'''
+			Makes enemies it hits happy!
+			Shatters midair!
+			'''
+	}
+
+	SadBulletPlus: {
+		DisplayName: Depressing Bullet+
+		Tooltip:
+			'''
+			Makes enemies it hits sad!
+			Piercing Rounds!
+			'''
+	}
+
+	InfiniteAngryArrow: {
+		DisplayName: Endless Annoying Arrows
+		Tooltip: Makes enemies it hits angry!
+	}
+
+	InfiniteHappyArrow: {
+		DisplayName: Endless Party Arrows
+		Tooltip: Makes enemies it hits happy!
+	}
+
+	InfiniteSadArrow: {
+		DisplayName: Endless Depressing Arrows
+		Tooltip: Makes enemies it hits sad!
+	}
+
+	InfiniteAngryArrowPlus: {
+		DisplayName: Endless Annoying Arrows+
+		Tooltip:
+			'''
+			Makes enemies it hits angry!
+			Homes in!
+			'''
+	}
+
+	InfiniteHappyArrowPlus: {
+		DisplayName: Endless Party Arrows+
+		Tooltip:
+			'''
+			Makes enemies it hits happy!
+			Splits midair!
+			'''
+	}
+
+	InfiniteSadArrowPlus: {
+		DisplayName: Endless Depressing Arrows+
+		Tooltip:
+			'''
+			Makes enemies it hits sad!
+			Penetrating Arrows!
+			'''
+	}
+
+	InfiniteAngryBullet: {
+		DisplayName: Endless Annoying Bullets
+		Tooltip: Makes enemies it hits angry!
+	}
+
+	InfiniteHappyBullet: {
+		DisplayName: Endless Party Bullets
+		Tooltip: Makes enemies it hits happy!
+	}
+
+	InfiniteSadBullet: {
+		DisplayName: Endless Depressing Bullets
+		Tooltip: Makes enemies it hits sad!
+	}
+
+	InfiniteAngryBulletPlus: {
+		DisplayName: Endless Annoying Bullets+
+		Tooltip:
+			'''
+			Makes enemies it hits angry!
+			Homes in on it's enemies!
+			'''
+	}
+
+	InfiniteHappyBulletPlus: {
+		DisplayName: Endless Party Bullets+
+		Tooltip:
+			'''
+			Makes enemies it hits happy!
+			Shatters midair!
+			'''
+	}
+
+	InfiniteSadBulletPlus: {
+		DisplayName: Endless Depressing Bullets+
+		Tooltip:
+			'''
+			Makes enemies it hits sad!
+			Piercing Rounds!
+			'''
+	}
+
+	MegaTofu: {
+		DisplayName: Mega Tofu
+		Tooltip:
+			'''
+			Basically just edible cardboard. Right?
+			Summons Ye Old Sprout
+			'''
+	}
+
+	AirHorn: {
+		DisplayName: Air Horn
+		Tooltip:
+			'''
+			An airhorn? Ugh, how aggravating.
+			Makes you angry
+			'''
+	}
+
+	PartyPopper: {
+		DisplayName: Party Popper
+		Tooltip:
+			'''
+			A party Popper! This is sure to cheer you up!
+			Makes you happy
+			'''
+	}
+
+	RainCloud: {
+		DisplayName: Rain Cloud
+		Tooltip:
+			'''
+			A raincloud, how sad.
+			Makes you sad
+			'''
+	}
+
+	Tofu: {
+		DisplayName: Tofu
+		Tooltip: Basically just edible cardboard. Heals 5 health.
+	}
+
+	AngryBoltItem: {
+		DisplayName: Compressed Annoyance
+		Tooltip: Shoots anger bolts at enemies!
+	}
+
+	AngryBombItem: {
+		DisplayName: Annoying Bomb
+		Tooltip: Shoots a bomb of annoyance at enemies!
+	}
+
+	AngryBombPlusItem: {
+		DisplayName: Annoying Bomb+
+		Tooltip: Shoots a recursive bomb of annoyance at enemies!
+	}
+
+	AngryBundle: {
+		DisplayName: Super Compressed Annoyance
+		Tooltip: Shoots a bundle of annoyance!
+	}
+
+	HappyBoltItem: {
+		DisplayName: Compressed Joy
+		Tooltip: Shoots happiness bolts at enemies!
+	}
+
+	HappyBombItem: {
+		DisplayName: Joy Bomb
+		Tooltip: Shoots a bomb of joy at enemies!
+	}
+
+	HappyBombPlusItem: {
+		DisplayName: Joy Bomb+
+		Tooltip: Shoots a recursive bomb of joy at enemies!
+	}
+
+	HappyBundle: {
+		DisplayName: Super Compressed Joy
+		Tooltip: Shoots a bundle of joy!
+	}
+
+	SadBoltItem: {
+		DisplayName: Compressed Despair
+		Tooltip: Shoots sadness bolts at enemies!
+	}
+
+	SadBombItem: {
+		DisplayName: Depressing Bomb
+		Tooltip: Shoots a bomb of depression at enemies!
+	}
+
+	SadBombPlusItem: {
+		DisplayName: Depressing Bomb+
+		Tooltip: Shoots a recursive bomb of depression at enemies!
+	}
+
+	SadBundle: {
+		DisplayName: Super Compressed Despair
+		Tooltip: Shoots a bundle of despair!
+	}
+
+	Note: {
+		DisplayName: Note
+		Tooltip:
+			'''
+			A note on how to use the mod.
+			You can make Hero's Frying Pan with copper bars, Aubrey's bat with wood, and Omori's knife with lead or iron bars.
+			You can buy items to change your emotions at the merchant
+
+			Remember: Sad beats happy. Happy beats Angry. Angry beats Sad.
+			Have Fun!
+			'''
+	}
+
+	SomethingItem: {
+		DisplayName: Something?
+		Tooltip: Summons Something
+	}
+
+	TestBow: {
+		DisplayName: Test Bow
+		Tooltip: ""
+	}
+
+	TestGun: {
+		DisplayName: Test Gun
+		Tooltip: ""
+	}
+
+	Bat: {
+		DisplayName: Aubrey's Bat
+		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+	}
+
+	ChlorBat: {
+		DisplayName: Aubrey's Chlorophyte Bat
+		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+	}
+
+	CorruptionBat: {
+		DisplayName: Aubrey's Corrupted Bat
+		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+	}
+
+	CrimsonBat: {
+		DisplayName: Aubrey's Crimson Bat
+		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+	}
+
+	HallowBat: {
+		DisplayName: Aubrey's Hallowed Bat
+		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+	}
+
+	HellBat: {
+		DisplayName: Aubrey's Hell Bat
+		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+	}
+
+	ChlorPan: {
+		DisplayName: Hero's Chlorophyte Frying Pan
+		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+	}
+
+	CorruptionPan: {
+		DisplayName: Hero's Corrupted Frying Pan
+		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+	}
+
+	CrimsonPan: {
+		DisplayName: Hero's Crimson Frying Pan
+		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+	}
+
+	FryingPan: {
+		DisplayName: Hero's Frying Pan
+		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+	}
+
+	HallowPan: {
+		DisplayName: Hero's Hallowed Frying Pan
+		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+	}
+
+	HellPan: {
+		DisplayName: Hero's Hellish Frying Pan
+		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+	}
+
+	ChlorKnife: {
+		DisplayName: Omori's Chlorophyte Knife
+		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+	}
+
+	CorruptionKnife: {
+		DisplayName: Omori's Corrupted Knife
+		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+	}
+
+	CrimsonKnife: {
+		DisplayName: Omori's Crimson Knife
+		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+	}
+
+	HallowKnife: {
+		DisplayName: Omori's Hallowed Knife
+		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+	}
+
+	HellKnife: {
+		DisplayName: Omori's Hell Knife
+		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+	}
+
+	Knife: {
+		DisplayName: Omori's Knife
+		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+	}
+
+	SentientKnifeItem: {
+		DisplayName: Sentient Knife
+		Tooltip: Summons a sentient knife to fight for you. Makes enemies sad!
+	}
+
+	SproutBullet: {
+		DisplayName: Sprout Bullet
+		Tooltip: Used for the Sprout Shotgun
+	}
+
+	YeOldBossBag: {
+		DisplayName: Ye Old Boss Bag
+		Tooltip: Contains a weapon and most likely some tofu
+	}
+
+	SproutShotgun: {
+		DisplayName: Sprout Shotgun
+		Tooltip: Shoots sprout mole bullets!
+	}
+
+	SproutScythe: {
+		DisplayName: Sprout Scythe
+		Tooltip: Shoots sprout mole scythes!
+	}
+}
+
+Buffs: {
+	Angry: {
+		DisplayName: Angry
+		Description: Attack up! Defense Down!
+	}
+
+	AngryNoTime: {
+		DisplayName: Angry
+		Description: Attack up! Defense Down!
+	}
+
+	Enraged: {
+		DisplayName: Enraged
+		Description: Attack up! Defense Down!
+	}
+
+	Furious: {
+		DisplayName: Furious
+		Description: Attack up! Defense Down!
+	}
+
+	Ecstatic: {
+		DisplayName: Ecstatic
+		Description: Speed Up! Crit Rate Up! Hit chance down!
+	}
+
+	Happy: {
+		DisplayName: Happy
+		Description: Speed Up! Crit Rate Up! Hit chance down!
+	}
+
+	HappyNoTime: {
+		DisplayName: Happy
+		Description: Speed Up! Crit Rate Up! Hit chance down!
+	}
+
+	Manic: {
+		DisplayName: Manic
+		Description: Speed Up! Crit Rate Up! Hit chance down!
+	}
+
+	SomethingBuff: {
+		DisplayName: Something
+		Description: I love you
+	}
+
+	Depressed: {
+		DisplayName: Depressed
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	}
+
+	Miserable: {
+		DisplayName: Miserable
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	}
+
+	Sad: {
+		DisplayName: Sad
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	}
+
+	SadNoTime: {
+		DisplayName: Sad
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	}
+
+	SentientKnifeBuff: {
+		DisplayName: Sentient Knife
+		Description: A floating knife is following you
+	}
+}
+
+NPCs: {
+	SproutMoleMinion.DisplayName: Sprout Mole
+	SproutMole.DisplayName: Sprout Mole
+	YeOldSprout.DisplayName: Ye Old Sprout
+}
+
+Projectiles: {
+	SentientKnifeProj.DisplayName: Sentient Knife
+	AngryBulletProj.DisplayName: Angry Bullet
+	AngryBulletPlusProj.DisplayName: Angry Bullet Plus
+	AngryBolt.DisplayName: Angry Bolt
+	AngryBomb.DisplayName: Angry Bomb
+	AngryBombPlus.DisplayName: Angry Bomb Plus
+	BundledAnger.DisplayName: Bundled Anger
+	BatProj.DisplayName: Phase Bat
+	BatProjFive.DisplayName: Phase Bat
+	BatProjFiveSeeking.DisplayName: Phase Bat
+	BatProjTriple.DisplayName: Phase Bat
+	SproutBulletProj.DisplayName: Sprout Bullet
+	SproutScytheProj.DisplayName: Sprout Scythe
+	BrainBolt.DisplayName: Brain Bolt
+	HappyBulletProj.DisplayName: Happy Bullet
+	HappyBulletPlusProj.DisplayName: Happy Bullet Plus
+	BundledHappiness.DisplayName: Bundled Happiness
+	HappyBolt.DisplayName: Happy Bolt
+	HappyBomb.DisplayName: Happy Bomb
+	HappyBombPlus.DisplayName: Happy Bomb Plus
+	PanProj.DisplayName: Phase Pan
+	PanProjFive.DisplayName: Phase Pan
+	PanProjFiveSeeking.DisplayName: Phase Pan
+	PanProjTriple.DisplayName: Phase Pan
+	SomethingProj.DisplayName: Something
+	SadBulletProj.DisplayName: Sad Bullet
+	SadBulletPlusProj.DisplayName: Sad Bullet Plus
+	BundledSadness.DisplayName: Bundled Sadness
+	SadBolt.DisplayName: Sad Bolt
+	SadBomb.DisplayName: Sad Bomb
+	SadBombPlus.DisplayName: Sad Bomb Plus
+	KnifeProj.DisplayName: Phase Knife
+	KnifeProjFive.DisplayName: Phase Knife
+	KnifeProjFiveSeeking.DisplayName: Phase Knife
+	KnifeProjTriple.DisplayName: Phase Knife
+	TestProj.DisplayName: Test Projectile
+	AngryArrowProj.DisplayName: Angry Arrow
+	HappyArrowProj.DisplayName: Happy Arrow
+	SadArrowProj.DisplayName: Sad Arrow
+	AngryArrowProjNoDrop.DisplayName: Angry Arrow
+	HappyArrowProjNoDrop.DisplayName: Happy Arrow
+	HappyArrowProjNoDropOrTrail.DisplayName: Happy Arrow
+	SadArrowProjNoDrop.DisplayName: Sad Arrow
+	AngryArrowPlusProj.DisplayName: Angry Arrow
+	HappyArrowPlusProj.DisplayName: Happy Arrow
+	SadArrowPlusProj.DisplayName: Sad Arrow
+	AngryArrowPlusProjNoDrop.DisplayName: Angry Arrow Plus
+	HappyArrowPlusProjNoDrop.DisplayName: Happy Arrow Plus
+	SadArrowPlusProjNoDrop.DisplayName: Sad Arrow Plus
+	HappyBulletProjNoTrail.DisplayName: Happy Bullet
+	AngryBoltNoTrail.DisplayName: Angry Bolt
+	BundledAngerNoTrail.DisplayName: Bundled Anger
+	BundledHappinessNoTrail.DisplayName: Bundled Happiness
+	HappyBoltNoTrail.DisplayName: Happy Bolt
+	BundledSadnessNoTrail.DisplayName: Bundled Sadness
+	SadBoltNoTrail.DisplayName: Sad Bolt
+	BatProjSeeking.DisplayName: Phase Bat
+	KnifeProjSeeking.DisplayName: Phase Knife
+	PanProjSeeking.DisplayName: Phase Pan
+}

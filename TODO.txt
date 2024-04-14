@@ -1,0 +1,9 @@
+-Add NPC for selling stuffs
+
+-Add music for YeOld
+--Create the loop for Tussle Among the Trees
+--Credit Bo En and Omori for using song
+---Learn to remix and remix TAtT
+
+-Create Califonia Gurls easter egg (make a musicbox that does it). Make my npc, or other npcs dance when it is on
+-- possibly create a dancing boss lol

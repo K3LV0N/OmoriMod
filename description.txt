@@ -1,0 +1,120 @@
+Omori Mod is a mod that adds emotions into the game!
+
+Make your enemies sad, happy, or angry to exploit an emotional advantage!
+
+All items in this mod build off of eachother, and if they don't then you can learn about them from the Note!
+Additionally, most items are made using the emotion changers sold by the merchant.
+
+If you have't played Omori then you totaly should! It is an awesome game and I cannot
+reccomend it more!!! (You can find it on steam!)
+
+
+JOIN THE DISCORD https://discord.gg/DzsvHCGfYq
+
+
+
+UPDATE 1.19.0.0:
+
+The sprout moles unite!
+
+-Added the first boss
+
+-****Hopefully balanced melee weapons
+
+-Fixed sad, depressed, and miserable data types
+
+-NERFED Sprout moles, they were originally too strong (didn't take much knockback)
+--Sprout moles move more organically now
+
+-Updated Sprites
+
+As usual please join the discord and let me know in the bugs channel of any bugs you find!
+
+
+UPDATE 1.18.0.0:
+
+-Added new damage type 'focus' which currently is a blend of ranged and magic right now (this damage type
+	gets the beefits from each so do as you please for now). This will entually change in the future to be
+	its own full type with armor, accessories and other things to benefit. I also additionally plan to add
+	calamity support (AKA a leveling system) so this class does not get left behind over time.
+
+-Added First 'focus' class weapon. When holding this weapon out it charges. When charged, the weapon does more damage
+	and starts to decay. To recharge, simply stop firing and the charge bar will start filling up again. The weapon
+	can currently be made with a book and rainclouds, HOWEVER, this recipe WILL change in the future (when I add more
+	ingredients, ores, etc.).
+
+-Made it so note starts in the players inventory upon character creation (still can be made with 1 dirt)
+
+-Updated bat sprites (courtesy of @ran24 on discord for supplying the sprites. Join the server!!!)
+
+-Probably did some other stuff like code clean up but I forget lol
+
+-NOTE: more 'focus' class weapons will come out!
+
+
+
+OLDER UPDATES (If you want to read the patch notes):
+
+
+
+UPDATE 1.17:
+
+Brought the mod to tmod 1.4.4!
+
+-Found and fixed a bug where upgraded arrows could and would drop their stage 1 counterparts or even other emotional arrows entirely
+
+-Reduced mod size and overall bloat by (approximately) 10-20% (I think)
+
+-Cleaned up code architecture significantly which should make bug fixes faster and easier
+
+-KNOWN BUG: Sad, Depressed, and Miserable statuses make you lose a set amount of mana as opposed to a percentage.
+ I do not know how to fix this right now, I am actively thinking of a solution to this.
+ 
+I changed a LOT from almost every single file in this update (tbh, the biggest update yet really), so PLEASE join the discord
+to inform me of any bugs you may find!
+
+
+UPDATE 1.16.14:
+
+Fixed a long standing bug where upgraded 'rain' (sad) ammo did not move faster than its other emotional counterparts
+
+
+UPDATE 1.16.13:
+
+Revamped how emotion is shown.
+
+
+UPDATE 1.16.12:
+
+Added speed changes on enemies! Turns out it's possible when
+you think about how speed and velocity effect a NPC's
+position!
+
+
+UPDATE 1.16.11:
+
+Removed speed changes on enemeies when they have emotions
+
+I found out that it is near impossible to simply change the speed
+of a NPC so they are going to remain untouched for now. However,
+I plan to keep messing with this to see if I can get it to work. 
+As of now though, I would have to change each enemy's AI individually
+which is absolutely insane, hence I will not be doing it.
+
+However, this can be easily implemented with modded enemies, so I
+may consider doing such in the future.
+
+
+UPDATE 1.16.10:
+
+Fixed and reworked emotions so they properly work now
+-Sad, Depressed, and Miserable were nerfed
+--These properly make you slow now
+
+-Happy, Ecstatic, and Manic were buffed
+--Reworked speed buff
+--Lowered chance to miss
+
+-Angry, Enraged, and Furious were changed
+--Deal higher damage than before
+--Take more damage than before

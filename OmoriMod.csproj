@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>OmoriMod</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Items\BossRelated\BossBags\YeOldBossBag.png" />
+    <None Remove="Items\BossRelated\YeOldSproutWeapons\SproutBullet.png" />
+    <None Remove="Items\BossRelated\YeOldSproutWeapons\SproutScythe.png" />
+    <None Remove="Items\BossRelated\YeOldSproutWeapons\SproutShotgun.png" />
+    <None Remove="Items\FocusItems\BrainFocus.png" />
+    <None Remove="Items\FocusItems\ChargeBarFrame.png" />
+    <None Remove="Items\FocusItems\ChargeBarFull.png" />
+    <None Remove="Items\FocusItems\ChargeBarMiddle.png" />
+    <None Remove="Items\Weapons\Melee\Tier1\FryingPan.png" />
+    <None Remove="Items\Weapons\Melee\Tier1\Knife.png" />
+    <None Remove="Items\Weapons\Melee\Tier2\CorruptionKnife.png" />
+    <None Remove="Items\Weapons\Melee\Tier2\CrimsonKnife.png" />
+    <None Remove="Items\Weapons\Melee\Tier3\HellKnife.png" />
+    <None Remove="Items\Weapons\Melee\Tier4\HallowKnife.png" />
+    <None Remove="Items\Weapons\Melee\Tier5\ChlorKnife.png" />
+    <None Remove="NPCs\Bosses\YeOldSproutFile\YeOldSprout.png" />
+    <None Remove="NPCs\Bosses\YeOldSproutFile\YeOldSprout_Head_Boss.png" />
+    <None Remove="Projectiles\Friendly\Melee\Bat\BatProj.png" />
+    <None Remove="Projectiles\Friendly\Melee\Bat\BatProjFive.png" />
+    <None Remove="Projectiles\Friendly\Melee\Bat\BatProjFiveSeeking.png" />
+    <None Remove="Projectiles\Friendly\Melee\Bat\BatProjSeeking.png" />
+    <None Remove="Projectiles\Friendly\Melee\Bat\BatProjTriple.png" />
+    <None Remove="Projectiles\Friendly\FocusProjectiles\BrainBolt.png" />
+    <None Remove="Projectiles\Friendly\Melee\Knife\KnifeProj.png" />
+    <None Remove="Projectiles\Friendly\Melee\Knife\KnifeProjFive.png" />
+    <None Remove="Projectiles\Friendly\Melee\Knife\KnifeProjFiveSeeking.png" />
+    <None Remove="Projectiles\Friendly\Melee\Knife\KnifeProjSeeking.png" />
+    <None Remove="Projectiles\Friendly\Melee\Knife\KnifeProjTriple.png" />
+    <None Remove="Systems\ChargeBar\ChargeBarFrame.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Music\" />
+  </ItemGroup>
+</Project>
