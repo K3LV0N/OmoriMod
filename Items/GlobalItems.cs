@@ -15,6 +15,8 @@ namespace OmoriMod.Items
             // Been defeated. Notice, there will be 'gaslighting' as I do not know
             // How to change default damage or other stuff displayed in crafting
             // That is if this item is craftable.
+
+            // Update: use modifyDamage!
             
             if (DownedBosses.downedSprout)
             {
