@@ -27,11 +27,8 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
             Projectile.arrow = false;
         }
 
-        public float AI_Timer
-        {
-            get => Projectile.ai[0];
-            set => Projectile.ai[0] = value;
-        }
+        public ref float AI_Timer => ref Projectile.ai[0];
+        public ref float Death_Timer => ref Projectile.ai[1];
 
 
         public bool AI_TimerStartX = false;
@@ -57,7 +54,7 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
             }
 
             AI_Timer++;
-            if (Projectile.direction > 0)
+            if (Main.player[Projectile.owner].direction > 0)
             {
                 Projectile.rotation += .5f;
             }
@@ -106,16 +103,11 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
 
             if (AI_TimerStartX && AI_TimerStartY)
             {
-                if (AI_Timer > 60)
-                {
-                    AI_Timer = 0;
-                }
-                AI_Timer++;
-
-                if (AI_Timer == 60)
+                if (Death_Timer > 60)
                 {
                     Projectile.Kill();
                 }
+                Death_Timer++;
             }
 
 

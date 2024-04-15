@@ -10,7 +10,6 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
 {
     public class PanProj : HappyProj
     {
-
         public override void SetDefaults()
         {
             Projectile.width = 32;
@@ -28,12 +27,7 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
             Projectile.arrow = false;
         }
 
-        public float AI_Timer
-        {
-            get => Projectile.ai[0];
-            set => Projectile.ai[0] = value;
-        }
-
+        public ref float AI_Timer => ref Projectile.ai[0];
 
         public bool AI_TimerStartX = false;
         public bool AI_TimerStartY = false;
@@ -56,7 +50,9 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
                 Projectile.Kill();
             }
 
-            if (Projectile.direction > 0)
+            // makes rotations based off player instead of projectile
+            // prevents some spinning clockwise and others counterclockwise
+            if (Main.player[Projectile.owner].direction > 0)
             {
                 Projectile.rotation += .5f;
             }

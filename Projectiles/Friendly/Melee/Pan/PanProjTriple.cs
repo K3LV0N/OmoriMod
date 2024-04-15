@@ -32,21 +32,10 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
         {
             if (AI_Timer == 0)
             {
-                Quaternion proj1Q = new Quaternion(0, 0, 1, 0.085f);
-                Quaternion proj2Q = new Quaternion(0, 0, 1, -0.085f);
-                Vector2 proj1 = Vector2.Transform(Projectile.velocity, proj1Q);
-                Vector2 proj2 = Vector2.Transform(Projectile.velocity, proj2Q);
-                proj1 = Vector2.Negate(proj1);
-                proj2 = Vector2.Negate(proj2);
-
-
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj1,
-                        ModContent.ProjectileType<PanProj>(), 40, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj2,
-                        ModContent.ProjectileType<PanProj>(), 40, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity,
-                        ModContent.ProjectileType<PanProj>(), 40, Projectile.knockBack, Projectile.owner);
-                Projectile.Kill();
+                float speed = Projectile.velocity.Length();
+                int maxAngle = 10;
+                int projectileAmount = 3;
+                SetSplit<PanProj>(projectileAmount, Projectile.damage, maxAngle, speed, Projectile.knockBack);
             }
             AI_Timer++;
 

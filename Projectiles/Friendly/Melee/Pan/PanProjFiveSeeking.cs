@@ -34,35 +34,12 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
         {
             if (AI_Timer == 0)
             {
-                Quaternion proj1Q = new Quaternion(0, 0, 1, 0.170f);
-                Quaternion proj2Q = new Quaternion(0, 0, 1, -0.170f);
-                Quaternion proj3Q = new Quaternion(0, 0, 1, 0.085f);
-                Quaternion proj4Q = new Quaternion(0, 0, 1, -0.085f);
-                Vector2 proj1 = Vector2.Transform(Projectile.velocity, proj1Q);
-                Vector2 proj2 = Vector2.Transform(Projectile.velocity, proj2Q);
-                Vector2 proj3 = Vector2.Transform(Projectile.velocity, proj3Q);
-                Vector2 proj4 = Vector2.Transform(Projectile.velocity, proj4Q);
-                proj1 = Vector2.Negate(proj1);
-                proj2 = Vector2.Negate(proj2);
-                proj3 = Vector2.Negate(proj3);
-                proj4 = Vector2.Negate(proj4);
-
-
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj1,
-                        ModContent.ProjectileType<PanProjSeeking>(), 90, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj2,
-                        ModContent.ProjectileType<PanProjSeeking>(), 90, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj3,
-                        ModContent.ProjectileType<PanProjSeeking>(), 90, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj4,
-                        ModContent.ProjectileType<PanProjSeeking>(), 90, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity,
-                        ModContent.ProjectileType<PanProjSeeking>(), 90, Projectile.knockBack, Projectile.owner);
-                Projectile.Kill();
+                float speed = Projectile.velocity.Length();
+                int maxAngle = 20;
+                int projectileAmount = 5;
+                SetSplit<PanProjSeeking>(projectileAmount, Projectile.damage, maxAngle, speed, Projectile.knockBack);
             }
             AI_Timer++;
-
-
         }
 
         public override void OnKill(int timeleft)
