@@ -1,4 +1,4 @@
 displayName = Omori Mod
 author = K3LV0N
-version = 1.19.0.0
+version = 1.19.0.2
 homepage = https://discord.gg/3wxKgtgX

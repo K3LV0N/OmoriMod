@@ -13,7 +13,7 @@ namespace OmoriMod.Items.BossRelated.BossSummons
         {
             // consumability and stack size
             Item.consumable = false;
-            Item.maxStack = 999;
+            Item.maxStack = 1;
 
             // size
             Item.width = 16;
@@ -67,7 +67,7 @@ namespace OmoriMod.Items.BossRelated.BossSummons
         public override void AddRecipes()
         {
             Recipe r1 = CreateRecipe();
-            r1.AddIngredient<Tofu>(20); 
+            r1.AddIngredient<Tofu>(10); 
             r1.Register();
         }
     }

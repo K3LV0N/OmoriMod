@@ -1,11 +1,15 @@
-﻿using OmoriMod.Players;
+﻿using Microsoft.Xna.Framework;
+using OmoriMod.Dusts;
+using OmoriMod.Players;
+using System;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Items.Abstract_Classes
 {
-    public abstract class FocusClass : ModItem
+    public abstract class FocusClass : EmotionalItem
     {
         // Set these to 0 on initialization
         // timers keeps track of ticks for charge / decay
@@ -35,9 +39,26 @@ namespace OmoriMod.Items.Abstract_Classes
 
         public virtual void HoldItemFocus(Player player)
         {
-            player.GetModPlayer<OmoriPlayer>().hasChargeItem = true;
-            player.GetModPlayer<OmoriPlayer>().currentCharge = charge;
-            player.GetModPlayer<OmoriPlayer>().maxCharge = maxCharge;
+            player.GetModPlayer<FocusPlayer>().hasChargeItem = true;
+            player.GetModPlayer<FocusPlayer>().currentCharge = charge;
+            player.GetModPlayer<FocusPlayer>().maxCharge = maxCharge;
+
+            bool reachedMaxCharge = player.GetModPlayer<FocusPlayer>().reachedMaxCharge;
+
+            if (charge == maxCharge && !reachedMaxCharge)
+            {
+                int amtOfDust = 40;
+                int positionOffSet = 6;
+                int speedChange = 2;
+                int scaleChange = 2;
+                dustHandler(player, amtOfDust, positionOffSet, speedChange, scaleChange);
+                player.GetModPlayer<FocusPlayer>().reachedMaxCharge = true;
+            }
+            else if (charge != maxCharge)
+            {
+                player.GetModPlayer<FocusPlayer>().reachedMaxCharge = false;
+            }
+
             if (!Main.mouseLeft)
             {
                 decaying = false;
@@ -121,6 +142,26 @@ namespace OmoriMod.Items.Abstract_Classes
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             damage.Base = Item.damage + ((charge * dps) / 60);
+        }
+
+        private void dustHandler(Player player, int amtOfDust, int pOff, int SpOff, int ScOff)
+        {
+            Random rand = new Random();
+
+            int SpOffUse = SpOff * 2;
+
+            for (int i = 0; i < amtOfDust; i++)
+            {
+                float xSpeed = SpOffUse * (rand.NextSingle() - 0.5f);
+                float ySpeed = SpOffUse * (rand.NextSingle() - 0.5f);
+                float scale = ScOff * rand.NextSingle();
+
+                int xOffset = rand.Next(-pOff, pOff);
+                int yOffset = rand.Next(-pOff, pOff);
+                Vector2 position = new Vector2(player.Center.X + xOffset, player.Center.Y + yOffset);
+
+                Dust.NewDust(position, 2, 2, ModContent.DustType<EmotionDust>(), xSpeed, ySpeed, 0, Color.LightGoldenrodYellow, scale);
+            }
         }
     }
 }

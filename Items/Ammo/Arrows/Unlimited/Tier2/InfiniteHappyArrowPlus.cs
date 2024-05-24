@@ -1,5 +1,6 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.Ammo.Arrows.Regular.Tier2;
+using OmoriMod.Items.Ammo.Arrows.Unlimited.Tier1;
 using OmoriMod.Projectiles.Friendly.Arrows.Tier2.NoDrops;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +15,9 @@ namespace OmoriMod.Items.Ammo.Arrows.Unlimited.Tier2
             Item.ResearchUnlockCount = 3;
             // clone default arrow stuff
             Item.CloneDefaults(ModContent.ItemType<InfiniteAngryArrowPlus>());
+
+            // damage stuff
+            Item.damage = ModContent.GetModItem(ModContent.ItemType<InfiniteHappyArrow>()).Item.damage;
 
             // projectile stuff
             Item.shoot = ModContent.ProjectileType<HappyArrowPlusProjNoDrop>();

@@ -17,6 +17,9 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier2
             // clone default bullet stuff
             Item.CloneDefaults(ModContent.ItemType<AngryBullet>());
 
+            // damage stuff
+            Item.damage = ModContent.GetModItem(ModContent.ItemType<HappyBullet>()).Item.damage;
+
             // projectile stuff
             Item.shoot = ModContent.ProjectileType<HappyBulletPlusProj>();
 

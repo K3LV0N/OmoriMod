@@ -3,7 +3,6 @@ using OmoriMod.Buffs.AngryBuff;
 using OmoriMod.Buffs.HappyBuff;
 using OmoriMod.Buffs.SadBuff;
 using System.Collections.Generic;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 

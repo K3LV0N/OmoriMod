@@ -12,6 +12,41 @@ reccomend it more!!! (You can find it on steam!)
 JOIN THE DISCORD https://discord.gg/DzsvHCGfYq
 
 
+UPDATE 1.19.0.2:
+
+-Various bug fixes:
+-- Fixed bug with large damage for party arrow+ and it's bullet counterpart
+-- Fixed issue with projectiles not spawning for melee weapons when against a wall
+-- Fixed issue with sprout shotgun sprite being massive
+
+- Nerfed Chlorophyte weapons homing range quite a bit (800 -> 300)
+
+- Added small architecture changes for later expansion
+
+
+Known Bugs and Issues:
+
+- Sprout shotgun sprite floats off the ground
+
+- Sprout moles cannot walk over hammered blocks
+
+- Emotions are unbalanced, need to find a way to fix this
+
+- Identifyable and fixable bloat (definite mod size reduction and improved workflow)
+
+
+
+
+UPDATE 1.19.0.1:
+
+-More massive architecture changes (removed ~40% of mod bloat)
+
+-Changed the way the charge bar looks
+
+-Updated mod to .NET 8
+
+
+
 
 UPDATE 1.19.0.0:
 
@@ -29,6 +64,7 @@ The sprout moles unite!
 -Updated Sprites
 
 As usual please join the discord and let me know in the bugs channel of any bugs you find!
+
 
 
 UPDATE 1.18.0.0:

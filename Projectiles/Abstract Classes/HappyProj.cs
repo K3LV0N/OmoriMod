@@ -1,5 +1,4 @@
-﻿
-namespace OmoriMod.Projectiles.Abstract_Classes
+﻿namespace OmoriMod.Projectiles.Abstract_Classes
 {
     /// <summary>
     /// <c>HappyProj</c> is a subclass of <see cref="EmotionProj"/> that automatically sets 

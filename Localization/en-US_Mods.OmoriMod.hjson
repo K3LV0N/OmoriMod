@@ -571,3 +571,5 @@ Projectiles: {
 	KnifeProjSeeking.DisplayName: Phase Knife
 	PanProjSeeking.DisplayName: Phase Pan
 }
+
+DamageClasses.FocusDamage.DisplayName: Focus Damage

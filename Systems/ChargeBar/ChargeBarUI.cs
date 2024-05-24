@@ -5,8 +5,12 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
+using Terraria.ModLoader;
+using ReLogic.Content;
 using OmoriMod.Items.Abstract_Classes;
+using static Terraria.GameContent.Animations.IL_Actions.Sprites;
+using System;
+using OmoriMod.Dusts;
 
 namespace OmoriMod.Systems.ChargeBar
 {
@@ -17,6 +21,10 @@ namespace OmoriMod.Systems.ChargeBar
         private UIElement area;
 
         private UIImage barFrame;
+
+        private static Texture2D barTexture;
+
+        private static Texture2D barTextureFull;
 
         private Color gradientA;
 
@@ -31,8 +39,10 @@ namespace OmoriMod.Systems.ChargeBar
             area.HAlign = area.VAlign = 0.5f;
 
 
-            barFrame = new UIImage(Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarFrame"));
-            
+            barFrame = new UIImage(ModContent.Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarFrame"));
+
+            barTexture = ModContent.Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarMiddle", AssetRequestMode.ImmediateLoad).Value;
+            barTextureFull = ModContent.Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarFull", AssetRequestMode.ImmediateLoad).Value;
 
             barFrame.Left.Set(0, 0f);
             barFrame.Top.Set(0, 0f);
@@ -62,34 +72,65 @@ namespace OmoriMod.Systems.ChargeBar
                 return;
             }
 
+            // typically base functions are empty, but not this one
             base.Draw(spriteBatch);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            base.DrawSelf(spriteBatch);
+            DrawChargeBar(spriteBatch);
+        }
 
-            var modPlayer = Main.LocalPlayer.GetModPlayer<OmoriPlayer>();
-            // Calculate quotient
-            float quotient = (float)( (float)(modPlayer.currentCharge) / (float)(modPlayer.maxCharge) ); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-            quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
+        private void DrawChargeBar(SpriteBatch spriteBatch)
+        {
+            FocusPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FocusPlayer>();
+            Player player = modPlayer.Player;
 
-            // Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
-            Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
-            hitbox.X += 4;
-            hitbox.Width -= 93;
-            hitbox.Y += 5;
-            hitbox.Height -= 21;
+            // Calculate percent full
+            float percentage = (float)((float)(modPlayer.currentCharge) / (float)(modPlayer.maxCharge));
 
-            // Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
-            int left = hitbox.Left;
-            int right = hitbox.Right;
-            int steps = (int)((right - left) * quotient);
-            for (int i = 0; i < steps; i += 1)
+            // make sure percent doesn't go above 1
+            percentage = Utils.Clamp(percentage, 0f, 1f);
+
+            // Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient.
+            Rectangle InnerBar = barFrame.GetInnerDimensions().ToRectangle();
+            InnerBar.X += 4;
+            InnerBar.Width -= 94;
+            InnerBar.Y += 3;
+            InnerBar.Height -= 21;
+
+            int currentWidth = (int)(InnerBar.Width * percentage);
+            if (currentWidth > 0)
             {
-                //float percent = (float)i / steps; // Alternate Gradient Approach
-                float percent = (float)i / (right - left);
-                spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height - 3), Color.Lerp(gradientA, gradientB, percent));
+                
+                int height = barTexture.Height;
+                Rectangle InnerBarPartial = new Rectangle(InnerBar.X, InnerBar.Y, currentWidth, InnerBar.Height);
+                Texture2D currentTexture = new Texture2D(barTexture.GraphicsDevice, currentWidth, height);
+
+                Color[] data = new Color[currentWidth * height];
+                Color[] originalData = new Color[barTexture.Width * height];
+                barTexture.GetData(originalData);
+
+                // copy texture until new width
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < currentWidth; x++)
+                    {
+                        // Copy pixels, excluding the rightmost pixels
+                        data[y * currentWidth + x] = originalData[y * barTexture.Width + x];
+                    }
+                }
+
+                currentTexture.SetData(data);
+
+                if (percentage == 1f)
+                {
+                    spriteBatch.Draw(barTextureFull, InnerBar, Color.White * 1);      
+                }
+                else
+                {
+                    spriteBatch.Draw(currentTexture, InnerBarPartial, Color.White * 1);
+                }
             }
         }
 
@@ -101,6 +142,8 @@ namespace OmoriMod.Systems.ChargeBar
             }
             // Setting the text per tick to update and show our resource values.
             text.SetText($"");
+            
+            // typically base functions are empty, but not this one
             base.Update(gameTime);
         }
     }

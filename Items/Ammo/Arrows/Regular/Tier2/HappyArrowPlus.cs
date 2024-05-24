@@ -16,6 +16,9 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier2
             // clone default arrow stuff
             Item.CloneDefaults(ModContent.ItemType<AngryArrowPlus>());
 
+            // damage stuff
+            Item.damage = ModContent.GetModItem(ModContent.ItemType<HappyArrow>()).Item.damage;
+
             // projectile stuff
             Item.shoot = ModContent.ProjectileType<HappyArrowPlusProj>();
 

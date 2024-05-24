@@ -86,7 +86,7 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Bat
                 AI_TimerStartY = true;
             }
 
-            float maxDetectRadius = 800f; // The maximum radius at which a projectile can detect a target
+            float maxDetectRadius = 300f; // The maximum radius at which a projectile can detect a target
             float XSpeed = (float)Math.Pow(Projectile.velocity.X, 2);
             float YSpeed = (float)Math.Pow(Projectile.velocity.Y, 2);
             float projSpeed = (float)Math.Pow(XSpeed + YSpeed, .5);

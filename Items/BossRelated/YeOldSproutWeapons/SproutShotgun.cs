@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
 {
@@ -47,6 +48,13 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
             Vector2 offset = new Vector2(-35, 0);
             return offset;
 
+        }
+
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            // arbitrary value here, just makes it look better when in the world
+            scale = 0.4f;
+            return true;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
