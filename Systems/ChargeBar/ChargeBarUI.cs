@@ -25,10 +25,6 @@ namespace OmoriMod.Systems.ChargeBar
         private static Texture2D barTexture;
 
         private static Texture2D barTextureFull;
-
-        private Color gradientA;
-
-        private Color gradientB;
         public override void OnInitialize()
         {
             area = new UIElement();
@@ -54,9 +50,6 @@ namespace OmoriMod.Systems.ChargeBar
             text.Top.Set(34, 0f);
             text.Width.Set(40, 0f);
             text.Height.Set(0, 0f);
-
-            gradientA = new Color(245, 59, 59); // A pinky red
-            gradientB = new Color(90, 255, 71); // A light green
 
             area.Append(text);
             area.Append(barFrame);
@@ -99,8 +92,13 @@ namespace OmoriMod.Systems.ChargeBar
             InnerBar.Y += 3;
             InnerBar.Height -= 21;
 
+            if (percentage == 1f)
+            {
+                spriteBatch.Draw(barTextureFull, InnerBar, Color.White * 1);
+            }
+
             int currentWidth = (int)(InnerBar.Width * percentage);
-            if (currentWidth > 0)
+            if (currentWidth > 0 && percentage != 1f)
             {
                 
                 int height = barTexture.Height;
@@ -121,16 +119,10 @@ namespace OmoriMod.Systems.ChargeBar
                     }
                 }
 
-                currentTexture.SetData(data);
+                currentTexture.SetData(data);  
 
-                if (percentage == 1f)
-                {
-                    spriteBatch.Draw(barTextureFull, InnerBar, Color.White * 1);      
-                }
-                else
-                {
-                    spriteBatch.Draw(currentTexture, InnerBarPartial, Color.White * 1);
-                }
+                spriteBatch.Draw(currentTexture, InnerBarPartial, Color.White * 1);
+                
             }
         }
 
