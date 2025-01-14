@@ -26,7 +26,7 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop
 
             Projectile.arrow = true;
 
-            emotion = emotionType.SAD;
+            SetEmotionType(EmotionType.SAD);
         }
 
 

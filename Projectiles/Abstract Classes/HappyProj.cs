@@ -8,7 +8,7 @@
     {
         public HappyProj()
         {
-            emotion = emotionType.HAPPY;
+            SetEmotionType(EmotionType.HAPPY);
         }
     }
 }

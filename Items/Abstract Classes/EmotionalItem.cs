@@ -13,24 +13,25 @@ namespace OmoriMod.Items.Abstract_Classes
     /// Upon hitting an enemy, they will be inflicted with this emotion.<br />
     /// Valid <paramref name="emotion"/> values can be <paramref name="SAD"/>, <paramref name="ANGRY"/>, or <paramref name="HAPPY"/>.<br />
     /// </summary>
-    public abstract class EmotionalItem : ModItem
+    public abstract class EmotionalItem : ModItem, IEmotionObject
     {
-        public enum emotionType
+        public EmotionType Emotion { get; set; }
+
+        /// <summary>
+        /// Useful for when you need to manually set the emotion type
+        /// </summary>
+        /// <param name="emotion"></param>
+        public void SetEmotionType(EmotionType emotion)
         {
-            SAD = 0,
-            ANGRY = 1,
-            HAPPY = 2,
-            NOTHING = 3
+            Emotion = emotion;
         }
-
-        public emotionType emotion = emotionType.NOTHING;
-
-        public float meleeWeaponProjectileMoveTime = 0.2f;
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            InflictEmotion(player, target);
+            ((IEmotionObject)this).InflictEmotion(target);
         }
+
+        public float meleeWeaponProjectileMoveTime = 0.2f;
 
         /// <summary>
         /// <c>MoveProjectileForward</c> moves a projectile shot by a weapon forward slightly to reduce spawn collisions. <br />
@@ -42,40 +43,5 @@ namespace OmoriMod.Items.Abstract_Classes
         {   
             position = position + (velocity * ticks);
         }
-
-        /// <summary>
-        /// <c>InflictEmotion</c> inflicts an emotion on an enemy.<br />
-        /// This function uses the field <paramref name="emotion"/> to determine the correct emotion to apply.<br /><br />
-        /// <paramref name="player"/> is the player using the item.<br />
-        /// <paramref name="target"/> is the NPC getting hit.<br />
-        /// </summary>
-        public virtual void InflictEmotion(Player player, NPC target)
-        {
-            switch (emotion)
-            {
-                case emotionType.SAD:
-                    if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
-                    {
-                        target.AddBuff(ModContent.BuffType<Sad>(), 600);
-                    }
-                    break;
-                case emotionType.ANGRY:
-                    if (!target.HasBuff<Happy>() && !target.HasBuff<Sad>())
-                    {
-                        target.AddBuff(ModContent.BuffType<Angry>(), 600);
-                    }
-                    break;
-                case emotionType.HAPPY:
-                    if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
-                    {
-                        target.AddBuff(ModContent.BuffType<Happy>(), 600);
-                    }
-                    break;
-                case emotionType.NOTHING:
-                    break;
-            }
-        }
-
-
     }
 }

@@ -3,15 +3,16 @@ using Terraria;
 
 namespace OmoriMod
 {
-    internal class dev : ModSystem
+    internal class Dev : ModSystem
     {
-        private bool devBranch = false;
+        // MAKE SURE THIS IS FALSE BEFORE PUBLISHING
+        private bool devMode = false;
 
         public override void AddRecipes()
         {
             // Allows creation of any item from Omori Mod
             // to be made from thin air
-            if (devBranch)
+            if (devMode)
             {
                 int maxItems = ItemLoader.ItemCount;
                 for (int i = 0; i < maxItems; i++)

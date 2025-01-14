@@ -14,53 +14,26 @@ namespace OmoriMod.Projectiles.Abstract_Classes
     /// Upon hitting an enemy, they will be inflicted with this emotion.<br />
     /// Valid <paramref name="emotion"/> values can be <paramref name="SAD"/>, <paramref name="ANGRY"/>, or <paramref name="HAPPY"/>.<br />
     /// </summary>
-    public abstract class EmotionProj : ModProjectile
+    public abstract class EmotionProj : ModProjectile, IEmotionObject
     {
-        public enum emotionType
-        {
-            SAD = 0,
-            ANGRY = 1,
-            HAPPY = 2
-        }
-
-        public emotionType emotion;
-        
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            InflictEmotion(target);
-        }
+        public EmotionType Emotion { get; set; }
 
         /// <summary>
-        /// <c>InflictEmotion</c> inflicts an emotion on an enemy.<br />
-        /// This function uses the field <paramref name="emotion"/> to determine the correct emotion to apply.<br /><br />
-        /// <paramref name="player"/> is the player using the item.<br />
-        /// <paramref name="target"/> is the NPC getting hit.<br />
+        /// Useful for when you need to manually set the emotion type
         /// </summary>
-        public virtual void InflictEmotion(NPC target)
+        /// <param name="emotion"></param>
+        public void SetEmotionType(EmotionType emotion)
         {
-            if (emotion == emotionType.SAD)
-            {
-                if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
-                {
-                    target.AddBuff(ModContent.BuffType<Sad>(), 600);
-                }
-            }
-            else if (emotion == emotionType.ANGRY)
-            {
-                if (!target.HasBuff<Happy>() && !target.HasBuff<Sad>())
-                {
-                    target.AddBuff(ModContent.BuffType<Angry>(), 600);
-                }
-            }
-            else if (emotion == emotionType.HAPPY)
-            {
-                if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
-                {
-                    target.AddBuff(ModContent.BuffType<Happy>(), 600);
-                }
-            }
+            Emotion = emotion;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            // cast to the intertface to call the function
+            ((IEmotionObject)this).InflictEmotion(target);
+        }
+
+        
 
         /// <summary>
         /// <para><c>SetSplit</c> is a function that splits 1 projectile into many</para> 

@@ -31,6 +31,7 @@ namespace OmoriMod.Systems
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
+            // choose which layer to put our UI. This layer works for us
             int chargeBarUIIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Interface Logic 2"));
             if (chargeBarUIIndex != -1)
             {

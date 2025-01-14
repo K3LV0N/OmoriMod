@@ -39,6 +39,7 @@ namespace OmoriMod.Items.Abstract_Classes
 
         public virtual void HoldItemFocus(Player player)
         {
+            // set FocusPlayer variables to the current held item
             player.GetModPlayer<FocusPlayer>().hasChargeItem = true;
             player.GetModPlayer<FocusPlayer>().currentCharge = charge;
             player.GetModPlayer<FocusPlayer>().maxCharge = maxCharge;
@@ -67,6 +68,7 @@ namespace OmoriMod.Items.Abstract_Classes
                     if (charge < maxCharge)
                     {
                         charge++;
+                        if (charge > maxCharge) {charge = maxCharge;}
                     }
                     timer = 0;
                 }

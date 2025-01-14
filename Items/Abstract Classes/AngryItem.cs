@@ -10,7 +10,7 @@ namespace OmoriMod.Items.Abstract_Classes
     {
         public AngryItem()
         {
-            emotion = emotionType.ANGRY;
+            SetEmotionType(EmotionType.ANGRY);
         }
 
         /// <summary>

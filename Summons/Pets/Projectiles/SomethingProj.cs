@@ -1,14 +1,13 @@
-﻿using OmoriMod.Buffs.Pets;
+﻿using OmoriMod.Players;
+using OmoriMod.Summons.Pets.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Projectiles.Pets
+namespace OmoriMod.Summons.Pets.Projectiles
 {
     public class SomethingProj : ModProjectile
     {
-
-        //props to Lynx on youtube for providing the code here
         public override void SetStaticDefaults()
         {
             Main.projPet[Projectile.type] = true;
@@ -23,7 +22,6 @@ namespace OmoriMod.Projectiles.Pets
             // size
             Projectile.height = 55;
             Projectile.width = 22;
-
         }
 
         public override bool PreAI()
@@ -31,6 +29,7 @@ namespace OmoriMod.Projectiles.Pets
             // copying gato ai
             Player player = Main.player[Projectile.owner];
             player.petFlagDD2Gato = false;
+            player.GetModPlayer<OmoriPetPlayer>().SomethingPet = true;
             return true;
         }
 
@@ -41,7 +40,6 @@ namespace OmoriMod.Projectiles.Pets
             if (!player.dead && player.HasBuff<SomethingBuff>())
             {
                 Projectile.timeLeft = 2;
-
             }
 
         }

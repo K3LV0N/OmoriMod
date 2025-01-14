@@ -8,7 +8,7 @@
     {
         public AngryProj()
         {
-            emotion = emotionType.ANGRY;
+            SetEmotionType(EmotionType.ANGRY);
         }
     }
 }

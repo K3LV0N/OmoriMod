@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using OmoriMod.Projectiles.Pets;
+using OmoriMod.Summons.Pets.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Buffs.Pets
+namespace OmoriMod.Summons.Pets.Buffs
 {
     internal class SomethingBuff : ModBuff
     {
-        //props to Lynx on youtube for providing the following code
+
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
@@ -16,7 +16,7 @@ namespace OmoriMod.Buffs.Pets
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.buffTime[buffIndex] = 18000;
+            player.buffTime[buffIndex] = 69420;
             int projType = ModContent.ProjectileType<SomethingProj>();
 
             // If the player is local, and there hasn't been a pet projectile spawned yet - spawn it.

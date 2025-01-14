@@ -623,7 +623,6 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
             }
             else
             {
-                bool nuts = false;
                 NPC.frame.Y = walkFrame1 * frameHeight;
             }
             

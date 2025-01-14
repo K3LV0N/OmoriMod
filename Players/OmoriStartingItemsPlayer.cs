@@ -5,8 +5,9 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Players
 {
-    public class OmoriPlayer : ModPlayer
+    public class OmoriStartingItemsPlayer : ModPlayer
     {
+        
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
             return new[]

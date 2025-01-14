@@ -11,6 +11,14 @@ reccomend it more!!! (You can find it on steam!)
 
 JOIN THE DISCORD https://discord.gg/DzsvHCGfYq
 
+UPDATE 1.19.0.3:
+
+- Massive architectural changes to prepare for summoner class expansion and additional pets
+-- Currently there is only 1 summoner weapon, and I want to make the class have weapons like every other class has at this point
+-- Expansion will include a weapon for each emotion for each stage of the game, and a summon weapon dropped from the boss.
+
+Content coming soon!!! (I hope!!!)
+
 
 UPDATE 1.19.0.2:
 
@@ -22,6 +30,7 @@ UPDATE 1.19.0.2:
 - Nerfed Chlorophyte weapons homing range quite a bit (800 -> 300)
 
 - Added small architecture changes for later expansion
+
 
 
 Known Bugs and Issues:

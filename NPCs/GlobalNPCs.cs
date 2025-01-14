@@ -4,11 +4,10 @@ using OmoriMod.Buffs.HappyBuff;
 using OmoriMod.Buffs.SadBuff;
 using OmoriMod.Items.Accessories;
 using OmoriMod.Items.BuffItems;
-using OmoriMod.Items.Pets;
+using OmoriMod.Summons.Pets.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace OmoriMod.NPCs
 {
@@ -124,6 +123,19 @@ namespace OmoriMod.NPCs
                 if (npc.color != (Color)original_color) { npc.color = Color.Lerp(npc.color, (Color)original_color, 0.1f); }
             }
         }
+
+        // TODO: Change modifiers to work better
+        public enum DamageModifier
+        {
+            NOTHING = 0,
+            UPLOW = 1,
+            UPMEDIUM = 2,
+            UPHIGH = 3,
+            DOWNLOW = 4,
+            DOWNMEDIUM = 5,
+            DOWNHIGH = 6,
+        }
+
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {

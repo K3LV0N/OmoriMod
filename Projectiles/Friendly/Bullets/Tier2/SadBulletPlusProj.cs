@@ -25,7 +25,7 @@ namespace OmoriMod.Projectiles.Friendly.Bullets.Tier2
             Projectile.arrow = false;
 
 
-            emotion = emotionType.SAD;
+            SetEmotionType(EmotionType.SAD);
         }
 
         public override bool PreAI()
