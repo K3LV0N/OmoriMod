@@ -1,13 +1,13 @@
 ﻿using Terraria.ModLoader;
 using OmoriMod.Projectiles.Abstract_Classes;
 
-namespace OmoriMod.Projectiles.Friendly.Magic.Tier4.Angry
+namespace OmoriMod.Projectiles.Friendly.Magic.Tier1
 {
-    public class AngryBoltNoTrail : AngryProj
+    public class HappyBoltNoTrail : HappyProj
     {
         public override void SetDefaults()
         {
-            SetOtherDefaults(width: 8, height: 8, damageType: DamageClass.Magic, aiStyle: 1, penetration: 1, scale: 1, tileCollide: true);
+            Projectile.CloneDefaults(ModContent.ProjectileType<AngryBolt>());
         }
 
         public override void OnKill(int timeLeft)

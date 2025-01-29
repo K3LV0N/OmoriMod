@@ -10,11 +10,7 @@ namespace OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout
         public override void SetDefaults()
         {
             // Set magic projectile defaults
-            SetOtherDefaults(width: 32, height: 32, damageType: DamageClass.Magic, aiStyle: 0, scale: 1.2f);
-
-            // Time and penetration ;)
-            Projectile.timeLeft = 365;
-            Projectile.penetrate = 3;
+            SetOtherDefaults(width: 32, height: 32, damageType: DamageClass.Magic, penetration: 3, aiStyle: 0, scale: 1.2f, timeLeft: 365);
         }
 
         public override void OnKill(int timeLeft)

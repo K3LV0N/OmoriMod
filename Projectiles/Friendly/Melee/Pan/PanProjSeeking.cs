@@ -1,5 +1,6 @@
 ﻿using Terraria.ModLoader;
 using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Projectiles.Friendly.Melee.Bat;
 
 namespace OmoriMod.Projectiles.Friendly.Melee.Pan
 {
@@ -7,7 +8,7 @@ namespace OmoriMod.Projectiles.Friendly.Melee.Pan
     {
         public override void SetDefaults()
         {
-            SetOtherDefaults(width: 32, height: 32, damageType: DamageClass.Melee, aiStyle: 0, penetration: 1, scale: 1, tileCollide: true, timeLeft: 300, alpha: 50);
+            Projectile.CloneDefaults(ModContent.ProjectileType<BatProj>());
         }
 
         public override void OnKill(int timeleft)

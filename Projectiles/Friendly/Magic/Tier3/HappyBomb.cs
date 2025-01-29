@@ -8,7 +8,7 @@ namespace OmoriMod.Projectiles.Friendly.Magic.Tier3
     {
         public override void SetDefaults()
         {
-            SetOtherDefaults(width: 24, height: 24, damageType: DamageClass.Magic, aiStyle: 0, penetration: 5, scale: 1, tileCollide: true);
+            Projectile.CloneDefaults(ModContent.ProjectileType<AngryBomb>());
         }
 
         public override void OnKill(int timeLeft)

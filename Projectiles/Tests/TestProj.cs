@@ -2,37 +2,26 @@
 using OmoriMod.Projectiles.Abstract_Classes;
 using OmoriMod.Projectiles.Friendly.Bullets.Tier1;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Projectiles.Tests
 {
     internal class TestProj : HappyProj
     {
-
         public override void SetDefaults()
         {
-            Projectile.width = 6;
-            Projectile.height = 6;
+            SetBulletDefaults();
+        }
 
-            Projectile.aiStyle = 0;
-
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
-
-            Projectile.arrow = false;
+        public override void OnKill(int timeLeft)
+        {
+            OnKillNoDrop(timeLeft, noSound: true);
         }
 
         public override bool PreAI()
         {
-            Dust.NewDust(Projectile.position, 2, 2, DustID.Pixie, 0f, 0f, 0, Color.Yellow);
+            DustTrail();
             return true;
-        }
-
-        public float AI_Timer
-        {
-            get => Projectile.ai[0];
-            set => Projectile.ai[0] = value;
         }
 
         public override void AI()
@@ -128,13 +117,6 @@ namespace OmoriMod.Projectiles.Tests
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, proj8,
                     ModContent.ProjectileType<HappyBulletProjNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
             }
-
-
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
         }
     }
 }

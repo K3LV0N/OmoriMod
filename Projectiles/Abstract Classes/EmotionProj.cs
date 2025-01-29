@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Dusts;
-using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
-using System.Threading;
-using OmoriMod.Projectiles.Friendly.Arrows.Tier1.NoDrops;
-using OmoriMod.Projectiles.Friendly.Magic.Tier1;
-using System;
-using System.Reflection.Metadata;
 
 namespace OmoriMod.Projectiles.Abstract_Classes
 {
@@ -84,7 +79,7 @@ namespace OmoriMod.Projectiles.Abstract_Classes
         }
 
         /// <summary>
-        /// Sets the defaults for modded arrows
+        /// Sets the defaults for modded bullets
         /// </summary>
         public void SetBulletDefaults(int width = 6, int height = 6, float scale = 1, int penetration = 1, bool tileCollide = true, int timeLeft = 3600, int alpha = 0)
         {
@@ -142,26 +137,26 @@ namespace OmoriMod.Projectiles.Abstract_Classes
         }
 
 
-        private void DropChance()
+        private void DropChance<T>() where T : ModItem
         {
             if (Projectile.owner == Main.myPlayer)
             {
                 //has a chance to drop arrow for pickup
-                int item = Main.rand.NextBool(5) ? Item.NewItem(Entity.GetSource_Death(), Projectile.getRect(), ModContent.ItemType<AngryArrow>()) : 0;
+                int item = Main.rand.NextBool(5) ? Item.NewItem(Entity.GetSource_Death(), Projectile.getRect(), ModContent.ItemType<T>()) : 0;
             }
         }
 
         /// <summary>
         /// The OnKill Method for arrows that can drop
         /// </summary>
-        public void OnKillWithDrop(int timeLeft = 1, bool noSound = false)
+        public void OnKillWithDrop<T>(int timeLeft = 1, bool noSound = false) where T : ModItem
         {
             if (timeLeft > 0)
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
                 if (!noSound) { SoundEngine.PlaySound(SoundID.Item10, Projectile.position); }
             }
-            DropChance();
+            DropChance<T>();
         }
 
         /// <summary>

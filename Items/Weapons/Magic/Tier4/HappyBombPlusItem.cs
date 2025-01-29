@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Projectiles.Friendly.Magic.Tier4.Happy;
 using OmoriMod.Items.Weapons.Magic.Tier3;
 using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Projectiles.Friendly.Magic.Tier4;
 
 namespace OmoriMod.Items.Weapons.Magic.Tier4
 {

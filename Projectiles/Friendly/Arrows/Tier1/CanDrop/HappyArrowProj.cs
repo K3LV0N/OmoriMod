@@ -1,4 +1,5 @@
-﻿using OmoriMod.Projectiles.Abstract_Classes;
+﻿using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
+using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Arrows.Tier1.CanDrop
 {
@@ -11,7 +12,7 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier1.CanDrop
 
         public override void OnKill(int timeLeft)
         {
-            OnKillWithDrop(timeLeft);
+            OnKillWithDrop<HappyArrow>(timeLeft);
         }
 
         public override bool PreAI()
