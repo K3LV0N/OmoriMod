@@ -44,19 +44,19 @@ namespace OmoriMod
                 case EmotionType.SAD:
                     if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
                     {
-                        target.AddBuff(ModContent.BuffType<Sad>(), 600);
+                        target.AddBuff(ModContent.BuffType<Sad>(), ticks);
                     }
                     break;
                 case EmotionType.ANGRY:
                     if (!target.HasBuff<Happy>() && !target.HasBuff<Sad>())
                     {
-                        target.AddBuff(ModContent.BuffType<Angry>(), 600);
+                        target.AddBuff(ModContent.BuffType<Angry>(), ticks);
                     }
                     break;
                 case EmotionType.HAPPY:
                     if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
                     {
-                        target.AddBuff(ModContent.BuffType<Happy>(), 600);
+                        target.AddBuff(ModContent.BuffType<Happy>(), ticks);
                     }
                     break;
                 

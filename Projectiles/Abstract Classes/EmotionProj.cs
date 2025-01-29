@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Buffs.AngryBuff;
-using OmoriMod.Buffs.HappyBuff;
-using OmoriMod.Buffs.SadBuff;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
+using OmoriMod.Dusts;
+using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
 
 namespace OmoriMod.Projectiles.Abstract_Classes
 {
@@ -33,7 +34,81 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             ((IEmotionObject)this).InflictEmotion(target);
         }
 
-        
+        /// <summary>
+        /// Sets the defaults for modded arrows
+        /// </summary>
+        public void SetArrowDefaults()
+        {
+
+            // Arrow dimensions
+            Projectile.width = 8;
+            Projectile.height = 12;
+
+            // Copy the ai style of an arrow
+            Projectile.aiStyle = ProjAIStyleID.Arrow;
+
+            // Friendly so it hurts enemies
+            Projectile.friendly = true;
+
+            // Ranged damage
+            Projectile.DamageType = DamageClass.Ranged;
+
+            // Is an arrow
+            Projectile.arrow = true;
+        }
+
+
+        /// <summary>
+        /// Makes a dust trail behind the projectile with the color determined from the emotion
+        /// </summary>
+        public void DustTrail()
+        {
+            switch (Emotion)
+            {
+                case EmotionType.NOTHING:
+                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.White);
+                    break;
+                case EmotionType.SAD:
+                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Blue);
+                    break;
+                case EmotionType.ANGRY:
+                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Red);
+                    break;
+                case EmotionType.HAPPY:
+                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Yellow);
+                    break;
+
+            }
+        }
+
+
+        private void DropChance()
+        {
+            if (Projectile.owner == Main.myPlayer)
+            {
+                //has a chance to drop arrow for pickup
+                int item = Main.rand.NextBool(5) ? Item.NewItem(Entity.GetSource_Death(), Projectile.getRect(), ModContent.ItemType<AngryArrow>()) : 0;
+            }
+        }
+
+        /// <summary>
+        /// The OnKill Method for arrows that can drop
+        /// </summary>
+        public void OnKillWithDrop()
+        {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            DropChance();
+        }
+
+        /// <summary>
+        /// The OnKill Method for arrows that can drop
+        /// </summary>
+        public void OnKillNoDrop()
+        {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+        }
 
         /// <summary>
         /// <para><c>SetSplit</c> is a function that splits 1 projectile into many</para> 

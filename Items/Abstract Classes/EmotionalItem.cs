@@ -1,8 +1,5 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using OmoriMod.Buffs.AngryBuff;
-using OmoriMod.Buffs.HappyBuff;
-using OmoriMod.Buffs.SadBuff;
 using Microsoft.Xna.Framework;
 
 namespace OmoriMod.Items.Abstract_Classes

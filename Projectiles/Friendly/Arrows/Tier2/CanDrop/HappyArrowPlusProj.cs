@@ -1,12 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Dusts;
-using OmoriMod.Items.Ammo.Arrows.Regular.Tier2;
+﻿using Terraria;
 using OmoriMod.Projectiles.Abstract_Classes;
 using OmoriMod.Projectiles.Friendly.Arrows.Tier1.NoDrops;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop
 {
@@ -15,22 +9,18 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 12;
-
-            Projectile.aiStyle = ProjAIStyleID.Arrow;
-
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.damage = 24;
-
-            Projectile.arrow = true;
+            SetArrowDefaults();
         }
 
         public override bool PreAI()
         {
-            Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Yellow);
+            DustTrail();
             return true;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            OnKillWithDrop();
         }
 
 
@@ -51,18 +41,6 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop
                 SetSplit<HappyArrowProjNoDropOrTrail>(projectileAmount, Projectile.damage, maxAngle, speed, Projectile.knockBack, false);
             }
             AI_Timer++;
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
-
-            if (Projectile.owner == Main.myPlayer)
-            {
-                //has a chance to drop arrow for pickup
-                int item = Main.rand.NextBool(5) ? Item.NewItem(Entity.GetSource_Death(), Projectile.getRect(), ModContent.ItemType<HappyArrowPlus>()) : 0;
-            }
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Dusts;
+﻿using Terraria;
+using Microsoft.Xna.Framework;
 using OmoriMod.Projectiles.Abstract_Classes;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.NoDrops
 {
@@ -13,22 +9,18 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.NoDrops
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 12;
-
-            Projectile.aiStyle = ProjAIStyleID.Arrow;
-
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.damage = 24;
-
-            Projectile.arrow = true;
+            SetArrowDefaults();
         }
 
         public override bool PreAI()
         {
-            Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Red);
+            DustTrail();
             return true;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            OnKillNoDrop();
         }
 
         public float AI_Timer
@@ -90,13 +82,6 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.NoDrops
             }
 
             return closestNPC;
-        }
-
-
-        public override void OnKill(int timeLeft)
-        {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
         }
     }
 }

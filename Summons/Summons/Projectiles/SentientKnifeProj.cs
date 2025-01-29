@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using OmoriMod.Summons.Abstract_Classes;
 
 namespace OmoriMod.Summons.Summons.Projectiles
