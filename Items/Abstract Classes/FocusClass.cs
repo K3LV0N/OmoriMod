@@ -4,7 +4,6 @@ using OmoriMod.Players;
 using System;
 using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Items.Abstract_Classes

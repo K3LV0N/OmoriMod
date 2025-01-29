@@ -1,32 +1,23 @@
-﻿using Terraria;
-using OmoriMod.Projectiles.Abstract_Classes.SetSpeedProj;
+﻿using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop
 {
-    public class SadArrowPlusProj : SetSpeedProj
+    public class SadArrowPlusProj : SadProj
     {
-
         public override void SetDefaults()
         {
             SetArrowDefaults();
-            SetEmotionType(EmotionType.SAD);
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            OnKillWithDrop(timeLeft);
         }
 
         public override bool PreAI()
         {
             DustTrail();
             return true;
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            OnKillWithDrop();
-        }
-
-        public float AI_Timer
-        {
-            get => Projectile.ai[0];
-            set => Projectile.ai[0] = value;
         }
 
         public override void AI()

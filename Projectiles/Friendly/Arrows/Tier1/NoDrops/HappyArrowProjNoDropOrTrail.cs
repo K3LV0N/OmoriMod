@@ -4,7 +4,6 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier1.NoDrops
 {
     public class HappyArrowProjNoDropOrTrail : HappyProj
     {
-
         public override void SetDefaults()
         {
             SetArrowDefaults();
@@ -12,7 +11,7 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier1.NoDrops
 
         public override void OnKill(int timeLeft)
         {
-            OnKillNoDrop();
+            OnKillNoDrop(timeLeft);
         }
     }
 }

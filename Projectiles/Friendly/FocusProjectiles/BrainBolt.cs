@@ -1,47 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.Audio;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Terraria;
+using OmoriMod.DamageClasses;
+using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.FocusProjectiles
 {
-    public class BrainBolt : ModProjectile
+    public class BrainBolt : EmotionProj
     {
         public override void SetDefaults()
         {
-            // size
-            Projectile.height = 4;
-            Projectile.width = 4;
+            // Set Focus projectile defaults
+            SetOtherDefaults(width: 4, height: 4, damageType: OmoriDamageClass.FocusDamage, aiStyle: 0, scale: 1.2f, tileCollide: true);
 
-            // tile interation
-            Projectile.tileCollide = true;
-
-            // ai
-            Projectile.aiStyle = 0; // 0 is bullet
-
-            // drawing offset
+            // Drawing offset for correct positioning
             DrawOffsetX = -7;
             DrawOriginOffsetX = 1;
             DrawOriginOffsetY = -14;
-
-            // friendly
-            Projectile.friendly = true;
         }
 
         public override void PostAI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2 + .15f;
+            // Rotate and flip
+            VelocityRotate(flip: true);
+
+            // Rotate an extra bit slightly
+            Projectile.rotation =+ .15f;
         }
 
         public override void OnKill(int timeLeft)
         {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            OnKillNoDrop(timeLeft, noSound: true);
         }
     }
 }

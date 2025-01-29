@@ -1,38 +1,24 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Dusts;
+﻿using Terraria.ModLoader;
 using OmoriMod.Projectiles.Abstract_Classes;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier1
 {
     public class SadBolt : SadProj
     {
-
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
-
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Magic;
-
-            Projectile.aiStyle = 1;
-
-        }
-
-        public override bool PreAI()
-        {
-            Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Blue);
-            return base.PreAI();
+            SetOtherDefaults(width: 8, height: 8, damageType: DamageClass.Magic, aiStyle: 1, scale: 1, tileCollide: true);
         }
 
         public override void OnKill(int timeLeft)
         {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            OnKillNoDrop(timeLeft);
+        }
+
+        public override bool PreAI()
+        {
+            DustTrail();
+            return true;
         }
     }
 }

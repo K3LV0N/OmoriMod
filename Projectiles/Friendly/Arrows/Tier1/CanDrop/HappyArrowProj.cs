@@ -4,21 +4,20 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier1.CanDrop
 {
     public class HappyArrowProj : HappyProj
     {
-
         public override void SetDefaults()
         {
             SetArrowDefaults();
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            OnKillWithDrop(timeLeft);
         }
 
         public override bool PreAI()
         {
             DustTrail();
             return true;
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            OnKillWithDrop();
         }
     }
 }
