@@ -9,13 +9,7 @@ namespace OmoriMod.Items.Accessories
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // clone default accessory stuff
-            Item.CloneDefaults(ModContent.ItemType<BloodyFlower>());
-
-            // happy item
-            SetHappyDefaults();
+            EmotionalItemClone<BloodyFlower>();
         }
 
         public override void UpdateEquip(Player player)

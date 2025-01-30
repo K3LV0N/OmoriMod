@@ -19,6 +19,7 @@ namespace OmoriMod.Items.BuffItems
             Item.maxStack = 999;
             Item.value = Item.buyPrice(0,0,2,0);
 
+
             // size
             Item.width = 16;
             Item.height = 16;

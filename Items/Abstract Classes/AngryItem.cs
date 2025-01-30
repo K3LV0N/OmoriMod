@@ -1,5 +1,4 @@
-﻿using Terraria.ID;
-
+﻿
 namespace OmoriMod.Items.Abstract_Classes
 {
     /// <summary>
@@ -11,14 +10,6 @@ namespace OmoriMod.Items.Abstract_Classes
         public AngryItem()
         {
             SetEmotionType(EmotionType.ANGRY);
-        }
-
-        /// <summary>
-        /// <c>SetAngryDefaults</c> sets angry item defaults.<br />
-        /// </summary>
-        public void SetAngryDefaults()
-        {
-            Item.rare = ItemRarityID.Red;
         }
     }
 }

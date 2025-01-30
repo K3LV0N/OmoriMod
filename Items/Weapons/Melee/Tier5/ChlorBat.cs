@@ -12,34 +12,19 @@ namespace OmoriMod.Items.Weapons.Melee.Tier5
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // damage
-            Item.damage = 70;
-            Item.knockBack = 6;
-            Item.DamageType = DamageClass.Melee;
-
-            // projectiles
-            Item.shoot = ModContent.ProjectileType<BatProjFiveSeeking>();
-            Item.shootSpeed = 8f;
-
-            // size
-            Item.scale = 1.5f;
-            Item.width = (int)(32 * Item.scale);
-            Item.height = (int)(32 * Item.scale);
-
-            // usage
-            Item.useTime = 12;
-            Item.useAnimation = Item.useTime;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
-
-            // price
-            Item.value = Item.buyPrice(0, 16, 0, 0);
-
-            // angry item
-            SetAngryDefaults();
+            SetMeleeWeaponWithProjectileDefaults<BatProjFiveSeeking>(
+                width: 32,
+                height: 32,
+                scale: 1.5f,
+                buyPrice: Item.buyPrice(0, 16, 0, 0),
+                damage: 70,
+                knockback: 6,
+                shootSpeed: 8f,
+                useTime: 12,
+                useStyleID: ItemUseStyleID.Swing,
+                useSound: SoundID.Item1,
+                autoReuse: true
+            );
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

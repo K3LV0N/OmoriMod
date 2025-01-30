@@ -1,5 +1,4 @@
-﻿using Terraria.ID;
-
+﻿
 namespace OmoriMod.Items.Abstract_Classes
 {
     /// <summary>
@@ -11,14 +10,6 @@ namespace OmoriMod.Items.Abstract_Classes
         public HappyItem()
         {
             SetEmotionType(EmotionType.HAPPY);
-        }
-
-        /// <summary>
-        /// <c>SetHappyDefaults</c> sets happy item defaults.<br />
-        /// </summary>
-        public void SetHappyDefaults()
-        {
-            Item.rare = ItemRarityID.Yellow;
         }
     }
 }

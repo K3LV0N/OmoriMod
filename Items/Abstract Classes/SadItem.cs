@@ -1,5 +1,4 @@
-﻿using Terraria.ID;
-
+﻿
 namespace OmoriMod.Items.Abstract_Classes
 {
     /// <summary>
@@ -11,14 +10,6 @@ namespace OmoriMod.Items.Abstract_Classes
         public SadItem()
         {
             SetEmotionType(EmotionType.SAD);
-        }
-
-        /// <summary>
-        /// <c>SetSadDefaults</c> sets sad item defaults.<br />
-        /// </summary>
-        public void SetSadDefaults()
-        {
-            Item.rare = ItemRarityID.Blue;
         }
     }
 }

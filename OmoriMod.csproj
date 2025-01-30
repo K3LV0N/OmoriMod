@@ -6,6 +6,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="items\abstract classes\extra.txt" />
     <None Remove="Items\BossRelated\BossBags\YeOldBossBag.png" />
     <None Remove="Items\BossRelated\YeOldSproutWeapons\SproutBullet.png" />
     <None Remove="Items\BossRelated\YeOldSproutWeapons\SproutScythe.png" />

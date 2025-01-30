@@ -12,16 +12,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier5
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // clone default weapon stuff
-            Item.CloneDefaults(ModContent.ItemType<ChlorBat>());
-
-            // change projectile
-            Item.shoot = ModContent.ProjectileType<KnifeProjFiveSeeking>();
-
-            // sad item
-            SetSadDefaults();
+            EmotionalItemCloneWithDifferentProjectile<ChlorBat>(ModContent.ProjectileType<KnifeProjFiveSeeking>());
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

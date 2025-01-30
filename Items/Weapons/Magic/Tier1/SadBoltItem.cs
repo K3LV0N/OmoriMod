@@ -11,16 +11,7 @@ namespace OmoriMod.Items.Weapons.Magic.Tier1
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // clone default weapon stuff
-            Item.CloneDefaults(ModContent.ItemType<AngryBoltItem>());
-
-            // change projectile
-            Item.shoot = ModContent.ProjectileType<SadBolt>();
-
-            // sad item
-            SetSadDefaults();
+            EmotionalItemCloneWithDifferentProjectile<AngryBoltItem>(ModContent.ProjectileType<SadBolt>());
         }
 
         public override void AddRecipes()

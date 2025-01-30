@@ -11,35 +11,19 @@ namespace OmoriMod.Items.Weapons.Magic.Tier3
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // damage
-            Item.damage = 40;
-            Item.knockBack = 6;
-            Item.DamageType = DamageClass.Magic;
-            Item.noMelee = true;
-
-            // size
-            Item.height = 32;
-            Item.width = 26;
-
-            // usage
-            Item.useTime = 20;
-            Item.useAnimation = Item.useTime;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
-
-            // projectiles
-            Item.shootSpeed = 3f;
-            Item.mana = 24;
-            Item.shoot = ModContent.ProjectileType<AngryBomb>();
-
-            // price
-            Item.value = Item.buyPrice(0, 6, 0, 0);
-
-            // angry item
-            SetAngryDefaults();
+            SetMagicWeaponWithProjectileDefaults<AngryBomb>(
+                width: 32,
+                height: 26,
+                buyPrice: Item.buyPrice(0, 6, 0, 0),
+                damage: 40,
+                knockback: 6,
+                shootSpeed: 3f,
+                mana: 24,
+                useTime: 20,
+                useStyleID: ItemUseStyleID.Shoot,
+                useSound: SoundID.Item1,
+                autoReuse: true
+            );
         }
 
         public override void AddRecipes()

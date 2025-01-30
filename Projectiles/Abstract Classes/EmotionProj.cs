@@ -46,9 +46,10 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             Projectile.friendly = true;
 
             // Dimensions
-            Projectile.width = width;
-            Projectile.height = height;
             Projectile.scale = scale;
+            Projectile.width = (int)(width * Projectile.scale);
+            Projectile.height = (int)(height * Projectile.scale);
+
 
             // Ranged damage
             Projectile.DamageType = damageType;

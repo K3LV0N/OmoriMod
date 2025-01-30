@@ -9,20 +9,8 @@ namespace OmoriMod.Items.Accessories
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // size
-            Item.width = 20;
-            Item.height = 30;
-
-            // accessory
-            Item.accessory = true;
-
-            // price
-            Item.value = Item.buyPrice(1, 0, 0, 0);
-            
-            // angry item
-            SetAngryDefaults();
+            int value = Item.buyPrice(1, 0, 0, 0);
+            SetAccessoryDefaults(width: 20, height: 30, buyPrice: value);
         }
 
         public override void UpdateEquip(Player player)

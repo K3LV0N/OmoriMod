@@ -1,7 +1,6 @@
-﻿using OmoriMod.Items.Abstract_Classes;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
+using OmoriMod.Items.Abstract_Classes;
 
 namespace OmoriMod.Items.Weapons.Melee.Tier1
 {
@@ -9,13 +8,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // clone default weapon stuff
-            Item.CloneDefaults(ModContent.ItemType<Bat>());
-
-            // happy item
-            SetHappyDefaults();
+            EmotionalItemClone<Bat>();
         }
 
         public override void AddRecipes()

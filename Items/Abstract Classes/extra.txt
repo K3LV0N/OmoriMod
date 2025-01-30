@@ -1,0 +1,57 @@
+public void SetAngryDefaults() { SetRarity(); }
+        public void SetHappyDefaults() { SetRarity(); }
+        public void SetSadDefaults() { SetRarity(); }
+
+        public void SetRarity()
+        {
+            
+            switch (Emotion)
+            {
+                case EmotionType.NOTHING:
+                    break;
+                case EmotionType.SAD:
+                    Item.rare = ItemRarityID.Blue;
+                    break;
+                case EmotionType.ANGRY:
+                    Item.rare = ItemRarityID.Red;
+                    break;
+                case EmotionType.HAPPY:
+                    Item.rare = ItemRarityID.Yellow;
+                    break;
+            }
+            
+        }
+
+        public void ItemDefaults(int width, int height, int scale, int buyPrice, int stackSize, int researchCount)
+        {
+            /*
+            Item.width = width;
+            Item.height = height;
+            Item.scale = scale;
+            Item.value = buyPrice;
+            Item.maxStack = stackSize;
+            Item.ResearchUnlockCount = researchCount;
+            SetRarity();
+            */
+        }
+
+        public void SetAccessoryDefaults(int width, int height, int buyPrice)
+        {
+            // Item.accessory = true;
+            ItemDefaults(width: width, height: height, scale: 1, buyPrice: buyPrice, stackSize: 1, researchCount: 1);
+        }
+
+        /// <summary>
+        /// Clones the defaults of an item inlcuding the research unlock count
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void SpecialItemClone<T>() where T : ModItem
+        {
+            /*
+            int itemType = ModContent.ItemType<T>();
+            Item itemToClone = ModContent.GetModItem(itemType).Item;
+            Item.CloneDefaults(itemType);
+            Item.ResearchUnlockCount = itemToClone.ResearchUnlockCount;
+            SetRarity();
+            */
+        }

@@ -1,7 +1,6 @@
-﻿using OmoriMod.Items.Abstract_Classes;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
+using OmoriMod.Items.Abstract_Classes;
 
 namespace OmoriMod.Items.Weapons.Melee.Tier1
 {
@@ -9,30 +8,18 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
-            // damage
-            Item.damage = 8;
-            Item.knockBack = 6;
-            Item.DamageType = DamageClass.Melee;
-
-            // size
-            Item.scale  = 1.5f;
-            Item.width  = (int)(32 * Item.scale);
-            Item.height = (int)(32 * Item.scale);
-
-            // usage
-            Item.useTime = 20;
-            Item.useAnimation = Item.useTime;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
-
-            // price
-            Item.value = Item.buyPrice(0, 1, 0, 0);
-            
-            // angry item
-            SetAngryDefaults();
+            SetMeleeWeaponDefaults(
+                width: 32,
+                height: 32,
+                scale: 1.5f,
+                buyPrice: Item.buyPrice(0, 1, 0, 0),
+                damage: 8,
+                knockback: 6,
+                useTime: 20,
+                useStyleID: ItemUseStyleID.Swing,
+                useSound: SoundID.Item1,
+                autoReuse: true
+            );
         }
 
         public override void AddRecipes()
