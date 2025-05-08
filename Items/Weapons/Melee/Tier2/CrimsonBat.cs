@@ -11,7 +11,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
     {
         public override void SetDefaults()
         {
-            EmotionalItemClone<CorruptionBat>();
+            EmotionItemClone<CorruptionBat>();
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

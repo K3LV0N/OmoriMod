@@ -28,7 +28,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
             // ranged weapon stuff
             int useSpeed = 20;
             float shotVelocity = 8f;
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<SproutBulletProj>(),
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<SproutBulletProjectile>(),
                 ModContent.ItemType<SproutBullet>(), useSpeed, shotVelocity, true);
 
             // usage
@@ -91,7 +91,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
                     Matrix matrix = Matrix.CreateRotationZ(angle);
 
                     proj = Vector2.Transform(proj, matrix);
-                    Projectile.NewProjectile(Item.GetSource_NaturalSpawn(), position, proj, ModContent.ProjectileType<SproutBulletProj>(), damage, knockback);
+                    Projectile.NewProjectile(Item.GetSource_NaturalSpawn(), position, proj, ModContent.ProjectileType<SproutBulletProjectile>(), damage, knockback);
                 }
                 
             }

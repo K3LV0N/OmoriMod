@@ -4,7 +4,7 @@ using OmoriMod.Projectiles.Friendly.Magic.Tier2;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier4
 {
-    public class AngryBombPlus : AngryProj
+    public class AngryBombPlus : AngryProjectile
     {
         public override void SetDefaults()
         {
@@ -18,13 +18,13 @@ namespace OmoriMod.Projectiles.Friendly.Magic.Tier4
 
         public override bool PreAI()
         {
-            DustTrail();
+            MakeDust();
             return true;
         }
 
         public override void AI()
         {
-            AI_MagicBombProjectileWithFlip<BundledAngerNoTrail>(damagePerProjectile: 32, projectileSpeedOnSpawn: 6, volleys: 6, shotsPerVolley: 4, interval: 30);
+            AI_MagicBombProjectileWithFlip<BundledAngerNoTrail>(damagePerProjectile: 32, ProjectileSpeedOnSpawn: 6, volleys: 6, shotsPerVolley: 4, interval: 30);
         }
     }
 }

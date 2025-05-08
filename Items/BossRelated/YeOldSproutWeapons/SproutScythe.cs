@@ -13,7 +13,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
             int shotTime = 25;
             float velocity = 20f;
             bool autoReuse = true;
-            Item.DefaultToMagicWeapon(ModContent.ProjectileType<SproutScytheProj>(), shotTime, velocity, autoReuse);
+            Item.DefaultToMagicWeapon(ModContent.ProjectileType<SproutScytheProjectile>(), shotTime, velocity, autoReuse);
 
 
             // damage

@@ -11,7 +11,7 @@ namespace OmoriMod.Items.Weapons.Magic.Tier2
     {
         public override void SetDefaults()
         {
-            EmotionalItemCloneWithDifferentProjectile<AngryBundle>(ModContent.ProjectileType<BundledHappiness>());
+            EmotionItemCloneWithDifferentProjectile<AngryBundle>(ModContent.ProjectileType<BundledHappiness>());
         }
 
         public override void AddRecipes()

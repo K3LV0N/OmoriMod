@@ -4,7 +4,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier2
 {
-    public class BundledSadnessNoTrail : SadProj
+    public class BundledSadnessNoTrail : SadProjectile
     {
         public override void SetDefaults()
         {
@@ -18,7 +18,7 @@ namespace OmoriMod.Projectiles.Friendly.Magic.Tier2
 
         public override void AI()
         {
-            AI_TravelingBundleProjectile<SadBoltNoTrail>(damagePerProjectile: 18, projectileSpeedOnSpawn: 6, volleys: 4, interval: 60);
+            AI_TravelingBundleProjectile<SadBoltNoTrail>(damagePerProjectile: 18, ProjectileSpeedOnSpawn: 6, volleys: 4, interval: 60);
         }
     }
 }

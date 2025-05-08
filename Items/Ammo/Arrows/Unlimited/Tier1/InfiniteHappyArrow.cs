@@ -16,7 +16,7 @@ namespace OmoriMod.Items.Ammo.Arrows.Unlimited.Tier1
             Item.CloneDefaults(ModContent.ItemType<InfiniteAngryArrow>());
 
             // projectile stuff
-            Item.shoot = ModContent.ProjectileType<HappyArrowProjNoDrop>();
+            Item.shoot = ModContent.ProjectileType<HappyArrowProjectileNoDrop>();
 
             // happy item
             SetHappyDefaults();

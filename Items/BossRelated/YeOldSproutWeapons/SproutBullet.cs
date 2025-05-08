@@ -34,7 +34,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
             // projectiles
             Item.ammo = Item.type;
             Item.shootSpeed = 20.5f;
-            Item.shoot = ModContent.ProjectileType<SproutBulletProj>();
+            Item.shoot = ModContent.ProjectileType<SproutBulletProjectile>();
 
             // rarity
             Item.rare = ItemRarityID.Purple;

@@ -20,7 +20,7 @@ namespace OmoriMod.Items.Ammo.Arrows.Unlimited.Tier2
             Item.shootSpeed = 30f;
 
             // projectile stuff
-            Item.shoot = ModContent.ProjectileType<SadArrowPlusProjNoDrop>();
+            Item.shoot = ModContent.ProjectileType<SadArrowPlusProjectileNoDrop>();
 
             // sad item
             SetSadDefaults();

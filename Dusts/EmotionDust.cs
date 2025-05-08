@@ -3,6 +3,9 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Dusts
 {
+    /// <summary>
+    /// Dust used for <see cref="EmotionType"/> effects.
+    /// </summary>
     public class EmotionDust : ModDust
     {
         public override void OnSpawn(Dust dust)

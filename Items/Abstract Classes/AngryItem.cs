@@ -2,10 +2,9 @@
 namespace OmoriMod.Items.Abstract_Classes
 {
     /// <summary>
-    /// <c>AngryItem</c> is a subclass of <see cref="EmotionalItem"/> that automatically sets 
-    /// <paramref name="emotion"/> to <paramref name="ANGRY"/>.<br />
+    /// Automatically sets <see cref="EmotionItem.Emotion"/> to <see cref="EmotionType.ANGRY"/>.
     /// </summary>
-    public abstract class AngryItem : EmotionalItem
+    public abstract class AngryItem : EmotionItem
     {
         public AngryItem()
         {

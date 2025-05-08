@@ -8,7 +8,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
     {
         public override void SetDefaults()
         {
-            EmotionalItemClone<Bat>();
+            EmotionItemClone<Bat>();
         }
 
         public override void AddRecipes()

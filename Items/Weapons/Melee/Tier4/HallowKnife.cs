@@ -12,7 +12,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
     {
         public override void SetDefaults()
         {
-            EmotionalItemCloneWithDifferentProjectile<HallowBat>(ModContent.ProjectileType<KnifeProjFive>());
+            EmotionItemCloneWithDifferentProjectile<HallowBat>(ModContent.ProjectileType<KnifeProjectileFive>());
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

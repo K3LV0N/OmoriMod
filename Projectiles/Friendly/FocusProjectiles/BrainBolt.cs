@@ -4,11 +4,11 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.FocusProjectiles
 {
-    public class BrainBolt : EmotionProj
+    public class BrainBolt : EmotionProjectile
     {
         public override void SetDefaults()
         {
-            // Set Focus projectile defaults
+            // Set Focus Projectile defaults
             SetOtherDefaults(width: 4, height: 4, damageType: OmoriDamageClass.FocusDamage, aiStyle: 0, scale: 1.2f, tileCollide: true);
 
             // Drawing offset for correct positioning

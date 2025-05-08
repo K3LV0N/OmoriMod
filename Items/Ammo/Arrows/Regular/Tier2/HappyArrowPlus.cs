@@ -20,7 +20,7 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier2
             Item.damage = ModContent.GetModItem(ModContent.ItemType<HappyArrow>()).Item.damage;
 
             // projectile stuff
-            Item.shoot = ModContent.ProjectileType<HappyArrowPlusProj>();
+            Item.shoot = ModContent.ProjectileType<HappyArrowPlusProjectile>();
 
             // happy item
             SetHappyDefaults();

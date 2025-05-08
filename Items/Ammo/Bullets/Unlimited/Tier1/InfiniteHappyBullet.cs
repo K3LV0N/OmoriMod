@@ -16,7 +16,7 @@ namespace OmoriMod.Items.Ammo.Bullets.Unlimited.Tier1
             Item.CloneDefaults(ModContent.ItemType<InfiniteAngryBullet>());
 
             // projectile stuff
-            Item.shoot = ModContent.ProjectileType<HappyBulletProj>();
+            Item.shoot = ModContent.ProjectileType<HappyBulletProjectile>();
 
             // happy item
             SetHappyDefaults();

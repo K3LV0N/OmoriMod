@@ -3,7 +3,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier1
 {
-    public class AngryBoltNoTrail : AngryProj
+    public class AngryBoltNoTrail : AngryProjectile
     {
         public override void SetDefaults()
         {

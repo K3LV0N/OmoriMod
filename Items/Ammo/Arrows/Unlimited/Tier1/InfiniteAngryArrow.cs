@@ -30,7 +30,7 @@ namespace OmoriMod.Items.Ammo.Arrows.Unlimited.Tier1
             // projectile stuff
             Item.ammo = AmmoID.Arrow;
             Item.shootSpeed = 8.5f;
-            Item.shoot = ModContent.ProjectileType<AngryArrowProjNoDrop>();
+            Item.shoot = ModContent.ProjectileType<AngryArrowProjectileNoDrop>();
 
             // angry item
             SetAngryDefaults();

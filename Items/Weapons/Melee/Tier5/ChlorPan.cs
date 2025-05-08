@@ -12,7 +12,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier5
     {
         public override void SetDefaults()
         {
-            EmotionalItemCloneWithDifferentProjectile<ChlorBat>(ModContent.ProjectileType<PanProjFiveSeeking>());
+            EmotionItemCloneWithDifferentProjectile<ChlorBat>(ModContent.ProjectileType<PanProjectileFiveSeeking>());
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

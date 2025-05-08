@@ -3,7 +3,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier1
 {
-    public class HappyBoltNoTrail : HappyProj
+    public class HappyBoltNoTrail : HappyProjectile
     {
         public override void SetDefaults()
         {

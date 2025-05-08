@@ -4,7 +4,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier3
 {
-    public class HappyBomb : HappyProj
+    public class HappyBomb : HappyProjectile
     {
         public override void SetDefaults()
         {
@@ -18,13 +18,13 @@ namespace OmoriMod.Projectiles.Friendly.Magic.Tier3
 
         public override bool PreAI()
         {
-            DustTrail();
+            MakeDust();
             return true;
         }
 
         public override void AI()
         {
-            AI_MagicBombProjectile<HappyBolt>(damagePerProjectile: 18, projectileSpeedOnSpawn: 6, volleys: 6, shotsPerVolley: 8, interval: 30);
+            AI_MagicBombProjectile<HappyBolt>(damagePerProjectile: 18, ProjectileSpeedOnSpawn: 6, volleys: 6, shotsPerVolley: 8, interval: 30);
         }
     }
 }

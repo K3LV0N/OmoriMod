@@ -17,7 +17,7 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier1
             Item.CloneDefaults(ModContent.ItemType<AngryArrow>());
 
             // projectile stuff
-            Item.shoot = ModContent.ProjectileType<HappyArrowProj>();
+            Item.shoot = ModContent.ProjectileType<HappyArrowProjectile>();
 
             // happy item
             SetHappyDefaults();

@@ -8,7 +8,7 @@ using OmoriMod.Summons.Summons.Buffs;
 
 namespace OmoriMod.Summons.Abstract_Classes
 {
-    public abstract class ModSummonProjectile : EmotionProj
+    public abstract class ModSummonProjectile : EmotionProjectile
     {
         public void SetHomingMinionStaticDefaults()
         {

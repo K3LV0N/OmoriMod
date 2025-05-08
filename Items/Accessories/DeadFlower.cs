@@ -9,7 +9,7 @@ namespace OmoriMod.Items.Accessories
     {
         public override void SetDefaults()
         {
-            EmotionalItemClone<BloodyFlower>();
+            EmotionItemClone<BloodyFlower>();
         }
 
         public override void UpdateEquip(Player player)

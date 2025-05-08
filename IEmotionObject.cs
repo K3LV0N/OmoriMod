@@ -1,6 +1,8 @@
 ﻿using OmoriMod.Buffs.AngryBuff;
 using OmoriMod.Buffs.HappyBuff;
 using OmoriMod.Buffs.SadBuff;
+using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Items.Abstract_Classes;
 using Terraria.ModLoader;
 using Terraria;
 
@@ -8,17 +10,15 @@ namespace OmoriMod
 {
     public enum EmotionType
     {
-        NOTHING = 0,
+        NONE = 0,
         SAD = 1,
         ANGRY = 2,
         HAPPY = 3,
     }
 
     /// <summary>
-    /// <para><c>EmotionObject</c> is a class for anything that inflicts emotions</para> 
-    /// To use, set the <paramref name="emotion"/> to the emotion the object inflicts. 
-    /// Upon hitting an enemy, they will be inflicted with this emotion.<br />
-    /// Valid <paramref name="emotion"/> values can be <paramref name="NOTHING"/>, <paramref name="SAD"/>, <paramref name="ANGRY"/>, or <paramref name="HAPPY"/>.<br />
+    /// An interface to consolidate emotion application.
+    /// Acts like an abstract class for <see cref="EmotionProjectile"/> and <see cref="EmotionItem"/>
     /// </summary>
     public interface IEmotionObject
     {
@@ -27,19 +27,18 @@ namespace OmoriMod
         /// <summary>
         /// The emotion this object inflicts when interacting with an enemy.
         /// </summary>
-        public EmotionType Emotion { get; set; }
+        protected EmotionType Emotion { get; }
 
         /// <summary>
-        /// <c>InflictEmotion</c> inflicts an emotion on an enemy.<br />
-        /// This function uses the field <paramref name="emotion"/> to determine the correct emotion to apply.<br /><br />
-        /// <paramref name="player"/> is the player using the item.<br />
-        /// <paramref name="target"/> is the NPC getting hit.<br />
+        /// Inflicts an emotion determined by <see cref="Emotion"/> on an enemy.
         /// </summary>
+        /// <param name="target">The <see cref="NPC"/> the emotion will be applied to.</param>
+        /// <param name="ticks">The amount of ticks the emotion will be applied for.</param>
         public virtual void InflictEmotion(NPC target, int ticks = 600)
         {
             switch (Emotion)
             {
-                case EmotionType.NOTHING:
+                case EmotionType.NONE:
                     break;
                 case EmotionType.SAD:
                     if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
@@ -59,7 +58,6 @@ namespace OmoriMod
                         target.AddBuff(ModContent.BuffType<Happy>(), ticks);
                     }
                     break;
-                
             }
         }
     }

@@ -12,7 +12,7 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
     {
         public override void SetDefaults()
         {
-            SetMeleeWeaponWithProjectileDefaults<BatProjFive>(
+            SetMeleeWeaponWithProjectileDefaults<BatProjectileFive>(
                 width: 32,
                 height: 32,
                 scale: 1.5f,

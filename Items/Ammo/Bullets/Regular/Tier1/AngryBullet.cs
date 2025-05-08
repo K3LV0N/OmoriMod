@@ -30,7 +30,7 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier1
             // projectile stuff
             Item.ammo = AmmoID.Bullet;
             Item.shootSpeed = 20.5f;
-            Item.shoot = ModContent.ProjectileType<AngryBulletProj>();
+            Item.shoot = ModContent.ProjectileType<AngryBulletProjectile>();
 
             // angry item
             SetAngryDefaults();

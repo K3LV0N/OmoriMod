@@ -570,6 +570,44 @@ Projectiles: {
 	BatProjSeeking.DisplayName: Phase Bat
 	KnifeProjSeeking.DisplayName: Phase Knife
 	PanProjSeeking.DisplayName: Phase Pan
+	AngryArrowProjectile.DisplayName: Angry Arrow Projectile
+	HappyArrowProjectile.DisplayName: Happy Arrow Projectile
+	SadArrowProjectile.DisplayName: Sad Arrow Projectile
+	AngryArrowProjectileNoDrop.DisplayName: Angry Arrow Projectile No Drop
+	HappyArrowProjectileNoDrop.DisplayName: Happy Arrow Projectile No Drop
+	HappyArrowProjectileNoDropOrTrail.DisplayName: Happy Arrow Projectile No Drop Or Trail
+	SadArrowProjectileNoDrop.DisplayName: Sad Arrow Projectile No Drop
+	AngryArrowPlusProjectile.DisplayName: Angry Arrow Plus Projectile
+	HappyArrowPlusProjectile.DisplayName: Happy Arrow Plus Projectile
+	SadArrowPlusProjectile.DisplayName: Sad Arrow Plus Projectile
+	AngryArrowPlusProjectileNoDrop.DisplayName: Angry Arrow Plus Projectile No Drop
+	HappyArrowPlusProjectileNoDrop.DisplayName: Happy Arrow Plus Projectile No Drop
+	SadArrowPlusProjectileNoDrop.DisplayName: Sad Arrow Plus Projectile No Drop
+	SproutBulletProjectile.DisplayName: Sprout Bullet Projectile
+	SproutScytheProjectile.DisplayName: Sprout Scythe Projectile
+	AngryBulletProjectile.DisplayName: Angry Bullet Projectile
+	HappyBulletProjectile.DisplayName: Happy Bullet Projectile
+	HappyBulletProjectileNoTrail.DisplayName: Happy Bullet Projectile No Trail
+	SadBulletProjectile.DisplayName: Sad Bullet Projectile
+	AngryBulletPlusProjectile.DisplayName: Angry Bullet Plus Projectile
+	HappyBulletPlusProjectile.DisplayName: Happy Bullet Plus Projectile
+	SadBulletPlusProjectile.DisplayName: Sad Bullet Plus Projectile
+	BatProjectile.DisplayName: Bat Projectile
+	BatProjectileFive.DisplayName: Bat Projectile Five
+	BatProjectileFiveSeeking.DisplayName: Bat Projectile Five Seeking
+	BatProjectileSeeking.DisplayName: Bat Projectile Seeking
+	BatProjectileTriple.DisplayName: Bat Projectile Triple
+	KnifeProjectile.DisplayName: Knife Projectile
+	KnifeProjectileFive.DisplayName: Knife Projectile Five
+	KnifeProjectileFiveSeeking.DisplayName: Knife Projectile Five Seeking
+	KnifeProjectileSeeking.DisplayName: Knife Projectile Seeking
+	KnifeProjectileTriple.DisplayName: Knife Projectile Triple
+	PanProjectile.DisplayName: Pan Projectile
+	PanProjectileFive.DisplayName: Pan Projectile Five
+	PanProjectileFiveSeeking.DisplayName: Pan Projectile Five Seeking
+	PanProjectileSeeking.DisplayName: Pan Projectile Seeking
+	PanProjectileTriple.DisplayName: Pan Projectile Triple
+	TestProjectile.DisplayName: Test Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage

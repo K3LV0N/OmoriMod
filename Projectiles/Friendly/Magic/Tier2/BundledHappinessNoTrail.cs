@@ -4,7 +4,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier2
 {
-    public class BundledHappinessNoTrail : HappyProj
+    public class BundledHappinessNoTrail : HappyProjectile
     {
         public override void SetDefaults()
         {
@@ -18,7 +18,7 @@ namespace OmoriMod.Projectiles.Friendly.Magic.Tier2
 
         public override void AI()
         {
-            AI_TravelingBundleProjectile<HappyBoltNoTrail>(damagePerProjectile: 18, projectileSpeedOnSpawn: 6, volleys: 4, interval: 60);
+            AI_TravelingBundleProjectile<HappyBoltNoTrail>(damagePerProjectile: 18, ProjectileSpeedOnSpawn: 6, volleys: 4, interval: 60);
         }
     }
 }

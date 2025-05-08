@@ -3,7 +3,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.Magic.Tier1
 {
-    public class HappyBolt : HappyProj
+    public class HappyBolt : HappyProjectile
     {
         public override void SetDefaults()
         {
@@ -17,7 +17,7 @@ namespace OmoriMod.Projectiles.Friendly.Magic.Tier1
 
         public override bool PreAI()
         {
-            DustTrail();
+            MakeDust();
             return true;
         }
     }

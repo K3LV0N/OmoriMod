@@ -21,7 +21,7 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier2
             Item.damage = ModContent.GetModItem(ModContent.ItemType<HappyBullet>()).Item.damage;
 
             // projectile stuff
-            Item.shoot = ModContent.ProjectileType<HappyBulletPlusProj>();
+            Item.shoot = ModContent.ProjectileType<HappyBulletPlusProjectile>();
 
             // happy item
             SetHappyDefaults();

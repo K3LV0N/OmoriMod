@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Items.Abstract_Classes
 {
-    public abstract class FocusClass : EmotionalItem
+    public abstract class FocusClass : EmotionItem
     {
         // Set these to 0 on initialization
         // timers keeps track of ticks for charge / decay
