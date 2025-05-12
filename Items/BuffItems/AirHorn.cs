@@ -12,31 +12,30 @@ namespace OmoriMod.Items.BuffItems
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 50;
 
-            // stacks and consumability
-            Item.consumable = true;
-            Item.maxStack = 999;
-            Item.value = Item.buyPrice(0,0,2,0);
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1f,
+                buyPrice: Item.buyPrice(0, 0, 2, 0),
+                stackSize: 999,
+                researchCount: 50,
+                consumable: true
+                );
 
+            AnimationDefaults(
+                useTime: 20,
+                useStyleID: ItemUseStyleID.HoldUp,
+                useSound: SoundID.Item1,
+                autoReuse: false
+                );
 
-            // size
-            Item.width = 16;
-            Item.height = 16;
-
-            // usage
-            Item.autoReuse = false;
-            Item.useTime = 20;
-            Item.useAnimation = Item.useTime;
-            Item.UseSound = SoundID.Item1;
-            Item.useStyle = ItemUseStyleID.HoldUp;
-                   
-            // applied buff
-            Item.buffType = ModContent.BuffType<Angry>();
-
-            // angry item
-            SetAngryDefaults();
-
+            PotionDefaults(
+                healthHealed: 0,
+                manaHealed: 0,
+                isPotion: false,
+                buffType: ModContent.BuffType<Angry>()
+                );
         }
 
         public override bool CanUseItem(Player player)

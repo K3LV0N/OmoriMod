@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using OmoriMod.Items.Abstract_Classes;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Items.Weapons.Melee.Tier1
 {
@@ -8,26 +9,39 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
     {
         public override void SetDefaults()
         {
-            SetMeleeWeaponDefaults(
+            ItemDefaults(
                 width: 32,
                 height: 32,
                 scale: 1.5f,
                 buyPrice: Item.buyPrice(0, 1, 0, 0),
+                stackSize: 1,
+                researchCount: 1,
+                consumable: false
+                );
+
+            DamageDefaults(
+                damageType: DamageClass.Melee,
                 damage: 8,
-                knockback: 6,
+                knockback: 6f,
+                crit: 4,
+                noMelee: false
+                );
+
+            AnimationDefaults(
                 useTime: 20,
                 useStyleID: ItemUseStyleID.Swing,
                 useSound: SoundID.Item1,
                 autoReuse: true
-            );
+                );
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wood, 15);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
+            MakeRegularRecipe(
+                ingredientID: ItemID.Wood,
+                amount: 15,
+                craftingStationID: TileID.WorkBenches
+                );
         }
     }
 }

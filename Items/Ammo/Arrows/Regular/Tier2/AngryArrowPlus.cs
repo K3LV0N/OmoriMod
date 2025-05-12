@@ -1,6 +1,8 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
 using OmoriMod.Items.Ammo.Arrows.Unlimited.Tier1;
+using OmoriMod.Items.BuffItems;
+using OmoriMod.Projectiles.Friendly.Arrows.Tier1.CanDrop;
 using OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop;
 using Terraria;
 using Terraria.ID;
@@ -12,42 +14,45 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier2
     {
         public override void SetDefaults()
         {
-            // consumability and stacks
-            Item.consumable = true;
-            Item.maxStack = 9999;
-            Item.ResearchUnlockCount = 99;
-            Item.value = Item.buyPrice(0, 0, 5, 0);
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1,
+                buyPrice: Item.buyPrice(0, 0, 5, 0),
+                stackSize: 9999,
+                researchCount: 99,
+                consumable: true
+                );
 
-            // combat
-            Item.damage = 24;
-            Item.noMelee = true;
-            Item.knockBack = 1;
-            Item.crit = 4;
+            ProjectileDefaults(
+                ammoID: AmmoID.Arrow,
+                projectileID: ModContent.ProjectileType<AngryArrowPlusProjectile>(),
+                shootSpeed: 8.5f
+                );
 
-            // size
-            Item.width = 16;
-            Item.height = 16;
-
-            // projectile stuff
-            Item.ammo = AmmoID.Arrow;
-            Item.shootSpeed = 8.5f;
-            Item.shoot = ModContent.ProjectileType<AngryArrowPlusProjectile>();
-
-            // angry item
-            SetAngryDefaults();
+            DamageDefaults(
+                damageType: DamageClass.Ranged,
+                damage: 24,
+                knockback: 1f,
+                crit: 4,
+                noMelee: true
+                );
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe(100);
-            recipe1.AddIngredient(ModContent.ItemType<AngryArrow>(), 100);
-            recipe1.AddIngredient(ItemID.HallowedBar, 1);
-            recipe1.Register();
+            // Create recipes
+            MakeAmmoRecipes(
+                resultAmount: 100,
 
-            Recipe recipe2 = CreateRecipe(100);
-            recipe2.AddIngredient(ItemID.HallowedBar, 1);
-            recipe2.AddCondition(Condition.PlayerCarriesItem(ModContent.ItemType<InfiniteAngryArrow>()));
-            recipe2.Register();
+                baseIngredientID: ItemID.HallowedBar,
+                baseAmount: 1,
+
+                nonEndlessIngredientID: ModContent.ItemType<AngryArrow>(),
+                nonEndlessAmount: 100,
+
+                endlessIngredientID: ModContent.ItemType<InfiniteAngryArrow>()
+                );
         }
     }
 }

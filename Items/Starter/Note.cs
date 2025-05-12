@@ -1,27 +1,23 @@
-﻿using Terraria;
+﻿using OmoriMod.Items.Abstract_Classes;
+using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Items.Starter
 {
-    public class Note : ModItem
+    public class Note : EmotionItem
     {
         public override void SetDefaults()
         {
-            // size
-            Item.width = 32;
-            Item.height = 32;
-
-            // usage
-            Item.noMelee = true;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = false;
-
-            // rarity
-            Item.rare = ItemRarityID.Green;
-
-            // price
-            Item.value = Item.buyPrice(0, 0, 0, 0);
+            ItemDefaults(
+                width: 32,
+                height: 32,
+                scale: 1f,
+                buyPrice: Item.buyPrice(0, 0, 0, 0),
+                stackSize: 1,
+                researchCount: 1,
+                consumable: false
+                );
+            SetItemRarity(ItemRarityID.Green);
         }
 
         public override void AddRecipes()

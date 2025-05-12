@@ -56,21 +56,21 @@ namespace OmoriMod.Projectiles.Tests
                 Projectile8 = Vector2.Negate(Projectile8);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile1,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile2,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile3,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile4,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile5,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile6,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile7,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile8,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
             }
 
             if (AI_Timer == 20)
@@ -101,21 +101,21 @@ namespace OmoriMod.Projectiles.Tests
                 Projectile8 = Vector2.Negate(Projectile8);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile1,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile2,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile3,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile4,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile5,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile6,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile7,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile8,
-                    ModContent.ProjectileType<HappyBulletProjectileNoTrail>(), 4, Projectile.knockBack, Projectile.owner);
+                    ModContent.ProjectileType<HappyBulletProjectileNoDust>(), 4, Projectile.knockBack, Projectile.owner);
             }
         }
     }

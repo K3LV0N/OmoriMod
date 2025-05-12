@@ -1,5 +1,4 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Projectiles.Friendly.Magic.Tier2;
 using OmoriMod.Items.Weapons.Magic.Tier1;
@@ -11,16 +10,17 @@ namespace OmoriMod.Items.Weapons.Magic.Tier2
     {
         public override void SetDefaults()
         {
-            EmotionItemCloneWithDifferentProjectile<AngryBundle>(ModContent.ProjectileType<BundledSadness>());
+            EmotionItemCloneWithDifferentProjectile<AngryBundle>(ModContent.ProjectileType<SadBundleProjectile>());
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<SadBoltItem>(), 1);
-            recipe.AddIngredient(ItemID.HellstoneBar, 15);
-            recipe.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<SadBolt>(),
+                extraItemID: ItemID.HellstoneBar,
+                extraItemAmount: 15,
+                craftingStationID: TileID.Bookcases
+                );
         }
-
     }
 }

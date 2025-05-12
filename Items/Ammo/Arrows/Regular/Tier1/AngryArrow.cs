@@ -11,42 +11,45 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier1
     {
         public override void SetDefaults()
         {
-            // consumability and stacks
-            Item.consumable = true;
-            Item.maxStack = 9999;
-            Item.ResearchUnlockCount = 99;
-            Item.value = Item.buyPrice(0, 0, 1, 0);
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1,
+                buyPrice: Item.buyPrice(0, 0, 1, 0),
+                stackSize: 9999,
+                researchCount: 99,
+                consumable: true
+                );
 
-            // combat
-            Item.damage = 14;
-            Item.noMelee = true;
-            Item.knockBack = 1;
-            Item.crit = 4;
-            
-            // size
-            Item.width = 16;
-            Item.height = 16;
+            ProjectileDefaults(
+                ammoID: AmmoID.Arrow,
+                projectileID: ModContent.ProjectileType<AngryArrowProjectile>(),
+                shootSpeed: 8.5f
+                );
 
-            // projectile stuff
-            Item.ammo = AmmoID.Arrow;
-            Item.shootSpeed = 8.5f;
-            Item.shoot = ModContent.ProjectileType<AngryArrowProjectile>();
-
-            // angry item
-            SetAngryDefaults();
+            DamageDefaults(
+                damageType: DamageClass.Ranged,
+                damage: 14,
+                knockback: 1f,
+                crit: 4,
+                noMelee: true
+                );
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe(50);
-            recipe1.AddIngredient(ModContent.ItemType<AirHorn>(), 1);
-            recipe1.AddIngredient(ItemID.WoodenArrow, 50);
-            recipe1.Register();
+            // Create recipes
+            MakeAmmoRecipes(
+                resultAmount: 50,
 
-            Recipe recipe2 = CreateRecipe(50);
-            recipe2.AddIngredient(ModContent.ItemType<AirHorn>(), 1);
-            recipe2.AddCondition(Condition.PlayerCarriesItem(ItemID.EndlessQuiver));
-            recipe2.Register();
+                baseIngredientID: ModContent.ItemType<AirHorn>(),
+                baseAmount: 1,
+
+                nonEndlessIngredientID: ItemID.WoodenArrow,
+                nonEndlessAmount: 50,
+
+                endlessIngredientID: ItemID.EndlessQuiver       
+                );
         }
     }
 }

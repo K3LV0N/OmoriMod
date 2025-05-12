@@ -22,11 +22,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier5
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<HallowPan>(), 1);
-            recipe.AddIngredient(ItemID.ChlorophyteBar, 25);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<HallowPan>(),
+                extraItemID: ItemID.ChlorophyteBar,
+                extraItemAmount: 25,
+                craftingStationID: TileID.MythrilAnvil
+                );
         }
     }
 }

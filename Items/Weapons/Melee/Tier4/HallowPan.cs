@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.Weapons.Melee.Tier3;
-using OmoriMod.Projectiles.Friendly.Melee.Knife;
 using OmoriMod.Projectiles.Friendly.Melee.Pan;
 using Terraria;
 using Terraria.ID;
@@ -23,11 +22,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<HellPan>(), 1);
-            recipe.AddIngredient(ItemID.HallowedBar, 20);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<HellPan>(),
+                extraItemID: ItemID.HallowedBar,
+                extraItemAmount: 20,
+                craftingStationID: TileID.MythrilAnvil
+                );
         }
     }
 }

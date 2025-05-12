@@ -22,11 +22,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe();
-            recipe1.AddIngredient(ModContent.ItemType<HellKnife>(), 1);
-            recipe1.AddIngredient(ItemID.HallowedBar, 20);
-            recipe1.AddTile(TileID.MythrilAnvil);
-            recipe1.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<HellKnife>(),
+                extraItemID: ItemID.HallowedBar,
+                extraItemAmount: 20,
+                craftingStationID: TileID.MythrilAnvil
+                );
         }
     }
 }

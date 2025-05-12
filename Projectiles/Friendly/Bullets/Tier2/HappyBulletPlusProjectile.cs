@@ -24,7 +24,7 @@ namespace OmoriMod.Projectiles.Friendly.Bullets.Tier2
 
         public override void AI()
         {
-            AI_MultiSplittingProjectile<HappyBulletProjectileNoTrail>(maxAngle: 32, ProjectileAmount: 9);
+            AI_MultiSplittingProjectile<HappyBulletProjectileNoDust>(maxAngle: 32, ProjectileAmount: 9);
         }
     }
 }

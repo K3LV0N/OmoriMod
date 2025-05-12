@@ -17,7 +17,7 @@ namespace OmoriMod.Summons.Pets.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 69420;
-            int projType = ModContent.ProjectileType<SomethingProj>();
+            int projType = ModContent.ProjectileType<SomethingProjectile>();
 
             // If the player is local, and there hasn't been a pet projectile spawned yet - spawn it.
             if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[projType] <= 0)

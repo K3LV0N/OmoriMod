@@ -22,11 +22,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe();
-            recipe1.AddIngredient(ModContent.ItemType<Knife>(), 1);
-            recipe1.AddIngredient(ItemID.DemoniteBar, 10);
-            recipe1.AddTile(TileID.Anvils);
-            recipe1.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<Knife>(),
+                extraItemID: ItemID.DemoniteBar,
+                extraItemAmount: 10,
+                craftingStationID: TileID.Anvils
+                );
         }
     }
 }

@@ -44,10 +44,8 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
 
         public override Vector2? HoldoutOffset()
         {
-
             Vector2 offset = new Vector2(-35, 0);
             return offset;
-
         }
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -91,7 +89,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
                     Matrix matrix = Matrix.CreateRotationZ(angle);
 
                     proj = Vector2.Transform(proj, matrix);
-                    Projectile.NewProjectile(Item.GetSource_NaturalSpawn(), position, proj, ModContent.ProjectileType<SproutBulletProjectile>(), damage, knockback);
+                    Projectile.NewProjectile(source, position, proj, ModContent.ProjectileType<SproutBulletProjectile>(), damage, knockback);
                 }
                 
             }

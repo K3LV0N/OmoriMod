@@ -11,28 +11,47 @@ namespace OmoriMod.Items.Weapons.Magic.Tier2
     {
         public override void SetDefaults()
         {
-            SetMagicWeaponWithProjectileDefaults<BundledAnger>(
+            ItemDefaults(
                 width: 32,
                 height: 26,
+                scale: 1f,
                 buyPrice: Item.buyPrice(0, 3, 0, 0),
+                stackSize: 1,
+                researchCount: 1,
+                consumable: false
+                );
+
+            DamageDefaults(
+                damageType: DamageClass.Magic,
                 damage: 32,
-                knockback: 6,
-                shootSpeed: 15f,
-                mana: 16,
+                knockback: 6f,
+                crit: 4,
+                noMelee: true,
+                mana: 16
+                );
+
+            ProjectileDefaults(
+                ammoID: AmmoID.None,
+                projectileID: ModContent.ProjectileType<AngryBundleProjectile>(),
+                shootSpeed: 15f
+                );
+
+            AnimationDefaults(
                 useTime: 20,
                 useStyleID: ItemUseStyleID.Shoot,
                 useSound: SoundID.Item1,
                 autoReuse: true
-            );
+                );
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<AngryBoltItem>(), 1);
-            recipe.AddIngredient(ItemID.HellstoneBar, 15);
-            recipe.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<AngryBolt>(),
+                extraItemID: ItemID.HellstoneBar,
+                extraItemAmount: 15,
+                craftingStationID: TileID.Bookcases
+                );
         }
-
     }
 }

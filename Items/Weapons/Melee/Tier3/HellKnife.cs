@@ -22,17 +22,18 @@ namespace OmoriMod.Items.Weapons.Melee.Tier3
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe();
-            recipe1.AddIngredient(ModContent.ItemType<CorruptionKnife>(), 1);
-            recipe1.AddIngredient(ItemID.HellstoneBar, 15);
-            recipe1.AddTile(TileID.Anvils);
-            recipe1.Register();
-
-            Recipe recipe2 = CreateRecipe();
-            recipe2.AddIngredient(ModContent.ItemType<CrimsonKnife>(), 1);
-            recipe2.AddIngredient(ItemID.HellstoneBar, 15);
-            recipe2.AddTile(TileID.Anvils);
-            recipe2.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<CorruptionKnife>(),
+                extraItemID: ItemID.HellstoneBar,
+                extraItemAmount: 15,
+                craftingStationID: TileID.Anvils
+                );
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<CrimsonKnife>(),
+                extraItemID: ItemID.HellstoneBar,
+                extraItemAmount: 15,
+                craftingStationID: TileID.Anvils
+                );
         }
     }
 }

@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.Weapons.Melee.Tier1;
 using OmoriMod.Projectiles.Friendly.Melee.Knife;
-using OmoriMod.Projectiles.Friendly.Melee.Pan;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,11 +22,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe();
-            recipe1.AddIngredient(ModContent.ItemType<Knife>(), 1);
-            recipe1.AddIngredient(ItemID.CrimtaneBar, 10);
-            recipe1.AddTile(TileID.Anvils);
-            recipe1.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<Knife>(),
+                extraItemID: ItemID.CrimtaneBar,
+                extraItemAmount: 10,
+                craftingStationID: TileID.Anvils
+                );
         }
     }
 }

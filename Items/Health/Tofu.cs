@@ -1,40 +1,38 @@
-﻿using Terraria;
+﻿using OmoriMod.Items.Abstract_Classes;
+using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Items.Health
 {
-    public class Tofu : ModItem
+    public class Tofu : EmotionItem
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 50;
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1f,
+                buyPrice: Item.buyPrice(platinum: 0, gold: 0, silver: 0, copper: 2),
+                stackSize: 999,
+                researchCount: 50,
+                consumable: true
+                );
 
-            // potion things
-            Item.DefaultToHealingPotion(32, 32, 5);
+            AnimationDefaults(
+                useTime: 17,
+                useStyleID: ItemUseStyleID.DrinkLiquid,
+                useSound: SoundID.Item3,
+                autoReuse: false,
+                canTurnWhileUsing: true
+                );
 
-            // consumability and stacks
-            Item.consumable = true;
-            Item.maxStack = 999;
+            PotionDefaults(
+                healthHealed: 5,
+                manaHealed: 0,
+                isPotion: true
+                );
 
-            // size
-            Item.width = 16;
-            Item.height = 16;
-
-            // usage
-            Item.useTime = 17;
-            Item.useAnimation = Item.useTime;
-            Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = false;
-
-            // rarity
-            Item.rare = ItemRarityID.Green;
-
-            // price
-            Item.value = Item.buyPrice(platinum: 0, gold: 0, silver: 0, copper: 2);
-
-
+            SetItemRarity(ItemRarityID.Blue);
         }
     }
 }

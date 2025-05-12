@@ -12,42 +12,45 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier2
     {
         public override void SetDefaults()
         {
-            // consumability and stacks
-            Item.consumable = true;
-            Item.maxStack = 9999;
-            Item.ResearchUnlockCount = 99;
-            Item.value = Item.buyPrice(0, 0, 5, 0);
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1,
+                buyPrice: Item.buyPrice(0, 0, 5, 0),
+                stackSize: 9999,
+                researchCount: 99,
+                consumable: true
+                );
 
-            // combat
-            Item.damage = 17;
-            Item.noMelee = true;
-            Item.knockBack = 1;
-            Item.crit = 4;
+            ProjectileDefaults(
+                ammoID: AmmoID.Bullet,
+                projectileID: ModContent.ProjectileType<AngryBulletPlusProjectile>(),
+                shootSpeed: 20.5f
+                );
 
-            // size
-            Item.width = 16;
-            Item.height = 16;
-
-            // projectile stuff
-            Item.ammo = AmmoID.Bullet;
-            Item.shootSpeed = 20.5f;
-            Item.shoot = ModContent.ProjectileType<AngryBulletPlusProjectile>();
-
-            // angry item
-            SetAngryDefaults();
+            DamageDefaults(
+                damageType: DamageClass.Ranged,
+                damage: 17,
+                knockback: 1f,
+                crit: 4,
+                noMelee: true
+                );
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe(100);
-            recipe1.AddIngredient(ModContent.ItemType<AngryBullet>(), 100);
-            recipe1.AddIngredient(ItemID.HallowedBar, 1);
-            recipe1.Register();
+            // Create recipes
+            MakeAmmoRecipes(
+                resultAmount: 100,
 
-            Recipe recipe2 = CreateRecipe(100);
-            recipe2.AddIngredient(ItemID.HallowedBar, 1);
-            recipe2.AddCondition(Condition.PlayerCarriesItem(ModContent.ItemType<InfiniteAngryBullet>()));
-            recipe2.Register();
+                baseIngredientID: ItemID.HallowedBar,
+                baseAmount: 1,
+
+                nonEndlessIngredientID: ModContent.ItemType<AngryBullet>(),
+                nonEndlessAmount: 100,
+
+                endlessIngredientID: ModContent.ItemType<InfiniteAngryBullet>()
+                );
         }
     }
 }

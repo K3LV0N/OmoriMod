@@ -12,19 +12,36 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
     {
         public override void SetDefaults()
         {
-            SetMeleeWeaponWithProjectileDefaults<BatProjectile>(
+            ItemDefaults(
                 width: 32,
                 height: 32,
                 scale: 1.5f,
                 buyPrice: Item.buyPrice(0, 2, 0, 0),
+                stackSize: 1,
+                researchCount: 1,
+                consumable: false
+                );
+
+            DamageDefaults(
+                damageType: DamageClass.Melee,
                 damage: 20,
-                knockback: 6,
-                shootSpeed: 8f,
+                knockback: 6f,
+                crit: 4,
+                noMelee: false
+                );
+
+            ProjectileDefaults(
+                ammoID: AmmoID.None,
+                projectileID: ModContent.ProjectileType<BatProjectile>(),
+                shootSpeed: 8f
+                );
+
+            AnimationDefaults(
                 useTime: 17,
                 useStyleID: ItemUseStyleID.Swing,
                 useSound: SoundID.Item1,
                 autoReuse: true
-            );
+                );
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -34,11 +51,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Bat>(), 1);
-            recipe.AddIngredient(ItemID.DemoniteBar, 10);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<Bat>(),
+                extraItemID: ItemID.DemoniteBar,
+                extraItemAmount: 10,
+                craftingStationID: TileID.Anvils
+                );
         }
     }
 }

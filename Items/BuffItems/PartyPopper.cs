@@ -11,15 +11,7 @@ namespace OmoriMod.Items.BuffItems
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 50;
-
-            // clone default buff stuff
-            Item.CloneDefaults(ModContent.ItemType<AirHorn>());
-
-            Item.buffType = ModContent.BuffType<Happy>();
-
-            // happy item
-            SetHappyDefaults();
+            EmotionItemCloneWithDifferentBuff<AirHorn>(ModContent.BuffType<Happy>());
         }
 
         public override bool CanUseItem(Player player)

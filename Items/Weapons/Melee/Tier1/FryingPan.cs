@@ -1,6 +1,6 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Terraria.ID;
 using OmoriMod.Items.Abstract_Classes;
+using System.Collections.Generic;
 
 namespace OmoriMod.Items.Weapons.Melee.Tier1
 {
@@ -13,15 +13,14 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.CopperBar, 6);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
-
-            Recipe recipe2 = CreateRecipe();
-            recipe2.AddIngredient(ItemID.TinBar, 6);
-            recipe2.AddTile(TileID.Anvils);
-            recipe2.Register();
+            var recipes = new List<(int, int)> {
+                (ItemID.CopperBar, 6),
+                (ItemID.TinBar, 6)
+            };
+            MakeRegularRecipes(
+                ingredients: recipes, 
+                craftingStationID: TileID.Anvils
+                );
         }
     }
 }

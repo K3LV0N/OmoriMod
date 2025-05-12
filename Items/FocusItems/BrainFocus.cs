@@ -12,6 +12,7 @@ namespace OmoriMod.Items.FocusItems
     {
         public override void SetDefaults()
         { 
+            // focus class fields
             charge = 0;
             dps = 2;
             maxCharge = 7 * 60;
@@ -24,33 +25,39 @@ namespace OmoriMod.Items.FocusItems
             charging = false;
             decaying = true;
 
-            // damage
-            Item.damage = 3;
-            Item.knockBack = 6;
-            Item.noMelee = true;
-            Item.DamageType = ModContent.GetInstance<FocusDamage>();
+            ItemDefaults(
+                width: 26,
+                height: 32,
+                scale: 1f,
+                buyPrice: Item.buyPrice(platinum: 0, gold: 1, silver: 0, copper: 0),
+                stackSize: 1,
+                researchCount: 1,
+                consumable: false
+                );
 
-            // size
-            Item.height = 32;
-            Item.width = 26;
+            DamageDefaults(
+                damageType: ModContent.GetInstance<FocusDamage>(),
+                damage: 3,
+                knockback: 6f,
+                crit: 4,
+                noMelee: true
+                );
 
-            // projectiles
-            Item.shootSpeed = 15f;
-            Item.shoot = ModContent.ProjectileType<BrainBolt>();
+            ProjectileDefaults(
+                ammoID: AmmoID.None,
+                projectileID: ModContent.ProjectileType<BrainBolt>(),
+                shootSpeed: 15f
+                );
 
-            // usage
-            Item.useTime = 7;
-            Item.useAnimation = Item.useTime;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
-            Item.noUseGraphic = true;
+            AnimationDefaults(
+                useTime: 7,
+                useStyleID: ItemUseStyleID.Shoot,
+                useSound: SoundID.Item1,
+                autoReuse: true,
+                noUseAnimation: true
+                );
 
-            // rarity
-            Item.rare = ItemRarityID.Blue;
-
-            // price
-            Item.value = Item.buyPrice(platinum: 0, gold: 1, silver: 0, copper: 0);
+            SetItemRarity(ItemRarityID.Blue);
         }
 
         public override void HoldItem(Player player)
@@ -65,10 +72,12 @@ namespace OmoriMod.Items.FocusItems
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Book, 1);
-            recipe.AddIngredient<RainCloud>(10);
-            recipe.Register();  
+            MakeUpgradeRecipe(
+                baseItemID: ItemID.Book,
+                extraItemID: ModContent.ItemType<RainCloud>(),
+                extraItemAmount: 10,
+                craftingStationID: TileID.Bookcases
+                );
         }
     }
 }

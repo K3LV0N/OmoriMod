@@ -12,31 +12,24 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier2
     {
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 99;
-            // clone default arrow stuff
-            Item.CloneDefaults(ModContent.ItemType<AngryArrowPlus>());
-
-            // damage stuff
+            EmotionItemCloneWithDifferentProjectile<AngryArrowPlus>(ModContent.ProjectileType<HappyArrowPlusProjectile>());
             Item.damage = ModContent.GetModItem(ModContent.ItemType<HappyArrow>()).Item.damage;
-
-            // projectile stuff
-            Item.shoot = ModContent.ProjectileType<HappyArrowPlusProjectile>();
-
-            // happy item
-            SetHappyDefaults();
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe(100);
-            recipe1.AddIngredient(ModContent.ItemType<HappyArrow>(), 100);
-            recipe1.AddIngredient(ItemID.HallowedBar, 1);
-            recipe1.Register();
+            // Create recipes
+            MakeAmmoRecipes(
+                resultAmount: 100,
 
-            Recipe recipe2 = CreateRecipe(100);
-            recipe2.AddIngredient(ItemID.HallowedBar, 1);
-            recipe2.AddCondition(Condition.PlayerCarriesItem(ModContent.ItemType<InfiniteHappyArrow>()));
-            recipe2.Register();
+                baseIngredientID: ItemID.HallowedBar,
+                baseAmount: 1,
+
+                nonEndlessIngredientID: ModContent.ItemType<HappyArrow>(),
+                nonEndlessAmount: 100,
+
+                endlessIngredientID: ModContent.ItemType<InfiniteHappyArrow>()
+                );
         }
     }
 }

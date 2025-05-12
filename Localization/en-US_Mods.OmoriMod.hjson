@@ -81,7 +81,7 @@ Items: {
 		Tooltip:
 			'''
 			Makes enemies it hits angry!
-			Homes in on it's enemies!
+			Locks onto enemies!
 			'''
 	}
 
@@ -165,7 +165,7 @@ Items: {
 		Tooltip:
 			'''
 			Makes enemies it hits angry!
-			Homes in on it's enemies!
+			Locks onto enemies!
 			'''
 	}
 
@@ -192,7 +192,7 @@ Items: {
 		Tooltip:
 			'''
 			Basically just edible cardboard. Right?
-			Summons Ye Old Sprout
+			Summons Ye Old Sprout.
 			'''
 	}
 
@@ -200,8 +200,8 @@ Items: {
 		DisplayName: Air Horn
 		Tooltip:
 			'''
-			An airhorn? Ugh, how aggravating.
-			Makes you angry
+			An airhorn? Ugh, how annoying.
+			Makes you angry.
 			'''
 	}
 
@@ -210,7 +210,7 @@ Items: {
 		Tooltip:
 			'''
 			A party Popper! This is sure to cheer you up!
-			Makes you happy
+			Makes you happy.
 			'''
 	}
 
@@ -218,8 +218,8 @@ Items: {
 		DisplayName: Rain Cloud
 		Tooltip:
 			'''
-			A raincloud, how sad.
-			Makes you sad
+			A raincloud, how depressing.
+			Makes you sad.
 			'''
 	}
 
@@ -228,17 +228,17 @@ Items: {
 		Tooltip: Basically just edible cardboard. Heals 5 health.
 	}
 
-	AngryBoltItem: {
+	AngryBolt: {
 		DisplayName: Compressed Annoyance
 		Tooltip: Shoots anger bolts at enemies!
 	}
 
-	AngryBombItem: {
+	AngryBomb: {
 		DisplayName: Annoying Bomb
 		Tooltip: Shoots a bomb of annoyance at enemies!
 	}
 
-	AngryBombPlusItem: {
+	AngryBombPlus: {
 		DisplayName: Annoying Bomb+
 		Tooltip: Shoots a recursive bomb of annoyance at enemies!
 	}
@@ -248,17 +248,17 @@ Items: {
 		Tooltip: Shoots a bundle of annoyance!
 	}
 
-	HappyBoltItem: {
+	HappyBolt: {
 		DisplayName: Compressed Joy
 		Tooltip: Shoots happiness bolts at enemies!
 	}
 
-	HappyBombItem: {
+	HappyBomb: {
 		DisplayName: Joy Bomb
 		Tooltip: Shoots a bomb of joy at enemies!
 	}
 
-	HappyBombPlusItem: {
+	HappyBombPlus: {
 		DisplayName: Joy Bomb+
 		Tooltip: Shoots a recursive bomb of joy at enemies!
 	}
@@ -268,17 +268,17 @@ Items: {
 		Tooltip: Shoots a bundle of joy!
 	}
 
-	SadBoltItem: {
+	SadBolt: {
 		DisplayName: Compressed Despair
 		Tooltip: Shoots sadness bolts at enemies!
 	}
 
-	SadBombItem: {
+	SadBomb: {
 		DisplayName: Depressing Bomb
 		Tooltip: Shoots a bomb of depression at enemies!
 	}
 
-	SadBombPlusItem: {
+	SadBombPlus: {
 		DisplayName: Depressing Bomb+
 		Tooltip: Shoots a recursive bomb of depression at enemies!
 	}
@@ -301,7 +301,7 @@ Items: {
 			'''
 	}
 
-	SomethingItem: {
+	Something: {
 		DisplayName: Something?
 		Tooltip: Summons Something
 	}
@@ -318,95 +318,95 @@ Items: {
 
 	Bat: {
 		DisplayName: Aubrey's Bat
-		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+		Tooltip: Aubrey's bat. Let's play! Makes enemies angry!
 	}
 
 	ChlorBat: {
 		DisplayName: Aubrey's Chlorophyte Bat
-		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+		Tooltip: Aubrey's bat. Let's play! Makesenemies angry!
 	}
 
 	CorruptionBat: {
 		DisplayName: Aubrey's Corrupted Bat
-		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+		Tooltip: Aubrey's bat. Let's play! Makes enemies angry!
 	}
 
 	CrimsonBat: {
 		DisplayName: Aubrey's Crimson Bat
-		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+		Tooltip: Aubrey's bat. Let's play! Makes enemies angry!
 	}
 
 	HallowBat: {
 		DisplayName: Aubrey's Hallowed Bat
-		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+		Tooltip: Aubrey's bat. Let's play! Makes enemies angry!
 	}
 
 	HellBat: {
 		DisplayName: Aubrey's Hell Bat
-		Tooltip: Aubrey's bat. Let's play! Makes your enemies angry!
+		Tooltip: Aubrey's bat. Let's play! Makes enemies angry!
 	}
 
 	ChlorPan: {
 		DisplayName: Hero's Chlorophyte Frying Pan
-		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+		Tooltip: Hero's Frying Pan. Let's get cooking! Makes ememies Happy!
 	}
 
 	CorruptionPan: {
 		DisplayName: Hero's Corrupted Frying Pan
-		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+		Tooltip: Hero's Frying Pan. Let's get cooking! Makes ememies Happy!
 	}
 
 	CrimsonPan: {
 		DisplayName: Hero's Crimson Frying Pan
-		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+		Tooltip: Hero's Frying Pan. Let's get cooking! Makes ememies Happy!
 	}
 
 	FryingPan: {
 		DisplayName: Hero's Frying Pan
-		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+		Tooltip: Hero's Frying Pan. Let's get cooking! Makes ememies Happy!
 	}
 
 	HallowPan: {
 		DisplayName: Hero's Hallowed Frying Pan
-		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+		Tooltip: Hero's Frying Pan. Let's get cooking! Makes ememies Happy!
 	}
 
 	HellPan: {
 		DisplayName: Hero's Hellish Frying Pan
-		Tooltip: Hero's Frying Pan. Let's get cooking! Make's your ememies Happy!
+		Tooltip: Hero's Frying Pan. Let's get cooking! Makes ememies Happy!
 	}
 
 	ChlorKnife: {
 		DisplayName: Omori's Chlorophyte Knife
-		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+		Tooltip: Omori's knife. It's sharp. Makes enemies Sad!
 	}
 
 	CorruptionKnife: {
 		DisplayName: Omori's Corrupted Knife
-		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+		Tooltip: Omori's knife. It's sharp. Makes enemies Sad!
 	}
 
 	CrimsonKnife: {
 		DisplayName: Omori's Crimson Knife
-		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+		Tooltip: Omori's knife. It's sharp. Makes enemies Sad!
 	}
 
 	HallowKnife: {
 		DisplayName: Omori's Hallowed Knife
-		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+		Tooltip: Omori's knife. It's sharp. Makes enemies Sad!
 	}
 
 	HellKnife: {
 		DisplayName: Omori's Hell Knife
-		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+		Tooltip: Omori's knife. It's sharp. Makes enemies Sad!
 	}
 
 	Knife: {
 		DisplayName: Omori's Knife
-		Tooltip: Omori's knife. It's sharp. Makes your enemies Sad!
+		Tooltip: Omori's knife. It's sharp. Makes enemies Sad!
 	}
 
-	SentientKnifeItem: {
+	SentientKnife: {
 		DisplayName: Sentient Knife
 		Tooltip: Summons a sentient knife to fight for you. Makes enemies sad!
 	}
@@ -511,103 +511,65 @@ NPCs: {
 }
 
 Projectiles: {
-	SentientKnifeProj.DisplayName: Sentient Knife
-	AngryBulletProj.DisplayName: Angry Bullet
-	AngryBulletPlusProj.DisplayName: Angry Bullet Plus
-	AngryBolt.DisplayName: Angry Bolt
-	AngryBomb.DisplayName: Angry Bomb
-	AngryBombPlus.DisplayName: Angry Bomb Plus
-	BundledAnger.DisplayName: Bundled Anger
-	BatProj.DisplayName: Phase Bat
-	BatProjFive.DisplayName: Phase Bat
-	BatProjFiveSeeking.DisplayName: Phase Bat
-	BatProjTriple.DisplayName: Phase Bat
-	SproutBulletProj.DisplayName: Sprout Bullet
-	SproutScytheProj.DisplayName: Sprout Scythe
-	BrainBolt.DisplayName: Brain Bolt
-	HappyBulletProj.DisplayName: Happy Bullet
-	HappyBulletPlusProj.DisplayName: Happy Bullet Plus
-	BundledHappiness.DisplayName: Bundled Happiness
-	HappyBolt.DisplayName: Happy Bolt
-	HappyBomb.DisplayName: Happy Bomb
-	HappyBombPlus.DisplayName: Happy Bomb Plus
-	PanProj.DisplayName: Phase Pan
-	PanProjFive.DisplayName: Phase Pan
-	PanProjFiveSeeking.DisplayName: Phase Pan
-	PanProjTriple.DisplayName: Phase Pan
-	SomethingProj.DisplayName: Something
-	SadBulletProj.DisplayName: Sad Bullet
-	SadBulletPlusProj.DisplayName: Sad Bullet Plus
-	BundledSadness.DisplayName: Bundled Sadness
-	SadBolt.DisplayName: Sad Bolt
-	SadBomb.DisplayName: Sad Bomb
-	SadBombPlus.DisplayName: Sad Bomb Plus
-	KnifeProj.DisplayName: Phase Knife
-	KnifeProjFive.DisplayName: Phase Knife
-	KnifeProjFiveSeeking.DisplayName: Phase Knife
-	KnifeProjTriple.DisplayName: Phase Knife
-	TestProj.DisplayName: Test Projectile
-	AngryArrowProj.DisplayName: Angry Arrow
-	HappyArrowProj.DisplayName: Happy Arrow
-	SadArrowProj.DisplayName: Sad Arrow
-	AngryArrowProjNoDrop.DisplayName: Angry Arrow
-	HappyArrowProjNoDrop.DisplayName: Happy Arrow
-	HappyArrowProjNoDropOrTrail.DisplayName: Happy Arrow
-	SadArrowProjNoDrop.DisplayName: Sad Arrow
-	AngryArrowPlusProj.DisplayName: Angry Arrow
-	HappyArrowPlusProj.DisplayName: Happy Arrow
-	SadArrowPlusProj.DisplayName: Sad Arrow
-	AngryArrowPlusProjNoDrop.DisplayName: Angry Arrow Plus
-	HappyArrowPlusProjNoDrop.DisplayName: Happy Arrow Plus
-	SadArrowPlusProjNoDrop.DisplayName: Sad Arrow Plus
-	HappyBulletProjNoTrail.DisplayName: Happy Bullet
-	AngryBoltNoTrail.DisplayName: Angry Bolt
-	BundledAngerNoTrail.DisplayName: Bundled Anger
-	BundledHappinessNoTrail.DisplayName: Bundled Happiness
-	HappyBoltNoTrail.DisplayName: Happy Bolt
-	BundledSadnessNoTrail.DisplayName: Bundled Sadness
-	SadBoltNoTrail.DisplayName: Sad Bolt
-	BatProjSeeking.DisplayName: Phase Bat
-	KnifeProjSeeking.DisplayName: Phase Knife
-	PanProjSeeking.DisplayName: Phase Pan
-	AngryArrowProjectile.DisplayName: Angry Arrow Projectile
-	HappyArrowProjectile.DisplayName: Happy Arrow Projectile
-	SadArrowProjectile.DisplayName: Sad Arrow Projectile
-	AngryArrowProjectileNoDrop.DisplayName: Angry Arrow Projectile No Drop
-	HappyArrowProjectileNoDrop.DisplayName: Happy Arrow Projectile No Drop
-	HappyArrowProjectileNoDropOrTrail.DisplayName: Happy Arrow Projectile No Drop Or Trail
-	SadArrowProjectileNoDrop.DisplayName: Sad Arrow Projectile No Drop
-	AngryArrowPlusProjectile.DisplayName: Angry Arrow Plus Projectile
-	HappyArrowPlusProjectile.DisplayName: Happy Arrow Plus Projectile
-	SadArrowPlusProjectile.DisplayName: Sad Arrow Plus Projectile
-	AngryArrowPlusProjectileNoDrop.DisplayName: Angry Arrow Plus Projectile No Drop
-	HappyArrowPlusProjectileNoDrop.DisplayName: Happy Arrow Plus Projectile No Drop
-	SadArrowPlusProjectileNoDrop.DisplayName: Sad Arrow Plus Projectile No Drop
-	SproutBulletProjectile.DisplayName: Sprout Bullet Projectile
-	SproutScytheProjectile.DisplayName: Sprout Scythe Projectile
-	AngryBulletProjectile.DisplayName: Angry Bullet Projectile
-	HappyBulletProjectile.DisplayName: Happy Bullet Projectile
-	HappyBulletProjectileNoTrail.DisplayName: Happy Bullet Projectile No Trail
-	SadBulletProjectile.DisplayName: Sad Bullet Projectile
-	AngryBulletPlusProjectile.DisplayName: Angry Bullet Plus Projectile
-	HappyBulletPlusProjectile.DisplayName: Happy Bullet Plus Projectile
-	SadBulletPlusProjectile.DisplayName: Sad Bullet Plus Projectile
-	BatProjectile.DisplayName: Bat Projectile
-	BatProjectileFive.DisplayName: Bat Projectile Five
-	BatProjectileFiveSeeking.DisplayName: Bat Projectile Five Seeking
-	BatProjectileSeeking.DisplayName: Bat Projectile Seeking
-	BatProjectileTriple.DisplayName: Bat Projectile Triple
-	KnifeProjectile.DisplayName: Knife Projectile
-	KnifeProjectileFive.DisplayName: Knife Projectile Five
-	KnifeProjectileFiveSeeking.DisplayName: Knife Projectile Five Seeking
-	KnifeProjectileSeeking.DisplayName: Knife Projectile Seeking
-	KnifeProjectileTriple.DisplayName: Knife Projectile Triple
-	PanProjectile.DisplayName: Pan Projectile
-	PanProjectileFive.DisplayName: Pan Projectile Five
-	PanProjectileFiveSeeking.DisplayName: Pan Projectile Five Seeking
-	PanProjectileSeeking.DisplayName: Pan Projectile Seeking
-	PanProjectileTriple.DisplayName: Pan Projectile Triple
+	AngryArrowProjectile.DisplayName: Angry Arrow
+	HappyArrowProjectile.DisplayName: Happy Arrow
+	SadArrowProjectile.DisplayName: Sad Arrow
+	AngryArrowProjectileNoDrop.DisplayName: Angry Arrow
+	HappyArrowProjectileNoDrop.DisplayName: Happy Arrow
+	HappyArrowProjectileNoDropNoDust.DisplayName: Happy Arrow
+	SadArrowProjectileNoDrop.DisplayName: Sad Arrow
+	AngryArrowPlusProjectile.DisplayName: Angry Arrow+
+	HappyArrowPlusProjectile.DisplayName: Happy Arrow+
+	SadArrowPlusProjectile.DisplayName: Sad Arrow+
+	AngryArrowPlusProjectileNoDrop.DisplayName: Angry Arrow+
+	HappyArrowPlusProjectileNoDrop.DisplayName: Happy Arrow+
+	SadArrowPlusProjectileNoDrop.DisplayName: Sad Arrow+
+	SproutBulletProjectile.DisplayName: Sprout Bullet
+	SproutScytheProjectile.DisplayName: Sprout Scythe
+	AngryBulletProjectile.DisplayName: Angry Bullet
+	HappyBulletProjectile.DisplayName: Happy Bullet
+	HappyBulletProjectileNoDust.DisplayName: Happy Bullet
+	SadBulletProjectile.DisplayName: Sad Bullet
+	AngryBulletPlusProjectile.DisplayName: Angry Bullet+
+	HappyBulletPlusProjectile.DisplayName: Happy Bullet+
+	SadBulletPlusProjectile.DisplayName: Sad Bullet+
+	BatProjectile.DisplayName: Phase Bat
+	BatProjectileFive.DisplayName: Phase Bat
+	BatProjectileFiveSeeking.DisplayName: Phase Bat
+	BatProjectileSeeking.DisplayName: Phase Bat
+	BatProjectileTriple.DisplayName: Phase Bat
+	KnifeProjectile.DisplayName: Phase Knife
+	KnifeProjectileFive.DisplayName: Phase Knife
+	KnifeProjectileFiveSeeking.DisplayName: Phase Knife
+	KnifeProjectileSeeking.DisplayName: Phase Knife
+	KnifeProjectileTriple.DisplayName: Phase Knife
+	PanProjectile.DisplayName: Phase Pan
+	PanProjectileFive.DisplayName: Phase Pan
+	PanProjectileFiveSeeking.DisplayName: Phase Pan
+	PanProjectileSeeking.DisplayName: Phase Pan
+	PanProjectileTriple.DisplayName: Phase Pan
 	TestProjectile.DisplayName: Test Projectile
+	AngryBoltProjectileNoDust.DisplayName: Angry Bolt
+	AngryBoltProjectile.DisplayName: Angry Bolt Projectile
+	HappyBoltProjectileNoDust.DisplayName: Happy Bolt
+	HappyBoltProjectile.DisplayName: Happy Bolt Projectile
+	SadBoltProjectileNoDust.DisplayName: Sad Bolt
+	SadBoltProjectile.DisplayName: Sad Bolt Projectile
+	AngryBundleProjectileNoDust.DisplayName: Angry Bundle
+	AngryBundleProjectile.DisplayName: Angry Bundle Projectile
+	HappyBundleProjectileNoDust.DisplayName: Happy Bundle
+	HappyBundleProjectile.DisplayName: Happy Bundle Projectile
+	SadBundleProjectileNoDust.DisplayName: Sad Bundle
+	SadBundleProjectile.DisplayName: Sad Bundle Projectile
+	SomethingProjectile.DisplayName: Something
+	SentientKnifeProjectile.DisplayName: Sentient Knife
+	BrainBolt.DisplayName: Brain Bolt
+	AngryBombProjectile.DisplayName: Angry Bomb Projectile
+	HappyBombProjectile.DisplayName: Happy Bomb Projectile
+	SadBombProjectile.DisplayName: Sad Bomb Projectile
+	AngryBombPlusProjectile.DisplayName: Angry Bomb Plus Projectile
+	HappyBombPlusProjectile.DisplayName: Happy Bomb Plus Projectile
+	SadBombPlusProjectile.DisplayName: Sad Bomb Plus Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage

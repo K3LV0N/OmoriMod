@@ -9,8 +9,11 @@ namespace OmoriMod.Items.Accessories
     {
         public override void SetDefaults()
         {
-            int value = Item.buyPrice(1, 0, 0, 0);
-            SetAccessoryDefaults(width: 20, height: 30, buyPrice: value);
+            SetAccessoryDefaults(
+                width: 20, 
+                height: 30, 
+                buyPrice: Item.buyPrice(1, 0, 0, 0)
+                );
         }
 
         public override void UpdateEquip(Player player)

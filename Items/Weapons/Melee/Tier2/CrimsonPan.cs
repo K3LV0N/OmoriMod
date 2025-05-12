@@ -22,11 +22,12 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<FryingPan>(), 1);
-            recipe.AddIngredient(ItemID.CrimtaneBar, 10);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<FryingPan>(),
+                extraItemID: ItemID.CrimtaneBar,
+                extraItemAmount: 10,
+                craftingStationID: TileID.Anvils
+                );
         }
     }
 }

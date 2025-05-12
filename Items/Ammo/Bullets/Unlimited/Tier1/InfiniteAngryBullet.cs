@@ -11,37 +11,34 @@ namespace OmoriMod.Items.Ammo.Bullets.Unlimited.Tier1
     {
         public override void SetDefaults()
         {
-            // consumability and stacks
-            Item.consumable = false;
-            Item.maxStack = 1;
-            Item.ResearchUnlockCount = 3;
-            Item.value = Item.buyPrice(0, 5, 0, 0);
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1,
+                buyPrice: Item.buyPrice(0, 5, 0, 0),
+                stackSize: 1,
+                researchCount: 3,
+                consumable: false
+                );
 
-            // combat
-            Item.damage = 12;
-            Item.noMelee = true;
-            Item.knockBack = 1;
-            Item.crit = 4;
+            ProjectileDefaults(
+                ammoID: AmmoID.Bullet,
+                projectileID: ModContent.ProjectileType<AngryBulletProjectile>(),
+                shootSpeed: 20.5f
+                );
 
-            // size
-            Item.width = 16;
-            Item.height = 16;
-
-            // projectile stuff
-            Item.ammo = AmmoID.Bullet;
-            Item.shootSpeed = 20.5f;
-            Item.shoot = ModContent.ProjectileType<AngryBulletProjectile>();
-
-            // angry item
-            SetAngryDefaults();
+            DamageDefaults(
+                damageType: DamageClass.Ranged,
+                damage: 12,
+                knockback: 1f,
+                crit: 4,
+                noMelee: true
+                );
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe1 = CreateRecipe();
-            recipe1.AddIngredient(ModContent.ItemType<AngryBullet>(), 3996);
-            recipe1.AddTile(TileID.CrystalBall);
-            recipe1.Register();
+            MakeEndlessAmmoRecipe(ModContent.ItemType<AngryBullet>());
         }
     }
 }

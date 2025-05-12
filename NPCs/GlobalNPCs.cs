@@ -21,7 +21,7 @@ namespace OmoriMod.NPCs
                 shop.Add<PartyPopper>();
                 shop.Add<RainCloud>();
                 shop.Add<AirHorn>();
-                shop.Add<SomethingItem>();
+                shop.Add<Something>();
             }
 
             if (shop.NpcType == NPCID.Dryad)

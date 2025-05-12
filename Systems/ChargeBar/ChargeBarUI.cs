@@ -81,7 +81,8 @@ namespace OmoriMod.Systems.ChargeBar
             // make sure percent doesn't go above 1
             percentage = Utils.Clamp(percentage, 0f, 1f);
 
-            // Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient.
+            // Here we get the screen dimensions of the barFrame element,
+            // then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient.
             Rectangle InnerBar = barFrame.GetInnerDimensions().ToRectangle();
             InnerBar.X += 4;
             InnerBar.Width -= 94;

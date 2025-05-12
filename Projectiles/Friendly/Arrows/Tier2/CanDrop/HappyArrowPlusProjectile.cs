@@ -24,7 +24,7 @@ namespace OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop
 
         public override void AI()
         {
-            AI_MultiSplittingProjectile<HappyArrowProjectileNoDropOrTrail>(maxAngle: 32, ProjectileAmount: 9);
+            AI_MultiSplittingProjectile<HappyArrowProjectileNoDropNoDust>(maxAngle: 32, ProjectileAmount: 9);
         }
     }
 }
