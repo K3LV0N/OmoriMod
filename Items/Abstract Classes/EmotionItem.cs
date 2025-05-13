@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using System;
 using System.Collections.Generic;
+using OmoriMod.Systems.EmotionSystem.Interfaces;
 
 namespace OmoriMod.Items.Abstract_Classes
 {
@@ -13,7 +14,7 @@ namespace OmoriMod.Items.Abstract_Classes
     /// Use <see cref="AngryItem"/>, <see cref="HappyItem"/>, or <see cref="SadItem"/> 
     /// to set emotions. If <see cref="Emotion"/> is not set, it will default to <see cref="EmotionType.NONE"/>.
     /// </summary>
-    public abstract class EmotionItem : ModItem, IEmotionObject
+    public abstract class EmotionItem : ModItem, IOnHitEmotionObject
     {
         public EmotionType Emotion { get; protected set; }
 
@@ -39,7 +40,7 @@ namespace OmoriMod.Items.Abstract_Classes
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            ((IEmotionObject)this).InflictEmotion(target);
+            ((IOnHitEmotionObject)this).InflictEmotion(target);
             OnHitNPCEmotion(player, target, hit, damageDone);
         }
 
@@ -142,13 +143,13 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <param name="healthHealed"></param>
         /// <param name="manaHealed"></param>
         /// <param name="isPotion"></param>
-        public void PotionDefaults(int healthHealed, int manaHealed, bool isPotion, int buffType = 0, int buffTime = 0)
+        public void PotionDefaults(int healthHealed, int manaHealed, bool isPotion, int buffType = 0, int buffTimeInSeconds = 0)
         {
             Item.healLife = healthHealed;
             Item.healMana = manaHealed;
             Item.potion = isPotion;
             Item.buffType = buffType;
-            Item.buffTime = buffTime;
+            Item.buffTime = buffTimeInSeconds * 60;
         }
 
 

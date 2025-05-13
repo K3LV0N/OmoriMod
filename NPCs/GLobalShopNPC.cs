@@ -11,9 +11,8 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.NPCs
 {
-    public class GlobalNPCs : GlobalNPC
+    public class GLobalShopNPC : GlobalNPC
     {
-
         public override void ModifyShop(NPCShop shop)
         {
             if (shop.NpcType == NPCID.Merchant)
@@ -29,98 +28,6 @@ namespace OmoriMod.NPCs
                 shop.Add<Flower>();
                 shop.Add<DeadFlower>();
                 shop.Add<BloodyFlower>();
-            }
-        }
-
-        public override void AI(NPC npc)
-        {
-            if (npc.HasBuff<Happy>())
-            {
-                // Move the npc ever so slightly forwards
-                float happyBuffChange = 0.3f;
-                Vector2 change;
-                if (npc.noGravity)
-                {
-                    // effect both
-                    change = npc.velocity * happyBuffChange;
-                }
-                else
-                {
-                    // Only effect X
-                    change = new Vector2(npc.velocity.X * happyBuffChange, 0);
-                }
-                Vector2 newPos = npc.position + change;
-
-                // If the new speed collides with something, don't add it
-                if (!Collision.SolidCollision(newPos, npc.width, npc.height))
-                {
-                    npc.position = newPos;
-                }
-            }
-            else if(npc.HasBuff<Sad>())
-            {
-                // Move the npc ever so slightly backwards
-                float sadBuffChange = 0.3f;
-                Vector2 change;
-                if(npc.noGravity)
-                {
-                    // effect both
-                    change = npc.velocity * sadBuffChange;
-                }
-                else
-                {
-                    // Only effect X
-                    change = new Vector2(npc.velocity.X * sadBuffChange, 0);
-                }     
-                npc.position = npc.position - change;
-            }
-        }
-
-        public override bool InstancePerEntity => true;
-
-        public int colorTimer;
-        public Color? original_color;
-        public override void PostAI(NPC npc)
-        {
-            if (original_color == null)
-            {
-                original_color = npc.color;
-            }
-            colorTimer++;
-            Color colorNeeded;
-            if (npc.HasBuff<Sad>() || npc.HasBuff<Happy>() || npc.HasBuff<Angry>())
-            {
-                if(npc.HasBuff<Angry>())
-                {
-                    colorNeeded = Color.Red;
-                }
-                else if(npc.HasBuff<Sad>())
-                {
-                    colorNeeded = Color.Blue;
-                }
-                else
-                {
-                    colorNeeded = Color.Yellow;
-                }
-                // Flash emotion color and original color
-                if (colorTimer > 60)
-                {
-                    npc.color = Color.Lerp(npc.color, (Color)original_color, 0.1f);
-
-                    if (colorTimer > 90)
-                    {
-                        colorTimer = 0;
-                    }
-                }
-                else
-                {
-                    npc.color = Color.Lerp(npc.color, colorNeeded, 0.1f);
-                }
-            }
-            else
-            {
-                // if we need to fix the color then do it, otherwise don't mess with the color
-                if (npc.color != (Color)original_color) { npc.color = Color.Lerp(npc.color, (Color)original_color, 0.1f); }
             }
         }
 

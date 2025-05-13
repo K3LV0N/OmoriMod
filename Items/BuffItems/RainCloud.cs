@@ -1,9 +1,9 @@
-﻿using OmoriMod.Buffs.AngryBuff;
-using OmoriMod.Buffs.SadBuff;
-using OmoriMod.Buffs.HappyBuff;
+﻿using OmoriMod.Buffs.SadBuff;
 using Terraria;
 using Terraria.ModLoader;
 using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Players;
+using OmoriMod.Systems.EmotionSystem.Interfaces;
 
 namespace OmoriMod.Items.BuffItems
 {
@@ -16,13 +16,10 @@ namespace OmoriMod.Items.BuffItems
 
         public override bool CanUseItem(Player player)
         {
-            if (player.HasBuff<Happy>() || player.HasBuff<HappyNoTime>() || player.HasBuff<Ecstatic>() || player.HasBuff<Manic>() ||
-                player.HasBuff<Angry>() || player.HasBuff<AngryNoTime>() || player.HasBuff<Enraged>() || player.HasBuff<Furious>() ||
-                player.HasBuff<SadNoTime>())
-            {
-                return false;
-            }
-            return true;
+            EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
+
+            if (emotionPlayer.Emotion == EmotionType.SAD || emotionPlayer.Emotion == EmotionType.NONE) { return true; }
+            return false;
         }
 
         public override bool? UseItem(Player player)
@@ -30,21 +27,21 @@ namespace OmoriMod.Items.BuffItems
 
             if (player.HasBuff<Miserable>())
             {
-                player.AddBuff(ModContent.BuffType<Miserable>(), 60 * 60);
+                player.AddBuff(ModContent.BuffType<Miserable>(), Item.buffTime);
             }
             else if (player.HasBuff<Depressed>())
             {
                 player.ClearBuff(ModContent.BuffType<Depressed>());
-                player.AddBuff(ModContent.BuffType<Miserable>(), 60 * 60);
+                player.AddBuff(ModContent.BuffType<Miserable>(), Item.buffTime);
             }
-            else if (player.HasBuff<Sad>() && player.buffTime[player.FindBuffIndex(ModContent.BuffType<Sad>())] != 60 * 60)
+            else if (player.HasBuff<Sad>())
             {
                 player.ClearBuff(ModContent.BuffType<Sad>());
-                player.AddBuff(ModContent.BuffType<Depressed>(), 60 * 60);
+                player.AddBuff(ModContent.BuffType<Depressed>(), Item.buffTime);
             }
             else
             {
-                player.AddBuff(ModContent.BuffType<Sad>(), 60 * 60);
+                player.AddBuff(ModContent.BuffType<Sad>(), Item.buffTime);
             }
             return true;
 

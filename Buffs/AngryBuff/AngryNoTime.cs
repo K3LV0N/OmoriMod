@@ -1,31 +1,18 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
-using OmoriMod.Buffs.SadBuff;
-using OmoriMod.Buffs.HappyBuff;
+using OmoriMod.Buffs.Abstract;
 
 namespace OmoriMod.Buffs.AngryBuff
 {
-    public class AngryNoTime : ModBuff
+    public class AngryNoTime : AngryEmotionBase
     {
+        AngryNoTime()
+        {
+            emotionLevel = 1;
+            playerPercentDefenseDecrease = 0.125f;
+        }
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-
-            player.ClearBuff(ModContent.BuffType<Happy>());
-            //player.ClearBuff(ModContent.BuffType<Happy2>());
-            player.ClearBuff(ModContent.BuffType<Ecstatic>());
-            player.ClearBuff(ModContent.BuffType<Manic>());
-
-            player.ClearBuff(ModContent.BuffType<Sad>());
-            //player.ClearBuff(ModContent.BuffType<Sad2>());
-            player.ClearBuff(ModContent.BuffType<Depressed>());
-            player.ClearBuff(ModContent.BuffType<Miserable>());
-
-            player.statDefense -= (int)(player.statDefense * .125);
         }
     }
 }

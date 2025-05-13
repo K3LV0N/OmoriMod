@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using OmoriMod.Systems.EmotionSystem.Interfaces;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Dusts

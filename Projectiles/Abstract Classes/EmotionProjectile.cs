@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Dusts;
+using OmoriMod.Systems.EmotionSystem.Interfaces;
 
 namespace OmoriMod.Projectiles.Abstract_Classes
 {
@@ -14,7 +15,7 @@ namespace OmoriMod.Projectiles.Abstract_Classes
     /// Use <see cref="AngryProjectile"/>, <see cref="HappyProjectile"/>, or <see cref="SadProjectile"/> 
     /// to set emotions. If <see cref="Emotion"/> is not set, it will default to <see cref="EmotionType.NONE"/>.
     /// </summary>
-    public abstract class EmotionProjectile : ModProjectile, IEmotionObject
+    public abstract class EmotionProjectile : ModProjectile, IOnHitEmotionObject
     {
         /// <summary>
         /// The first value in the <see cref="Projectile.ai"/> array. Standardized for timers.
@@ -47,7 +48,7 @@ namespace OmoriMod.Projectiles.Abstract_Classes
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            ((IEmotionObject)this).InflictEmotion(target);
+            ((IOnHitEmotionObject)this).InflictEmotion(target);
             OnHitNPCEmotion(target, hit, damageDone);
         }
 

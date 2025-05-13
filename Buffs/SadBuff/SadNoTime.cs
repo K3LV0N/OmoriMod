@@ -1,35 +1,21 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Buffs.AngryBuff;
-using OmoriMod.Buffs.HappyBuff;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria;
+using OmoriMod.Buffs.Abstract;
 
 namespace OmoriMod.Buffs.SadBuff
 {
-    public class SadNoTime : ModBuff
+    public class SadNoTime : SadEmotionBase
     {
+        SadNoTime()
+        {
+            emotionLevel = 1;
+            playerPercentMovementSpeedDecrease = 0.1f;
+            playerPercentDefenseIncrease = 0.15f;
+            NPCMaximumDefenseIncreaseThreshold = 2;
+            NPCPercentDefenseIncrease = 0.25f;
+        }
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-
-            player.ClearBuff(ModContent.BuffType<Angry>());
-            //player.ClearBuff(ModContent.BuffType<Angry2>());
-            player.ClearBuff(ModContent.BuffType<Enraged>());
-            player.ClearBuff(ModContent.BuffType<Furious>());
-
-            player.ClearBuff(ModContent.BuffType<Happy>());
-            //player.ClearBuff(ModContent.BuffType<Happy2>());
-            player.ClearBuff(ModContent.BuffType<Ecstatic>());
-            player.ClearBuff(ModContent.BuffType<Manic>());
-
-            player.statDefense += (int)(player.statDefense * .25);
-
-            player.moveSpeed *= 0.9f;
-
         }
     }
 }

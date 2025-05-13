@@ -6,28 +6,15 @@ using OmoriMod.Items.Abstract_Classes;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace OmoriMod
+namespace OmoriMod.Systems.EmotionSystem.Interfaces
 {
-    public enum EmotionType
-    {
-        NONE = 0,
-        SAD = 1,
-        ANGRY = 2,
-        HAPPY = 3,
-    }
 
     /// <summary>
-    /// An interface to consolidate emotion application.
+    /// An interface for objects that apply emotions
     /// Acts like an abstract class for <see cref="EmotionProjectile"/> and <see cref="EmotionItem"/>
     /// </summary>
-    public interface IEmotionObject
+    public interface IOnHitEmotionObject : IEmotionObject
     {
-        
-
-        /// <summary>
-        /// The emotion this object inflicts when interacting with an enemy.
-        /// </summary>
-        protected EmotionType Emotion { get; }
 
         /// <summary>
         /// Inflicts an emotion determined by <see cref="Emotion"/> on an enemy.
