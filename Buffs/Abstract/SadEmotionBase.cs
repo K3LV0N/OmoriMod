@@ -24,13 +24,6 @@ namespace OmoriMod.Buffs.Abstract
         {
             Emotion = EmotionType.SAD;
             dustColor = Color.Blue;
-
-            emotions =
-            [
-                ModContent.BuffType<Sad>(),
-                ModContent.BuffType<Depressed>(),
-                ModContent.BuffType<Miserable>(),
-            ];
         }
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)

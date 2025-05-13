@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using OmoriMod.Systems.EmotionSystem;
 using System;
-using OmoriMod.Buffs.AngryBuff;
 
 namespace OmoriMod.Buffs.Abstract
 {
@@ -26,13 +25,6 @@ namespace OmoriMod.Buffs.Abstract
         {
             Emotion = EmotionType.ANGRY;
             dustColor = Color.Red;
-
-            emotions =
-            [
-                ModContent.BuffType<Angry>(),
-                ModContent.BuffType<Enraged>(),
-                ModContent.BuffType<Furious>(),
-            ];
         }
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)

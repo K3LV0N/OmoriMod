@@ -9,5 +9,10 @@ namespace OmoriMod.Buffs.HappyBuff
             emotionLevel = 3;
             playerPercentMovementSpeedIncrease = 0.2f;
         }
+
+        public override void SetStaticDefaults()
+        {
+            nextStageEmotionType = null;
+        }
     }
 }

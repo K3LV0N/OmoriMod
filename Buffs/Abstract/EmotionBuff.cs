@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using OmoriMod.Buffs.AngryBuff;
 using OmoriMod.Dusts;
 using OmoriMod.Players;
 using OmoriMod.Systems.EmotionSystem;
 using OmoriMod.Systems.EmotionSystem.Interfaces;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -15,11 +13,11 @@ namespace OmoriMod.Buffs.Abstract
         public EmotionType Emotion { get; protected set; }
 
         readonly public int maxEmotionLevel = 3;
-        public int emotionLevel;
+        protected int emotionLevel;
 
-        protected List<int> emotions;
+        public int? nextStageEmotionType;
 
-        public Color dustColor;
+        protected Color dustColor;
 
         public virtual void UpdateEmotionBuff(Player player, ref int buffIndex) { }
         public virtual void UpdateEmotionBuff(NPC npc, ref int buffIndex) { }
@@ -37,7 +35,7 @@ namespace OmoriMod.Buffs.Abstract
             UpdateEmotionBuff(npc, ref buffIndex);
         }
 
-        public void DustHandler(Player player, ref int buffIndex)
+        private void DustHandler(Player player, ref int buffIndex)
         {
             int dustSpawningRate = (maxEmotionLevel + 1) - emotionLevel;
 
@@ -55,24 +53,5 @@ namespace OmoriMod.Buffs.Abstract
                 );
             }
         }
-
-        // TODO: Look this over to see if I can get this to work. It works for 2 stages
-        // then breaks
-        /*
-        public override bool ReApply(Player player, int time, int buffIndex)
-        {
-            // Upgrade emotion level
-            if (emotionLevel != maxEmotionLevel)
-            {
-                player.DelBuff(buffIndex);
-                player.AddBuff(
-                    type: emotions[emotionLevel],
-                    timeToAdd: time
-                    );
-                return true;
-            }
-            return false;
-        }
-        */
     }
 }

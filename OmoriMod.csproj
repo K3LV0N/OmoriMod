@@ -5,4 +5,7 @@
     <AssemblyName>OmoriMod</AssemblyName>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Buffs\DummyBuff.png" />
+  </ItemGroup>
 </Project>

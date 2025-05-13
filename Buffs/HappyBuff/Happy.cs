@@ -1,4 +1,5 @@
 ﻿using OmoriMod.Buffs.Abstract;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Buffs.HappyBuff
 {
@@ -8,6 +9,11 @@ namespace OmoriMod.Buffs.HappyBuff
         {
             emotionLevel = 1;
             playerPercentMovementSpeedIncrease = 0.1f;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            nextStageEmotionType = ModContent.BuffType<Ecstatic>();
         }
     }
 }

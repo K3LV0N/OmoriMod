@@ -143,13 +143,15 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <param name="healthHealed"></param>
         /// <param name="manaHealed"></param>
         /// <param name="isPotion"></param>
-        public void PotionDefaults(int healthHealed, int manaHealed, bool isPotion, int buffType = 0, int buffTimeInSeconds = 0)
+        /// <param name="buffType">Defaults to 0 (no buff type)</param>
+        /// <param name="buffTimeInSeconds">Defaults to 0 (no buff time)</param>
+        public void PotionDefaults(int healthHealed, int manaHealed, bool isPotion, int buffType = 0, float buffTimeInSeconds = 0)
         {
             Item.healLife = healthHealed;
             Item.healMana = manaHealed;
             Item.potion = isPotion;
             Item.buffType = buffType;
-            Item.buffTime = buffTimeInSeconds * 60;
+            Item.buffTime = (int)(buffTimeInSeconds * 60);
         }
 
 

@@ -9,5 +9,10 @@ namespace OmoriMod.Buffs.AngryBuff
             emotionLevel = 3;
             playerPercentDefenseDecrease = 0.5f;
         }
+
+        public override void SetStaticDefaults()
+        {
+            nextStageEmotionType = null;
+        }
     }
 }

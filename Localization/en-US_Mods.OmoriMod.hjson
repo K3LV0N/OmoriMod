@@ -502,6 +502,11 @@ Buffs: {
 		DisplayName: Sentient Knife
 		Description: A floating knife is following you
 	}
+
+	DummyBuff: {
+		DisplayName: You are not supposed to see this.
+		Description: Stop looking :(
+	}
 }
 
 NPCs: {

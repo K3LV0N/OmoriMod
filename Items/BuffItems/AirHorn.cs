@@ -5,13 +5,16 @@ using OmoriMod.Buffs.AngryBuff;
 using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Players;
 using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Buffs.Abstract;
+using OmoriMod.Buffs.Abstract.Helpers;
 
 namespace OmoriMod.Items.BuffItems
 {
-    public class AirHorn : AngryItem
+    public class AirHorn : EmotionBuffItem
     {
         public override void SetDefaults()
         {
+            SetEmotionType(EmotionType.ANGRY);
 
             ItemDefaults(
                 width: 16,
@@ -34,12 +37,12 @@ namespace OmoriMod.Items.BuffItems
                 healthHealed: 0,
                 manaHealed: 0,
                 isPotion: false,
-                buffType: ModContent.BuffType<Angry>(),
-                buffTimeInSeconds: 60
+                buffType: ModContent.BuffType<DummyBuff>(),
+                buffTimeInSeconds: 0.5f
                 );
         }
 
-        public override bool CanUseItem(Player player)
+        public override bool CanUseItemEmotionBuffItem(Player player)
         {
             EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
 
@@ -47,29 +50,16 @@ namespace OmoriMod.Items.BuffItems
             return false;
         }
 
-        public override bool? UseItem(Player player)
+        public override bool? UseItemEmotionBuffItem(Player player)
         {
-            if (player.HasBuff<Furious>())
-            {
-                player.AddBuff(ModContent.BuffType<Furious>(), Item.buffTime);
-            }
-            else if (player.HasBuff<Enraged>())
-            {
-                player.ClearBuff(ModContent.BuffType<Enraged>());
-                player.AddBuff(ModContent.BuffType<Furious>(), Item.buffTime);
-            }
-            else if (player.HasBuff<Angry>())
-            {
-                player.ClearBuff(ModContent.BuffType<Angry>());
-                player.AddBuff(ModContent.BuffType<Enraged>(), Item.buffTime);
-            }
-            else
-            {
-                player.AddBuff(ModContent.BuffType<Angry>(), Item.buffTime);
-            }
+
+            EmotionHelper.ApplyOrPromoteBuff<AngryEmotionBase>(
+                player: player,
+                baseBuffType: ModContent.BuffType<Angry>(),
+                duration: EmotionBuffItemBase.emotionTimeInSeconds * 60
+                );
 
             return true;
         }
-
     }
 }

@@ -1,4 +1,6 @@
-﻿using OmoriMod.Buffs.Abstract;
+﻿using OmoriMod.Buffs;
+using OmoriMod.Buffs.Abstract;
+using OmoriMod.Buffs.Abstract.Helpers;
 using OmoriMod.Systems.EmotionSystem.Interfaces;
 using Terraria.ModLoader;
 
@@ -11,6 +13,12 @@ namespace OmoriMod.Players
         public override void ResetEffects()
         {
             Emotion = EmotionType.NONE;
+        }
+
+        public override void PreUpdateBuffs()
+        {
+            // Remove dummy buff
+            Player.ClearBuff(ModContent.BuffType<DummyBuff>());
         }
 
         /// <summary>

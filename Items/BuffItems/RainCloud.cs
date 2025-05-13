@@ -4,17 +4,20 @@ using Terraria.ModLoader;
 using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Players;
 using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Buffs.Abstract.Helpers;
+using OmoriMod.Buffs.Abstract;
 
 namespace OmoriMod.Items.BuffItems
 {
-    public class RainCloud : SadItem
+    public class RainCloud : EmotionBuffItem
     {
         public override void SetDefaults()
         {
-            EmotionItemCloneWithDifferentBuff<AirHorn>(ModContent.BuffType<Sad>());
+            SetEmotionType(EmotionType.SAD);
+            EmotionItemClone<AirHorn>();
         }
 
-        public override bool CanUseItem(Player player)
+        public override bool CanUseItemEmotionBuffItem(Player player)
         {
             EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
 
@@ -22,29 +25,15 @@ namespace OmoriMod.Items.BuffItems
             return false;
         }
 
-        public override bool? UseItem(Player player)
+        public override bool? UseItemEmotionBuffItem(Player player)
         {
+            EmotionHelper.ApplyOrPromoteBuff<SadEmotionBase>(
+                player: player,
+                baseBuffType: ModContent.BuffType<Sad>(),
+                duration: EmotionBuffItemBase.emotionTimeInSeconds * 60
+                );
 
-            if (player.HasBuff<Miserable>())
-            {
-                player.AddBuff(ModContent.BuffType<Miserable>(), Item.buffTime);
-            }
-            else if (player.HasBuff<Depressed>())
-            {
-                player.ClearBuff(ModContent.BuffType<Depressed>());
-                player.AddBuff(ModContent.BuffType<Miserable>(), Item.buffTime);
-            }
-            else if (player.HasBuff<Sad>())
-            {
-                player.ClearBuff(ModContent.BuffType<Sad>());
-                player.AddBuff(ModContent.BuffType<Depressed>(), Item.buffTime);
-            }
-            else
-            {
-                player.AddBuff(ModContent.BuffType<Sad>(), Item.buffTime);
-            }
             return true;
-
         }
     }
 }

@@ -10,5 +10,10 @@ namespace OmoriMod.Buffs.SadBuff
             playerPercentMovementSpeedDecrease = 0.25f;
             playerPercentDefenseIncrease = 0.4f;
         }
+
+        public override void SetStaticDefaults()
+        {
+            nextStageEmotionType = null;
+        }
     }
 }
