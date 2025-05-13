@@ -56,7 +56,7 @@ namespace OmoriMod.Systems.ChargeBar
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-            if( !(Main.LocalPlayer.HeldItem.ModItem is FocusClass))
+            if( !(Main.LocalPlayer.HeldItem.ModItem is FocusItem))
             {
                 return;
             }
@@ -125,7 +125,7 @@ namespace OmoriMod.Systems.ChargeBar
 
         public override void Update(GameTime gameTime)
         {
-            if (!(Main.LocalPlayer.HeldItem.ModItem is FocusClass))
+            if (!(Main.LocalPlayer.HeldItem.ModItem is FocusItem))
             {
                 return;
             }

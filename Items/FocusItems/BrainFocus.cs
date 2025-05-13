@@ -8,22 +8,17 @@ using OmoriMod.Items.Abstract_Classes;
 
 namespace OmoriMod.Items.FocusItems
 {
-    public class BrainFocus : FocusClass
+    public class BrainFocus : FocusItem
     {
         public override void SetDefaults()
         { 
-            // focus class fields
-            charge = 0;
-            dps = 2;
-            maxCharge = 7 * 60;
-            timer = 0;
-            chargeTimer = 0;
-            decayTimer = 0;
-            timeUntilChargeStarts = 40;
-            timeUntilDecayStarts = 20;
-            decayRate = 2;
-            charging = false;
-            decaying = true;
+            InitFocusItem(
+                maxCharge: 7,
+                dpsIncrease: 2,
+                ticksUntilChargeStarts: 40,
+                ticksUntilDecayStarts: 20,
+                tickDecayRate: 2
+                );
 
             ItemDefaults(
                 width: 26,
@@ -59,16 +54,6 @@ namespace OmoriMod.Items.FocusItems
 
             SetItemRarity(ItemRarityID.Blue);
         }
-
-        public override void HoldItem(Player player)
-        {
-            HoldItemFocus(player);
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            UpdateInventoryFocus(player);
-        } 
 
         public override void AddRecipes()
         {

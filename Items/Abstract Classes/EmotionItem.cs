@@ -4,10 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.Audio;
 using System;
-using OmoriMod.Items.BuffItems;
-using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
 using System.Collections.Generic;
-using OmoriMod.Items.Weapons.Melee.Tier1;
 
 namespace OmoriMod.Items.Abstract_Classes
 {
@@ -31,9 +28,19 @@ namespace OmoriMod.Items.Abstract_Classes
             Emotion = emotion;
         }
 
+        /// <summary>
+        /// A hook method that allows emotion items to call <see cref="OnHitNPC(Player, NPC, NPC.HitInfo, int)"/> without breaking the emotion system.
+        /// </summary>
+        /// <param name="player">The player.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="hit">The damage.</param>
+        /// <param name="damageDone">The actual damage dealt to/taken by the NPC.</param>
+        public virtual void OnHitNPCEmotion(Player player, NPC target, NPC.HitInfo hit, int damageDone) { }
+
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             ((IEmotionObject)this).InflictEmotion(target);
+            OnHitNPCEmotion(player, target, hit, damageDone);
         }
 
         public void SetAngryDefaults() { SetRarity(); }

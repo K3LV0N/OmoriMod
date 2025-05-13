@@ -20,10 +20,10 @@ namespace OmoriMod.Projectiles.Friendly.FocusProjectiles
         public override void PostAI()
         {
             // Rotate and flip
-            VelocityRotate(flip: true);
+            VelocityRotateWith90(flip: true);
 
             // Rotate an extra bit slightly
-            Projectile.rotation =+ .15f;
+            Projectile.rotation += .15f;
         }
 
         public override void OnKill(int timeLeft)

@@ -37,10 +37,18 @@ namespace OmoriMod.Projectiles.Abstract_Classes
         }
 
 
+        /// <summary>
+        /// A hook method that allows emotion projectiles to call <see cref="OnHitNPC(NPC, NPC.HitInfo, int)"/> without breaking the emotion system.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="hit">The damage.</param>
+        /// <param name="damageDone">The actual damage dealt to/taken by the NPC.</param>
+        public virtual void OnHitNPCEmotion(NPC target, NPC.HitInfo hit, int damageDone) { }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            // cast to the intertface to call the function
             ((IEmotionObject)this).InflictEmotion(target);
+            OnHitNPCEmotion(target, hit, damageDone);
         }
 
 
@@ -266,7 +274,19 @@ namespace OmoriMod.Projectiles.Abstract_Classes
         public void VelocityRotate(bool flip)
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (flip) { Projectile.rotation += MathHelper.PiOver2; }
+            if (flip) { Projectile.rotation += MathHelper.Pi; }
+        }
+
+        /// <summary>
+        /// Rotates the Projectile by the velocity. Flips 90 degrees afterwards.
+        /// If <paramref name="flip"/> is set to true, the Projectile will be flipped.
+        /// </summary>
+        /// <param name="flip">Whether the rotation should be flipped.</param>
+        public void VelocityRotateWith90(bool flip)
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (flip) { Projectile.rotation += MathHelper.Pi; }
+            Projectile.rotation += MathHelper.PiOver2;
         }
 
         /// <summary>
