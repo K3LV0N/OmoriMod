@@ -3,6 +3,7 @@ using OmoriMod.Dusts;
 using OmoriMod.NPCs.Global;
 using OmoriMod.Players;
 using OmoriMod.Systems.EmotionSystem.Interfaces;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -35,7 +36,45 @@ namespace OmoriMod.Buffs.Abstract
             UpdateEmotionBuff(npc, ref buffIndex);
         }
 
-        
+        protected float ExponentialGrowthPerLevel(float perLvl, float startingValue = 0)
+        {
+            // turn values into percents
+            float percentPerLvl = perLvl / 100;
+            float percentStartingValue = startingValue / 100;
+
+            // add 1 to account for base percent
+            float baseMultiplier = (1 + percentPerLvl);
+            // remove 1 to isolate growth
+            float growth = MathF.Pow(baseMultiplier, emotionLevel) - 1;
+
+            return growth + percentStartingValue;
+        }
+
+
+        /// <param name="emotionMidLevel">The value of <see cref="emotionLevel"/> which will result in the function outputting <paramref name="maxValue"/> + <paramref name="minValue"/> / 2</param>
+        protected float LogisticGrowthPerLevel(float perLvl, float maxValue, float emotionMidLevel, float minValue = 0f)
+        {
+            float percentMaxValue = maxValue / 100;
+            float percentMinValue = minValue / 100;
+            float percentPerLvl = perLvl / 100;
+
+            float range = percentMaxValue - percentMinValue;
+
+            float exponent = -percentPerLvl * (emotionLevel - emotionMidLevel);
+            float value = range / (1 + MathF.Exp(exponent));
+
+            return value + percentMinValue;
+        }
+
+        protected float LinearPerLevel(float perLvl, float startingValue = 0)
+        {
+            // turn values into percents
+            float percentPerLvl = perLvl / 100;
+            float percentStartingValue = startingValue / 100;
+
+            return (percentPerLvl * emotionLevel) + percentStartingValue;
+        }
+
 
         private void DustHandler(Player player, ref int buffIndex)
         {

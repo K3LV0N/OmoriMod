@@ -12,7 +12,7 @@
         /// <c>false</c> if the other <see cref="IEmotionEntity"/> has the advantage,
         /// and <c>null</c> if there is no advantage
         /// </returns>
-        public bool? Beats(IEmotionEntity otherEntity)
+        public bool? CheckForAdvantage(IEmotionEntity otherEntity)
         {
             if (Emotion == EmotionType.ANGRY)
             {

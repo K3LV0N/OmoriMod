@@ -136,7 +136,7 @@ namespace OmoriMod.NPCs.Global
         /// Any <c>negative value</c> means the defender has advantage.</returns>
         private static int CalculateAdvantage(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity)
         {
-            bool? attackerAdvantage = attacker.Beats(defender);
+            bool? attackerAdvantage = attacker.CheckForAdvantage(defender);
             if (attackerAdvantage == null) { return 0; }
             if (attackerAdvantage == true)
             {
@@ -148,45 +148,43 @@ namespace OmoriMod.NPCs.Global
             }
         }
 
-        private static void AdvantageModifier(int advantage, ref NPC.HitModifiers modifiers)
+        private static void ApplyAdvantage(int advantage, ref NPC.HitModifiers modifiers)
+        {
+            if (advantage == 0) return;
+
+            if (advantage > 0)
+            {
+                modifiers.SourceDamage += EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
+                return;
+            }
+
+            if (advantage < 0)
+            {
+                modifiers.SourceDamage -= EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
+                return;
+            }
+        }
+        private static void ApplyAdvantage(int advantage, ref Player.HurtModifiers modifiers)
         {
             if (advantage == 0) return;
 
             if (advantage > 0)
             {
                 int index = advantage - 1;
-                modifiers.SourceDamage += EmotionHelper.EmotionalAdvantageValues[index];
+                modifiers.SourceDamage += EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
                 return;
             }
 
             if (advantage < 0)
             {
                 int index = -advantage - 1;
-                modifiers.SourceDamage -= EmotionHelper.EmotionalAdvantageValues[index];
-                return;
-            }
-        }
-        private static void AdvantageModifier(int advantage, ref Player.HurtModifiers modifiers)
-        {
-            if (advantage == 0) return;
-
-            if (advantage > 0)
-            {
-                int index = advantage - 1;
-                modifiers.SourceDamage += EmotionHelper.EmotionalAdvantageValues[index];
-                return;
-            }
-
-            if (advantage < 0)
-            {
-                int index = -advantage - 1;
-                modifiers.SourceDamage -= EmotionHelper.EmotionalAdvantageValues[index];
+                modifiers.SourceDamage -= EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
                 return;
             }
         }
 
 
-        private static void EmotionBonusModifiers(IEmotionEntity attacker, Entity attackEntity, ref NPC.HitModifiers modifiers)
+        private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, Entity attackEntity, ref NPC.HitModifiers modifiers)
         {
             if (attacker.Emotion == EmotionType.ANGRY)
             {
@@ -201,7 +199,7 @@ namespace OmoriMod.NPCs.Global
                 EmotionHelper.HappyHitModifiers(happyEmotion, ref modifiers);
             }
         }
-        private static void EmotionBonusModifiers(IEmotionEntity attacker, Entity attackEntity, ref Player.HurtModifiers modifiers)
+        private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity, ref Player.HurtModifiers modifiers)
         {
             if (attacker.Emotion == EmotionType.ANGRY)
             {
@@ -213,6 +211,12 @@ namespace OmoriMod.NPCs.Global
             {
                 HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity));
                 EmotionHelper.HappyHitModifiers(happyEmotion, ref modifiers);
+            }
+
+            if (defender.Emotion == EmotionType.SAD)
+            {
+                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(defendEntity));
+                EmotionHelper.SadHitDamageReductionModifiers(sadEmotion, ref modifiers);
             }
         }
 
@@ -224,8 +228,8 @@ namespace OmoriMod.NPCs.Global
                 attackEntity: attackEntity,
                 defendEntity: defendEntity
                 );
-            AdvantageModifier(advantage, ref modifiers);
-            EmotionBonusModifiers(attacker, attackEntity, ref modifiers);
+            ApplyAdvantage(advantage, ref modifiers);
+            ApplyAdditionalEmotionModifiers(attacker, attackEntity, ref modifiers);
         }
         private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity, ref Player.HurtModifiers modifiers)
         {
@@ -235,8 +239,8 @@ namespace OmoriMod.NPCs.Global
                 attackEntity: attackEntity,
                 defendEntity: defendEntity
                 );
-            AdvantageModifier(advantage, ref modifiers);
-            EmotionBonusModifiers(attacker, attackEntity, ref modifiers);
+            ApplyAdvantage(advantage, ref modifiers);
+            ApplyAdditionalEmotionModifiers(attacker, defender, attackEntity, defendEntity, ref modifiers);
         }
 
 
@@ -300,7 +304,7 @@ namespace OmoriMod.NPCs.Global
             if (emotionPlayer.Emotion == EmotionType.SAD)
             {
                 SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(emotionPlayer.Player));
-                EmotionHelper.SadHitModifiers(emotionPlayer.Player, sadEmotion, hurtInfo);
+                EmotionHelper.SadHitManaModifiers(emotionPlayer.Player, sadEmotion, hurtInfo);
             }
         }
     }
