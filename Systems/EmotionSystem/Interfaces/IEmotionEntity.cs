@@ -1,47 +1,39 @@
-﻿using OmoriMod.Buffs.Abstract;
-
-namespace OmoriMod.Systems.EmotionSystem.Interfaces
+﻿namespace OmoriMod.Systems.EmotionSystem.Interfaces
 {
     public interface IEmotionEntity : IEmotionObject
     {
+        public bool ImmuneToEmotionChange { get; }
 
         /// <summary>
-        /// Takes in an <see cref="EmotionBuff"/> and returns the corresponding <see cref="EmotionType"/>
+        /// Calculates which <see cref="IEmotionEntity"/> has the emotional advantage
         /// </summary>
-        /// <typeparam name="T">The <see cref="EmotionBuff"/></typeparam>
-        /// <returns>The corresponding <see cref="EmotionType"/></returns>
-        public EmotionType IdentifyEmotion<T>() where T : EmotionBuff
-        {
-            if (typeof(AngryEmotionBase).IsAssignableFrom(typeof(T))) return EmotionType.ANGRY;
-            if (typeof(HappyEmotionBase).IsAssignableFrom(typeof(T))) return EmotionType.HAPPY;
-            if (typeof(SadEmotionBase).IsAssignableFrom(typeof(T))) return EmotionType.SAD;
-            return EmotionType.NONE;
-        }
-
-
-        /// <summary>
-        /// Determines whether an emotion of type <typeparamref name="T"/> can be applied 
-        /// based on the current emotion state.
-        /// </summary>
-        /// <typeparam name="T">The type of the emotion to apply. Must inherit from <see cref="EmotionBuff"/>.</typeparam>
-        /// <returns>
-        /// <c>true</c> if the emotion can be applied (i.e., if no emotion is currently active,
-        /// or if the type <typeparamref name="T"/> corresponds to the currently active emotion type); 
-        /// otherwise, <c>false</c>.
+        /// <param name="otherEntity"></param>
+        /// <returns><c>true</c> if this <see cref="IEmotionEntity"/> has the advantage, 
+        /// <c>false</c> if the other <see cref="IEmotionEntity"/> has the advantage,
+        /// and <c>null</c> if there is no advantage
         /// </returns>
-        public bool CanApplyEmotion<T>() where T : EmotionBuff
+        public bool? Beats(IEmotionEntity otherEntity)
         {
-            if (Emotion == EmotionType.NONE) return true;
-            if (IdentifyEmotion<T>() == Emotion) return true;
-            return false;
-        }
+            if (Emotion == EmotionType.ANGRY)
+            {
+                if (otherEntity.Emotion == EmotionType.SAD)   return true;
+                if (otherEntity.Emotion == EmotionType.HAPPY) return false;
+                return null;
+            }
+            if (Emotion == EmotionType.HAPPY)
+            {
+                if (otherEntity.Emotion == EmotionType.ANGRY) return true;
+                if (otherEntity.Emotion == EmotionType.SAD) return false;
+                return null;
+            }
+            if (Emotion == EmotionType.SAD)
+            {
+                if (otherEntity.Emotion == EmotionType.HAPPY) return true;
+                if (otherEntity.Emotion == EmotionType.ANGRY) return false;
+                return null;
+            }
 
-        /// <summary>
-        /// Applies the emotion specified to the <see cref="IEmotionEntity"/>
-        /// </summary>
-        /// <typeparam name="T">The <see cref="EmotionBuff"/> to apply.</typeparam>
-        /// <param name="ticks">The ticks the <see cref="EmotionBuff"/> should last for. 
-        /// If <paramref name="ticks"/> = -1, no timer will shown, and the buff will last forever.</param>
-        public void ApplyEmotion<T>(int ticks) where T : EmotionBuff;
+            return null;
+        }
     }
 }

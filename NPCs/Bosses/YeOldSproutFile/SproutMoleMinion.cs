@@ -2,10 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using System.IO;
+using OmoriMod.NPCs.Abstract;
 
 namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
 {
-    internal class SproutMoleMinion : BasicEnemy
+    internal class SproutMoleMinion : OmoriModEnemy
     {
         public override void SetStaticDefaults()
         {
@@ -14,6 +15,7 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
 
         public override void SetDefaults()
         {
+            NPC.boss = true;
             NPC.width = 17;
             NPC.height = 30;
             NPC.lifeMax = 30;
@@ -118,7 +120,7 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
                     float speed = 2f;
                     float inertia = 25f;
 
-                    moveHorizontal(speed, inertia, xDirection);
+                    MoveHorizontal(speed, inertia, xDirection);
                 }
             }
 

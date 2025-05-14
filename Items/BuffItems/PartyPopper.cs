@@ -30,7 +30,7 @@ namespace OmoriMod.Items.BuffItems
             EmotionHelper.ApplyOrPromoteBuff<HappyEmotionBase>(
                 player: player,
                 baseBuffType: ModContent.BuffType<Happy>(),
-                duration: EmotionBuffItemBase.emotionTimeInSeconds * 60
+                duration: EmotionHelper.emotionTimeInSeconds * 60
                 );
 
             return true;

@@ -20,39 +20,45 @@ namespace OmoriMod.Items.Abstract_Classes
     {
 
 
-        // Keeps track of the current state of the item;
+        /// <summary>
+        /// The current state of the item
+        /// </summary>
         private FocusState currentState;
 
-        // Keeps track of the ticks passed since a state change.
+        /// <summary>
+        /// The amount of ticks that have passed since the last state change
+        /// </summary>
         private int stateTickTimer;
 
-        // The current charge of the item.
+        /// <summary>
+        /// The current charge of the item
+        /// </summary>
         private int charge;
 
 
 
         /// <summary>
-        /// The maximum charge of this <see cref="FocusItem"/>.
+        /// The maximum charge of this <see cref="FocusItem"/>
         /// </summary>
         public int maxCharge;
 
         /// <summary>
-        /// The amount that the dps of this <see cref="FocusItem"/> increases each second.
+        /// The amount that the dps of this <see cref="FocusItem"/> increases each second
         /// </summary>
         public int dpsIncrease;
         
         /// <summary>
-        /// The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts increasing.
+        /// The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts increasing
         /// </summary>
         public int ticksUntilChargeStarts;
 
         /// <summary>
-        /// The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts decaying.
+        /// The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts decaying
         /// </summary>
         public int ticksUntilDecayStarts;
 
         /// <summary>
-        /// How fast in ticks the charge of this <see cref="FocusItem"/> should decay. A <paramref name="tickDecayRate"/> of 2 means charge will be lost every 2 ticks.
+        /// How fast in ticks the charge of this <see cref="FocusItem"/> should decay. A <paramref name="tickDecayRate"/> of 2 means charge will be lost every 2 ticks
         /// </summary>
         public int tickDecayRate;
 
@@ -60,11 +66,11 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <summary>
         /// Initalizes the focus item.
         /// </summary>
-        /// <param name="maxCharge">The maximum charge of this <see cref="FocusItem"/>.</param>
-        /// <param name="dpsIncrease">The amount that the dps of this <see cref="FocusItem"/> increases each second.</param>
-        /// <param name="ticksUntilChargeStarts">The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts increasing.</param>
-        /// <param name="ticksUntilDecayStarts">The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts decaying.</param>
-        /// <param name="tickDecayRate">How fast in ticks the charge of this <see cref="FocusItem"/> should decay. A <paramref name="tickDecayRate"/> of 2 means charge will be lost every 2 ticks.</param>
+        /// <param name="maxCharge">The maximum charge of this <see cref="FocusItem"/></param>
+        /// <param name="dpsIncrease">The amount that the dps of this <see cref="FocusItem"/> increases each second</param>
+        /// <param name="ticksUntilChargeStarts">The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts increasing</param>
+        /// <param name="ticksUntilDecayStarts">The amount of ticks that pass before the <see cref="FocusItem"/>s charge starts decaying</param>
+        /// <param name="tickDecayRate">How fast in ticks the charge of this <see cref="FocusItem"/> should decay. A <paramref name="tickDecayRate"/> of 2 means charge will be lost every 2 ticks</param>
         public void InitFocusItem(int maxCharge, int dpsIncrease, int ticksUntilChargeStarts, int ticksUntilDecayStarts, int tickDecayRate)
         {
             currentState = FocusState.IdleToCharge;
@@ -80,31 +86,31 @@ namespace OmoriMod.Items.Abstract_Classes
 
 
         /// <summary>
-        /// A hook method that allows focus items to use <see cref="HoldItem(Player)"/> without breaking Focus logic.
+        /// A hook method that allows focus items to use <see cref="HoldItem(Player)"/> without breaking Focus logic
         /// </summary>
         /// <param name="player">The player for <see cref="HoldItem(Player)"/></param>
         public virtual void HoldItemFocus(Player player) { }
 
         /// <summary>
-        /// A hook method that allows focus items to use <see cref="UpdateInventory(Player)"/> without breaking Focus logic.
+        /// A hook method that allows focus items to use <see cref="UpdateInventory(Player)"/> without breaking Focus logic
         /// </summary>
         /// <param name="player">The player for <see cref="UpdateInventory(Player)"/></param>
         public virtual void UpdateInventoryFocus(Player player) { }
 
         /// <summary>
-        /// A hook method that allows focus items to use <see cref="NetSend(BinaryWriter)"/> without breaking Focus logic.
+        /// A hook method that allows focus items to use <see cref="NetSend(BinaryWriter)"/> without breaking Focus logic
         /// </summary>
         /// <param name="writer">The writer for <see cref="NetSend(BinaryWriter)"/></param>
         public virtual void NetSendFocus(BinaryWriter writer) { }
 
         /// <summary>
-        /// A hook method that allows focus items to use <see cref="NetReceive(BinaryReader)"/> without breaking Focus logic.
+        /// A hook method that allows focus items to use <see cref="NetReceive(BinaryReader)"/> without breaking Focus logic
         /// </summary>
         /// <param name="reader">The reader for <see cref="NetReceive(BinaryReader)"/></param>
         public virtual void NetReceiveFocus(BinaryReader reader) { }
 
         /// <summary>
-        /// A hook method that allows focus items to use <see cref="ModifyWeaponDamage(Player, ref StatModifier)"/> without breaking Focus logic.
+        /// A hook method that allows focus items to use <see cref="ModifyWeaponDamage(Player, ref StatModifier)"/> without breaking Focus logic
         /// </summary>
         /// <param name="player">The player for <see cref="ModifyWeaponDamage(Player, ref StatModifier)"/></param>
         /// <param name="damage">The <see cref="StatModifier"/> for <see cref="ModifyWeaponDamage(Player, ref StatModifier)"/></param>

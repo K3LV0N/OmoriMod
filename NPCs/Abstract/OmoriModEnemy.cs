@@ -6,11 +6,11 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.NPCs
+namespace OmoriMod.NPCs.Abstract
 {
-    public abstract class BasicEnemy : ModNPC
+    public abstract class OmoriModEnemy : ModNPC
     {
-        public virtual void moveHorizontalBlocky(float maxSpeed, float minSpeed, float accel, float fastAccel, int xDirection)
+        public virtual void MoveHorizontalBlocky(float maxSpeed, float minSpeed, float accel, float fastAccel, int xDirection)
         {
             // If under max speed and above min speed, accel
             if (Math.Abs(NPC.velocity.X) < maxSpeed && Math.Abs(NPC.velocity.X) > minSpeed)
@@ -33,14 +33,14 @@ namespace OmoriMod.NPCs
         }
 
         /// <summary>
-        /// <c>moveHorizontal</c> is a movement function.
-        /// <paramref name="inertia"/> needs to be greater than 1.
-        /// <paramref name="speed"/> is the TOTAL speed.
-        /// <paramref name="xDirection"/> is the direction.
+        /// Moves the <see cref="NPC"/> horizontally
         /// </summary>
-        public virtual void moveHorizontal(float speed, float inertia, int xDirection)
+        /// <param name="speed">The speed of the movement</param>
+        /// <param name="inertia">How much inertia the <see cref="NPC"/> should have. This value should be greater than 1</param>
+        /// <param name="xDirection">What direction the movement is going</param>
+        public virtual void MoveHorizontal(float speed, float inertia, int xDirection)
         {
-            Vector2 direction = new Vector2(xDirection, 0);
+            var direction = new Vector2(xDirection, 0);
             direction.Normalize();
             direction *= speed;
             NPC.velocity = (NPC.velocity * (inertia - 1) + direction * speed) / inertia;
@@ -53,10 +53,10 @@ namespace OmoriMod.NPCs
                 return;
             }
             else if (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server)
-            { 
+            {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(message, Array.Empty<object>()), Color.White, -1);
             }
-            
+
         }
 
         public double FindDistance(double x1, double x2, double y1, double y2)

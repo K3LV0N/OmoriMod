@@ -1,11 +1,8 @@
 ﻿using OmoriMod.Systems.EmotionSystem.Interfaces;
 using Microsoft.Xna.Framework;
-using OmoriMod.Buffs.SadBuff;
-using Terraria.ModLoader;
 using Terraria;
-using OmoriMod.Buffs.AngryBuff;
-using OmoriMod.Systems.EmotionSystem;
-using OmoriMod.Buffs.HappyBuff;
+using OmoriMod.Buffs.Abstract.Helpers;
+using OmoriMod.NPCs.Global;
 
 namespace OmoriMod.Buffs.Abstract
 {
@@ -14,7 +11,18 @@ namespace OmoriMod.Buffs.Abstract
     /// </summary>
     public abstract class HappyEmotionBase : EmotionBuff
     {
+        // movement speed increase
         public float playerPercentMovementSpeedIncrease;
+        public float NPCPercentMovementSpeedIncrease;
+
+        // crit chance increase
+        public float playerPercentExtraCritChance = 0.12f;
+        public float NPCPercentExtraCritChance = 0.07f;
+
+        // miss chance
+        public float playerPercentMissChance;
+        public float NPCPercentMissChance;
+
         public HappyEmotionBase() 
         {
             Emotion = EmotionType.HAPPY;
@@ -23,21 +31,13 @@ namespace OmoriMod.Buffs.Abstract
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
-            player.ClearBuff(ModContent.BuffType<Angry>());
-            player.ClearBuff(ModContent.BuffType<Enraged>());
-            player.ClearBuff(ModContent.BuffType<Furious>());
-
-            player.ClearBuff(ModContent.BuffType<Sad>());
-            player.ClearBuff(ModContent.BuffType<Depressed>());
-            player.ClearBuff(ModContent.BuffType<Miserable>());
-
-            player.moveSpeed *= (1 + playerPercentMovementSpeedIncrease);
+            EmotionHelper.HappyBuffRemovals(player);
+            EmotionHelper.HappyBuffModifiers(this, player);
         }
 
         public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
         {
-            npc.RequestBuffRemoval(ModContent.BuffType<Sad>());
-            npc.RequestBuffRemoval(ModContent.BuffType<Angry>());
+            EmotionHelper.HappyBuffRemovals(npc);
         }
     }
 }

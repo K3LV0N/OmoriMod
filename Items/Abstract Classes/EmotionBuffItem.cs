@@ -1,15 +1,26 @@
 ﻿using Terraria;
+using OmoriMod.Buffs.Abstract;
 
 namespace OmoriMod.Items.Abstract_Classes
 {
+    /// <summary>
+    /// Parent class for any item that grants an <see cref="EmotionBuff"/>
+    /// </summary>
     public abstract class EmotionBuffItem : EmotionItem
     {
-        public int cooldownTicks;
-        public int timer;
+        /// <summary>
+        /// The amount of ticks needed between <see cref="EmotionBuff"/> applications.
+        /// </summary>
+        readonly private int cooldownTicks;
+
+        /// <summary>
+        /// The timer to keep track of the amount of ticks since the last <see cref="EmotionBuff"/> application.
+        /// </summary>
+        private int timer;
 
         public EmotionBuffItem()
         {
-            cooldownTicks = 45;
+            cooldownTicks = 10;
             timer = 0;
         }
 
@@ -30,6 +41,8 @@ namespace OmoriMod.Items.Abstract_Classes
         /// </summary>
         /// <param name="player">The <see cref="Player"/></param>
         public virtual bool CanUseItemEmotionBuffItem(Player player) { return true; }
+
+
 
         public override void UpdateInventory(Player player)
         {

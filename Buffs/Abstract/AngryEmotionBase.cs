@@ -1,11 +1,8 @@
-﻿using OmoriMod.Buffs.HappyBuff;
-using OmoriMod.Buffs.SadBuff;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
+﻿using OmoriMod.Systems.EmotionSystem.Interfaces;
 using Terraria;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using OmoriMod.Systems.EmotionSystem;
-using System;
+using OmoriMod.Buffs.Abstract.Helpers;
+using OmoriMod.NPCs.Global;
 
 namespace OmoriMod.Buffs.Abstract
 {
@@ -14,12 +11,14 @@ namespace OmoriMod.Buffs.Abstract
     /// </summary>
     public abstract class AngryEmotionBase : EmotionBuff
     {
+        // damage increase
+        public float playerPercentDamageIncrease;
+        public float NPCPercentDamageIncrease;
 
+        // defense decrease
         public float playerPercentDefenseDecrease;
         public float NPCMinimumDefenseIncreaseThreshold;
         public float NPCPercentDefenseDecrease;
-
-        
 
         public AngryEmotionBase()
         {
@@ -29,27 +28,14 @@ namespace OmoriMod.Buffs.Abstract
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
-            // clear other emotions
-            player.ClearBuff(ModContent.BuffType<Happy>());
-            player.ClearBuff(ModContent.BuffType<Ecstatic>());
-            player.ClearBuff(ModContent.BuffType<Manic>());
-
-            player.ClearBuff(ModContent.BuffType<Sad>());
-            player.ClearBuff(ModContent.BuffType<Depressed>());
-            player.ClearBuff(ModContent.BuffType<Miserable>());
-
-            player.statDefense -= (int)(player.statDefense * playerPercentDefenseDecrease);
+            EmotionHelper.AngryBuffRemovals(player);
+            EmotionHelper.AngryBuffModifiers(this, player);
         }
 
         public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
         {
-            npc.RequestBuffRemoval(ModContent.BuffType<Sad>());
-            npc.RequestBuffRemoval(ModContent.BuffType<Happy>());
-
-            int decreasedDefense = npc.defense - (int)(npc.defDefense * (1 - NPCPercentDefenseDecrease));
-            int defenseThreshold = (int)(npc.defDefense * NPCMinimumDefenseIncreaseThreshold);
-
-            npc.defense = Math.Max(decreasedDefense, defenseThreshold);
+            EmotionHelper.AngryBuffRemovals(npc);
+            EmotionHelper.AngryBuffModifiers(this,npc);  
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OmoriMod.Dusts;
+using OmoriMod.NPCs.Global;
 using OmoriMod.Players;
-using OmoriMod.Systems.EmotionSystem;
 using OmoriMod.Systems.EmotionSystem.Interfaces;
 using Terraria;
 using Terraria.ModLoader;
@@ -13,7 +13,7 @@ namespace OmoriMod.Buffs.Abstract
         public EmotionType Emotion { get; protected set; }
 
         readonly public int maxEmotionLevel = 3;
-        protected int emotionLevel;
+        public int emotionLevel;
 
         public int? nextStageEmotionType;
 
@@ -34,6 +34,8 @@ namespace OmoriMod.Buffs.Abstract
             npc.GetGlobalNPC<EmotionNPC>().Emotion = Emotion;
             UpdateEmotionBuff(npc, ref buffIndex);
         }
+
+        
 
         private void DustHandler(Player player, ref int buffIndex)
         {

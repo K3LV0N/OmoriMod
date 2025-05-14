@@ -2,6 +2,7 @@
 using OmoriMod.Items.BossRelated.BossBags;
 using OmoriMod.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Items.Health;
+using OmoriMod.NPCs.Abstract;
 using System;
 using System.IO;
 using Terraria;
@@ -13,19 +14,18 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
 {
     [AutoloadBossHead]
 
-    public class YeOldSprout : BasicEnemy
+    public class YeOldSprout : OmoriBossEnemy
     {
 
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 24;
         }
-        public override void SetDefaults()
+        public override void SetDefaultsBossEnemy()
         {
             NPC.width = 80;
             NPC.height = 80;
             NPC.lifeMax = 1000;
-            NPC.boss = true;
 
             NPC.damage = 15;
             NPC.defense = 10;
@@ -36,18 +36,6 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
             NPC.value = 10f;
             NPC.knockBackResist = 0.05f;
             NPC.aiStyle = -1;
-            NPC.netUpdate = true;
-
-            //Music = MusicLoader.GetMusicSlot(OmoriMod.modInstance, "Music/Blooming");
-
-            NPCID.Sets.MPAllowedEnemies[Type] = true;
-            // Automatically group with other bosses
-            NPCID.Sets.BossBestiaryPriority.Add(Type);
-        }
-
-        public static int MinionType()
-        {
-            return ModContent.NPCType<BasicEnemy>();
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -471,7 +459,7 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
                 float speed = 2.5f;
                 float inertia = 50f;
 
-                moveHorizontal(speed, inertia, xDirection);
+                MoveHorizontal(speed, inertia, xDirection);
             }
 
             Stuck_Jump_Timer++;
@@ -497,7 +485,7 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
             float speed = 2.5f;
             float inertia = 50f;
 
-            moveHorizontal(speed, inertia, xDirection);
+            MoveHorizontal(speed, inertia, xDirection);
 
             Jump_Timer++;
         }

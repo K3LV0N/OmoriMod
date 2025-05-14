@@ -7,10 +7,11 @@ using Terraria.ModLoader.Utilities;
 using OmoriMod.Items.Health;
 using System.IO;
 using OmoriMod.Items.BuffItems;
+using OmoriMod.NPCs.Abstract;
 
 namespace OmoriMod.NPCs.enemies
 {
-    internal class SproutMole : BasicEnemy
+    internal class SproutMole : OmoriModEnemy
     {
         public override void SetStaticDefaults()
         {
@@ -221,7 +222,7 @@ namespace OmoriMod.NPCs.enemies
                         float speed = 2f;
                         float inertia = 25f;
 
-                        moveHorizontal(speed, inertia, xDirection);
+                        MoveHorizontal(speed, inertia, xDirection);
                     }
                 }
             }

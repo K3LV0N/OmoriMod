@@ -19,6 +19,6 @@
         /// <summary>
         /// The emotion this object contains.
         /// </summary>
-        protected EmotionType Emotion { get; }
+        public EmotionType Emotion { get; }
     }
 }

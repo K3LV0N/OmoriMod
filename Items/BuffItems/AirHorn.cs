@@ -56,7 +56,7 @@ namespace OmoriMod.Items.BuffItems
             EmotionHelper.ApplyOrPromoteBuff<AngryEmotionBase>(
                 player: player,
                 baseBuffType: ModContent.BuffType<Angry>(),
-                duration: EmotionBuffItemBase.emotionTimeInSeconds * 60
+                duration: EmotionHelper.emotionTimeInSeconds * 60
                 );
 
             return true;

@@ -8,8 +8,18 @@ namespace OmoriMod.Buffs.SadBuff
         Depressed()
         {
             emotionLevel = 2;
-            playerPercentMovementSpeedDecrease = 0.15f;
+
+            // player changes
             playerPercentDefenseIncrease = 0.25f;
+            playerPercentMovementSpeedDecrease = 0.15f;
+
+            // damage to mana damage
+            percentDamageToManaDamageConversion = 0.15f;
+
+            // npc changes
+            NPCMaximumDefenseIncreaseThreshold = 2;
+            NPCPercentDefenseIncrease = 0.25f;
+            NPCPercentMovementSpeedDecrease = 0.2f;    
         }
 
         public override void SetStaticDefaults()
