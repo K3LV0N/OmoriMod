@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier2
 {
     public class SadBulletPlus : SadItem
     {
+        SadBulletPlus()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<AngryBulletPlus>(ModContent.ProjectileType<SadBulletPlusProjectile>());

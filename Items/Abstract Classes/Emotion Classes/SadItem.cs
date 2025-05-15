@@ -1,4 +1,4 @@
-﻿using OmoriMod.Systems.EmotionSystem.Interfaces;
+﻿using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Items.Abstract_Classes
 {

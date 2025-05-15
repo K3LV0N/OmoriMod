@@ -7,8 +7,8 @@ using OmoriMod.Buffs.AngryBuff;
 using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
 using OmoriMod.NPCs.Global;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Buffs.Abstract.Helpers
 {

@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
 {
     public class HallowKnife : SadItem
     {
+        HallowKnife()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<HallowBat>(ModContent.ProjectileType<KnifeProjectileFive>());

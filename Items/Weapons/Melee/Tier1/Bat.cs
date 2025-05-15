@@ -7,6 +7,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
 {
     public class Bat : AngryItem
     {
+        Bat()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -15,7 +19,6 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
                 scale: 1.5f,
                 buyPrice: Item.buyPrice(0, 1, 0, 0),
                 stackSize: 1,
-                researchCount: 1,
                 consumable: false
                 );
 

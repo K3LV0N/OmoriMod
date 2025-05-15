@@ -1,11 +1,16 @@
-﻿using Terraria;
+﻿using OmoriMod.Items.Abstract_Classes;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Items.TestingItems
 {
-    internal class TestBow : ModItem
+    internal class TestBow : OmoriModItem
     {
+        TestBow()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             Item.damage = 5;

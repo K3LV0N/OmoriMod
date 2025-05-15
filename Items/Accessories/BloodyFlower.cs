@@ -7,6 +7,10 @@ namespace OmoriMod.Items.Accessories
 {
     public class BloodyFlower : AngryItem
     {
+        BloodyFlower()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             SetAccessoryDefaults(

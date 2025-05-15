@@ -2,7 +2,7 @@
 using OmoriMod.Dusts;
 using OmoriMod.NPCs.Global;
 using OmoriMod.Players;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Systems.EmotionSystem;
 using System;
 using Terraria;
 using Terraria.ModLoader;

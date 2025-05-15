@@ -8,6 +8,10 @@ namespace OmoriMod.Items.Weapons.Magic.Tier3
 {
     public class HappyBomb : HappyItem
     {
+        HappyBomb()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<AngryBomb>(ModContent.ProjectileType<HappyBombProjectile>());

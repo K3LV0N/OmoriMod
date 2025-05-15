@@ -7,6 +7,10 @@ namespace OmoriMod.Items.Ammo.Arrows.Unlimited.Tier1
 {
     public class InfiniteHappyArrow : HappyItem
     {
+        InfiniteHappyArrow()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<InfiniteAngryArrow>(ModContent.ProjectileType<HappyArrowProjectileNoDrop>());

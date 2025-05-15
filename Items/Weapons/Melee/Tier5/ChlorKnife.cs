@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier5
 {
     public class ChlorKnife : SadItem
     {
+        ChlorKnife()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<ChlorBat>(ModContent.ProjectileType<KnifeProjectileFiveSeeking>());

@@ -4,14 +4,18 @@ using Terraria.ModLoader;
 using OmoriMod.Buffs.AngryBuff;
 using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Players;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
 using OmoriMod.Buffs.Abstract;
 using OmoriMod.Buffs.Abstract.Helpers;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Items.BuffItems
 {
     public class AirHorn : EmotionBuffItem
     {
+        AirHorn()
+        {
+            itemTypeForResearch = ItemTypeForResearch.BuffPotion;
+        }
         public override void SetDefaults()
         {
             SetEmotionType(EmotionType.ANGRY);
@@ -22,7 +26,6 @@ namespace OmoriMod.Items.BuffItems
                 scale: 1f,
                 buyPrice: Item.buyPrice(0, 0, 2, 0),
                 stackSize: 999,
-                researchCount: 50,
                 consumable: true
                 );
 

@@ -3,52 +3,48 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using OmoriMod.Items.Health;
 using OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout;
+using OmoriMod.Items.Abstract_Classes;
 
 namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
 {
-    public class SproutBullet : ModItem
+    public class SproutBullet : OmoriModItem
     {
+        SproutBullet()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
+        }
         public override void SetDefaults()
         {
-            Item.ResearchUnlockCount = 99;
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1f,
+                buyPrice: Item.buyPrice(platinum: 0, gold: 0, silver: 0, copper: 3),
+                stackSize: 9999,
+                consumable: true
+                );
 
-            // consumability and stack
-            Item.consumable = true;
-            Item.maxStack = 9999;
+            DamageDefaults(
+                damageType: DamageClass.Ranged,
+                damage: 6,
+                knockback: 1f,
+                crit: 4,
+                noMelee: true
+                );
 
-            // damage
-            Item.damage = 6;
-            Item.knockBack = 1;
-            Item.crit = 4;
-            
-            // size
-            Item.width = 16;
-            Item.height = 16;
+            ProjectileDefaults(
+                ammoID: Item.type,
+                projectileID: ModContent.ProjectileType<SproutBulletProjectile>(),
+                shootSpeed: 20.5f
+                );
 
-            // usage
-            Item.useTime = 20;
-            Item.useAnimation = Item.useTime;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = false;
-
-            // projectiles
-            Item.ammo = Item.type;
-            Item.shootSpeed = 20.5f;
-            Item.shoot = ModContent.ProjectileType<SproutBulletProjectile>();
-
-            // rarity
-            Item.rare = ItemRarityID.Purple;
-
-            // price
-            Item.value = Item.buyPrice(platinum: 0, gold: 0, silver: 0, copper: 3);
-
+            SetItemRarity(ItemRarityID.Purple);
         }
 
         public override void AddRecipes()
         {
-            Recipe r1 = CreateRecipe();
+            Recipe r1 = CreateRecipe(25);
             r1.AddIngredient<Tofu>(1);
-            r1.ReplaceResult(this, 25);
             r1.Register();
         }
     }

@@ -3,14 +3,18 @@ using Terraria;
 using Terraria.ModLoader;
 using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Players;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
 using OmoriMod.Buffs.Abstract.Helpers;
 using OmoriMod.Buffs.Abstract;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Items.BuffItems
 {
     public class PartyPopper : EmotionBuffItem
     {
+        PartyPopper()
+        {
+            itemTypeForResearch = ItemTypeForResearch.BuffPotion;
+        }
         public override void SetDefaults()
         {
             SetEmotionType(EmotionType.HAPPY);

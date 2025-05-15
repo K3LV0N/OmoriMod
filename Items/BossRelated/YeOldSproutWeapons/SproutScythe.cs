@@ -1,34 +1,51 @@
-﻿using OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout;
+﻿using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
 {
-    public class SproutScythe : ModItem
+    public class SproutScythe : OmoriModItem
     {
+        SproutScythe()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
-            // default stuff
-            int shotTime = 25;
-            float velocity = 20f;
-            bool autoReuse = true;
-            Item.DefaultToMagicWeapon(ModContent.ProjectileType<SproutScytheProjectile>(), shotTime, velocity, autoReuse);
+            ItemDefaults(
+                width: 32,
+                height: 32,
+                scale: 1,
+                buyPrice: Item.buyPrice(platinum: 0, gold: 4, silver: 50, copper: 0),
+                stackSize: 1,
+                consumable: false
+                );
 
+            DamageDefaults(
+                damageType: DamageClass.Magic,
+                damage: 20,
+                knockback: 1f,
+                crit: 4,
+                noMelee: true,
+                mana: 10
+                );
 
-            // damage
-            Item.damage = 20;
-            Item.mana = 10;
+            ProjectileDefaults(
+                ammoID: AmmoID.None,
+                projectileID: ModContent.ProjectileType<SproutScytheProjectile>(),
+                shootSpeed: 20f
+                );
 
-            // usage
-            Item.UseSound = SoundID.Item1;
+            AnimationDefaults(
+                useTime: 25,
+                useStyleID: ItemUseStyleID.Shoot,
+                useSound: SoundID.Item1,
+                autoReuse: true
+                );
 
-            // rarity
-            Item.rare = ItemRarityID.Purple;
-
-            // price
-            Item.value = Item.buyPrice(platinum: 0, gold: 4, silver: 50, copper: 0);
-
+            SetItemRarity(ItemRarityID.Purple);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace OmoriMod.Systems.EmotionSystem.Interfaces
+﻿namespace OmoriMod.Systems.EmotionSystem
 {
     public interface IEmotionEntity : IEmotionObject
     {
@@ -16,7 +16,7 @@
         {
             if (Emotion == EmotionType.ANGRY)
             {
-                if (otherEntity.Emotion == EmotionType.SAD)   return true;
+                if (otherEntity.Emotion == EmotionType.SAD) return true;
                 if (otherEntity.Emotion == EmotionType.HAPPY) return false;
                 return null;
             }

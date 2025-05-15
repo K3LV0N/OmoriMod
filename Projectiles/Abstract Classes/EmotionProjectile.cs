@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Dusts;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Projectiles.Abstract_Classes
 {

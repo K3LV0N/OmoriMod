@@ -9,6 +9,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
 {
     public class CrimsonBat : AngryItem
     {
+        CrimsonBat()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemClone<CorruptionBat>();

@@ -9,6 +9,10 @@ namespace OmoriMod.Items.Ammo.Bullets.Unlimited.Tier2
 {
     public class InfiniteHappyBulletPlus : HappyItem
     {
+        InfiniteHappyBulletPlus()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<InfiniteAngryBulletPlus>(ModContent.ProjectileType<HappyBulletPlusProjectile>());

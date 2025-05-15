@@ -6,7 +6,7 @@ using OmoriMod.Items.Abstract_Classes;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace OmoriMod.Systems.EmotionSystem.Interfaces
+namespace OmoriMod.Systems.EmotionSystem
 {
 
     /// <summary>

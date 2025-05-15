@@ -6,6 +6,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier1
 {
     public class Knife : SadItem
     {
+        Knife()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemClone<Bat>();

@@ -4,8 +4,12 @@ using Terraria.ID;
 
 namespace OmoriMod.Items.Starter
 {
-    public class Note : EmotionItem
+    public class Note : OmoriModItem
     {
+        Note()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -14,9 +18,9 @@ namespace OmoriMod.Items.Starter
                 scale: 1f,
                 buyPrice: Item.buyPrice(0, 0, 0, 0),
                 stackSize: 1,
-                researchCount: 1,
                 consumable: false
                 );
+
             SetItemRarity(ItemRarityID.Green);
         }
 

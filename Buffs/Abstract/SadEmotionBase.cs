@@ -1,8 +1,8 @@
-﻿using OmoriMod.Systems.EmotionSystem.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using OmoriMod.Buffs.Abstract.Helpers;
 using OmoriMod.NPCs.Global;
+using OmoriMod.Systems.EmotionSystem;
 
 
 namespace OmoriMod.Buffs.Abstract

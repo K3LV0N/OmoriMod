@@ -3,12 +3,12 @@ using OmoriMod.Buffs.Abstract;
 using OmoriMod.Buffs.Abstract.Helpers;
 using OmoriMod.NPCs.Abstract;
 using OmoriMod.Players;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Systems.EmotionSystem;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace OmoriMod.NPCs.Global
-{ 
+{
     public class EmotionNPC : GlobalNPC, IEmotionEntity
     {
         public override bool InstancePerEntity => true;
@@ -188,7 +188,6 @@ namespace OmoriMod.NPCs.Global
         {
             if (attacker.Emotion == EmotionType.ANGRY)
             {
-
                 AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity));
                 EmotionHelper.AngryHitModifiers(angryEmotion, ref modifiers);
             }

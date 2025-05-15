@@ -9,6 +9,10 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier1
 {
     public class AngryBullet : AngryItem
     {
+        AngryBullet()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -17,7 +21,6 @@ namespace OmoriMod.Items.Ammo.Bullets.Regular.Tier1
                 scale: 1,
                 buyPrice: Item.buyPrice(0, 0, 1, 0),
                 stackSize: 9999,
-                researchCount: 99,
                 consumable: true
                 );
 

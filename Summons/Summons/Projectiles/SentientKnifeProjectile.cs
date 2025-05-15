@@ -1,6 +1,6 @@
 ﻿using Terraria;
 using OmoriMod.Summons.Abstract_Classes;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Summons.Summons.Projectiles
 {

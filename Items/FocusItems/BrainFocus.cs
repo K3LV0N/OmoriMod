@@ -10,6 +10,10 @@ namespace OmoriMod.Items.FocusItems
 {
     public class BrainFocus : FocusItem
     {
+        BrainFocus()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         { 
             InitFocusItem(
@@ -26,7 +30,6 @@ namespace OmoriMod.Items.FocusItems
                 scale: 1f,
                 buyPrice: Item.buyPrice(platinum: 0, gold: 1, silver: 0, copper: 0),
                 stackSize: 1,
-                researchCount: 1,
                 consumable: false
                 );
 

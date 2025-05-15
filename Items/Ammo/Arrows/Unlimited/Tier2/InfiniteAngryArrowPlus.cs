@@ -1,7 +1,5 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
-using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
 using OmoriMod.Items.Ammo.Arrows.Regular.Tier2;
-using OmoriMod.Projectiles.Friendly.Arrows.Tier1.NoDrops;
 using OmoriMod.Projectiles.Friendly.Arrows.Tier2.NoDrops;
 using Terraria;
 using Terraria.ID;
@@ -11,17 +9,18 @@ namespace OmoriMod.Items.Ammo.Arrows.Unlimited.Tier2
 {
     public class InfiniteAngryArrowPlus : AngryItem
     {
+        InfiniteAngryArrowPlus()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
-
-
             ItemDefaults(
                 width: 16,
                 height: 16,
                 scale: 1,
                 buyPrice: Item.buyPrice(0, 5, 0, 0),
                 stackSize: 1,
-                researchCount: 3,
                 consumable: false
                 );
 

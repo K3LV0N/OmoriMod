@@ -7,6 +7,10 @@ namespace OmoriMod.Items.Accessories
 {
     public class Flower : HappyItem
     {
+        Flower()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemClone<BloodyFlower>();

@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
 {
     public class HallowBat : AngryItem
     {
+        HallowBat()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -18,7 +22,6 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
                 scale: 1.5f,
                 buyPrice: Item.buyPrice(0, 8, 0, 0),
                 stackSize: 1,
-                researchCount: 1,
                 consumable: false
                 );
 

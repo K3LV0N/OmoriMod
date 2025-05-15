@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier3
 {
     public class HellKnife : SadItem
     {
+        HellKnife()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<HellBat>(ModContent.ProjectileType<KnifeProjectileTriple>());

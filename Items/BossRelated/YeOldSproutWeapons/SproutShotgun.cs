@@ -7,44 +7,55 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout;
 using Microsoft.Xna.Framework.Graphics;
+using OmoriMod.Items.Abstract_Classes;
 
 namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
 {
-    public class SproutShotgun : ModItem
+    public class SproutShotgun : OmoriModItem
     {
-        public override void SetStaticDefaults()
+        SproutShotgun()
         {
-            Item.ResearchUnlockCount = 1;
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
         }
         public override void SetDefaults()
         {
-            // damage
-            Item.damage = 12;
-            Item.knockBack = 6;
+            ItemDefaults(
+                width: 32,
+                height: 32,
+                scale: 0.5f,
+                buyPrice: Item.buyPrice(platinum: 0, gold: 4, silver: 50, copper: 0),
+                stackSize: 1,
+                consumable: false
+                );
 
-            // size
-            Item.scale = 0.5f;
-            
-            // ranged weapon stuff
-            int useSpeed = 20;
-            float shotVelocity = 8f;
-            Item.DefaultToRangedWeapon(ModContent.ProjectileType<SproutBulletProjectile>(),
-                ModContent.ItemType<SproutBullet>(), useSpeed, shotVelocity, true);
+            DamageDefaults(
+                damageType: DamageClass.Ranged,
+                damage: 12,
+                knockback: 6,
+                crit: 4,
+                noMelee: true
+                );
 
-            // usage
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
+            ProjectileDefaults(
+                ammoID: ModContent.ItemType<SproutBullet>(),
+                projectileID: ModContent.ProjectileType<SproutBulletProjectile>(),
+                shootSpeed: 8f,
+                ammoUsedID: ModContent.ItemType<SproutBullet>()
+                );
 
-            // rarity
-            Item.rare = ItemRarityID.Purple;
+            AnimationDefaults(
+                useTime: 20,
+                useStyleID: ItemUseStyleID.Shoot,
+                useSound: SoundID.Item1,
+                autoReuse: true
+                );
 
-            // price
-            Item.value = Item.buyPrice(platinum: 0, gold: 4, silver: 50, copper: 0);
+            SetItemRarity(ItemRarityID.Purple);
         }
 
         public override Vector2? HoldoutOffset()
         {
-            Vector2 offset = new Vector2(-35, 0);
+            var offset = new Vector2(-35, 0);
             return offset;
         }
 
@@ -64,10 +75,9 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
             Vector2 startingVelocity = velocity;
 
 
-            Random rand = new Random();
+            var rand = new Random();
 
-            HashSet<int> randomAngles = new HashSet<int>();
-            randomAngles.Add(0);
+            var randomAngles = new HashSet<int> { 0 };
 
 
             for (int i = 0; i < extraProjectiles; i++)
@@ -101,7 +111,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             float time = 2.1f;
-            position = position + (velocity * time);
+            position += (velocity * time);
         }
     }
 

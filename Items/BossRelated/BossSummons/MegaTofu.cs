@@ -1,4 +1,5 @@
-﻿using OmoriMod.Items.Health;
+﻿using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Items.Health;
 using OmoriMod.NPCs.Bosses.YeOldSproutFile;
 using Terraria;
 using Terraria.Audio;
@@ -7,30 +8,31 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Items.BossRelated.BossSummons
 {
-    public class MegaTofu : ModItem
+    public class MegaTofu : OmoriModItem
     {
+        MegaTofu()
+        {
+            itemTypeForResearch = ItemTypeForResearch.TreasureBag_BossSummons_Dye;
+        }
         public override void SetDefaults()
         {
-            // consumability and stack size
-            Item.consumable = false;
-            Item.maxStack = 1;
+            ItemDefaults(
+                width: 16,
+                height: 16,
+                scale: 1,
+                buyPrice: Item.buyPrice(platinum: 0, gold: 0, silver: 15, copper: 0),
+                stackSize: 1,
+                consumable: false
+                );
 
-            // size
-            Item.width = 16;
-            Item.height = 16;
+            AnimationDefaults(
+                useTime: 20,
+                useStyleID: ItemUseStyleID.HoldUp,
+                useSound: SoundID.Roar,
+                autoReuse: false
+                );
 
-            // usage
-            Item.useTime = 20;
-            Item.useAnimation = 20;
-            Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.autoReuse = false;
-
-            // rarity
-            Item.rare = ItemRarityID.Purple;
-
-            // price
-            Item.value = Item.buyPrice(platinum: 0, gold: 0, silver: 15, copper: 0);
-
+            SetItemRarity(ItemRarityID.Purple);
         }
 
         public override bool CanUseItem(Player player)

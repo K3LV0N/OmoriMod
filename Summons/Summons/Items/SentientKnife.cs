@@ -6,12 +6,18 @@ using Terraria.ModLoader;
 using OmoriMod.Items.BuffItems;
 using OmoriMod.Summons.Summons.Buffs;
 using OmoriMod.Summons.Summons.Projectiles;
+using OmoriMod.Items.Abstract_Classes;
 
 namespace OmoriMod.Summons.Summons.Items
 {
-    public class SentientKnife : ModItem
+    public class SentientKnife : OmoriModItem
     {
-        public override void SetStaticDefaults()
+        SentientKnife()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
+
+        public override void OmoriModItemSetStaticDefaults()
         {
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;

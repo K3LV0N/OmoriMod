@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier2
 {
     public class CrimsonPan : HappyItem
     {
+        CrimsonPan()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<CorruptionBat>(ModContent.ProjectileType<PanProjectile>());

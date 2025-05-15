@@ -4,8 +4,12 @@ using Terraria.ID;
 
 namespace OmoriMod.Items.Health
 {
-    public class Tofu : EmotionItem
+    public class Tofu : OmoriModItem
     {
+        Tofu()
+        {
+            itemTypeForResearch = ItemTypeForResearch.RecoveryPotion;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -14,7 +18,6 @@ namespace OmoriMod.Items.Health
                 scale: 1f,
                 buyPrice: Item.buyPrice(platinum: 0, gold: 0, silver: 0, copper: 2),
                 stackSize: 999,
-                researchCount: 50,
                 consumable: true
                 );
 

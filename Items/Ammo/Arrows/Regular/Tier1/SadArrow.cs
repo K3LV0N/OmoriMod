@@ -8,6 +8,10 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier1
 {
     public class SadArrow : SadItem
     {
+        SadArrow()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<AngryArrow>(ModContent.ProjectileType<SadArrowProjectile>());

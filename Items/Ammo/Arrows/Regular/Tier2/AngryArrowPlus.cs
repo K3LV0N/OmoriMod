@@ -1,8 +1,6 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.Ammo.Arrows.Regular.Tier1;
 using OmoriMod.Items.Ammo.Arrows.Unlimited.Tier1;
-using OmoriMod.Items.BuffItems;
-using OmoriMod.Projectiles.Friendly.Arrows.Tier1.CanDrop;
 using OmoriMod.Projectiles.Friendly.Arrows.Tier2.CanDrop;
 using Terraria;
 using Terraria.ID;
@@ -12,6 +10,10 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier2
 {
     public class AngryArrowPlus : AngryItem
     {
+        AngryArrowPlus()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -20,7 +22,6 @@ namespace OmoriMod.Items.Ammo.Arrows.Regular.Tier2
                 scale: 1,
                 buyPrice: Item.buyPrice(0, 0, 5, 0),
                 stackSize: 9999,
-                researchCount: 99,
                 consumable: true
                 );
 

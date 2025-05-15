@@ -1,70 +1,96 @@
-﻿using Terraria;
+﻿using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Terraria.ID;
-using Terraria.Audio;
-using System;
-using System.Collections.Generic;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
 
 namespace OmoriMod.Items.Abstract_Classes
 {
-    /// <summary>
-    /// An abstract class for items that inflict emotions.
-    /// Use <see cref="AngryItem"/>, <see cref="HappyItem"/>, or <see cref="SadItem"/> 
-    /// to set emotions. If <see cref="Emotion"/> is not set, it will default to <see cref="EmotionType.NONE"/>.
-    /// </summary>
-    public abstract class EmotionItem : ModItem, IOnHitEmotionObject
+
+    public enum ItemTypeForResearch
     {
-        public EmotionType Emotion { get; protected set; }
+        Weapons_Tools_Armor_Accessory = 1,
+        QuestFish_TombStone_HerbBag = 2,
+        TreasureBag_BossSummons_Dye = 3,
+        Mechanism_Fruit_RareCraftingMaterial_Food_BiomeCrate = 10,
+        Crates_LifeManaCrystal_LifeFruit = 10,
+        Gems = 15,
+        BuffPotion = 20,
+        Ingot_Herb_Seed_CraftingMaterial = 25,
+        RecoveryPotion = 30,
+        Acorn_FallingStar_Beam = 50,
+        Ammo_Explosives = 99,
+        Ore_Block_Torch_Rope_EmptyBullet_Coin = 100,
+        Platform_ExtractinatableBlock = 200,
+        Wall = 400,
+        Unobtainable = 0
+    }
 
-        public float meleeWeaponProjectileMoveTime = 0.2f;
+    /// <summary>
+    /// Contains useful methods for a variety of mod items. Useful for when an item doesn't require being an <see cref="EmotionItem"/>
+    /// </summary>
+    public class OmoriModItem : ModItem
+    {
+
+        public ItemTypeForResearch itemTypeForResearch;
 
         /// <summary>
-        /// Used to set the <see cref="Emotion"/>
+        /// Use this to call <see cref="SetStaticDefaults"/>
         /// </summary>
-        /// <param name="emotion">The emotion to be set.</param>
-        protected void SetEmotionType(EmotionType emotion)
+        public virtual void OmoriModItemSetStaticDefaults() { }
+
+        public override void SetStaticDefaults()
         {
-            Emotion = emotion;
+            Item.ResearchUnlockCount = (int)itemTypeForResearch;
+            OmoriModItemSetStaticDefaults();
         }
+
+
+
+
+        // Rarity Setting
 
         /// <summary>
-        /// A hook method that allows emotion items to call <see cref="OnHitNPC(Player, NPC, NPC.HitInfo, int)"/> without breaking the emotion system.
+        /// Used for <see cref="EmotionItem"/> that requires a hook method to work
         /// </summary>
-        /// <param name="player">The player.</param>
-        /// <param name="target">The target.</param>
-        /// <param name="hit">The damage.</param>
-        /// <param name="damageDone">The actual damage dealt to/taken by the NPC.</param>
-        public virtual void OnHitNPCEmotion(Player player, NPC target, NPC.HitInfo hit, int damageDone) { }
+        protected virtual void SetRarity() { }
 
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        /// <summary>
+        /// Manually sets <see cref="Item.rare"/>. Must be called after <see cref="ItemDefaults(int, int, float, int, int, int, bool)."/>
+        /// </summary>
+        /// <param name="itemRarity">The rarity of the item.</param>
+        public virtual void SetItemRarity(int itemRarity)
         {
-            ((IOnHitEmotionObject)this).InflictEmotion(target);
-            OnHitNPCEmotion(player, target, hit, damageDone);
+            Item.rare = itemRarity;
         }
 
-        public void SetAngryDefaults() { SetRarity(); }
-        public void SetHappyDefaults() { SetRarity(); }
-        public void SetSadDefaults() { SetRarity(); }
+        // Rarity Setting
+        
 
-        private void SetRarity()
+
+
+        // Item Cloning
+
+        /// <summary>
+        /// Clones the defaults of a <see cref="ModItem"/> inlcuding the research unlock count
+        /// </summary>
+        /// <typeparam name="T">The <see cref="ModItem"/> to be cloned</typeparam>
+        public void ModItemClone<T>() where T : ModItem
         {
-            switch (Emotion)
-            {
-                case EmotionType.NONE:
-                    break;
-                case EmotionType.SAD:
-                    Item.rare = ItemRarityID.Blue;
-                    break;
-                case EmotionType.ANGRY:
-                    Item.rare = ItemRarityID.Red;
-                    break;
-                case EmotionType.HAPPY:
-                    Item.rare = ItemRarityID.Yellow;
-                    break;
-            }
+            int itemType = ModContent.ItemType<T>();
+            Item itemToClone = ModContent.GetModItem(itemType).Item;
+            Item.CloneDefaults(itemType);
+            Item.ResearchUnlockCount = itemToClone.ResearchUnlockCount;
         }
+
+        // Item Cloning
+
+
+
+
+        // Defaults
 
         /// <summary>
         /// Sets the defaults that every item shares
@@ -75,20 +101,19 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <param name="buyPrice"></param>
         /// <param name="stackSize"></param>
         /// <param name="researchCount"></param>
-        public void ItemDefaults(int width, int height, float scale, int buyPrice, int stackSize, int researchCount, bool consumable)
+        public void ItemDefaults(int width, int height, float scale, int buyPrice, int stackSize, bool consumable)
         {
             Item.scale = scale;
             Item.width = (int)(width * Item.scale);
             Item.height = (int)(height * Item.scale);
             Item.value = buyPrice;
             Item.maxStack = stackSize;
-            Item.ResearchUnlockCount = researchCount;
             Item.consumable = consumable;
             SetRarity();
         }
 
         /// <summary>
-        /// Sets the defaults for any item that does damage.
+        /// Sets the defaults for any item that does damage
         /// </summary>
         /// <param name="damageType"></param>
         /// <param name="damage"></param>
@@ -106,7 +131,7 @@ namespace OmoriMod.Items.Abstract_Classes
         }
 
         /// <summary> 
-        /// Sets the defaults for any item that has an animation.
+        /// Sets the defaults for any item that has an animation
         /// </summary>
         /// <param name="useTime"></param>
         /// <param name="useStyleID"></param>
@@ -125,20 +150,21 @@ namespace OmoriMod.Items.Abstract_Classes
         }
 
         /// <summary>
-        /// Sets the defaults for any item that shoots projectiles.
+        /// Sets the defaults for any item that shoots projectiles
         /// </summary>
         /// <param name="ammoID"></param>
         /// <param name="projectileID"></param>
         /// <param name="shootSpeed"></param>
-        public void ProjectileDefaults(int ammoID, int projectileID, float shootSpeed)
+        public void ProjectileDefaults(int ammoID, int projectileID, float shootSpeed, int ammoUsedID = 0)
         {
             Item.ammo = ammoID;
+            Item.useAmmo = ammoUsedID;
             Item.shootSpeed = shootSpeed;
             Item.shoot = projectileID;
         }
 
         /// <summary>
-        /// Sets the defaults for any consumable item.
+        /// Sets the defaults for any potion-like item
         /// </summary>
         /// <param name="healthHealed"></param>
         /// <param name="manaHealed"></param>
@@ -154,7 +180,6 @@ namespace OmoriMod.Items.Abstract_Classes
             Item.buffTime = (int)(buffTimeInSeconds * 60);
         }
 
-
         /// <summary>
         /// Special Method for setting Accessory Defaults
         /// </summary>
@@ -164,67 +189,22 @@ namespace OmoriMod.Items.Abstract_Classes
         public void SetAccessoryDefaults(int width, int height, int buyPrice)
         {
             Item.accessory = true;
-            ItemDefaults(width: width, height: height, scale: 1, buyPrice: buyPrice, stackSize: 1, researchCount: 1, consumable: false);
+            ItemDefaults(
+                width: width, 
+                height: height, 
+                scale: 1, 
+                buyPrice: buyPrice, 
+                stackSize: 1, 
+                consumable: false
+            );
         }
 
-        /// <summary>
-        /// Manually sets <see cref="Item.rare"/>. Must be called after <see cref="ItemDefaults(int, int, float, int, int, int, bool)."/>
-        /// </summary>
-        /// <param name="itemRarity">The rarity of the item.</param>
-        public void SetItemRarity(int itemRarity)
-        {
-            Item.rare = itemRarity;
-        }
+        // Defaults
 
 
-        /// <summary>
-        /// Clones the defaults of an <see cref="ModItem"/> inlcuding the research unlock count, 
-        /// while preserving <see cref="Item.rare"/> and <see cref="Emotion"/>.
-        /// </summary>
-        /// <typeparam name="T">The <see cref="Item"/> to be cloned.</typeparam>
-        public void EmotionItemClone<T>() where T : ModItem
-        {
-            int itemType = ModContent.ItemType<T>();
-            Item itemToClone = ModContent.GetModItem(itemType).Item;
-            Item.CloneDefaults(itemType);
-            Item.ResearchUnlockCount = itemToClone.ResearchUnlockCount;
-            SetRarity();
-            
-        }
 
-        /// <summary>
-        /// Clones the defaults of a <see cref="ModItem"/> inlcuding the research unlock count, 
-        /// while preserving <see cref="Item.rare"/> and <see cref="Emotion"/>. Changes projectile shot to
-        /// the type of <paramref name="projType"/>.
-        /// </summary>
-        /// <typeparam name="T">The <see cref="ModItem"/> to be cloned.</typeparam>
-        /// <param name="projType">The type of the <see cref="Projectile"/> shot.</param>
-        public void EmotionItemCloneWithDifferentProjectile<T>(int newProjectileType) where T : ModItem
-        {
-            int itemType = ModContent.ItemType<T>();
-            Item itemToClone = ModContent.GetModItem(itemType).Item;
-            Item.CloneDefaults(itemType);
-            Item.ResearchUnlockCount = itemToClone.ResearchUnlockCount;
-            Item.shoot = newProjectileType;
-            SetRarity();
-        }
 
-        /// <summary>
-        /// Clones the defaults of a <see cref="ModItem"/> inlcuding the research unlock count, 
-        /// while preserving <see cref="Item.rare"/> and <see cref="Emotion"/>. Changes buff applied  to
-        /// the type of <paramref name="newBuffType"/>.
-        /// </summary>
-        /// <typeparam name="T">The <see cref="ModItem"/> to be cloned.</typeparam>
-        /// <param name="projType">The type of the <see cref="Projectile"/> shot.</param>
-        public void EmotionItemCloneWithDifferentBuff<T>(int newBuffType) where T : ModItem
-        {
-            int itemType = ModContent.ItemType<T>();
-            Item itemToClone = ModContent.GetModItem(itemType).Item;
-            Item.CloneDefaults(itemType);
-            Item.ResearchUnlockCount = itemToClone.ResearchUnlockCount;
-            Item.buffType = newBuffType;
-            SetRarity();
-        }
+        // Recipes
 
         /// <summary>
         /// Helps make ammo recipes.
@@ -282,7 +262,7 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <param name="craftingStationID">The ID of the crafting station used.</param>
         public void MakeRegularRecipes(List<(int, int)> ingredients, int craftingStationID)
         {
-            foreach(var ingredient in ingredients)
+            foreach (var ingredient in ingredients)
             {
                 int ing = ingredient.Item1;
                 int amount = ingredient.Item2;
@@ -306,6 +286,13 @@ namespace OmoriMod.Items.Abstract_Classes
             recipe.Register();
         }
 
+        // Recipes
+
+
+
+
+        // Helpful Methods
+
         /// <summary>
         /// Moves projectile forward for spawning purposes.
         /// </summary>
@@ -314,12 +301,12 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <param name="ticks">How many ticks to simulate this projectile moving for.</param>
         /// <returns><c>True</c> if no collision occured.</returns>
         public virtual bool MoveProjectileForward(ref Vector2 position, ref Vector2 velocity, float ticks = 2)
-        {   
+        {
             Projectile projectile = ModContent.GetModProjectile(Item.shoot).Projectile;
 
             int actingTicks = (int)MathF.Floor(ticks);
             Vector2 actingVelocity = velocity;
-            
+
             while (ticks % 1 != 0)
             {
                 actingTicks *= 10;
@@ -327,11 +314,11 @@ namespace OmoriMod.Items.Abstract_Classes
                 actingVelocity /= 10;
             }
 
-            for(int i = 0; i < actingTicks; i++)
+            for (int i = 0; i < actingTicks; i++)
             {
                 // compute next canidate position
                 Vector2 nextPos = position + actingVelocity;
-                Rectangle hitbox = new Rectangle(
+                var hitbox = new Rectangle(
                     (int)nextPos.X,
                     (int)nextPos.Y,
                     projectile.width,
@@ -349,5 +336,7 @@ namespace OmoriMod.Items.Abstract_Classes
 
             return true;
         }
+
+        // Helpful Methods
     }
 }

@@ -8,6 +8,10 @@ namespace OmoriMod.Items.Weapons.Magic.Tier2
 {
     public class SadBundle : SadItem
     {
+        SadBundle()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<AngryBundle>(ModContent.ProjectileType<SadBundleProjectile>());

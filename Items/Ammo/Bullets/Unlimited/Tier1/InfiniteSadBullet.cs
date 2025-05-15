@@ -7,6 +7,10 @@ namespace OmoriMod.Items.Ammo.Bullets.Unlimited.Tier1
 {
     public class InfiniteSadBullet : SadItem
     {
+        InfiniteSadBullet()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<InfiniteAngryBullet>(ModContent.ProjectileType<SadBulletProjectile>());

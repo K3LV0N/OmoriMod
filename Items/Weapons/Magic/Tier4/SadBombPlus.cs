@@ -8,6 +8,10 @@ namespace OmoriMod.Items.Weapons.Magic.Tier4
 {
     public class SadBombPlus : SadItem
     {
+        SadBombPlus()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<AngryBombPlus>(ModContent.ProjectileType<SadBombPlusProjectile>());

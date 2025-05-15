@@ -1,5 +1,5 @@
 ﻿using OmoriMod.Buffs.Abstract.Helpers;
-using OmoriMod.Systems.EmotionSystem.Interfaces;
+using OmoriMod.Systems.EmotionSystem;
 using Terraria;
 using Terraria.ModLoader;
 

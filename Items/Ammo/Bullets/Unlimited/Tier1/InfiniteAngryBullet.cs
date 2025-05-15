@@ -9,6 +9,10 @@ namespace OmoriMod.Items.Ammo.Bullets.Unlimited.Tier1
 {
     public class InfiniteAngryBullet : AngryItem
     {
+        InfiniteAngryBullet()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -17,7 +21,6 @@ namespace OmoriMod.Items.Ammo.Bullets.Unlimited.Tier1
                 scale: 1,
                 buyPrice: Item.buyPrice(0, 5, 0, 0),
                 stackSize: 1,
-                researchCount: 3,
                 consumable: false
                 );
 

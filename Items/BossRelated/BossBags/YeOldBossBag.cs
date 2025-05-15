@@ -1,4 +1,5 @@
-﻿using OmoriMod.Items.BossRelated.YeOldSproutWeapons;
+﻿using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Items.Health;
 using OmoriMod.NPCs.Bosses.YeOldSproutFile;
 using Terraria.GameContent.ItemDropRules;
@@ -7,33 +8,33 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Items.BossRelated.BossBags
 {
-    public class YeOldBossBag : ModItem
+    public class YeOldBossBag : OmoriModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // This set is one that every boss bag should have.
-            // It will create a glowing effect around the item when dropped in the world.
-            // It will also let our boss bag drop dev armor..
-            ItemID.Sets.BossBag[Type] = true;
-            ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; // ..But this set ensures that dev armor will only be dropped on special world seeds, since that's the behavior of pre-hardmode boss bags.
+        YeOldBossBag() {
+            itemTypeForResearch = ItemTypeForResearch.TreasureBag_BossSummons_Dye;
+        }
 
-            Item.ResearchUnlockCount = 3;
+        public override void OmoriModItemSetStaticDefaults()
+        {
+            // boss bag
+            ItemID.Sets.BossBag[Type] = true;
+
+            // pre-hardmode boss bag
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
         }
         public override void SetDefaults()
         {
-            // consumability and stack size
-            Item.consumable = true;
-            Item.maxStack = 9999;
-            
-            // size
-            Item.width = 32;
-            Item.height = 32;
-
-            // rarity
-            Item.rare = ItemRarityID.Purple;
+            ItemDefaults(
+                width: 32,
+                height: 32,
+                scale: 1f,
+                buyPrice: 0,
+                stackSize: 9999,
+                consumable: true
+                );
 
             // expert mode only
-            Item.expert = true; // This makes sure that "Expert" displays in the tooltip and the item name color changes
+            Item.expert = true;
         }
 
         public override bool CanRightClick()
@@ -43,9 +44,10 @@ namespace OmoriMod.Items.BossRelated.BossBags
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            int[] weaponOptions = new int[2];
-            weaponOptions[0] = ModContent.ItemType<SproutShotgun>();
-            weaponOptions[1] = ModContent.ItemType<SproutScythe>();
+            int[] weaponOptions = [
+                ModContent.ItemType<SproutShotgun>(),
+                ModContent.ItemType<SproutScythe>(),
+                ];
             itemLoot.Add(ItemDropRule.OneFromOptions(1, weaponOptions));
        
 

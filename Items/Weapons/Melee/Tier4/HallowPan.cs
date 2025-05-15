@@ -10,6 +10,10 @@ namespace OmoriMod.Items.Weapons.Melee.Tier4
 {
     public class HallowPan : HappyItem
     {
+        HallowPan()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             EmotionItemCloneWithDifferentProjectile<HallowBat>(ModContent.ProjectileType<PanProjectileFive>());

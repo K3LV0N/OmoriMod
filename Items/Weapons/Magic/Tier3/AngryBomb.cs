@@ -9,6 +9,10 @@ namespace OmoriMod.Items.Weapons.Magic.Tier3
 {
     public class AngryBomb : AngryItem
     {
+        AngryBomb()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -17,7 +21,6 @@ namespace OmoriMod.Items.Weapons.Magic.Tier3
                 scale: 1f,
                 buyPrice: Item.buyPrice(0, 6, 0, 0),
                 stackSize: 1,
-                researchCount: 1,
                 consumable: false
                 );
 
