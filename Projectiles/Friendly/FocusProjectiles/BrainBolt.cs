@@ -4,7 +4,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Projectiles.Friendly.FocusProjectiles
 {
-    public class BrainBolt : EmotionProjectile
+    public class BrainBolt : OmoriModProjectile
     {
         public override void SetDefaults()
         {

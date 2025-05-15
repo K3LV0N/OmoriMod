@@ -1,11 +1,10 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using OmoriMod.Projectiles.Abstract_Classes;
 
 
 namespace OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout
 {
-    public class SproutScytheProjectile : EmotionProjectile
+    public class SproutScytheProjectile : OmoriModProjectile
     {
         public override void SetDefaults()
         {

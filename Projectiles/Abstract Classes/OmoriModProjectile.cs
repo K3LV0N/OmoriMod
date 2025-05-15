@@ -1,21 +1,14 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Dusts;
-using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Projectiles.Abstract_Classes
 {
-    /// <summary>
-    /// An abstract class for projectiles that inflict emotions.
-    /// Use <see cref="AngryProjectile"/>, <see cref="HappyProjectile"/>, or <see cref="SadProjectile"/> 
-    /// to set emotions. If <see cref="Emotion"/> is not set, it will default to <see cref="EmotionType.NONE"/>.
-    /// </summary>
-    public abstract class EmotionProjectile : ModProjectile, IOnHitEmotionObject
+    public abstract class OmoriModProjectile : ModProjectile
     {
         /// <summary>
         /// The first value in the <see cref="Projectile.ai"/> array. Standardized for timers.
@@ -26,41 +19,8 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             set => Projectile.ai[0] = value;
         }
 
-        public EmotionType Emotion { get; protected set; }
-
-        /// <summary>
-        /// Used to set the <see cref="Emotion"/>
-        /// </summary>
-        /// <param name="emotion">The emotion to be set.</param>
-        protected void SetEmotionType(EmotionType emotion)
-        {
-            Emotion = emotion;
-        }
-
-
-        /// <summary>
-        /// A hook method that allows emotion projectiles to call <see cref="OnHitNPC(NPC, NPC.HitInfo, int)"/> without breaking the emotion system.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <param name="hit">The damage.</param>
-        /// <param name="damageDone">The actual damage dealt to/taken by the NPC.</param>
-        public virtual void OnHitNPCEmotion(NPC target, NPC.HitInfo hit, int damageDone) { }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            ((IOnHitEmotionObject)this).InflictEmotion(target);
-            OnHitNPCEmotion(target, hit, damageDone);
-        }
-
-
-
-
 
         // DEFAULTS
-
-
-
-
 
         /// <summary>
         /// Set defaults for friendly projectiles.
@@ -166,38 +126,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             FriendlyDefaults(width, height, scale, damageType, penetration, tileCollide, timeLeft, alpha);
         }
 
+        // DEFAULTS
 
 
 
 
-        // DUST AND DROPS
-
-
-
-
-
-        /// <summary>
-        /// Creates a new <see cref="EmotionDust"/>, with its color determined by <see cref="Emotion"/>
-        /// </summary>
-        public void MakeDust()
-        {
-            switch (Emotion)
-            {
-                case EmotionType.NONE:
-                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.White);
-                    break;
-                case EmotionType.SAD:
-                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Blue);
-                    break;
-                case EmotionType.ANGRY:
-                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Red);
-                    break;
-                case EmotionType.HAPPY:
-                    Dust.NewDust(Projectile.Center, 2, 2, ModContent.DustType<EmotionDust>(), 0f, 0f, 0, Color.Yellow);
-                    break;
-
-            }
-        }
+        // DROP CHANCE
 
         /// <summary>
         /// Creates the <see cref="ModItem"/> corresponding with the <see cref="EmotionProjectile"/> with a certain chance.
@@ -243,15 +177,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             }
         }
 
+        // DROP CHANCE
 
 
 
 
         // ROTATION AND GRAVITY HELPER METHODS
-
-
-
-
 
         /// <summary>
         /// A helper method for gravity.
@@ -306,15 +237,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             }
         }
 
+        // ROTATION AND GRAVITY HELPER METHODS
 
 
 
 
         // SPLITTING HELPER METHODS
-
-
-
-
 
         /// <summary>
         /// Splits 1 projectile into many projectiles.
@@ -428,15 +356,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             return vecs;
         }
 
+        // SPLITTING HELPER METHODS
 
 
 
 
         // ANIMATION HELPER METHODS
-
-
-
-
 
         /// <summary>
         /// Statically set offsets for a shake animation.
@@ -456,15 +381,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             Projectile.rotation += ((int)AI_Timer % 20) * 0.1f;
         }
 
+        // ANIMATION HELPER METHODS
 
 
 
 
         // OTHER HELPER METHODS
-
-
-
-
 
         /// <summary>
         /// Slows a Projectile down until it gets below the <paramref name="zeroThreshold"/>. Then the speed gets set to 0.
@@ -524,15 +446,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             return closestNPC;
         }
 
+        // OTHER HELPER METHODS
 
 
 
 
         // AIS
-
-
-
-
 
         /// <summary>
         /// The AI for seeking scythe projectiles.
@@ -640,7 +559,7 @@ namespace OmoriMod.Projectiles.Abstract_Classes
                     float speed = Projectile.velocity.Length();
                     SetSplit<T>(ProjectileAmount, Projectile.damage, maxAngle, speed, Projectile.knockBack, false);
                 }
-                
+
             }
             AI_Timer++;
         }
@@ -731,9 +650,12 @@ namespace OmoriMod.Projectiles.Abstract_Classes
         public void AI_TravelingBundleProjectile<T>(int damagePerProjectile, int ProjectileSpeedOnSpawn, int volleys = 4, int shotsPerVolley = 5, int interval = 60) where T : ModProjectile
         {
             SlowProjectile(slowPercentage: 0.97f, zeroThreshold: 0.5f);
-            if (Projectile.velocity == Vector2.Zero) {
+            if (Projectile.velocity == Vector2.Zero)
+            {
                 VolleyProjectileAI<T>(damagePerProjectile, ProjectileSpeedOnSpawn, volleys, shotsPerVolley, interval, bundle: true, flipAngle: MathHelper.PiOver2);
             }
         }
+
+        // AIS
     }
 }

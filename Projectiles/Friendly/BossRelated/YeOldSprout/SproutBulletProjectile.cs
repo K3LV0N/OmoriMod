@@ -2,7 +2,7 @@
 
 namespace OmoriMod.Projectiles.Friendly.BossRelated.YeOldSprout
 {
-    public class SproutBulletProjectile : EmotionProjectile
+    public class SproutBulletProjectile : OmoriModProjectile
     {
         public override void SetDefaults()
         {

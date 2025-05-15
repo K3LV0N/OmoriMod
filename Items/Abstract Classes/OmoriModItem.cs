@@ -14,7 +14,7 @@ namespace OmoriMod.Items.Abstract_Classes
         Weapons_Tools_Armor_Accessory = 1,
         QuestFish_TombStone_HerbBag = 2,
         TreasureBag_BossSummons_Dye = 3,
-        Mechanism_Fruit_RareCraftingMaterial_Food_BiomeCrate = 10,
+        Mechanism_Fruit_RareCraftingMaterial_Food_BiomeCrate = 5,
         Crates_LifeManaCrystal_LifeFruit = 10,
         Gems = 15,
         BuffPotion = 20,
@@ -31,7 +31,7 @@ namespace OmoriMod.Items.Abstract_Classes
     /// <summary>
     /// Contains useful methods for a variety of mod items. Useful for when an item doesn't require being an <see cref="EmotionItem"/>
     /// </summary>
-    public class OmoriModItem : ModItem
+    public abstract class OmoriModItem : ModItem
     {
 
         public ItemTypeForResearch itemTypeForResearch;
