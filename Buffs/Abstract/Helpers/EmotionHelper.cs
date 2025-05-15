@@ -1,11 +1,6 @@
 ﻿using Terraria.ModLoader;
 using Terraria;
-using OmoriMod.Buffs.HappyBuff;
-using OmoriMod.Buffs.SadBuff;
-using System.Collections.Generic;
-using OmoriMod.Buffs.AngryBuff;
 using Terraria.ID;
-using System;
 using Microsoft.Xna.Framework;
 using OmoriMod.NPCs.Global;
 using OmoriMod.Systems.EmotionSystem;
@@ -189,7 +184,9 @@ namespace OmoriMod.Buffs.Abstract.Helpers
         public static void HappyHitModifiers(HappyEmotionBase happyEmotion, ref NPC.HitModifiers modifiers)
         {
             // miss chance
-            StatModifier noDMG = modifiers.SourceDamage - .99f;
+            var noDMG = new StatModifier();
+            noDMG *= 0;
+            noDMG -= 1;
             modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.Player_Miss_Chance_Percent ? noDMG : modifiers.SourceDamage;
 
             // extra crit chance
@@ -201,7 +198,9 @@ namespace OmoriMod.Buffs.Abstract.Helpers
         public static void HappyHitModifiers(HappyEmotionBase happyEmotion, ref Player.HurtModifiers modifiers)
         {
             // miss chance
-            StatModifier noDMG = modifiers.SourceDamage - .99f;
+            var noDMG = new StatModifier();
+            noDMG *= 0;
+            noDMG -= 1;
             modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.Player_Miss_Chance_Percent ? noDMG : modifiers.SourceDamage;
 
             // extra crit chance
