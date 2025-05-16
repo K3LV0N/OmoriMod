@@ -15,7 +15,13 @@ namespace OmoriMod.Players
 
         private void ResetMidEmotionLevel()
         {
-            MidEmotionLevel = 10;
+            if (Main.hardMode) {
+                MidEmotionLevel = 10;
+            }
+            else
+            {
+                MidEmotionLevel = 6;
+            }
         }
 
         private void ResetTier4EmotionLevel()
