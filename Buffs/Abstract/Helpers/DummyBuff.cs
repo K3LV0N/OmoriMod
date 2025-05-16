@@ -12,9 +12,20 @@ namespace OmoriMod.Buffs.Abstract.Helpers
     {
         public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.DelBuff(buffIndex);
+            buffIndex -= 1;
+        }
+
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+            buffName = "";
+            tip = "";
         }
         public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
         {
