@@ -8,6 +8,7 @@ namespace OmoriMod.Buffs.HappyBuff
         Ecstatic()
         {
             emotionLevel = 2;
+            dustSpawnFrequency = 2;
         }
 
         public override void SetStaticDefaults()

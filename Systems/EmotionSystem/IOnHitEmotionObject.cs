@@ -5,6 +5,7 @@ using OmoriMod.Projectiles.Abstract_Classes;
 using OmoriMod.Items.Abstract_Classes;
 using Terraria.ModLoader;
 using Terraria;
+using OmoriMod.NPCs.Global;
 
 namespace OmoriMod.Systems.EmotionSystem
 {
@@ -17,35 +18,38 @@ namespace OmoriMod.Systems.EmotionSystem
     {
 
         /// <summary>
-        /// Inflicts an emotion determined by <see cref="Emotion"/> on an enemy.
+        /// Inflicts an emotion determined by <see cref="Emotion"/> on an enemy. Does not inflict anything if the <see cref="EmotionNPC"/> is immune to emotion changes
         /// </summary>
         /// <param name="target">The <see cref="NPC"/> the emotion will be applied to.</param>
         /// <param name="ticks">The amount of ticks the emotion will be applied for.</param>
         public virtual void InflictEmotion(NPC target, int ticks = 600)
         {
-            switch (Emotion)
+            if(!target.GetGlobalNPC<EmotionNPC>().ImmuneToEmotionChange)
             {
-                case EmotionType.NONE:
-                    break;
-                case EmotionType.SAD:
-                    if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
-                    {
-                        target.AddBuff(ModContent.BuffType<Sad>(), ticks);
-                    }
-                    break;
-                case EmotionType.ANGRY:
-                    if (!target.HasBuff<Happy>() && !target.HasBuff<Sad>())
-                    {
-                        target.AddBuff(ModContent.BuffType<Angry>(), ticks);
-                    }
-                    break;
-                case EmotionType.HAPPY:
-                    if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
-                    {
-                        target.AddBuff(ModContent.BuffType<Happy>(), ticks);
-                    }
-                    break;
-            }
+                switch (Emotion)
+                {
+                    case EmotionType.NONE:
+                        break;
+                    case EmotionType.SAD:
+                        if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
+                        {
+                            target.AddBuff(ModContent.BuffType<Sad>(), ticks);
+                        }
+                        break;
+                    case EmotionType.ANGRY:
+                        if (!target.HasBuff<Happy>() && !target.HasBuff<Sad>())
+                        {
+                            target.AddBuff(ModContent.BuffType<Angry>(), ticks);
+                        }
+                        break;
+                    case EmotionType.HAPPY:
+                        if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
+                        {
+                            target.AddBuff(ModContent.BuffType<Happy>(), ticks);
+                        }
+                        break;
+                }
+            } 
         }
     }
 }

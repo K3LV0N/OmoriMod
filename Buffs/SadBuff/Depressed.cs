@@ -7,7 +7,8 @@ namespace OmoriMod.Buffs.SadBuff
     {
         Depressed()
         {
-            emotionLevel = 2;  
+            emotionLevel = 2;
+            dustSpawnFrequency = 2;
         }
 
         public override void SetStaticDefaults()

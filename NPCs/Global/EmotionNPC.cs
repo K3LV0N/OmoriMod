@@ -188,13 +188,13 @@ namespace OmoriMod.NPCs.Global
         {
             if (attacker.Emotion == EmotionType.ANGRY)
             {
-                AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity));
+                AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
                 EmotionHelper.AngryHitModifiers(angryEmotion, ref modifiers);
             }
 
             if (attacker.Emotion == EmotionType.HAPPY)
             {
-                HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity));
+                HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
                 EmotionHelper.HappyHitModifiers(happyEmotion, ref modifiers);
             }
         }
@@ -202,19 +202,19 @@ namespace OmoriMod.NPCs.Global
         {
             if (attacker.Emotion == EmotionType.ANGRY)
             {
-                AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity));
+                AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
                 EmotionHelper.AngryHitModifiers(angryEmotion, ref modifiers);
             }
 
             if (attacker.Emotion == EmotionType.HAPPY)
             {
-                HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity));
+                HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
                 EmotionHelper.HappyHitModifiers(happyEmotion, ref modifiers);
             }
 
             if (defender.Emotion == EmotionType.SAD)
             {
-                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(defendEntity));
+                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(defendEntity).Value);
                 EmotionHelper.SadHitDamageReductionModifiers(sadEmotion, ref modifiers);
             }
         }
@@ -302,7 +302,7 @@ namespace OmoriMod.NPCs.Global
             EmotionPlayer emotionPlayer = target.GetModPlayer<EmotionPlayer>();
             if (emotionPlayer.Emotion == EmotionType.SAD)
             {
-                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(emotionPlayer.Player));
+                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(emotionPlayer.Player).Value);
                 EmotionHelper.SadHitManaModifiers(emotionPlayer.Player, sadEmotion, hurtInfo);
             }
         }

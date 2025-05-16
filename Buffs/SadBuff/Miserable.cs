@@ -7,6 +7,7 @@ namespace OmoriMod.Buffs.SadBuff
         Miserable()
         {
             emotionLevel = 3;
+            dustSpawnFrequency = 3;
         }
 
         public override void SetStaticDefaults()

@@ -430,15 +430,20 @@ Items: {
 		DisplayName: Sprout Scythe
 		Tooltip: Shoots sprout mole scythes!
 	}
+
+	EmotionalAmplifier: {
+		DisplayName: Emotional Amplifier
+		Tooltip: Amplifies emotions past previous levels! Can only be used on tier 3 emotions.
+	}
 }
 
 Buffs: {
-	Angry: {
+	AngryNoTime: {
 		DisplayName: Angry
 		Description: Attack up! Defense Down!
 	}
 
-	AngryNoTime: {
+	Angry: {
 		DisplayName: Angry
 		Description: Attack up! Defense Down!
 	}
@@ -453,8 +458,13 @@ Buffs: {
 		Description: Attack up! Defense Down!
 	}
 
-	Ecstatic: {
-		DisplayName: Ecstatic
+	Livid: {
+		DisplayName: Livid
+		Description: Attack up! Defense Down! Level: 1
+	}
+
+	HappyNoTime: {
+		DisplayName: Happy
 		Description: Speed Up! Crit Rate Up! Hit chance down!
 	}
 
@@ -463,8 +473,8 @@ Buffs: {
 		Description: Speed Up! Crit Rate Up! Hit chance down!
 	}
 
-	HappyNoTime: {
-		DisplayName: Happy
+	Ecstatic: {
+		DisplayName: Ecstatic
 		Description: Speed Up! Crit Rate Up! Hit chance down!
 	}
 
@@ -473,9 +483,19 @@ Buffs: {
 		Description: Speed Up! Crit Rate Up! Hit chance down!
 	}
 
-	SomethingBuff: {
-		DisplayName: Something
-		Description: I love you
+	Hysterical: {
+		DisplayName: Hysterical
+		Description: Speed Up! Crit Rate Up! Hit chance down! Level: 1
+	}
+
+	SadNoTime: {
+		DisplayName: Sad
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	}
+
+	Sad: {
+		DisplayName: Sad
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
 	}
 
 	Depressed: {
@@ -488,14 +508,14 @@ Buffs: {
 		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
 	}
 
-	Sad: {
-		DisplayName: Sad
-		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	Despondent: {
+		DisplayName: Despondent
+		Description: Defense up! Speed Down! Some damage taken convertd to mana damage! Level: 1
 	}
 
-	SadNoTime: {
-		DisplayName: Sad
-		Description: Defense up! Speed Down! Some damage taken convertd to mana damage!
+	SomethingBuff: {
+		DisplayName: Something
+		Description: I love you
 	}
 
 	SentientKnifeBuff: {

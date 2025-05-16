@@ -11,7 +11,7 @@ namespace OmoriMod.Items.Abstract_Classes
         /// <summary>
         /// The amount of ticks needed between <see cref="EmotionBuff"/> applications.
         /// </summary>
-        readonly private int cooldownTicks;
+        protected int cooldownTicks;
 
         /// <summary>
         /// The timer to keep track of the amount of ticks since the last <see cref="EmotionBuff"/> application.

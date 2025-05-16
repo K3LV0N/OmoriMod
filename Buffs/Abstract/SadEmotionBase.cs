@@ -3,6 +3,8 @@ using Terraria;
 using OmoriMod.Buffs.Abstract.Helpers;
 using OmoriMod.NPCs.Global;
 using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Players;
+using System;
 
 
 namespace OmoriMod.Buffs.Abstract
@@ -71,7 +73,7 @@ namespace OmoriMod.Buffs.Abstract
         readonly private float Max_Damage_To_Mana_Damage_Conversion;
 
         // other
-        readonly private int Mid_Emotion_Level;
+        private int Mid_Emotion_Level;
 
         public SadEmotionBase()
         {
@@ -102,15 +104,26 @@ namespace OmoriMod.Buffs.Abstract
             Damage_To_Mana_Damage_Conversion_Per_Level      = 06.5f;
             Damage_To_Mana_Damage_Conversion_Starting_Value = 08.0f;
             Max_Damage_To_Mana_Damage_Conversion            = 75.0f;
-
-            // Other
-            Mid_Emotion_Level                               = 10;
         }
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
+            Mid_Emotion_Level = player.GetModPlayer<EmotionPlayer>().MidEmotionLevel;
             EmotionHelper.SadBuffRemovals(player);
             EmotionHelper.SadBuffModifiers(this, player);
+        }
+
+        public virtual void SadModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+            int defenseUp = (int)MathF.Round(Player_Defense_Increase_Percent * 100);
+            int speedDown = (int)MathF.Round(Player_Movement_Speed_Decrease_Percent * 100);
+            int mana = (int)MathF.Round(Damage_To_Mana_Damage_Conversion_Percent * 100);
+            string buffTip = $"Defense up by {defenseUp}%!" +
+                $" Speed down by {speedDown}%!" +
+                $" {mana}% of damage convertd to mana damage!";
+            tip = buffTip;
+            SadModifyBuffText(ref buffName, ref tip, ref rare);
         }
 
         public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)

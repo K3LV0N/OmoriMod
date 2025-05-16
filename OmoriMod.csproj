@@ -6,6 +6,10 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Buffs\AngryBuff\Livid.png" />
     <None Remove="Buffs\DummyBuff.png" />
+    <None Remove="Buffs\HappyBuff\Hysterical.png" />
+    <None Remove="Buffs\SadBuff\Despondent.png" />
+    <None Remove="Items\BuffItems\EmotionalAmplifier.png" />
   </ItemGroup>
 </Project>

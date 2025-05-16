@@ -13,13 +13,18 @@ namespace OmoriMod.Buffs.Abstract
     {
         public EmotionType Emotion { get; protected set; }
 
-        readonly public int maxEmotionLevel = 3;
         public int emotionLevel;
+
+        /// <summary>
+        /// How often dust spawns for this <see cref="EmotionBuff"/>. A value of 2 means 2 dust is spawned every second.
+        /// </summary>
+        protected int dustSpawnFrequency;
 
         public int? nextStageEmotionType;
 
         protected Color dustColor;
 
+        public virtual void UpdateTier4EmotionBuff(Player player, ref int buffIndex) { }
         public virtual void UpdateEmotionBuff(Player player, ref int buffIndex) { }
         public virtual void UpdateEmotionBuff(NPC npc, ref int buffIndex) { }
 
@@ -28,6 +33,7 @@ namespace OmoriMod.Buffs.Abstract
             player.GetModPlayer<EmotionPlayer>().Emotion = Emotion;
             DustHandler(player, ref buffIndex);
             UpdateEmotionBuff(player, ref buffIndex);
+            UpdateTier4EmotionBuff(player, ref buffIndex);
         }
 
         public override void Update(NPC npc, ref int buffIndex)
@@ -75,12 +81,11 @@ namespace OmoriMod.Buffs.Abstract
             return (percentPerLvl * emotionLevel) + percentStartingValue;
         }
 
-
         private void DustHandler(Player player, ref int buffIndex)
         {
-            int dustSpawningRate = (maxEmotionLevel + 1) - emotionLevel;
+            int dustFrequency = (int)(60 / dustSpawnFrequency);
 
-            if (player.buffTime[buffIndex] % dustSpawningRate == 0)
+            if (player.buffTime[buffIndex] % dustFrequency == 0)
             {
                 Dust.NewDust(
                 Position: player.Center,
@@ -93,6 +98,13 @@ namespace OmoriMod.Buffs.Abstract
                 newColor: dustColor
                 );
             }
+        }
+
+
+        protected virtual void Tier4ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+            string buffTip = $" Level: {emotionLevel - 3}";
+            tip += buffTip;
         }
     }
 }

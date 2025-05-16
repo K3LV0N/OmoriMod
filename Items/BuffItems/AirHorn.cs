@@ -41,7 +41,7 @@ namespace OmoriMod.Items.BuffItems
                 manaHealed: 0,
                 isPotion: false,
                 buffType: ModContent.BuffType<DummyBuff>(),
-                buffTimeInSeconds: 0.5f
+                buffTimeInSeconds: 60f
                 );
         }
 

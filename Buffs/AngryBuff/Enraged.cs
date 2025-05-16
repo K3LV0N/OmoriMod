@@ -8,6 +8,7 @@ namespace OmoriMod.Buffs.AngryBuff
         Enraged()
         {
             emotionLevel = 2;
+            dustSpawnFrequency = 2;
         }
 
         public override void SetStaticDefaults()
