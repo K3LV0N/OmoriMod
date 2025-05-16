@@ -110,9 +110,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            float time = 2.1f;
-            position += (velocity * time);
+            MoveProjectileForward(ref position, ref velocity, 2.1f);
         }
     }
-
 }

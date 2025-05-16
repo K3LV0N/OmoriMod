@@ -1,4 +1,4 @@
-Omori Mod is a mod that adds emotions into the game!
+﻿Omori Mod is a mod that adds emotions into the game!
 
 Make your enemies sad, happy, or angry to exploit an emotional advantage!
 
@@ -9,7 +9,60 @@ If you have't played Omori then you totaly should! It is an awesome game and I c
 reccomend it more!!! (You can find it on steam!)
 
 
-JOIN THE DISCORD https://discord.gg/DzsvHCGfYq
+JOIN THE DISCORD: https://discord.gg/DzsvHCGfYq
+
+
+UPDATE 1.19.1: Now with feelings!
+
+CONTENT:
+
+- Completely changed emotion system.
+-- Emotions now display stat changes when hovering over the buff.
+-- Emotions can go up to tier 4+ (where tier 4 has levels 1-40) for increased potency.
+-- Added new item 'Emotional Amplifier' available for purchase from the merchant in hardmode that allows you to get tier 4+ emotions
+
+
+To get to a tier 4 emotion, you must first have an active tier 3 emotion. Then use an emotional amplifier.
+When used, the corresponding tier 4 will be applied at level 1. If further emotional amplifiers are used,
+the level of the tier 4 emotion will increase up to a maximum of 40!
+
+More content coming sometime!!
+
+
+BUG FIXES:
+
+- Hopefully fixed bug where Sprout Shotgun could shoot through walls at close range.
+
+
+STRUCTURE:
+
+- Gutted old emotion system and replaced it with a brand new modular system that performs advantage checks without needing to know emotion
+- 'Optimized' FocusWeapons for multiplayer
+- 'Optimized' Items and their load times
+
+
+PLANS:
+
+- Rework Ye Old Sprout AI so that the fight looks / feels good (Current top priority)
+- Town NPCs
+- Completely rework melee weapons with new system revolving around new town NPC.
+- Summons at some point :(
+
+
+OTHER NOTICES:
+
+I made some really big overhauls this update so there are bound to be bugs I did not catch.
+If you notice any, please join the discord and let me know in the #bugs channel!
+
+Also, I really worked my butt off for this update, so I hope people enjoy! (even though there isn't much new content)
+
+
+
+
+
+
+OLDER UPDATES:
+
 
 UPDATE 1.19.0.3:
 
