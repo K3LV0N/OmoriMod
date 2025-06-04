@@ -189,7 +189,7 @@ namespace OmoriMod.Buffs.Abstract.Helpers
         }
         public static void AngryBuffModifiers(AngryEmotionBase angryEmotion, NPC npc)
         {
-            int decreasedDefense = npc.defense - (int)(npc.defDefense * (1 - angryEmotion.NPC_Defense_Decrease_Percent));
+            int decreasedDefense = npc.defDefense * (int)(1 - angryEmotion.NPC_Defense_Decrease_Percent);
             npc.defense = decreasedDefense;
         }
         public static void HappyBuffModifiers(HappyEmotionBase happyEmotion, Player player)
@@ -213,7 +213,7 @@ namespace OmoriMod.Buffs.Abstract.Helpers
         }
         public static void SadBuffModifiers(SadEmotionBase sadEmotion, NPC npc)
         {
-            int increasedDefense = npc.defense * (int)(1 + sadEmotion.NPC_Defense_Increase_Percent);
+            int increasedDefense = npc.defDefense * (int)(1 + sadEmotion.NPC_Defense_Increase_Percent);
             npc.defense = increasedDefense;
         }
         public static void SadBuffSpeedModifiers(SadEmotionBase sadEmotion, NPC npc)

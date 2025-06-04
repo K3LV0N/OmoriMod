@@ -12,6 +12,15 @@ reccomend it more!!! (You can find it on steam!)
 JOIN THE DISCORD: https://discord.gg/DzsvHCGfYq
 
 
+HOTFIX 1.19.1.2
+
+- Fixed a major bug that completely obliterated enemies' defense when angry was applied
+- Fixed a major bug that makes enemies near unkillable when sad was applied.
+
+HOTFIX 1.19.1.1
+
+- Fixed a bug where Emotional Amplifiers were not buyable
+
 UPDATE 1.19.1: Now with feelings!
 
 CONTENT:
