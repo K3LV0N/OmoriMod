@@ -21,7 +21,7 @@ namespace OmoriMod.Buffs.AngryBuff
 
         public override bool ReApply(Player player, int time, int buffIndex)
         {
-            if (player.GetModPlayer<EmotionPlayer>().tier4EmotionLevel < EmotionHelper.MaxEmotionLevel) player.GetModPlayer<EmotionPlayer>().tier4EmotionLevel++;
+            if (player.GetModPlayer<EmotionPlayer>().tier4EmotionLevel < EmotionHelper.PLAYER_MAX_EMOTION_LEVEL) player.GetModPlayer<EmotionPlayer>().tier4EmotionLevel++;
             return false;
         }
 

@@ -29,7 +29,7 @@ namespace OmoriMod.Players
             // only reset tier4EmotionLevel when no buff is there
             int? emotionType = EmotionHelper.GetEmotionType(Player);
             if (!emotionType.HasValue) { tier4EmotionLevel = 4; }
-            else if (!EmotionHelper.Tier4EmotionTypes.Contains(emotionType.Value)) { tier4EmotionLevel = 4; }
+            else if (!EmotionHelper.TIER4_EMOTION_TYPES.Contains(emotionType.Value)) { tier4EmotionLevel = 4; }
         }
 
         public override void ResetEffects()

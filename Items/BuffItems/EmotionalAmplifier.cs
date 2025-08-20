@@ -27,7 +27,7 @@ namespace OmoriMod.Items.BuffItems
         {
             int? buffType = EmotionHelper.GetEmotionType(player);
             if (!buffType.HasValue) return false;
-            if (EmotionHelper.Tier3EmotionTypes.Contains(buffType.Value) || EmotionHelper.Tier4EmotionTypes.Contains(buffType.Value)) return true;
+            if (EmotionHelper.TIER3_EMOTION_TYPES.Contains(buffType.Value) || EmotionHelper.TIER4_EMOTION_TYPES.Contains(buffType.Value)) return true;
             return false;
         }
 
@@ -40,7 +40,7 @@ namespace OmoriMod.Items.BuffItems
                 EmotionHelper.ApplyTier4Emotion<AngryEmotionBase>(
                     player: player,
                     baseBuffType: ModContent.BuffType<Livid>(),
-                    duration: EmotionHelper.emotionTimeInSeconds * 60
+                    duration: EmotionHelper.EMOTION_TIME_IN_SECONDS * 60
                 );
             }
             if (buff is HappyEmotionBase)
@@ -48,7 +48,7 @@ namespace OmoriMod.Items.BuffItems
                 EmotionHelper.ApplyTier4Emotion<HappyEmotionBase>(
                     player: player,
                     baseBuffType: ModContent.BuffType<Hysterical>(),
-                    duration: EmotionHelper.emotionTimeInSeconds * 60
+                    duration: EmotionHelper.EMOTION_TIME_IN_SECONDS * 60
                 );
             }
             if (buff is SadEmotionBase)
@@ -56,7 +56,7 @@ namespace OmoriMod.Items.BuffItems
                 EmotionHelper.ApplyTier4Emotion<SadEmotionBase>(
                     player: player,
                     baseBuffType: ModContent.BuffType<Despondent>(),
-                    duration: EmotionHelper.emotionTimeInSeconds * 60
+                    duration: EmotionHelper.EMOTION_TIME_IN_SECONDS * 60
                 );
             }
 

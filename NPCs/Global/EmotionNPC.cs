@@ -154,13 +154,13 @@ namespace OmoriMod.NPCs.Global
 
             if (advantage > 0)
             {
-                modifiers.SourceDamage += EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
+                modifiers.SourceDamage += EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
 
             if (advantage < 0)
             {
-                modifiers.SourceDamage -= EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
+                modifiers.SourceDamage -= EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
         }
@@ -171,14 +171,14 @@ namespace OmoriMod.NPCs.Global
             if (advantage > 0)
             {
                 int index = advantage - 1;
-                modifiers.SourceDamage += EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
+                modifiers.SourceDamage += EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
 
             if (advantage < 0)
             {
                 int index = -advantage - 1;
-                modifiers.SourceDamage -= EmotionHelper.EmotionalAdvantageValuePerLevel * advantage;
+                modifiers.SourceDamage -= EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
         }
@@ -189,7 +189,7 @@ namespace OmoriMod.NPCs.Global
             if (attacker.Emotion == EmotionType.ANGRY)
             {
                 AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
-                EmotionHelper.AngryHitModifiers(angryEmotion, ref modifiers);
+                EmotionHelper.AngryDamageModifiers(angryEmotion, ref modifiers);
             }
 
             if (attacker.Emotion == EmotionType.HAPPY)
@@ -203,7 +203,7 @@ namespace OmoriMod.NPCs.Global
             if (attacker.Emotion == EmotionType.ANGRY)
             {
                 AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
-                EmotionHelper.AngryHitModifiers(angryEmotion, ref modifiers);
+                EmotionHelper.AngryDamageModifiers(angryEmotion, ref modifiers);
             }
 
             if (attacker.Emotion == EmotionType.HAPPY)

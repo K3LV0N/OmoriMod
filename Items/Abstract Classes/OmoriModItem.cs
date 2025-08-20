@@ -149,13 +149,15 @@ namespace OmoriMod.Items.Abstract_Classes
             Item.noUseGraphic = noUseAnimation;
         }
 
+
         /// <summary>
         /// Sets the defaults for any item that shoots projectiles
         /// </summary>
-        /// <param name="ammoID"></param>
-        /// <param name="projectileID"></param>
-        /// <param name="shootSpeed"></param>
-        public void ProjectileDefaults(int ammoID, int projectileID, float shootSpeed, int ammoUsedID = 0)
+        /// <param name="projectileID">The id of the projectile being shot</param>
+        /// <param name="shootSpeed">How fast the projectile gets shot</param>
+        /// <param name="ammoUsedID">The type of ammo this item will CONSUME on use. AKA for guns</param>
+        /// <param name="ammoID">The type of ammo this item counts as. AKA for ammo</param>
+        public void ProjectileDefaults(int projectileID, float shootSpeed, int ammoUsedID = 0, int ammoID = 0)
         {
             Item.ammo = ammoID;
             Item.useAmmo = ammoUsedID;

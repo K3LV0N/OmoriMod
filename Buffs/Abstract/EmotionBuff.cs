@@ -42,6 +42,40 @@ namespace OmoriMod.Buffs.Abstract
             UpdateEmotionBuff(npc, ref buffIndex);
         }
 
+
+        /// <summary>
+        /// Calculates a linear rate of change using <paramref name="rate"/> until
+        /// <see cref="emotionLevel"/> = <paramref name="rateChange"/>. Then shifts to linear rate of change using percentage of remaining emotion levels up until
+        /// <paramref name="maxEmotionLevel"/> to reach <paramref name="maxPercentage"/>.
+        /// </summary>
+        /// <param name="max">The maximum return value of this function. In percentage form.</param>
+        /// <param name="rate">The rate of change for the linear function until <see cref="emotionLevel"/> = <paramref name="rateChange"/>.</param>
+        /// <param name="startingValue">The starting value for this function.</param>
+        /// <param name="maxEmotionLevel">The maximum value that <see cref="emotionLevel"/> can be.</param>
+        /// <param name="rateChange">The <see cref="emotionLevel"/> when the percentage remaining linear function begins.</param>
+        /// <returns></returns>
+        protected float LinearPerLevel(float max, float rate, int maxEmotionLevel, float startingValue = 0f, int rateChange = 3)
+        {
+            float result;
+
+            if (emotionLevel <= rateChange)
+            {
+                // Phase 1: simple linear
+                result = emotionLevel * rate;
+            }
+            else
+            {
+                // Phase 2: linear interpolation to max
+                float initialValue = rateChange * rate;
+                float t = (emotionLevel - rateChange) / (float)(maxEmotionLevel - rateChange);
+                result = MathHelper.Lerp(initialValue, max, t);
+            }
+
+            result += startingValue;
+            return Math.Min(result, max) / 100f;
+        }
+
+
         protected float ExponentialGrowthPerLevel(float perLvl, float startingValue = 0)
         {
             // turn values into percents

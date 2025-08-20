@@ -6,7 +6,7 @@ namespace OmoriMod
     internal class Dev : ModSystem
     {
         // MAKE SURE THIS IS FALSE BEFORE PUBLISHING
-        readonly private bool devMode = false;
+        readonly private bool devMode = true;
 
         public override void AddRecipes()
         {

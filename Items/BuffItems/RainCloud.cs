@@ -34,7 +34,7 @@ namespace OmoriMod.Items.BuffItems
             EmotionHelper.ApplyOrPromoteBuff<SadEmotionBase>(
                 player: player,
                 baseBuffType: ModContent.BuffType<Sad>(),
-                duration: EmotionHelper.emotionTimeInSeconds * 60
+                duration: EmotionHelper.EMOTION_TIME_IN_SECONDS * 60
                 );
 
             return true;

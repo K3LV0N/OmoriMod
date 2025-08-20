@@ -3,7 +3,6 @@ using Terraria;
 using OmoriMod.Buffs.Abstract.Helpers;
 using OmoriMod.NPCs.Global;
 using OmoriMod.Systems.EmotionSystem;
-using OmoriMod.Players;
 using System;
 
 
@@ -15,121 +14,108 @@ namespace OmoriMod.Buffs.Abstract
     public abstract class SadEmotionBase : EmotionBuff
     {
 
+		// Player Configuration
+
+		// ===== Movement Speed Decrease =====
+		private const float PLAYER_MOVEMENT_SPEED_DECREASE_MAX = 80.0f;
+		private const float PLAYER_MOVEMENT_SPEED_DECREASE_RATE = 5.0f;
+		private const float PLAYER_MOVEMENT_SPEED_DECREASE_STARTING_VALUE = 6.0f;
+
+		// ===== Defense Up =====
+		private const float PLAYER_DEFENSE_INCREASE_MAX = 60.0f;
+		private const float PLAYER_DEFENSE_INCREASE_RATE = 6.0f;
+		private const float PLAYER_DEFENSE_INCREASE_STARTING_VALUE = 3.5f;
+
+		// ===== Damage to Mana Damage =====
+		private const float HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_MAX = 75.0f;
+		private const float HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_RATE = 6.5f;
+		private const float HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_STARTING_VALUE = 6.0f;
+
+
+
+
+		// NPC Configuration
+
+		// ===== Movement Speed Decrease =====
+		private const float NPC_DEFENSE_INCREASE_MAX = 50.0f;
+		private const float NPC_DEFENSE_INCREASE_RATE = 3.5f;
+		private const float NPC_DEFENSE_INCREASE_STARTING_VALUE = 8.5f;
+
+		// ===== Defense Up =====
+		private const float NPC_MOVEMENT_SPEED_DECREASE_MAX = 60.0f;
+		private const float NPC_MOVEMENT_SPEED_DECREASE_RATE = 4.0f;
+		private const float NPC_MOVEMENT_SPEED_DECREASE_STARTING_VALUE = 7.0f;
+
+
+
+
+
         // defense up
-        public float Player_Defense_Increase_Percent => LogisticGrowthPerLevel(
-            perLvl: Player_Defense_Increase_Per_Level,
-            maxValue: Player_Max_Defense_Increase,
-            emotionMidLevel: Mid_Emotion_Level,
-            minValue: Player_Defense_Increase_Starting_Value
+        public float PLAYER_DEFENSE_INCREASE_PERCENT => LinearPerLevel(
+            max: PLAYER_DEFENSE_INCREASE_MAX,
+            rate: PLAYER_DEFENSE_INCREASE_RATE,
+            maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+            startingValue: PLAYER_DEFENSE_INCREASE_STARTING_VALUE
             );
-        public float NPC_Defense_Increase_Percent => LogisticGrowthPerLevel(
-            perLvl: NPC_Defense_Increase_Per_Level,
-            maxValue: NPC_Max_Defense_Increase,
-            emotionMidLevel: Mid_Emotion_Level,
-            minValue: NPC_Defense_Increase_Starting_Value
-            );
+        public float NPC_DEFENSE_INCREASE_PERCENT => LinearPerLevel(
+			max: NPC_DEFENSE_INCREASE_MAX,
+			rate: NPC_DEFENSE_INCREASE_RATE,
+			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			startingValue: NPC_DEFENSE_INCREASE_STARTING_VALUE
+			);
 
-        // movement speed down
-        public float Player_Movement_Speed_Decrease_Percent => LogisticGrowthPerLevel(
-            perLvl: Player_Movement_Speed_Decrease_Per_Level,
-            maxValue: Player_Max_Movement_Speed_Decrease,
-            emotionMidLevel: Mid_Emotion_Level,
-            minValue: Player_Movement_Speed_Decrease_Starting_Value
-            );
-        public float NPC_Movement_Speed_Decrease_Percent => LogisticGrowthPerLevel(
-            perLvl: NPC_Movement_Speed_Decrease_Per_Level,
-            maxValue: NPC_Max_Movement_Speed_Decrease,
-            emotionMidLevel: Mid_Emotion_Level,
-            minValue: NPC_Movement_Speed_Decrease_Starting_Value
-            );
+		// movement speed down
+		public float PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT => LinearPerLevel(
+			max: PLAYER_MOVEMENT_SPEED_DECREASE_MAX,
+			rate: PLAYER_MOVEMENT_SPEED_DECREASE_RATE,
+			maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+			startingValue: PLAYER_MOVEMENT_SPEED_DECREASE_STARTING_VALUE
+			);
+		public float NPC_MOVEMENT_SPEED_DECREASE_PERCENT => LinearPerLevel(
+			max: NPC_MOVEMENT_SPEED_DECREASE_MAX,
+			rate: NPC_MOVEMENT_SPEED_DECREASE_RATE,
+			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			startingValue: NPC_MOVEMENT_SPEED_DECREASE_STARTING_VALUE
+			);
 
-        // damage to mana damage
-        public float Damage_To_Mana_Damage_Conversion_Percent => LogisticGrowthPerLevel(
-            perLvl: Damage_To_Mana_Damage_Conversion_Per_Level,
-            maxValue: Max_Damage_To_Mana_Damage_Conversion,
-            emotionMidLevel: Mid_Emotion_Level,
-            minValue: Damage_To_Mana_Damage_Conversion_Starting_Value
-            );
+		// damage to mana damage
+		public float HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT => LinearPerLevel(
+			max: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_MAX,
+			rate: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_RATE,
+			maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+			startingValue: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_STARTING_VALUE
+			);
 
-        // defense up
-        readonly private float Player_Defense_Increase_Per_Level;
-        readonly private float Player_Defense_Increase_Starting_Value;
-        readonly private float Player_Max_Defense_Increase;
-        readonly private float NPC_Defense_Increase_Per_Level;
-        readonly private float NPC_Defense_Increase_Starting_Value;
-        readonly private float NPC_Max_Defense_Increase;
 
-        // movement speed down
-        readonly private float Player_Movement_Speed_Decrease_Per_Level;
-        readonly private float Player_Movement_Speed_Decrease_Starting_Value;
-        readonly private float Player_Max_Movement_Speed_Decrease;
-        readonly private float NPC_Movement_Speed_Decrease_Per_Level;
-        readonly private float NPC_Movement_Speed_Decrease_Starting_Value;
-        readonly private float NPC_Max_Movement_Speed_Decrease;
-
-        // damage to mana damage
-        readonly private float Damage_To_Mana_Damage_Conversion_Per_Level;
-        readonly private float Damage_To_Mana_Damage_Conversion_Starting_Value;
-        readonly private float Max_Damage_To_Mana_Damage_Conversion;
-
-        // other
-        private int Mid_Emotion_Level;
 
         public SadEmotionBase()
         {
             Emotion = EmotionType.SAD;
             dustColor = Color.Blue;
-
-            // player defense increase
-            Player_Defense_Increase_Per_Level               = 07.5f;
-            Player_Defense_Increase_Starting_Value          = 05.5f;
-            Player_Max_Defense_Increase                     = 70.0f;
-
-            // player movement speed increase
-            Player_Movement_Speed_Decrease_Per_Level        = 05.0f;
-            Player_Movement_Speed_Decrease_Starting_Value   = 07.0f;
-            Player_Max_Movement_Speed_Decrease              = 80.0f;
-
-            // npc defense increase
-            NPC_Defense_Increase_Per_Level                  = 03.5f;
-            NPC_Defense_Increase_Starting_Value             = 08.5f;
-            NPC_Max_Defense_Increase                        = 50.0f;
-
-            // npc movement speed increase
-            NPC_Movement_Speed_Decrease_Per_Level           = 04.0f;
-            NPC_Movement_Speed_Decrease_Starting_Value      = 07.0f;
-            NPC_Max_Movement_Speed_Decrease                 = 70.0f;
-
-            // damage to mana damage
-            Damage_To_Mana_Damage_Conversion_Per_Level      = 06.5f;
-            Damage_To_Mana_Damage_Conversion_Starting_Value = 08.0f;
-            Max_Damage_To_Mana_Damage_Conversion            = 75.0f;
         }
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
-            Mid_Emotion_Level = player.GetModPlayer<EmotionPlayer>().MidEmotionLevel;
             EmotionHelper.SadBuffRemovals(player);
-            EmotionHelper.SadBuffModifiers(this, player);
+            EmotionHelper.SadDefenseModifiers(this, player);
         }
+		public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
+		{
+			EmotionHelper.SadBuffRemovals(npc);
+			EmotionHelper.SadDefenseModifiers(this, npc);
+		}
 
-        public virtual void SadModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
+		public virtual void SadModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-            int defenseUp = (int)MathF.Round(Player_Defense_Increase_Percent * 100);
-            int speedDown = (int)MathF.Round(Player_Movement_Speed_Decrease_Percent * 100);
-            int mana = (int)MathF.Round(Damage_To_Mana_Damage_Conversion_Percent * 100);
+            int defenseUp = (int)MathF.Round(PLAYER_DEFENSE_INCREASE_PERCENT * 100);
+            int speedDown = (int)MathF.Round(PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT * 100);
+            int mana = (int)MathF.Round(HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT * 100);
             string buffTip = $"Defense up by {defenseUp}%!" +
                 $" Speed down by {speedDown}%!" +
                 $" {mana}% of damage convertd to mana damage!";
             tip = buffTip;
             SadModifyBuffText(ref buffName, ref tip, ref rare);
-        }
-
-        public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
-        {
-            EmotionHelper.SadBuffRemovals(npc);
-            EmotionHelper.SadBuffModifiers(this, npc);
-        }
+        } 
     }
 }

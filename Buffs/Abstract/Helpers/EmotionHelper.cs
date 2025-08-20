@@ -16,19 +16,20 @@ namespace OmoriMod.Buffs.Abstract.Helpers
     /// </summary>
     public static class EmotionHelper
     {
-        public const int emotionTimeInSeconds = 60;
 
-        public static readonly float EmotionalAdvantageValuePerLevel = 0.07f;
+        public const int EMOTION_TIME_IN_SECONDS = 60;
+        public const float EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL = 0.07f;
+        public const int PLAYER_MAX_EMOTION_LEVEL = 43;
+        public const int NPC_MAX_EMOTION_LEVEL = 1;
 
-        public static readonly int MaxEmotionLevel = 43;
 
-        public static readonly HashSet<int> Tier3EmotionTypes = [
+        public static readonly HashSet<int> TIER3_EMOTION_TYPES = [
             ModContent.BuffType<Furious>(),
             ModContent.BuffType<Manic>(),
             ModContent.BuffType<Miserable>(),
         ];
 
-        public static readonly HashSet<int> Tier4EmotionTypes = [
+        public static readonly HashSet<int> TIER4_EMOTION_TYPES = [
             ModContent.BuffType<Livid>(),
             ModContent.BuffType<Hysterical>(),
             ModContent.BuffType<Despondent>(),
@@ -72,18 +73,23 @@ namespace OmoriMod.Buffs.Abstract.Helpers
             else { change = new Vector2(npc.velocity.X * modifier, 0); }
             return npc.position + change;
         }
+
+        /// <summary>
+        /// Performs emotion related movement changes (speed up and down) to NPCs.
+        /// </summary>
+        /// <param name="npc"></param>
         public static void NPCMovementFromEmotion(NPC npc)
         {
             EmotionNPC emotionNPC = npc.GetGlobalNPC<EmotionNPC>();
             if (emotionNPC.Emotion == EmotionType.HAPPY)
             {
                 HappyEmotionBase happyEmotionBase = (HappyEmotionBase)ModContent.GetModBuff(GetEmotionType(npc).Value);
-                if (happyEmotionBase != null) HappyBuffModifiers(happyEmotionBase, npc);
+                if (happyEmotionBase != null) HappyMovementModifiers(happyEmotionBase, npc);
             }
             if (emotionNPC.Emotion == EmotionType.SAD)
             {
                 SadEmotionBase sadEmotionBase = (SadEmotionBase)ModContent.GetModBuff(GetEmotionType(npc).Value);
-                if (sadEmotionBase != null) SadBuffSpeedModifiers(sadEmotionBase, npc);
+                if (sadEmotionBase != null) SadMovementModifiers(sadEmotionBase, npc);
             }
         }
 
@@ -183,22 +189,22 @@ namespace OmoriMod.Buffs.Abstract.Helpers
 
 
 
-        public static void AngryBuffModifiers(AngryEmotionBase angryEmotion, Player player)
+        public static void AngryDefenseModifiers(AngryEmotionBase angryEmotion, Player player)
         {
-            player.statDefense -= (int)(player.statDefense * angryEmotion.Player_Defense_Decrease_Percent);
+            player.statDefense -= (int)(player.statDefense * angryEmotion.PLAYER_DEFENSE_DECREASE_PERCENT);
         }
-        public static void AngryBuffModifiers(AngryEmotionBase angryEmotion, NPC npc)
+        public static void AngryDefenseModifiers(AngryEmotionBase angryEmotion, NPC npc)
         {
-            int decreasedDefense = npc.defDefense * (int)(1 - angryEmotion.NPC_Defense_Decrease_Percent);
+            int decreasedDefense = npc.defDefense * (int)(1 - angryEmotion.NPC_DEFENSE_DECREASE_PERCENT);
             npc.defense = decreasedDefense;
         }
-        public static void HappyBuffModifiers(HappyEmotionBase happyEmotion, Player player)
+        public static void HappyMovementModifiers(HappyEmotionBase happyEmotion, Player player)
         {
-            player.moveSpeed *= (1 + happyEmotion.Player_Movement_Speed_Increase_Percent);
+            player.moveSpeed *= (1 + happyEmotion.PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT);
         }
-        public static void HappyBuffModifiers(HappyEmotionBase happyEmotion, NPC npc)
+        public static void HappyMovementModifiers(HappyEmotionBase happyEmotion, NPC npc)
         {
-            Vector2 newPos = CalculateNewPosition(npc, happyEmotion.NPC_Movement_Speed_Increase_Percent);
+            Vector2 newPos = CalculateNewPosition(npc, happyEmotion.NPC_MOVEMENT_SPEED_INCREASE_PERCENT);
 
             // If the new speed collides with something, don't add it
             if (!Collision.SolidCollision(newPos, npc.width, npc.height))
@@ -206,30 +212,30 @@ namespace OmoriMod.Buffs.Abstract.Helpers
                 npc.position = newPos;
             }
         }
-        public static void SadBuffModifiers(SadEmotionBase sadEmotion, Player player)
+        public static void SadDefenseModifiers(SadEmotionBase sadEmotion, Player player)
         {
-            player.statDefense += (int)(player.statDefense * sadEmotion.Player_Defense_Increase_Percent);
-            player.moveSpeed *= (1 - sadEmotion.Player_Movement_Speed_Decrease_Percent);
+            player.statDefense += (int)(player.statDefense * sadEmotion.PLAYER_DEFENSE_INCREASE_PERCENT);
+            player.moveSpeed *= (1 - sadEmotion.PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT);
         }
-        public static void SadBuffModifiers(SadEmotionBase sadEmotion, NPC npc)
+        public static void SadDefenseModifiers(SadEmotionBase sadEmotion, NPC npc)
         {
-            int increasedDefense = npc.defDefense * (int)(1 + sadEmotion.NPC_Defense_Increase_Percent);
+            int increasedDefense = npc.defDefense * (int)(1 + sadEmotion.NPC_DEFENSE_INCREASE_PERCENT);
             npc.defense = increasedDefense;
         }
-        public static void SadBuffSpeedModifiers(SadEmotionBase sadEmotion, NPC npc)
+        public static void SadMovementModifiers(SadEmotionBase sadEmotion, NPC npc)
         {
-            npc.position = CalculateNewPosition(npc, -sadEmotion.NPC_Movement_Speed_Decrease_Percent);
+            npc.position = CalculateNewPosition(npc, -sadEmotion.NPC_MOVEMENT_SPEED_DECREASE_PERCENT);
         }
 
 
 
-        public static void AngryHitModifiers(AngryEmotionBase angryEmotion, ref NPC.HitModifiers modifiers)
+        public static void AngryDamageModifiers(AngryEmotionBase angryEmotion, ref NPC.HitModifiers modifiers)
         {
-            modifiers.SourceDamage *= (1 + angryEmotion.Player_Damage_Increase_Percent);
+            modifiers.SourceDamage *= (1 + angryEmotion.PLAYER_DAMAGE_INCREASE_PERCENT);
         }
-        public static void AngryHitModifiers(AngryEmotionBase angryEmotion, ref Player.HurtModifiers modifiers)
+        public static void AngryDamageModifiers(AngryEmotionBase angryEmotion, ref Player.HurtModifiers modifiers)
         {
-            modifiers.SourceDamage *= (1 + angryEmotion.NPC_Damage_Increase_Percent);
+            modifiers.SourceDamage *= (1 + angryEmotion.NPC_DAMAGE_INCREASE_PERCENT);
         }
         public static void HappyHitModifiers(HappyEmotionBase happyEmotion, ref NPC.HitModifiers modifiers)
         {
@@ -237,10 +243,10 @@ namespace OmoriMod.Buffs.Abstract.Helpers
             var noDMG = new StatModifier();
             noDMG *= 0;
             noDMG -= 1;
-            modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.Player_Miss_Chance_Percent ? noDMG : modifiers.SourceDamage;
+            modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
 
             // extra crit chance
-            if (Main.rand.NextFloat() < happyEmotion.Player_Extra_Crit_Chance_Percent)
+            if (Main.rand.NextFloat() < happyEmotion.PLAYER_EXTRA_CRIT_CHANCE_PERCENT)
             {
                 modifiers.SetCrit();
             }
@@ -251,17 +257,17 @@ namespace OmoriMod.Buffs.Abstract.Helpers
             var noDMG = new StatModifier();
             noDMG *= 0;
             noDMG -= 1;
-            modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.Player_Miss_Chance_Percent ? noDMG : modifiers.SourceDamage;
+            modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
 
             // extra crit chance
-            if (Main.rand.NextFloat() < happyEmotion.Player_Extra_Crit_Chance_Percent && modifiers.SourceDamage != noDMG)
+            if (Main.rand.NextFloat() < happyEmotion.PLAYER_EXTRA_CRIT_CHANCE_PERCENT && modifiers.SourceDamage != noDMG)
             {
                 modifiers.SourceDamage *= 1.5f;
             }
         }
         public static void SadHitManaModifiers(Player player, SadEmotionBase sadEmotion, Player.HurtInfo hurtInfo)
         {
-            float manaChange = hurtInfo.SourceDamage * sadEmotion.Damage_To_Mana_Damage_Conversion_Percent;
+            float manaChange = hurtInfo.SourceDamage * sadEmotion.HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
             if ((int)(player.statMana - manaChange) > 0)
             {
                 player.statMana = (int)(player.statMana - manaChange);
@@ -273,7 +279,7 @@ namespace OmoriMod.Buffs.Abstract.Helpers
         }
         public static void SadHitDamageReductionModifiers(SadEmotionBase sadEmotion, ref Player.HurtModifiers modifiers)
         {
-            modifiers.SourceDamage *= (1 - sadEmotion.Damage_To_Mana_Damage_Conversion_Percent);
+            modifiers.SourceDamage *= (1 - sadEmotion.HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT);
         }
 
         private static bool HasOtherEmotions<T1, T2>(Entity entity)
@@ -301,6 +307,13 @@ namespace OmoriMod.Buffs.Abstract.Helpers
             return false;
         }
 
+        /// <summary>
+        /// Returns true if the provided emmotion can be applied.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="player"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
         public static bool CanApplyEmotion<T>(Player player, int duration) where T : EmotionBuff
         {
             // check for other emotion types
@@ -321,6 +334,14 @@ namespace OmoriMod.Buffs.Abstract.Helpers
             if (otherEmotions) { return false; }
             return true;
         }
+
+        /// <summary>
+        /// Applies the buff provided or promotes a pre-existing emotion
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="player"></param>
+        /// <param name="baseBuffType"></param>
+        /// <param name="duration"></param>
         public static void ApplyOrPromoteBuff<T>(Player player, int baseBuffType, int duration) where T : EmotionBuff
         {
 
@@ -351,6 +372,14 @@ namespace OmoriMod.Buffs.Abstract.Helpers
             // If no angry-type buff was found, apply base
             player.AddBuff(baseBuffType, duration);
         }
+
+        /// <summary>
+        /// Special method to apply the tier 4 version of emotion buffs
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="player"></param>
+        /// <param name="baseBuffType"></param>
+        /// <param name="duration"></param>
         public static void ApplyTier4Emotion<T>(Player player, int baseBuffType, int duration) where T : EmotionBuff
         {
             if (typeof(AngryEmotionBase).IsAssignableFrom(typeof(T))) AngryBuffRemovals(player);

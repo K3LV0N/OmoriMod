@@ -37,7 +37,7 @@ namespace OmoriMod.Items.BossRelated.YeOldSproutWeapons
                 );
 
             ProjectileDefaults(
-                ammoID: ModContent.ItemType<SproutBullet>(),
+                ammoID: AmmoID.None,
                 projectileID: ModContent.ProjectileType<SproutBulletProjectile>(),
                 shootSpeed: 8f,
                 ammoUsedID: ModContent.ItemType<SproutBullet>()

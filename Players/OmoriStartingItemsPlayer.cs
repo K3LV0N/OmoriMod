@@ -10,10 +10,10 @@ namespace OmoriMod.Players
         
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            return new[]
-            {
+            return
+            [
                 new Item(ModContent.ItemType<Note>())
-            };
+            ];
         }
     }
 }

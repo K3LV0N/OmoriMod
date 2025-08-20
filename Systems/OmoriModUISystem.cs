@@ -21,7 +21,6 @@ namespace OmoriMod.Systems
                 chargeBarInterface = new UserInterface();
                 chargeBarInterface.SetState(chargeBar);
             }
-
         }
 
         public override void UpdateUI(GameTime gameTime)
