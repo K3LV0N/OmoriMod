@@ -1,4 +1,5 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.NPCs.Bosses.YeOldSprout;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +35,7 @@ namespace OmoriMod.Items.TestingItems
         }
         public override void RightClick(Player player)
         {
-            DownedBosses.downedSprout = false;
+            DownedBossSystem.ClearDowned("OmoriMod:YeOldSprout");
             Main.NewText("Now downedSprout should be false");
         }
     }

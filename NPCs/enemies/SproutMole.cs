@@ -11,7 +11,7 @@ using OmoriMod.NPCs.Abstract;
 
 namespace OmoriMod.NPCs.enemies
 {
-    internal class SproutMole : OmoriModEnemy
+    internal class SproutMole : OmoriEnemy
     {
         public override void SetStaticDefaults()
         {

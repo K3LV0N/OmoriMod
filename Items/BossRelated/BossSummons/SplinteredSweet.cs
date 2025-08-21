@@ -1,19 +1,22 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.Health;
-using OmoriMod.NPCs.Bosses.YeOldSprout;
+using OmoriMod.NPCs.Bosses.SweetHeart;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+
 namespace OmoriMod.Items.BossRelated.BossSummons
 {
-    public class MegaTofu : OmoriModItem
+    public class SplinteredSweet : OmoriModItem
     {
-        MegaTofu()
+
+        SplinteredSweet()
         {
             itemTypeForResearch = ItemTypeForResearch.TreasureBag_BossSummons_Dye;
         }
+
         public override void SetDefaults()
         {
             ItemDefaults(
@@ -37,7 +40,7 @@ namespace OmoriMod.Items.BossRelated.BossSummons
 
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(ModContent.NPCType<YeOldSprout>());
+            return !NPC.AnyNPCs(ModContent.NPCType<SweetHeart>());
         }
 
         public override bool? UseItem(Player player)
@@ -48,7 +51,7 @@ namespace OmoriMod.Items.BossRelated.BossSummons
                 // (explicitely excluded serverside here)
                 SoundEngine.PlaySound(SoundID.Roar, player.position);
 
-                int type = ModContent.NPCType<YeOldSprout>();
+                int type = ModContent.NPCType<SweetHeart>();
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -68,9 +71,7 @@ namespace OmoriMod.Items.BossRelated.BossSummons
 
         public override void AddRecipes()
         {
-            Recipe r1 = CreateRecipe();
-            r1.AddIngredient<Tofu>(10); 
-            r1.Register();
+            MakeRegularRecipe(ModContent.ItemType<Sweets>(), 10, TileID.Anvils);
         }
     }
 }

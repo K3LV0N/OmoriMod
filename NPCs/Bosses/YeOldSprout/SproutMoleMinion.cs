@@ -4,9 +4,9 @@ using Terraria.ID;
 using System.IO;
 using OmoriMod.NPCs.Abstract;
 
-namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
+namespace OmoriMod.NPCs.Bosses.YeOldSprout
 {
-    internal class SproutMoleMinion : OmoriModEnemy
+    internal class SproutMoleMinion : OmoriEnemy
     {
         public override void SetStaticDefaults()
         {

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.NPCs.Abstract
 {
-    public abstract class OmoriModEnemy : ModNPC
+    public abstract class OmoriEnemy : ModNPC
     {
         public virtual void MoveHorizontalBlocky(float maxSpeed, float minSpeed, float accel, float fastAccel, int xDirection)
         {

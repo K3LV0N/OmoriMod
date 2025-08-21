@@ -1,7 +1,7 @@
 ﻿using OmoriMod.Items.Abstract_Classes;
 using OmoriMod.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Items.Health;
-using OmoriMod.NPCs.Bosses.YeOldSproutFile;
+using OmoriMod.NPCs.Bosses.YeOldSprout;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -28,7 +28,7 @@ namespace OmoriMod.NPCs.Global
             ImmuneToEmotionChange = false;
 
             ModNPC modNPC = NPCLoader.GetNPC(entity.type);
-            if (modNPC == null || modNPC is not OmoriModEnemy)
+            if (modNPC == null || modNPC is not OmoriEnemy)
             {
                 // bosses are immune to emotions
                 ImmuneToEmotionChange = entity.boss;

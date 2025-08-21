@@ -294,10 +294,12 @@ Items: {
 			'''
 			A note on how to use the mod.
 			You can make Hero's Frying Pan with copper bars, Aubrey's bat with wood, and Omori's knife with lead or iron bars.
-			You can buy items to change your emotions at the merchant
+			You can buy items to change your emotions at the merchant.
 
 			Remember: Sad beats happy. Happy beats Angry. Angry beats Sad.
 			Have Fun!
+
+			Right Click me in the inventory (like a boss bag) to visit the wiki!!!
 			'''
 	}
 
@@ -435,6 +437,20 @@ Items: {
 		DisplayName: Emotional Amplifier
 		Tooltip: Amplifies emotions past previous levels! Can only be used on tier 3 emotions.
 	}
+
+	SplinteredSweet: {
+		DisplayName: Splintered Sweet
+		Tooltip:
+			'''
+			Most likely found in a castle.
+			Summons Sweetheart.
+			'''
+	}
+
+	Sweets: {
+		DisplayName: Sweets
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -533,6 +549,7 @@ NPCs: {
 	SproutMoleMinion.DisplayName: Sprout Mole
 	SproutMole.DisplayName: Sprout Mole
 	YeOldSprout.DisplayName: Ye Old Sprout
+	SweetHeart.DisplayName: Sweetheart
 }
 
 Projectiles: {
@@ -598,3 +615,16 @@ Projectiles: {
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage
+
+Configs: {
+	OmoriModConfig: {
+		DisplayName: Omori Mod Config
+
+		EnableDevMode: {
+			Label: Enable Developer Mode
+			Tooltip: Do NOT enable unless you actively develop this mod. For 99.99% of users, this should remain OFF!!!
+		}
+	}
+}
+
+RecipeCondition.DevMode: Requires Dev Mode

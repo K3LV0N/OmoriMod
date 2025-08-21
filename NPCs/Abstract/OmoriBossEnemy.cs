@@ -3,8 +3,9 @@ using Terraria.ID;
 
 namespace OmoriMod.NPCs.Abstract
 {
-    public abstract class OmoriBossEnemy : OmoriModEnemy
+    public abstract class OmoriBossEnemy : OmoriEnemy
     {
+        protected string bossName = "OmoriMod:";
 
         /// <summary>
         /// Allows you to set all your NPC's properties, such as width, damage, aiStyle, lifeMax, etc. <br/>

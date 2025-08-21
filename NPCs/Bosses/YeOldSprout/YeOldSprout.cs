@@ -10,13 +10,16 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
+namespace OmoriMod.NPCs.Bosses.YeOldSprout
 {
     [AutoloadBossHead]
 
     public class YeOldSprout : OmoriBossEnemy
     {
-
+        public YeOldSprout()
+        {
+            bossName += "YeOldSprout";
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 24;
@@ -34,40 +37,40 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
             NPC.DeathSound = SoundID.NPCDeath9;
 
             NPC.value = 10f;
-            NPC.knockBackResist = 0.05f;
+            NPC.knockBackResist = 0.25f;
             NPC.aiStyle = -1;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<YeOldBossBag>()));
 
-            // Trophies are spawned with 1/10 chance
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeable.Furniture.MinionBossTrophy>(), 10));
-            // ItemDropRule.MasterModeCommonDrop for the relic
-            //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Placeable.Furniture.MinionBossRelic>()));
-            // ItemDropRule.MasterModeDropOnAllPlayers for the pet
-            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<MinionBossPetItem>(), 4));
+            // Do NOT misuse the ModifyNPCLoot and OnKill hooks: the former is only used for registering drops, the latter for everything else
+
+            // The order in which you add loot will appear as such in the Bestiary. To mirror vanilla boss order:
+            // 1. Trophy
+            // 2. Classic Mode ("not expert")
+            // 3. Expert Mode (usually just the treasure bag)
+            // 4. Master Mode (relic first, pet last, everything else in between)
+
+            // How to drop things
+            // npcLoot.Add(ItemDropRule.Common(itemId, chanceDenominator, minimumDropped, maximumDropped))
+
+            // ItemDropRule.BossBag()
+            // ItemDropRule.MasterModeCommonDrop()
+            // ItemDropRule.MasterModeDropOnAllPlayers()
 
 
             // All our drops here are based on "not expert", meaning we use .OnSuccess() to add them into the rule, which then gets added
-            LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-            // Notice we use notExpertRule.OnSuccess instead of npcLoot.Add so it only applies in normal mode
-            //Boss masks are spawned with 1/7 chance
-            //notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MinionBossMask>(), 7));
-
-            //notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Item>(), 7));
-            // Finally add the leading rule
-            //npcLoot.Add(notExpertRule);
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
 
 
+            // Add all drops except for the bag. These drops only get added if the difficulty is not expert
 
-            // do all the expert stuff but no bag
-
-            int[] weaponOptions = new int[2];
-            weaponOptions[0] = ModContent.ItemType<SproutShotgun>();
-            weaponOptions[1] = ModContent.ItemType<SproutScythe>();
+            int[] weaponOptions = [
+                ModContent.ItemType<SproutShotgun>(), 
+                ModContent.ItemType<SproutScythe>()
+            ];
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, weaponOptions));
 
 
@@ -75,17 +78,18 @@ namespace OmoriMod.NPCs.Bosses.YeOldSproutFile
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Tofu>(), 1, 10, 25));
             notExpertRule.OnSuccess(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<YeOldSprout>()));
 
+            // add non expert drops
             npcLoot.Add(notExpertRule);
+
+            // add expert drops
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<YeOldBossBag>()));
 
         }
     
 
         public override void OnKill()
         {
-            if(!DownedBosses.downedSprout)
-            {
-                DownedBosses.downedSprout = true;
-            }
+            DownedBossSystem.MarkDowned(bossName);
         }
 
         public float AI_Timer
