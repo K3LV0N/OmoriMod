@@ -1,0 +1,44 @@
+﻿using Microsoft.Xna.Framework;
+using OmoriMod.Items.Abstract_Classes;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Weapons.Melee.Tier2;
+using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
+
+namespace OmoriMod.Content.Items.Weapons.Melee.Tier3
+{
+    public class HellPan : HappyItem
+    {
+        HellPan()
+        {
+            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+        }
+        public override void SetDefaults()
+        {
+            EmotionItemCloneWithDifferentProjectile<HellBat>(ModContent.ProjectileType<PanProjectileTriple>());
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            MoveProjectileForward(ref position, ref velocity, meleeWeaponProjectileMoveTime);
+        }
+
+        public override void AddRecipes()
+        {
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<CorruptionPan>(),
+                extraItemID: ItemID.HellstoneBar,
+                extraItemAmount: 15,
+                craftingStationID: TileID.Anvils
+                );
+            MakeUpgradeRecipe(
+                baseItemID: ModContent.ItemType<CrimsonPan>(),
+                extraItemID: ItemID.HellstoneBar,
+                extraItemAmount: 15,
+                craftingStationID: TileID.Anvils
+                );
+        }
+    }
+}

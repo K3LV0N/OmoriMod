@@ -1,5 +1,4 @@
-﻿using OmoriMod.Players;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -7,12 +6,12 @@ using Terraria.UI;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Content.Players;
 
 namespace OmoriMod.Systems.ChargeBar
 {
     public class ChargeBarUI : UIState
     {
-        private UIText text;
 
         private UIElement area;
 
@@ -41,13 +40,6 @@ namespace OmoriMod.Systems.ChargeBar
             barFrame.Width.Set(138, 0f);
             barFrame.Height.Set(34, 0f);
 
-            text = new UIText("", 1.5f);
-            text.Left.Set(138, 0f);
-            text.Top.Set(34, 0f);
-            text.Width.Set(40, 0f);
-            text.Height.Set(0, 0f);
-
-            area.Append(text);
             area.Append(barFrame);
             Append(area);
 
@@ -56,7 +48,7 @@ namespace OmoriMod.Systems.ChargeBar
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-            if( !(Main.LocalPlayer.HeldItem.ModItem is FocusItem))
+            if(Main.LocalPlayer.HeldItem.ModItem is not FocusItem)
             {
                 return;
             }
@@ -73,7 +65,6 @@ namespace OmoriMod.Systems.ChargeBar
         private void DrawChargeBar(SpriteBatch spriteBatch)
         {
             FocusPlayer modPlayer = Main.LocalPlayer.GetModPlayer<FocusPlayer>();
-            Player player = modPlayer.Player;
 
             // Calculate percent full
             float percentage = (float)((float)(modPlayer.currentCharge) / (float)(modPlayer.maxCharge));
@@ -125,12 +116,10 @@ namespace OmoriMod.Systems.ChargeBar
 
         public override void Update(GameTime gameTime)
         {
-            if (!(Main.LocalPlayer.HeldItem.ModItem is FocusItem))
+            if (Main.LocalPlayer.HeldItem.ModItem is not FocusItem)
             {
                 return;
             }
-            // Setting the text per tick to update and show our resource values.
-            text.SetText($"");
             
             // typically base functions are empty, but not this one
             base.Update(gameTime);

@@ -451,6 +451,11 @@ Items: {
 		DisplayName: Sweets
 		Tooltip: ""
 	}
+
+	TestBat: {
+		DisplayName: Test Bat
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -550,6 +555,7 @@ NPCs: {
 	SproutMole.DisplayName: Sprout Mole
 	YeOldSprout.DisplayName: Ye Old Sprout
 	SweetHeart.DisplayName: Sweetheart
+	SproutMoleOld.DisplayName: Sprout Mole Old
 }
 
 Projectiles: {
@@ -612,6 +618,8 @@ Projectiles: {
 	AngryBombPlusProjectile.DisplayName: Angry Bomb Plus Projectile
 	HappyBombPlusProjectile.DisplayName: Happy Bomb Plus Projectile
 	SadBombPlusProjectile.DisplayName: Sad Bomb Plus Projectile
+	HomingHeart.DisplayName: Homing Heart
+	MaceWhip.DisplayName: Mace Whip
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage

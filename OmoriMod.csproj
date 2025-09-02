@@ -6,10 +6,14 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Buffs\AngryBuff\Livid.png" />
-    <None Remove="Buffs\DummyBuff.png" />
-    <None Remove="Buffs\HappyBuff\Hysterical.png" />
-    <None Remove="Buffs\SadBuff\Despondent.png" />
-    <None Remove="Items\BuffItems\EmotionalAmplifier.png" />
+    <None Remove="Content\Buffs\AngryBuff\Livid.png" />
+    <None Remove="Content\Buffs\DummyBuff.png" />
+    <None Remove="Content\Buffs\HappyBuff\Hysterical.png" />
+    <None Remove="Content\Buffs\SadBuff\Despondent.png" />
+    <None Remove="Content\Items\BuffItems\EmotionalAmplifier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\NPCs\Enemies\Bosses\YeOldSprout\Behaviours\" />
+    <Folder Include="Systems\AbilitySystem\ItemAbilities\Actives\" />
   </ItemGroup>
 </Project>

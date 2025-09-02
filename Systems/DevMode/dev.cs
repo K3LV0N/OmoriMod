@@ -18,7 +18,7 @@ namespace OmoriMod.Systems.DevMode
                     Recipe recipe = Recipe.Create(i, 1);
 
                     // Add a dynamic condition using a lambda
-                    LocalizedText conditionText = Language.GetText("RecipeCondition.DevMode");
+                    LocalizedText conditionText = Language.GetText(OmoriMod.MOD_NAME + "RecipeCondition:DevMode");
                     recipe.AddCondition(
                         conditionText,
                         () => ModContent.GetInstance<OmoriModConfig>().EnableDevMode
