@@ -1,23 +1,33 @@
 ﻿using OmoriMod.Content.NPCs.StateManagement;
+using OmoriMod.Content.NPCs.StateManagement.NPCBehaviours;
 using OmoriMod.Util;
 using Terraria;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 {
-    public class SuprisedJump : NPCBehaviour
+    public class SuprisedJump : NPCBehaviourWithAnimation
     {
         private readonly int _exitStatus;
-        public SuprisedJump(int chaseIndex)
+        public SuprisedJump(int maxFrames,  int chaseIndex) 
+            : base("SuprisedJump".OmoriModString(), maxFrames)
         {
-            behaviourName = OmoriString.str("SuprisedJump");
             _exitStatus = chaseIndex;
+        }
+
+        protected override void FindFrame(int frameHeight)
+        {
+            NPC n = npc.NPC;
+            n.spriteDirection = n.direction;
+
+            behaviourInfo.CurrentFrame = 2;
+            n.frame.Y = BehaviourInfo.CurrentFrame * frameHeight;
         }
 
         protected override void OnStart()
         {
             npc.AI_Timer = 0;
         }
-        protected override int AI()
+        protected override void AI()
         {
             NPC n = npc.NPC;
             n.TargetClosest(true);
@@ -34,11 +44,10 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 
             if (n.collideY)
             {
-                return _exitStatus;
+                BehaviourInfo.ExitStatus = _exitStatus;
             }
 
             npc.AI_Timer++;
-            return -1;
         }
     }
 }

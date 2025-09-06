@@ -13,7 +13,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart
 
         public SweetHeart()
         {
-            bossName = OmoriString.str("SweetHeart");
+            bossName = "SweetHeart".OmoriModString();
         }
         public override void SetStaticDefaults()
         {

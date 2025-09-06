@@ -1,7 +1,6 @@
 ﻿using OmoriMod.Content.Items.Accessories;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Summons.Pets.Items;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

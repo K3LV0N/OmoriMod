@@ -20,7 +20,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
     {
         public YeOldSprout()
         {
-            bossName = OmoriString.str("YeOldSprout");
+            bossName = "YeOldSprout".OmoriModString();
         }
         public override void SetStaticDefaults()
         {

@@ -8,9 +8,10 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
 {
     public class SproutMoleMinion : OmoriBehaviourNPC
     {
+        private const int _frames = 9;
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 9;
+            Main.npcFrameCount[NPC.type] = _frames;
         }
 
         public override void SetDefaults()
@@ -31,13 +32,13 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             NPC.aiStyle = -1;
 
             behaviourManager = new BehaviourManager();
-            behaviourManager.AddBehaviour(new ChasePlayerUnrelenting(1));
-            behaviourManager.AddBehaviour(new ChasePlayerJump(0));
+            behaviourManager.AddBehaviour(new ChasePlayerUnrelenting(_frames, 1));
+            behaviourManager.AddBehaviour(new ChasePlayerJump(_frames, 0));
         }
 
         public override void AI()
         {
-            behaviourManager.PerformViaExitStatus(this);
+            behaviourManager.PerformAIViaExitStatus(this);
         }
 
         private const int frame1 = 0;

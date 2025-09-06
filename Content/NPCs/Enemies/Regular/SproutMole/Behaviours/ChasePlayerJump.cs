@@ -1,17 +1,27 @@
 ﻿using OmoriMod.Content.NPCs.Abstract;
 using OmoriMod.Content.NPCs.StateManagement;
+using OmoriMod.Content.NPCs.StateManagement.NPCBehaviours;
 using OmoriMod.Util;
 using Terraria;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 {
-    public class ChasePlayerJump : NPCBehaviour
+    public class ChasePlayerJump : NPCBehaviourWithAnimation
     {
         private readonly int _exitStatus;
-        public ChasePlayerJump(int chaseIndex)
+        public ChasePlayerJump(int maxFrames, int chaseIndex)
+            : base("ChasePlayerJump".OmoriModString(), maxFrames)
         {
-            behaviourName = OmoriString.str("ChasePlayerJump");
             _exitStatus = chaseIndex;
+        }
+
+        protected override void FindFrame(int frameHeight)
+        {
+            NPC n = npc.NPC;
+            n.spriteDirection = n.direction;
+
+            behaviourInfo.CurrentFrame = 2;
+            n.frame.Y = BehaviourInfo.CurrentFrame * frameHeight;
         }
 
         protected override void OnStart()
@@ -19,7 +29,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
             npc.AI_Timer = 0;
         }
 
-        protected override int AI()
+        protected override void AI()
         {
             NPC n = npc.NPC;
             if (npc.AI_Timer == 0) {
@@ -33,10 +43,9 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 
             if (npc.AI_Timer > 3 && n.collideY)
             {
-                return _exitStatus;
+                BehaviourInfo.ExitStatus = _exitStatus;
             }
             npc.AI_Timer++;
-            return -1;
         }
     }
 }

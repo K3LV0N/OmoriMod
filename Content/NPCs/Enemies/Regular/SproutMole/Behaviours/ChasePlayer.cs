@@ -1,37 +1,51 @@
 ﻿using OmoriMod.Content.NPCs.Abstract;
 using OmoriMod.Content.NPCs.StateManagement;
+using OmoriMod.Content.NPCs.StateManagement.NPCBehaviours;
 using OmoriMod.Util;
+using System.ComponentModel;
 using Terraria;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 {
-    internal class ChasePlayer : NPCBehaviour
+    internal class ChasePlayer : NPCBehaviourWithAnimation
     {
         private readonly int _jumpStatus;
         private readonly int _idleStatus;
-        public ChasePlayer(int jumpIndex, int idleIndex)
+        public ChasePlayer(int maxFrames, int jumpIndex, int idleIndex) 
+            : base("ChasePlayer".OmoriModString(), maxFrames)
         {
-            behaviourName = OmoriString.str("ChasePlayer");
             _jumpStatus = jumpIndex;
             _idleStatus = idleIndex;
+        }
+
+        protected override void FindFrame(int frameHeight)
+        {
+            NPC n = npc.NPC;
+            n.spriteDirection = n.direction;
+
+            n.frameCounter++;
+            if (n.frameCounter % 5 == 0) {
+                behaviourInfo++;
+            }
+            n.frame.Y = BehaviourInfo.CurrentFrame * frameHeight;
         }
 
         protected override void OnStart()
         {
             npc.AI_Timer = 0;
         }
-        protected override int AI()
+        protected override void AI()
         {
             NPC n = npc.NPC;
             n.TargetClosest(true);
 
             if (Main.player[n.target].Distance(n.Center) > 800f)
             {
-                return _idleStatus;
+                BehaviourInfo.ExitStatus = _idleStatus;
             }
             else if (n.collideX)
             {
-                return _jumpStatus;
+                BehaviourInfo.ExitStatus = _jumpStatus;
             }
             else
             {
@@ -39,7 +53,6 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
                 float inertia = 25f;
 
                 AIHelper.MoveHorizontal(n, speed, inertia, n.direction);
-                return -1;
             }
         }
     }

@@ -1,15 +1,30 @@
 ﻿using OmoriMod.Content.NPCs.StateManagement;
+using OmoriMod.Content.NPCs.StateManagement.NPCBehaviours;
 using OmoriMod.Util;
 using Terraria;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 {
-    public class IdleWander : NPCBehaviour
+    public class IdleWander : NPCBehaviourWithAnimation
     {
         private readonly int _exitStatus;
-        public IdleWander(int SurpriseIndex) {
-            behaviourName = OmoriString.str("IdleWander");
+        public IdleWander(int maxFrames, int SurpriseIndex) 
+            : base("IdleWander".OmoriModString(), maxFrames)
+        {
             _exitStatus = SurpriseIndex;
+        }
+
+        protected override void FindFrame(int frameHeight)
+        {
+            NPC n = npc.NPC;
+            n.spriteDirection = n.direction;
+
+            n.frameCounter++;
+            if (n.frameCounter % 10 == 0)
+            {
+                behaviourInfo++;
+            }
+            n.frame.Y = BehaviourInfo.CurrentFrame * frameHeight;
         }
 
         protected override void OnStart()
@@ -17,7 +32,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
             npc.AI_Timer = 0;
         }
 
-        protected override int AI()
+        protected override void AI()
         {
             NPC n = npc.NPC;
             n.TargetClosest(false);
@@ -37,15 +52,13 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
                 if (n.HasValidTarget && Main.player[n.target].Distance(n.Center) < 500f)
                 {
                     npc.AI_Timer = 0;
-                    return _exitStatus;
+                    BehaviourInfo.ExitStatus = _exitStatus;
                 }
             }
             else
             {
                 npc.AI_Timer = 0;
             }
-
-            return -1;
         }
     }
 }

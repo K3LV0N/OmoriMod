@@ -2,7 +2,6 @@
 using OmoriMod.Items.Abstract_Classes;
 using System.Collections.Generic;
 using OmoriMod.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
 
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier1
 {

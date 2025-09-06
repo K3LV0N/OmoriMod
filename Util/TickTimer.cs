@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OmoriMod.Util.Interfaces;
+using System;
 using Terraria.ModLoader.IO;
 
 namespace OmoriMod.Util
@@ -6,17 +7,17 @@ namespace OmoriMod.Util
     /// <summary>
     /// A utility class that helps with timing. Can run for a really long time.
     /// </summary>
-    public class TickTimer
+    public class TickTimer : ISaveableWithGenerate
     {
         /// <summary>
-        /// <see cref="String"/> for saving purposes.
+        /// <see cref="string"/> for saving purposes.
         /// </summary>
-        private static readonly String saveTotalTicks = "TickTimer:totalTicks:";
+        private static readonly string saveTotalTicks = "TickTimer:totalTicks:";
 
         /// <summary>
-        /// <see cref="String"/> for saving purposes.
+        /// <see cref="string"/> for saving purposes.
         /// </summary>
-        private static readonly String saveOriginalTicks = "TickTimer:originalTicks:";
+        private static readonly string saveOriginalTicks = "TickTimer:originalTicks:";
 
         /// <summary>
         /// How many total ticks there are left in this <see cref="TickTimer"/>
@@ -26,7 +27,7 @@ namespace OmoriMod.Util
         /// <summary>
         /// How many total ticks this <see cref="TickTimer"/> was initialized with
         /// </summary>
-        private readonly long _originalTicks;
+        private long _originalTicks;
 
         /// <summary>
         /// How many hours are left in the <see cref="TickTimer"/>
@@ -35,17 +36,27 @@ namespace OmoriMod.Util
         /// <summary>
         /// How many minutes are left in the <see cref="TickTimer"/>
         /// </summary>
-        public long Minutes => (_totalTicks / 3600) % 60;     // 60 * 60
+        public long Minutes => _totalTicks / 3600 % 60;     // 60 * 60
 
         /// <summary>
         /// How many seconds are left in the <see cref="TickTimer"/>
         /// </summary>
-        public long Seconds => (_totalTicks / 60) % 60;
+        public long Seconds => _totalTicks / 60 % 60;
 
         /// <summary>
         /// How many ticks are left in the <see cref="TickTimer"/>
         /// </summary>
         public long Ticks => _totalTicks % 60;
+
+        /// <summary>
+        /// Returns the total ticks that are left in this <see cref="TickTimer"/>
+        /// </summary>
+        public long TotalTicks => _totalTicks;
+
+        /// <summary>
+        /// Returns <paramref name="true"/> if this <see cref="TickTimer"/> is out of ticks. Only useful for <see cref="TickTimer"/> instances that decrement
+        /// </summary>
+        public bool IsDone => _totalTicks <= 0;
 
         // --- Constructors ---
 
@@ -86,7 +97,7 @@ namespace OmoriMod.Util
         public TickTimer(long seconds, long ticks)
         {
             _totalTicks =
-                (seconds * 60) +
+                seconds * 60 +
                 ticks;
 
             if (_totalTicks < 0) _totalTicks = 0; // clamp safety
@@ -102,8 +113,8 @@ namespace OmoriMod.Util
         public TickTimer(long minutes, long seconds, long ticks)
         {
             _totalTicks =
-                (minutes * 3600) +
-                (seconds * 60) +
+                minutes * 3600 +
+                seconds * 60 +
                 ticks;
 
             if (_totalTicks < 0) _totalTicks = 0; // clamp safety
@@ -120,9 +131,9 @@ namespace OmoriMod.Util
         public TickTimer(long hours, long minutes, long seconds, long ticks)
         {
             _totalTicks =
-                (hours * 216000) +
-                (minutes * 3600) +
-                (seconds * 60) +
+                hours * 216000 +
+                minutes * 3600 +
+                seconds * 60 +
                 ticks;
 
             if (_totalTicks < 0) _totalTicks = 0; // clamp safety
@@ -133,11 +144,10 @@ namespace OmoriMod.Util
         /// Creates a <see cref="TickTimer"/> from the saved <paramref name="tag"/> data. Needs an <paramref name="identifier"/> to figure out which timer it is.
         /// </summary>
         /// <param name="tag">The <see cref="TagCompound"/> that stores this <see cref="TickTimer"/> data.</param>
-        /// <param name="identifier">The <see cref="String"/> name of this <see cref="TickTimer"/>.</param>
-        public TickTimer(TagCompound tag, String identifier)
+        /// <param name="identifier">The <see cref="string"/> name of this <see cref="TickTimer"/>.</param>
+        public TickTimer(TagCompound tag, string identifier)
         {
-            _totalTicks = tag.GetLong(OmoriMod.MOD_NAME + identifier + saveTotalTicks);
-            _originalTicks = tag.GetLong(OmoriMod.MOD_NAME + identifier + saveOriginalTicks);
+            LoadData(tag, identifier);
         }
 
         /// <summary>
@@ -145,30 +155,19 @@ namespace OmoriMod.Util
         /// If no <see cref="TickTimer"/> is found, this instance is set to <paramref name="fallbackTimer"/>.
         /// </summary>
         /// <param name="tag">The <see cref="TagCompound"/> that stores this <see cref="TickTimer"/> data.</param>
-        /// <param name="identifier">The <see cref="String"/> name of this <see cref="TickTimer"/>.</param>
+        /// <param name="identifier">The <see cref="string"/> name of this <see cref="TickTimer"/>.</param>
         /// <param name="fallbackTimer">A backup <see cref="TickTimer"/> if this instance is not found in the <paramref name="tag"/>.</param>
-        public TickTimer(TagCompound tag, String identifier, TickTimer fallbackTimer)
+        public TickTimer(TagCompound tag, string identifier, TickTimer fallbackTimer)
         {
-            if (tag.ContainsKey(OmoriMod.MOD_NAME + identifier + saveTotalTicks))
+            if (tag.ContainsKey(identifier.OmoriModString() + saveTotalTicks))
             {
-                _totalTicks = tag.GetLong(OmoriMod.MOD_NAME + identifier + saveTotalTicks);
-                _originalTicks = tag.GetLong(OmoriMod.MOD_NAME + identifier + saveOriginalTicks);
+                LoadData(tag, identifier);
             }
             else
             {
                 _totalTicks = fallbackTimer._totalTicks;
                 _originalTicks = fallbackTimer._originalTicks;
             }
-        }
-
-
-
-        /// <summary>
-        /// Resets the <see cref="_totalTicks"/> to <see cref="_originalTicks"/>.
-        /// </summary>
-        public void Reset()
-        {
-            _totalTicks = _originalTicks;
         }
 
 
@@ -196,17 +195,27 @@ namespace OmoriMod.Util
         }
 
 
+
+        /// <summary>
+        /// Resets the <see cref="_totalTicks"/> to <see cref="_originalTicks"/>.
+        /// </summary>
+        public void Reset()
+        {
+            _totalTicks = _originalTicks;
+        }
+
+
         /// <summary>
         /// Creates a savable <see cref="TagCompound"/> out of this <see cref="TickTimer"/>.
         /// </summary>
-        /// <param name="identifier">The <see cref="String"/> name of this <see cref="TickTimer"/>.</param>
-        /// <returns></returns>
-        public TagCompound CreateTagCompound(String identifier)
+        /// <param name="identifier">The <see cref="string"/> name of this <see cref="TickTimer"/>.</param>
+        /// <returns>A <see cref="TagCompound"/> with the serialized <see cref="TickTimer"/></returns>
+        public TagCompound GenerateTagCompound(string identifier)
         {
             TagCompound tag = new()
             {
-                [OmoriMod.MOD_NAME + identifier + saveTotalTicks] = _totalTicks,
-                [OmoriMod.MOD_NAME + identifier + saveOriginalTicks] = _originalTicks
+                [identifier.OmoriModString() + saveTotalTicks] = _totalTicks,
+                [identifier.OmoriModString() + saveOriginalTicks] = _originalTicks
             };
             return tag;
         }
@@ -215,26 +224,23 @@ namespace OmoriMod.Util
         /// Saves this <see cref="TickTimer"/> on the provided <paramref name="tag"/>.
         /// </summary>
         /// <param name="tag">The <see cref="TagCompound"/> this <see cref="TickTimer"/> should be saved to.</param>
-        /// <param name="identifier">The <see cref="String"/> name of this <see cref="TickTimer"/>.</param>
-
-        public void SaveData(TagCompound tag, String identifier)
+        /// <param name="identifier">The <see cref="string"/> name of this <see cref="TickTimer"/>.</param>
+        public void SaveData(TagCompound tag, string identifier)
         {
-            tag[OmoriMod.MOD_NAME + identifier + saveTotalTicks] = _totalTicks;
-            tag[OmoriMod.MOD_NAME + identifier + saveOriginalTicks] = _originalTicks;
+            tag[identifier.OmoriModString() + saveTotalTicks] = _totalTicks;
+            tag[identifier.OmoriModString() + saveOriginalTicks] = _originalTicks;
         }
 
-
         /// <summary>
-        /// Returns the total ticks that are left in this <see cref="TickTimer"/>
+        /// Loads this <see cref="TickTimer"/> from the provided <paramref name="tag"/>
         /// </summary>
-        public long TotalTicks => _totalTicks;
-
-        /// <summary>
-        /// Returns <paramref name="true"/> if this <see cref="TickTimer"/> is out of ticks. Only useful for <see cref="TickTimer"/> instances that decrement
-        /// </summary>
-        public bool IsDone => _totalTicks <= 0;
-
-
+        /// <param name="tag">The <see cref="TagCompound"/> this <see cref="TickTimer"/> should be loaded from.</param>
+        /// <param name="identifier">The <see cref="string"/> name of this <see cref="TickTimer"/>.</param>
+        public void LoadData(TagCompound tag, string identifier)
+        {
+            _totalTicks = tag.GetLong(identifier.OmoriModString() + saveTotalTicks);
+            _originalTicks = tag.GetLong(identifier.OmoriModString() + saveOriginalTicks);
+        }
 
         public override bool Equals(object obj)
         {

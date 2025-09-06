@@ -8,12 +8,14 @@ namespace OmoriMod
 	
 	public class OmoriMod : Mod
 	{
-        public static Mod modInstance;
-        public static string MOD_NAME = "OmoriMod:";
+        private static Mod _modInstance;
+        public const string MOD_NAME = "OmoriMod";
+
+        public static Mod Mod { get => _modInstance; }
 
         public OmoriMod()
 		{
-			modInstance = this;
+			_modInstance = this;
 		}
 
         public override void PostSetupContent()
