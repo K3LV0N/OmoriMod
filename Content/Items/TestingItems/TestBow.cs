@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.TestingItems
 {
-    internal class TestBow : OmoriModItem
+    public class TestBow : OmoriModItem
     {
         TestBow()
         {

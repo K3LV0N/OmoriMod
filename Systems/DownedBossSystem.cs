@@ -8,7 +8,7 @@ using Terraria.ModLoader.IO;
 
 namespace OmoriMod.Systems
 {
-    internal class DownedBossSystem : ModSystem
+    public class DownedBossSystem : ModSystem
     {
         // Keep a single set of IDs for all downed bosses
         private static readonly HashSet<string> _downed = new(System.StringComparer.OrdinalIgnoreCase);

@@ -1,4 +1,4 @@
-﻿using OmoriMod.Content.NPCs.Abstract;
+﻿using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems;
 using OmoriMod.Util;
 using Terraria;

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 using OmoriMod.Systems.EmotionSystem;
 using OmoriMod.Content.Dusts;

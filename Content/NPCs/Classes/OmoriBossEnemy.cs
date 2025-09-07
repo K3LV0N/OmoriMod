@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace OmoriMod.Content.NPCs.Abstract
+namespace OmoriMod.Content.NPCs.Classes
 {
-    public abstract class OmoriBossEnemy : OmoriNPC
+    public abstract class OmoriBossEnemy : OmoriBehaviourNPC
     {
         protected string bossName;
 

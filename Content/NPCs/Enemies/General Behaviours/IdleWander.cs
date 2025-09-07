@@ -1,20 +1,15 @@
-﻿using OmoriMod.Content.NPCs.StateManagement;
-using OmoriMod.Content.NPCs.StateManagement.NPCBehaviours;
-using OmoriMod.Util;
+﻿using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Content.NPCs.State_Management;
+using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
 using Terraria;
 
-namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
+namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours
 {
-    public class IdleWander : NPCBehaviourWithAnimation
+    public class IdleWander(int SurpriseIndex) : NPCBehaviour()
     {
-        private readonly int _exitStatus;
-        public IdleWander(int maxFrames, int SurpriseIndex) 
-            : base("IdleWander".OmoriModString(), maxFrames)
-        {
-            _exitStatus = SurpriseIndex;
-        }
+        private readonly int _exitStatus = SurpriseIndex;
 
-        protected override void FindFrame(int frameHeight)
+        protected override void FindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
             NPC n = npc.NPC;
             n.spriteDirection = n.direction;
@@ -24,15 +19,15 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
             {
                 behaviourInfo++;
             }
-            n.frame.Y = BehaviourInfo.CurrentFrame * frameHeight;
+            n.frame.Y = behaviourInfo.CurrentFrame * frameHeight;
         }
 
-        protected override void OnStart()
+        protected override void OnStart(OmoriModNPC npc, BehaviourInfo behaviourInfo)
         {
             npc.AI_Timer = 0;
         }
 
-        protected override void AI()
+        protected override void AI(OmoriModNPC npc, BehaviourInfo behaviourInfo)
         {
             NPC n = npc.NPC;
             n.TargetClosest(false);
@@ -52,7 +47,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
                 if (n.HasValidTarget && Main.player[n.target].Distance(n.Center) < 500f)
                 {
                     npc.AI_Timer = 0;
-                    BehaviourInfo.ExitStatus = _exitStatus;
+                    behaviourInfo.ExitStatus = _exitStatus;
                 }
             }
             else

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.TestingItems
 {
-    internal class TestGun : OmoriModItem
+    public class TestGun : OmoriModItem
     {
         TestGun()
         {

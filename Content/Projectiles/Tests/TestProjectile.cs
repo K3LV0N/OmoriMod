@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Projectiles.Tests
 {
-    internal class TestProjectile : HappyProjectile
+    public class TestProjectile : HappyProjectile
     {
         public override void SetDefaults()
         {

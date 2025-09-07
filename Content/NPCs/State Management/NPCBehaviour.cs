@@ -1,8 +1,9 @@
-﻿using OmoriMod.Content.NPCs.Abstract;
+﻿using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
 using OmoriMod.Util;
 using System.Collections.Generic;
 
-namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
+namespace OmoriMod.Content.NPCs.State_Management
 {
     /// <summary>
     /// Helper class that can store behaviours for NPCs for state management
@@ -11,8 +12,6 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
     {
 
         protected List<float> behaviourParameters;
-        protected OmoriNPC npc;
-        
 
         public bool IsDone { get => !_inProgress && _hasStarted; }
         private bool _inProgress;
@@ -20,15 +19,7 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
         public bool JustCompleted { get => _justCompleted; }
         private bool _justCompleted;
 
-        public int ExitStatus { get => BehaviourInfo.ExitStatus; }
-        public int CurrentFrame { get => BehaviourInfo.CurrentFrame; }
-
-        public BehaviourInfo BehaviourInfo { get => behaviourInfo; set => behaviourInfo = value; }
-        protected BehaviourInfo behaviourInfo;
-
-
         public string BehaviourName { get => behaviourName; }
-
         protected string behaviourName;
         
 
@@ -40,11 +31,10 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
 
         private void Init(string name)
         {
-            behaviourParameters = new List<float>();
+            behaviourParameters = [];
             _inProgress = false;
             _hasStarted = false;
             _justCompleted = false;
-            behaviourInfo = new BehaviourInfo();
             behaviourName = name.OmoriModString();
         }
 
@@ -53,16 +43,17 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
         /// </summary>
         public NPCBehaviour()
         {
-            Init("");
+            string name = (behaviourName ?? GetType().Name).OmoriModString();
+            Init(name);
         }
 
         /// <summary>
         /// Creates a <see cref="NPCBehaviour"/>.
         /// </summary>
-        /// <param name="name"></param>
-        public NPCBehaviour(string name)
+        /// <param name="behaviourName">In case of special naming conventions. Typically do not pass in.</param>
+        public NPCBehaviour(string behaviourName)
         {
-            Init(name);
+            Init(behaviourName);
         }
 
         /// <summary>
@@ -73,32 +64,18 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
             _inProgress = false;
             _hasStarted = false;
             _justCompleted = false;
-            // do not destroy frame knowledge
-            behaviourInfo.ExitStatus = -2;
         }
 
         /// <summary>
-        /// Resets the attack. NOTE: this is NOT where parameter initilization occurs. Please check <see cref="OnStart"/>
+        /// A hook method to get parameters ready.
         /// </summary>
-        public void FullReset()
-        {
-            _inProgress = false;
-            _hasStarted = false;
-            _justCompleted = false;
-            // destroy frame knowledge
-            behaviourInfo = new BehaviourInfo();
-        }
+        protected virtual void OnStart(OmoriModNPC npc, BehaviourInfo behaviourInfo) { }
 
         /// <summary>
-        /// A hook method to get parameters ready
-        /// </summary>
-        protected virtual void OnStart() { }
-
-        /// <summary>
-        /// A hook method to allow you to write AI. Make sure to edit <see cref="behaviourInfo"/> in this function
+        /// A hook method to allow you to write AI. Make sure to edit <paramref name="behaviourInfo"/> in this function
         /// </summary>
         /// <returns>Void</returns>
-        protected virtual void AI() { }
+        protected virtual void AI(OmoriModNPC npc, BehaviourInfo behaviourInfo) { }
 
         /// <summary>
         /// hook method to allow you to pick your frame from the NPC. Use <paramref name="frameHeight"/> to determine frame height
@@ -106,33 +83,20 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
         /// carry over to the next <see cref="NPCBehaviour"/>
         /// </summary>
         /// <param name="frameHeight"></param>
-        protected virtual void FindFrame(int frameHeight) { }
+        protected virtual void FindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo, int frameHeight) { }
 
-        /// <summary>
-        /// hook method to set maximum frames in animation for easy frame iteration.
-        /// Call <see cref="BehaviourInfo.SetMaxFrames(int)"/> inside of here.
-        /// </summary>
-        /// <param name="maxFrames"></param>
-        protected virtual void SetMaxFrames() { }
 
-        public void SetNPC(OmoriNPC npc)
-        {
-            this.npc = npc;
-        }
-
-        private void Start(OmoriNPC npc, BehaviourInfo info) {
+        private void Start(OmoriModNPC npc, BehaviourInfo info) {
             _inProgress = true;
             _hasStarted = true;
-            behaviourInfo.ExitStatus = -1;
-            behaviourInfo.CurrentFrame = info.CurrentFrame;
-            SetNPC(npc);
-            OnStart();
+            info.ExitStatus = -1;
+            OnStart(npc, info);
         }
 
         /// <summary>
         /// Call this method to use your attack
         /// </summary>
-        public void PerformAI(OmoriNPC npc, BehaviourInfo info) {
+        public void PerformAI(OmoriModNPC npc, BehaviourInfo info) {
             if (IsDone) {
                 _justCompleted = false;
                 return;
@@ -142,16 +106,16 @@ namespace OmoriMod.Content.NPCs.StateManagement.NPCBehaviours
                 Start(npc, info);
             }
 
-            AI();
-            if (behaviourInfo.ExitStatus >= 0) {
+            AI(npc, info);
+            if (info.ExitStatus >= 0) {
                 _inProgress = false;
                 _justCompleted = true;
             }
         }
 
-        public void PerformFindFrame(int frameHeight)
+        public void PerformFindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo,int frameHeight)
         {
-            FindFrame(frameHeight);
+            FindFrame(npc, behaviourInfo, frameHeight);
         }
 
         public override bool Equals(object obj)

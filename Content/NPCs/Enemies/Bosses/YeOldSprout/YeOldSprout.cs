@@ -2,7 +2,11 @@
 using OmoriMod.Content.Items.BossRelated.BossBags;
 using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Content.Items.Health;
-using OmoriMod.Content.NPCs.Abstract;
+using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player;
+using OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours;
+using OmoriMod.Content.NPCs.State_Management;
 using OmoriMod.Systems;
 using OmoriMod.Util;
 using System;
@@ -16,15 +20,17 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
 {
     [AutoloadBossHead]
 
-    public class YeOldSprout : OmoriBossEnemy
+    public class YeOldSprout: OmoriBossEnemy
     {
         public YeOldSprout()
         {
             bossName = "YeOldSprout".OmoriModString();
         }
+
+        private const int _frames = 24;
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 24;
+            Main.npcFrameCount[NPC.type] = _frames;
         }
         public override void SetDefaultsBossEnemy()
         {
@@ -41,6 +47,12 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             NPC.value = 10f;
             NPC.knockBackResist = 0.25f;
             NPC.aiStyle = -1;
+
+            behaviourManager = new BehaviourManager(this, _frames);
+            behaviourManager.AddBehaviour(new IdleWander(1));
+            behaviourManager.AddBehaviour(new SuprisedJump(2));
+            behaviourManager.AddBehaviour(new SproutMoleChaseBehaviour(3, 0));
+            behaviourManager.AddBehaviour(new ChasePlayerJump(2));
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -268,7 +280,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             double distanceBias = 75f;
             bool playerChosen = false;
             bool outOfPlayers = false;
-            int likelyChosen = 1;
+            int likelyChosen;
 
             NPC.TargetClosest();
 
@@ -279,10 +291,10 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
                 if (i != NPC.target && player.active)
                 {
                     // if the current player is not the target and exists
-                    double distance = FindDistance(NPC.position.X, player.position.X, NPC.position.Y, player.position.Y);
+                    double distance = this.FindDistance(NPC.position.X, player.position.X, NPC.position.Y, player.position.Y);
 
                     likelyChosen = 1 + (int)(distance / distanceBias);
-                    playerChosen = Main.rand.NextBool(likelyChosen) ?  true : false;  
+                    playerChosen = Main.rand.NextBool(likelyChosen);
                 }
                 else if(!player.active)
                 {
@@ -459,11 +471,12 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
                 float speed = 2.5f;
                 float inertia = 50f;
 
-                MoveHorizontal(speed, inertia, xDirection);
+                this.MoveHorizontal(speed, inertia, xDirection);
             }
 
             Stuck_Jump_Timer++;
         }
+
 
         public void JumpAtPlayer(Player player, float initialJump, float maxSpeed, float maxJumpSpeed, float minSpeed, float fastAccel, float accel, int xDirection)
         {
@@ -485,7 +498,8 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             float speed = 2.5f;
             float inertia = 50f;
 
-            MoveHorizontal(speed, inertia, xDirection);
+            
+            this.MoveHorizontal(speed, inertia, xDirection);
 
             Jump_Timer++;
         }

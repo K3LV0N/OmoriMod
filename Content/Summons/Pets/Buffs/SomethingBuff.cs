@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Summons.Pets.Buffs
 {
-    internal class SomethingBuff : ModBuff
+    public class SomethingBuff : ModBuff
     {
 
         public override void SetStaticDefaults()

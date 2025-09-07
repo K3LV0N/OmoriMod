@@ -1,6 +1,6 @@
-﻿using OmoriMod.Content.NPCs.Abstract;
-using OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours;
-using OmoriMod.Content.NPCs.StateManagement;
+﻿using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player;
+using OmoriMod.Content.NPCs.State_Management;
 using Terraria;
 using Terraria.ID;
 
@@ -16,7 +16,6 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
 
         public override void SetDefaults()
         {
-            NPC.boss = true;
             NPC.width = 17;
             NPC.height = 30;
             NPC.lifeMax = 30;
@@ -31,65 +30,22 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             NPC.knockBackResist = 1f;
             NPC.aiStyle = -1;
 
-            behaviourManager = new BehaviourManager();
-            behaviourManager.AddBehaviour(new ChasePlayerUnrelenting(_frames, 1));
-            behaviourManager.AddBehaviour(new ChasePlayerJump(_frames, 0));
+            behaviourManager = new BehaviourManager(this, _frames);
+            behaviourManager.AddBehaviour(new ChasePlayer(1,
+                speed: 1.5f,
+                inertia: 20f
+                ));
+            behaviourManager.AddBehaviour(new ChasePlayerJump(0));
         }
 
         public override void AI()
         {
-            behaviourManager.PerformAIViaExitStatus(this);
+            behaviourManager.PerformAIViaExitStatus();
         }
 
-        private const int frame1 = 0;
-        private const int frame2 = 1;
-        private const int frame3 = 2;
-        private const int frame4 = 3;
-        private const int frame5 = 4;
-        private const int frame6 = 5;
-        private const int frame7 = 6;
-        private const int frame8 = 7;
         public override void FindFrame(int frameHeight)
         {
-            NPC.spriteDirection = NPC.direction;
-            NPC.frameCounter++;
-
-            if (NPC.frameCounter < 10)
-            {
-                NPC.frame.Y = frame1 * frameHeight;
-            }
-            else if (NPC.frameCounter < 20)
-            {
-                NPC.frame.Y = frame2 * frameHeight;
-            }
-            else if (NPC.frameCounter < 30)
-            {
-                NPC.frame.Y = frame3 * frameHeight;
-            }
-            else if (NPC.frameCounter < 40)
-            {
-                NPC.frame.Y = frame4 * frameHeight;
-            }
-            else if (NPC.frameCounter < 50)
-            {
-                NPC.frame.Y = frame5 * frameHeight;
-            }
-            else if (NPC.frameCounter < 60)
-            {
-                NPC.frame.Y = frame6 * frameHeight;
-            }
-            else if (NPC.frameCounter < 70)
-            {
-                NPC.frame.Y = frame7 * frameHeight;
-            }
-            else if (NPC.frameCounter < 80)
-            {
-                NPC.frame.Y = frame8 * frameHeight;
-            }
-            else
-            {
-                NPC.frameCounter = 0;
-            }
+            behaviourManager.PerformFindFrame(frameHeight);
         }
     }
 }

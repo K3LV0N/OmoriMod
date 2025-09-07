@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Systems.DevMode
 {
-    internal class Dev : ModSystem
+    public class Dev : ModSystem
     {
         public override void AddRecipes()
         {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.Abstract.Helpers;
-using OmoriMod.Content.NPCs.Abstract;
+using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
 using Terraria;
@@ -28,7 +28,7 @@ namespace OmoriMod.Content.NPCs.Global
             ImmuneToEmotionChange = false;
 
             ModNPC modNPC = NPCLoader.GetNPC(entity.type);
-            if (modNPC == null || modNPC is not OmoriNPC)
+            if (modNPC == null || modNPC is not OmoriModNPC)
             {
                 // bosses are immune to emotions
                 ImmuneToEmotionChange = entity.boss;

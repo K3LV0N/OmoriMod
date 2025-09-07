@@ -5,15 +5,18 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Items.Health;
-using OmoriMod.Content.NPCs.Abstract;
-using OmoriMod.Content.NPCs.StateManagement;
+using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Content.NPCs.State_Management;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player;
 using OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
 {
-    internal class SproutMole : OmoriBehaviourNPC
+    public class SproutMole : OmoriBehaviourNPC
     {
         private const int _frames = 9;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = _frames;
@@ -36,11 +39,11 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
             NPC.aiStyle = -1;
             NPC.netUpdate = true;
 
-            behaviourManager = new BehaviourManager();
-            behaviourManager.AddBehaviour(new IdleWander(_frames,  1));
-            behaviourManager.AddBehaviour(new SuprisedJump(_frames, 2));
-            behaviourManager.AddBehaviour(new ChasePlayer(_frames, 3, 0));
-            behaviourManager.AddBehaviour(new ChasePlayerJump(_frames, 2));
+            behaviourManager = new BehaviourManager(this, _frames);
+            behaviourManager.AddBehaviour(new IdleWander(1));
+            behaviourManager.AddBehaviour(new SuprisedJump(2));
+            behaviourManager.AddBehaviour(new SproutMoleChaseBehaviour(3, 0));
+            behaviourManager.AddBehaviour(new ChasePlayerJump(2));
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -63,7 +66,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
 
         public override void AI()
         {
-            behaviourManager.PerformAIViaExitStatus(this);
+            behaviourManager.PerformAIViaExitStatus();
         }
 
 

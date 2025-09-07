@@ -7,7 +7,7 @@ namespace OmoriMod.Util.Interfaces
     /// Promises that they are <see cref="TagCompound"/> serializable.
     /// Also promises a method to create a <see cref="TagCompound"/> in case of use in collections
     /// </summary>
-    internal interface ISaveableWithGenerate : ISaveable
+    public interface ISaveableWithGenerate : ISaveable
     {
         public TagCompound GenerateTagCompound(string identifier);
     }

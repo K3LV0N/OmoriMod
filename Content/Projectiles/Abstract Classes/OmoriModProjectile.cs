@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using Terraria.Audio;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Projectiles.Abstract_Classes

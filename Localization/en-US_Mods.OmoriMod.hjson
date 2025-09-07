@@ -419,8 +419,8 @@ Items: {
 	}
 
 	YeOldBossBag: {
-		DisplayName: Ye Old Boss Bag
-		Tooltip: Contains a weapon and most likely some tofu
+		DisplayName: Treasure Bag (Ye Old Sprout)
+		Tooltip: Right Click to open
 	}
 
 	SproutShotgun: {
