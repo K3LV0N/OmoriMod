@@ -69,13 +69,13 @@ namespace OmoriMod.Content.NPCs.State_Management
         /// <summary>
         /// A hook method to get parameters ready.
         /// </summary>
-        protected virtual void OnStart(OmoriModNPC npc, BehaviourInfo behaviourInfo) { }
+        protected virtual void OnStart(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo) { }
 
         /// <summary>
         /// A hook method to allow you to write AI. Make sure to edit <paramref name="behaviourInfo"/> in this function
         /// </summary>
         /// <returns>Void</returns>
-        protected virtual void AI(OmoriModNPC npc, BehaviourInfo behaviourInfo) { }
+        protected virtual void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo) { }
 
         /// <summary>
         /// hook method to allow you to pick your frame from the NPC. Use <paramref name="frameHeight"/> to determine frame height
@@ -83,10 +83,10 @@ namespace OmoriMod.Content.NPCs.State_Management
         /// carry over to the next <see cref="NPCBehaviour"/>
         /// </summary>
         /// <param name="frameHeight"></param>
-        protected virtual void FindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo, int frameHeight) { }
+        protected virtual void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight) { }
 
 
-        private void Start(OmoriModNPC npc, BehaviourInfo info) {
+        private void Start(OmoriBehaviourNPC npc, BehaviourInfo info) {
             _inProgress = true;
             _hasStarted = true;
             info.ExitStatus = -1;
@@ -96,7 +96,7 @@ namespace OmoriMod.Content.NPCs.State_Management
         /// <summary>
         /// Call this method to use your attack
         /// </summary>
-        public void PerformAI(OmoriModNPC npc, BehaviourInfo info) {
+        public void PerformAI(OmoriBehaviourNPC npc, BehaviourInfo info) {
             if (IsDone) {
                 _justCompleted = false;
                 return;
@@ -113,7 +113,7 @@ namespace OmoriMod.Content.NPCs.State_Management
             }
         }
 
-        public void PerformFindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo,int frameHeight)
+        public void PerformFindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo,int frameHeight)
         {
             FindFrame(npc, behaviourInfo, frameHeight);
         }

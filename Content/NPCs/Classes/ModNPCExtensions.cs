@@ -22,7 +22,6 @@ namespace OmoriMod.Content.NPCs.Classes
             NPC n = npc.NPC;
             var direction = new Vector2(xDirection, 0);
             direction.Normalize();
-            direction *= speed;
             n.velocity = (n.velocity * (inertia - 1) + direction * speed) / inertia;
         }
 

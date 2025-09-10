@@ -11,7 +11,7 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
         private readonly int _exitStatus = exitStatus;
         private readonly float _speed = speed;
         private readonly float _inertia = inertia;
-        protected override void FindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
+        protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
             NPC n = npc.NPC;
             n.spriteDirection = n.direction;
@@ -25,7 +25,7 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
         }
 
 
-        protected override void OnStart(OmoriModNPC npc, BehaviourInfo behaviourInfo)
+        protected override void OnStart(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             npc.AI_Timer = 0;
         }
@@ -36,14 +36,17 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
         /// <param name="npc"></param>
         /// <param name="behaviourInfo"></param>
         /// <returns></returns>
-        protected virtual bool ExitCondition(OmoriModNPC npc, BehaviourInfo behaviourInfo) { return false; }
+        protected virtual bool ExitCondition(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo) { return false; }
 
-        protected override void AI(OmoriModNPC npc, BehaviourInfo behaviourInfo)
+        protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             NPC n = npc.NPC;
             n.TargetClosest(true);
 
-            if(ExitCondition(npc, behaviourInfo))
+            npc.MoveHorizontal(_speed, _inertia, n.direction);
+            npc.AI_Timer++;
+
+            if (ExitCondition(npc, behaviourInfo))
             {
                 behaviourInfo.ExitStatus = _exitStatus;
                 return;
@@ -53,11 +56,6 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
                 behaviourInfo.ExitStatus = _jumpStatus;
                 return;
             }
-            else
-            {
-                npc.MoveHorizontal(_speed, _inertia, n.direction);
-            }
-            npc.AI_Timer++;
         }
     }
 }

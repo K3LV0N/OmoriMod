@@ -9,7 +9,7 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours
     {
         private readonly int _exitStatus = SurpriseIndex;
 
-        protected override void FindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
+        protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
             NPC n = npc.NPC;
             n.spriteDirection = n.direction;
@@ -22,12 +22,12 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours
             n.frame.Y = behaviourInfo.CurrentFrame * frameHeight;
         }
 
-        protected override void OnStart(OmoriModNPC npc, BehaviourInfo behaviourInfo)
+        protected override void OnStart(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             npc.AI_Timer = 0;
         }
 
-        protected override void AI(OmoriModNPC npc, BehaviourInfo behaviourInfo)
+        protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             NPC n = npc.NPC;
             n.TargetClosest(false);
@@ -37,23 +37,20 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours
                 n.direction = leftOrRight ? 1: -1;
                 n.netUpdate = true;
             }
-            npc.AI_Timer++;
+            
+            n.velocity.X = n.direction;
 
-            if (npc.AI_Timer < 120)
+            if (n.HasValidTarget && Main.player[n.target].Distance(n.Center) < 500f)
             {
-                n.velocity.X = n.direction;
-                n.velocity.Y = 8f;
-
-                if (n.HasValidTarget && Main.player[n.target].Distance(n.Center) < 500f)
-                {
-                    npc.AI_Timer = 0;
-                    behaviourInfo.ExitStatus = _exitStatus;
-                }
+                npc.AI_Timer = 0;
+                behaviourInfo.ExitStatus = _exitStatus;
             }
-            else
+
+            if (npc.AI_Timer >= 120)
             {
                 npc.AI_Timer = 0;
             }
+            npc.AI_Timer++;
         }
     }
 }

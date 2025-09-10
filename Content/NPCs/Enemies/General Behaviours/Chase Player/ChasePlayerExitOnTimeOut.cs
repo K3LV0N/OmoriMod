@@ -9,7 +9,7 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
     {
         private readonly TickTimer _timeOut = timeOut;
 
-        protected override void FindFrame(OmoriModNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
+        protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
             NPC n = npc.NPC;
             n.spriteDirection = n.direction;
@@ -21,12 +21,12 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
             n.frame.Y = behaviourInfo.CurrentFrame * frameHeight;
         }
 
-        protected override void OnStart(OmoriModNPC npc, BehaviourInfo behaviourInfo)
+        protected override void OnStart(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             npc.AI_Timer = 0;
         }
 
-        protected override bool ExitCondition(OmoriModNPC npc, BehaviourInfo behaviourInfo)
+        protected override bool ExitCondition(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             return npc.AI_Timer > _timeOut.TotalTicks;
         }

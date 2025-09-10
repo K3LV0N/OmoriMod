@@ -14,10 +14,5 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
         {
             _exitStatus = -2;
         }
-
-        public AIInfo(int exitStatus)
-        {
-            _exitStatus = exitStatus;
-        }
     }
 }

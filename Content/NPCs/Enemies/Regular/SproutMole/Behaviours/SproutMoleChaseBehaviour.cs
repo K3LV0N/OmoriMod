@@ -6,8 +6,8 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
         : ChasePlayerExitOnTooFarFromTarget(
             jumpIndex: jumpIndex,
             exitStatus: exitStatus,
-            speed: 1.5f,
-            inertia: 25f,
+            speed: 2.5f,
+            inertia: 20f,
             maxDistance: 800f
             )
     {

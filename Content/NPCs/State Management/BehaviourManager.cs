@@ -9,7 +9,7 @@ namespace OmoriMod.Content.NPCs.State_Management
     public class BehaviourManager
     {
         private readonly List<NPCBehaviour> behaviourList;
-        private readonly OmoriModNPC npc;
+        private readonly OmoriBehaviourNPC npc;
         private readonly BehaviourInfo behaviourInfo;
         private TickTimer timeBetweenBehaviours;
 
@@ -19,7 +19,7 @@ namespace OmoriMod.Content.NPCs.State_Management
         
         private readonly Random random;
 
-        public BehaviourManager(OmoriModNPC npc, int totalFrames)
+        public BehaviourManager(OmoriBehaviourNPC npc, int totalFrames)
         {
             behaviourList = [];
             selectedBehaviour = null;
