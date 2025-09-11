@@ -1,14 +1,12 @@
 ﻿using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Content.NPCs.State_Management;
 using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
+using OmoriMod.Content.NPCs.State_Management.NPC_Behaviour;
 using Terraria;
 
-namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
+namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives.Chase_Player
 {
-    public class ChasePlayerJump(int chaseIndex) : NPCBehaviour()
+    public class ChasePlayerJump(int chaseIndex, float speed, float inertia) : NPCBehaviour(chaseIndex)
     {
-        private readonly int _exitStatus = chaseIndex;
-
         protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
             NPC n = npc.NPC;
@@ -29,15 +27,12 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
             if (npc.AI_Timer == 0) {
                 n.velocity.Y += -10f;
             }
-            
-            float speed = 2f;
-            float inertia = 25f;
 
-            npc.MoveHorizontal(speed, inertia, n.direction);
+            npc.MoveHorizontal(speed, inertia, npc.DirectionToTarget());
             
             if (npc.AI_Timer > 3 && n.collideY)
             {
-                behaviourInfo.ExitStatus = _exitStatus;
+                behaviourInfo.ExitStatus = _defaultExitStatus;
             }
             npc.AI_Timer++;
         }

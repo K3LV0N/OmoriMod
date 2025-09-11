@@ -10,7 +10,6 @@
     <None Remove="Content\Items\BuffItems\EmotionalAmplifier.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\NPCs\Enemies\Bosses\YeOldSprout\Behaviours\" />
     <Folder Include="Systems\AbilitySystem\ItemAbilities\Actives\" />
   </ItemGroup>
 </Project>

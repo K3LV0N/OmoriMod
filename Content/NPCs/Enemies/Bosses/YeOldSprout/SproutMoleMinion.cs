@@ -1,5 +1,6 @@
 ﻿using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives.Chase_Player;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Backgrounds;
 using OmoriMod.Content.NPCs.State_Management;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +36,13 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
                 speed: 1.5f,
                 inertia: 20f
                 ));
-            behaviourManager.AddBehaviour(new ChasePlayerJump(0));
+            behaviourManager.AddBehaviour(new ChasePlayerJump(0,
+                speed: 1.5f,
+                inertia: 20f
+                ));
+
+            behaviourManager.AddBackgroundBehaviour(new FaceMovementDirection());
+            behaviourManager.AddBackgroundBehaviour(new TargetClosestPlayer());
         }
 
         public override void AI()

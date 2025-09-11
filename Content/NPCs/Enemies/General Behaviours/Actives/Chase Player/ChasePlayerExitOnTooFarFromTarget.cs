@@ -2,7 +2,7 @@
 using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
 using Terraria;
 
-namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
+namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives.Chase_Player
 {
     public class ChasePlayerExitOnTooFarFromTarget(int jumpIndex, int exitStatus, float speed, float inertia, float maxDistance) : ChasePlayer(jumpIndex, speed, inertia, exitStatus)
     {

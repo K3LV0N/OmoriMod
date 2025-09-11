@@ -7,11 +7,11 @@ using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.State_Management;
-using OmoriMod.Content.NPCs.Enemies.General_Behaviours;
-using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player;
-using OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours;
+using OmoriMod.Content.NPCs.Enemies.Enemies.SproutMole.Behaviours;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives;
+using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Backgrounds;
 
-namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
+namespace OmoriMod.Content.NPCs.Enemies.Enemies.SproutMole
 {
     public class SproutMole : OmoriBehaviourNPC
     {
@@ -43,7 +43,10 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
             behaviourManager.AddBehaviour(new IdleWander(1));
             behaviourManager.AddBehaviour(new SuprisedJump(2));
             behaviourManager.AddBehaviour(new SproutMoleChaseBehaviour(3, 0));
-            behaviourManager.AddBehaviour(new ChasePlayerJump(2));
+            behaviourManager.AddBehaviour(new SproutMoleJumpChaseBehaviour(2));
+
+            behaviourManager.AddBackgroundBehaviour(new FaceMovementDirection());
+            behaviourManager.AddBackgroundBehaviour(new TargetClosestPlayer());
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

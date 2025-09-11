@@ -3,12 +3,13 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
 {
     public class BehaviourInfo
     {
-        private readonly AIInfo aiInfo;
+        private AIInfo aiInfo;
         private AnimationInfo animationInfo;
 
         public int ExitStatus { get => aiInfo.ExitStatus; set => aiInfo.ExitStatus = value; }
         public int CurrentFrame { get => animationInfo.GetCurrentFrame(); set => animationInfo.SetCurrentFrame(value); }
 
+        public string SelectedAnimation { get => animationInfo.SelectedAnimation; }
         public BehaviourInfo() {
             aiInfo = new AIInfo();
             animationInfo = new AnimationInfo(-1);
@@ -30,7 +31,18 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
             ExitStatus = -2;
         }
 
-        public bool AddAnimation(string name, FrameIterator iter)
+        public BehaviourInfo Copy()
+        {
+            return new BehaviourInfo(aiInfo.Copy(), animationInfo.Copy());
+        }
+
+        public void Set(BehaviourInfo info)
+        {
+            aiInfo = info.aiInfo.Copy();
+            animationInfo = info.animationInfo.Copy();
+        }
+
+        public bool AddAnimation(string name, NPCAnimation iter)
         {
             return animationInfo.AddAnimation(name, iter);
         }

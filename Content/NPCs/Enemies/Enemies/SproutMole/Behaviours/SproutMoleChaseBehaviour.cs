@@ -1,6 +1,6 @@
-﻿using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player;
+﻿using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives.Chase_Player;
 
-namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
+namespace OmoriMod.Content.NPCs.Enemies.Enemies.SproutMole.Behaviours
 {
     public class SproutMoleChaseBehaviour(int jumpIndex, int exitStatus) 
         : ChasePlayerExitOnTooFarFromTarget(

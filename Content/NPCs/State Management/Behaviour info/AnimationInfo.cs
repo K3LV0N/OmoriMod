@@ -5,13 +5,15 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
     public class AnimationInfo
     {
         private const string DEFAULT = "default";
-        private Dictionary<string, FrameIterator> _animationInfo;
+        private Dictionary<string, NPCAnimation> _animationInfo;
         private string _selectedFrameIterator;
+
+        public string SelectedAnimation { get => _selectedFrameIterator; }
 
         public AnimationInfo(int totalFrames)
         {
             _selectedFrameIterator = DEFAULT;
-            FrameIterator frameIterator = new FrameIterator(totalFrames-1);
+            NPCAnimation frameIterator = new NPCAnimation(totalFrames-1);
 
             _animationInfo = [];
             _animationInfo.Add(_selectedFrameIterator, frameIterator);
@@ -19,7 +21,11 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
 
         public AnimationInfo(AnimationInfo previousInfo)
         {
-            _animationInfo = previousInfo._animationInfo;
+            _animationInfo = new Dictionary<string, NPCAnimation>();
+            foreach (var kvp in previousInfo._animationInfo)
+            {
+                _animationInfo.Add(kvp.Key, kvp.Value.Copy()); // You'll need to add a Copy() to NPCAnimation
+            }
             _selectedFrameIterator = previousInfo._selectedFrameIterator;
         }
 
@@ -66,7 +72,9 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
         /// <returns></returns>
         public bool SelectAnimation(string animationName)
         {
+            
             if (_animationInfo.ContainsKey(animationName)) {
+                if (_selectedFrameIterator == animationName) { return true; }
                 _animationInfo[_selectedFrameIterator].Reset();
                 _selectedFrameIterator = animationName;
                 return true;
@@ -80,7 +88,7 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
         /// <param name="animationName"></param>
         /// <param name="iter"></param>
         /// <returns></returns>
-        public bool AddAnimation(string animationName, FrameIterator iter)
+        public bool AddAnimation(string animationName, NPCAnimation iter)
         {
             if (_animationInfo.ContainsKey(animationName)) { return false; }
             _animationInfo.Add(animationName, iter);
@@ -91,6 +99,11 @@ namespace OmoriMod.Content.NPCs.State_Management.Behaviour_Info
         {
             a._animationInfo[a._selectedFrameIterator]++; 
             return a;
+        }
+
+        public AnimationInfo Copy()
+        {
+            return new AnimationInfo(this);
         }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Content.NPCs.State_Management;
 using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
+using OmoriMod.Content.NPCs.State_Management.NPC_Behaviour;
 using Terraria;
 
-namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
+namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives.Chase_Player
 {
-    public class ChasePlayer(int jumpIndex, float speed, float inertia, int exitStatus = -1) : NPCBehaviour()
+    public class ChasePlayer(int jumpIndex, float speed, float inertia, int exitStatus = -1) : NPCBehaviour(exitStatus)
     {
         private readonly int _jumpStatus = jumpIndex;
-        private readonly int _exitStatus = exitStatus;
         private readonly float _speed = speed;
         private readonly float _inertia = inertia;
         protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
@@ -41,14 +40,13 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Chase_Player
         protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             NPC n = npc.NPC;
-            n.TargetClosest(true);
 
-            npc.MoveHorizontal(_speed, _inertia, n.direction);
+            npc.MoveHorizontal(_speed, _inertia, npc.DirectionToTarget());
             npc.AI_Timer++;
 
             if (ExitCondition(npc, behaviourInfo))
             {
-                behaviourInfo.ExitStatus = _exitStatus;
+                behaviourInfo.ExitStatus = _defaultExitStatus;
                 return;
             }
             if (n.collideX)

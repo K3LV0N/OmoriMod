@@ -1,15 +1,12 @@
 ﻿using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Content.NPCs.State_Management;
 using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
-using OmoriMod.Util;
+using OmoriMod.Content.NPCs.State_Management.NPC_Behaviour;
 using Terraria;
 
-namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours
+namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours.Actives
 {
-    public class SuprisedJump(int chaseIndex) : NPCBehaviour()
+    public class SuprisedJump(int chaseIndex) : NPCBehaviour(chaseIndex)
     {
-        private readonly int _exitStatus = chaseIndex;
-
         protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
             NPC n = npc.NPC;
@@ -26,18 +23,17 @@ namespace OmoriMod.Content.NPCs.Enemies.General_Behaviours
         protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             NPC n = npc.NPC;
-            n.TargetClosest(true);
 
             if (npc.AI_Timer == 0)
             {
-                n.velocity.Y = -3f;
+                n.velocity.Y = -6f;
             }
 
             npc.AI_Timer++;
 
             if (n.collideY)
             {
-                behaviourInfo.ExitStatus = _exitStatus;
+                behaviourInfo.ExitStatus = _defaultExitStatus;
             }
 
             

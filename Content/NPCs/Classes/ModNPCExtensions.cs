@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.ID;
@@ -23,6 +24,52 @@ namespace OmoriMod.Content.NPCs.Classes
             var direction = new Vector2(xDirection, 0);
             direction.Normalize();
             n.velocity = (n.velocity * (inertia - 1) + direction * speed) / inertia;
+        }
+
+        /// <summary>
+        /// Creates a set of unit vectors evenly spaced above the horizontal line, within ±maxAngle.
+        /// </summary>
+        /// <param name="npc">The NPC this extension is applied to (unused, just for extension).</param>
+        /// <param name="amountOfVectors">Number of vectors to generate.</param>
+        /// <param name="maxAngle">Maximum angle in degrees from horizontal.</param>
+        /// <returns>A HashSet of Vector2 representing the unit vectors.</returns>
+        public static HashSet<Vector2> CreateVectors(this ModNPC npc, int amountOfVectors, float maxAngle)
+        {
+            HashSet<Vector2> vectors = [];
+
+            if (amountOfVectors <= 0) return vectors;
+
+            // Calculate step angle between vectors
+            float step = amountOfVectors == 1 ? 0f : maxAngle * 2f / (amountOfVectors - 1);
+
+            for (int i = 0; i < amountOfVectors; i++)
+            {
+                // Compute the angle for this vector
+                float angleDeg = -maxAngle + step * i; // -maxAngle is leftmost, +maxAngle is rightmost
+                float angleRad = MathHelper.ToRadians(angleDeg) + 3 * (MathHelper.Pi / 2); // convert to radians
+
+                // Create unit vector
+                Vector2 v = new Vector2((float)Math.Cos(angleRad), (float)Math.Sin(angleRad));
+                vectors.Add(Vector2.Normalize(v));
+            }
+
+            return vectors;
+        }
+
+
+        /// <summary>
+        /// Returns the direction to the <paramref name="npc"/>'s target
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <returns></returns>
+        public static int DirectionToTarget(this ModNPC npc)
+        {
+            if (npc.NPC.HasValidTarget)
+            {
+                if (float.IsNaN(npc.NPC.velocity.X)) { return 0; }
+                return Math.Sign(Main.player[npc.NPC.target].Center.X - npc.NPC.Center.X);
+            }
+            return 0;
         }
 
         /// <summary>
