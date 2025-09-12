@@ -20,6 +20,7 @@ namespace OmoriMod.Content.NPCs.Classes
         /// <param name="xDirection">What direction the movement is going</param>
         public static void MoveHorizontal(this ModNPC npc, float speed, float inertia, int xDirection)
         {
+            if (xDirection == 0) { return; }
             NPC n = npc.NPC;
             var direction = new Vector2(xDirection, 0);
             direction.Normalize();

@@ -14,7 +14,6 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
         {
             Main.npcFrameCount[NPC.type] = _frames;
         }
-
         public override void SetDefaults()
         {
             NPC.width = 17;
