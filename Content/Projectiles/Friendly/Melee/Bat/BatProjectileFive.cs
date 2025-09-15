@@ -1,5 +1,5 @@
 ﻿using Terraria.ModLoader;
-using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Content.Projectiles.Friendly.Melee.Bat
 {

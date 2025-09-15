@@ -1,4 +1,4 @@
-﻿using OmoriMod.Items.Abstract_Classes.BaseClasses;
+﻿using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Systems;
 using Terraria;
 using Terraria.ID;

@@ -2,9 +2,9 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using OmoriMod.Systems.EmotionSystem;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 
-namespace OmoriMod.Items.Abstract_Classes
+namespace OmoriMod.Content.Items.Abstract_Classes
 {
     /// <summary>
     /// An abstract class for items that inflict emotions.

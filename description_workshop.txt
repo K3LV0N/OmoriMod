@@ -1,0 +1,132 @@
+﻿[h1]Omori Mod[/h1]
+
+Make your enemies sad, happy, or angry to exploit an [b]emotional advantage![/b]
+
+All items in this mod build off of eachother, and if they don't then you can learn about them from the Note!
+Additionally, most items are made using the emotion changers sold by the merchant.
+
+If you have't played Omori then you totaly should! It is an awesome game and I cannot
+reccomend it more!!! (You can find it [url=https://store.steampowered.com/app/1150690/OMORI/]here![/url])
+
+[h2]Features[/h2]
+[list]
+	[*]Brand new emotion system featuring 3 new tiered buffs!
+	[*]New weapons and items that inflict emotions on enemies!
+	[*]New enemies and bosses from Omori!
+[/list]
+
+[h2]Links[/h2]
+[list]
+	[*][url=https://discord.gg/DzsvHCGfYq]Join the Discord![/url]
+	[*][url=https://sites.google.com/view/omorimodwiki]Check the  Wiki! (WIP)[/url]
+	[*][url=https://github.com/K3LV0N/OmoriMod]See the GitHub![/url]
+	[*][url=https://www.patreon.com/k3lv0n]Consider supporting me on Patreon![/url]
+[/list]
+
+
+[h2]Change Log[/h2]
+
+[h3]Update 1.20.0.0: Holy Moly![/h3]
+
+[b]Content[/b]
+Completely reworked Ye Old Sprout boss
+[list]
+	[*]Boss runs smoother and is more polished than before
+	[*]Changed the sprites of "Treasure Bag (Ye Old Sprout)", "Sprout Mole", and "Mini Mole"
+	[*]Changed how Sprouts were animated: used to face target -> now face direction they are moving
+[/list]
+
+[b]Bug Fixes[/b]
+[list]
+	[*]Fixed Ye Old Sprout jump animation.
+	[*]Fixed many small bugs involving Sprout velocity
+	[*]Fixed bug with projectiles that prevented them from piercing enemies properly. NOTE: Sprout Scythe has been "buffed" because of this
+[/list]
+
+[b]Tweaks[/b]
+[list]
+	[*]Nerfed Sprout Shotgun
+	[*]Nerfed Sprout movement speed
+[/list]
+
+[b]Optimizations[/b]
+[list]
+	[*]Optimized Chargebar so that it is hopefully less computationally expensive to render
+[/list]
+
+[b]Structure[/b]
+[list]
+	[*]Added brand new NPC state management tool. Mod size might increase because of this, but development is easier.
+[/list]
+
+[b]Plans[/b]
+[list]
+	[*]Stay Tuned...
+[/list]
+
+[b]Other Notices[/b]
+[list]
+	[*]Have fun!
+	[*]Please let me know if you find any bugs or have any comments in the discord!
+[/list]
+
+
+
+[h3]Hotfix 1.19.1.2[/h3]
+[list]
+	[*]Fixed a major bug that completely obliterated enemy defense when angry was applied
+	[*]Fixed a major bug that makes enemies near unkillable when sad was applied.
+[/list]
+
+
+
+[h3]Hotfix 1.19.1.1[/h3]
+[list]
+	[*]Fixed a bug where Emotional Amplifiers were not buyable
+[/list]
+
+
+
+[h3]Update 1.19.1: Now with feelings![/h3]
+
+[b]Content[/b]
+Completely changed emotion system.
+[list]
+	[*]Emotions now display stat changes when hovering over the buff.
+	[*]Emotions can go up to tier 4+ (where tier 4 has levels 1-40) for increased potency.
+	[*]Added new item 'Emotional Amplifier' available for purchase from the merchant in hardmode that allows you to get tier 4+ emotions
+[/list]
+
+To get to a tier 4 emotion, you must first have an active tier 3 emotion. Then use an emotional amplifier.
+When used, the corresponding tier 4 will be applied at level 1. If further emotional amplifiers are used,
+the level of the tier 4 emotion will increase up to a maximum of 40!
+
+More content coming sometime!!
+
+
+[b]Bug Fixes[/b]
+[list]
+	[*]Hopefully fixed bug where Sprout Shotgun could shoot through walls at close range.
+[/list]
+
+[b]Structure[/b]
+[list]
+	[*]Gutted old emotion system and replaced it with a brand new modular system that performs advantage checks without needing to know emotion
+	[*]'Optimized' FocusWeapons for multiplayer
+	[*]'Optimized' Items and their load times
+[/list]
+
+[b]Plans[/b]
+[list]
+	[*]Rework Ye Old Sprout AI so that the fight looks / feels good (Current top priority)
+	[*]Town NPCs
+	[*]Completely rework melee weapons with new system revolving around new town NPC.
+	[*]Summons at some point :(
+[/list]
+
+[b]Other Notices[/b]
+
+I made some really big overhauls this update so there are bound to be bugs I did not catch.
+If you notice any, please join the discord and let me know in the #bugs channel!
+
+Also, I really worked my butt off for this update, so I hope people enjoy! (even though there isn't much new content)

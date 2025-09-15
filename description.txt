@@ -1,4 +1,4 @@
-﻿Omori Mod is a mod that adds emotions into the game!
+﻿Omori Mod
 
 Make your enemies sad, happy, or angry to exploit an emotional advantage!
 
@@ -9,17 +9,66 @@ If you have't played Omori then you totaly should! It is an awesome game and I c
 reccomend it more!!! (You can find it on steam!)
 
 
-JOIN THE DISCORD: https://discord.gg/DzsvHCGfYq
+Features: 
+- Brand new emotion system featuring 3 new tiered buffs!
+- New weapons and items that inflict emotions on enemies!
+- New enemies and bosses from Omori!
+
+Links:
+- Join the Discord: https://discord.gg/DzsvHCGfYq
+- Check the Wiki (WIP): https://sites.google.com/view/omorimodwiki
+- See the GitHub: https://github.com/K3LV0N/OmoriMod
+- Consider supporting me on Patreon: https://www.patreon.com/k3lv0n
+
+
+ChangeLog:
+
+UPDATE 1.20.0.0: Holy Moly!
+
+CONTENT:
+
+- Completely reworked Ye Old Sprout boss
+-- Boss runs smoother and is more polished than before
+-- Changed the sprites of "Treasure Bag (Ye Old Sprout)", "Sprout Mole", and "Mini Mole"
+-- Changed how Sprouts were animated: used to face target -> now face direction they are moving
+
+Bug Fixes:
+- Fixed Ye Old Sprout jump animation.
+- Fixed many small bugs involving Sprout velocity
+- Fixed bug with projectiles that prevented them from piercing enemies properly.
+-- Sprout Scythe has been "buffed" because of this
+
+Tweaks:
+- Nerfed Sprout Shotgun
+- Nerfed Sprout movement speed
+
+Optimizations:
+- Optimized Chargebar so that it is hopefully less computationally expensive to render
+
+Structure:
+- Added brand new NPC state management tool. Mod size might increase because of this, but development is easier.
+
+Other Notices:
+- Have fun!
+- Please let me know if you find any bugs or have any comments in the discord!
+
+
+
+
 
 
 HOTFIX 1.19.1.2
 
-- Fixed a major bug that completely obliterated enemies' defense when angry was applied
+- Fixed a major bug that completely obliterated enemy defense when angry was applied
 - Fixed a major bug that makes enemies near unkillable when sad was applied.
+
+
 
 HOTFIX 1.19.1.1
 
 - Fixed a bug where Emotional Amplifiers were not buyable
+
+
 
 UPDATE 1.19.1: Now with feelings!
 
@@ -64,164 +113,3 @@ I made some really big overhauls this update so there are bound to be bugs I did
 If you notice any, please join the discord and let me know in the #bugs channel!
 
 Also, I really worked my butt off for this update, so I hope people enjoy! (even though there isn't much new content)
-
-
-
-
-
-
-OLDER UPDATES:
-
-
-UPDATE 1.19.0.3:
-
-- Massive architectural changes to prepare for summoner class expansion and additional pets
--- Currently there is only 1 summoner weapon, and I want to make the class have weapons like every other class has at this point
--- Expansion will include a weapon for each emotion for each stage of the game, and a summon weapon dropped from the boss.
-
-Content coming soon!!! (I hope!!!)
-
-
-UPDATE 1.19.0.2:
-
--Various bug fixes:
--- Fixed bug with large damage for party arrow+ and it's bullet counterpart
--- Fixed issue with projectiles not spawning for melee weapons when against a wall
--- Fixed issue with sprout shotgun sprite being massive
-
-- Nerfed Chlorophyte weapons homing range quite a bit (800 -> 300)
-
-- Added small architecture changes for later expansion
-
-
-
-Known Bugs and Issues:
-
-- Sprout shotgun sprite floats off the ground
-
-- Sprout moles cannot walk over hammered blocks
-
-- Emotions are unbalanced, need to find a way to fix this
-
-- Identifyable and fixable bloat (definite mod size reduction and improved workflow)
-
-
-
-
-UPDATE 1.19.0.1:
-
--More massive architecture changes (removed ~40% of mod bloat)
-
--Changed the way the charge bar looks
-
--Updated mod to .NET 8
-
-
-
-
-UPDATE 1.19.0.0:
-
-The sprout moles unite!
-
--Added the first boss
-
--****Hopefully balanced melee weapons
-
--Fixed sad, depressed, and miserable data types
-
--NERFED Sprout moles, they were originally too strong (didn't take much knockback)
---Sprout moles move more organically now
-
--Updated Sprites
-
-As usual please join the discord and let me know in the bugs channel of any bugs you find!
-
-
-
-UPDATE 1.18.0.0:
-
--Added new damage type 'focus' which currently is a blend of ranged and magic right now (this damage type
-	gets the beefits from each so do as you please for now). This will entually change in the future to be
-	its own full type with armor, accessories and other things to benefit. I also additionally plan to add
-	calamity support (AKA a leveling system) so this class does not get left behind over time.
-
--Added First 'focus' class weapon. When holding this weapon out it charges. When charged, the weapon does more damage
-	and starts to decay. To recharge, simply stop firing and the charge bar will start filling up again. The weapon
-	can currently be made with a book and rainclouds, HOWEVER, this recipe WILL change in the future (when I add more
-	ingredients, ores, etc.).
-
--Made it so note starts in the players inventory upon character creation (still can be made with 1 dirt)
-
--Updated bat sprites (courtesy of @ran24 on discord for supplying the sprites. Join the server!!!)
-
--Probably did some other stuff like code clean up but I forget lol
-
--NOTE: more 'focus' class weapons will come out!
-
-
-
-OLDER UPDATES (If you want to read the patch notes):
-
-
-
-UPDATE 1.17:
-
-Brought the mod to tmod 1.4.4!
-
--Found and fixed a bug where upgraded arrows could and would drop their stage 1 counterparts or even other emotional arrows entirely
-
--Reduced mod size and overall bloat by (approximately) 10-20% (I think)
-
--Cleaned up code architecture significantly which should make bug fixes faster and easier
-
--KNOWN BUG: Sad, Depressed, and Miserable statuses make you lose a set amount of mana as opposed to a percentage.
- I do not know how to fix this right now, I am actively thinking of a solution to this.
- 
-I changed a LOT from almost every single file in this update (tbh, the biggest update yet really), so PLEASE join the discord
-to inform me of any bugs you may find!
-
-
-UPDATE 1.16.14:
-
-Fixed a long standing bug where upgraded 'rain' (sad) ammo did not move faster than its other emotional counterparts
-
-
-UPDATE 1.16.13:
-
-Revamped how emotion is shown.
-
-
-UPDATE 1.16.12:
-
-Added speed changes on enemies! Turns out it's possible when
-you think about how speed and velocity effect a NPC's
-position!
-
-
-UPDATE 1.16.11:
-
-Removed speed changes on enemeies when they have emotions
-
-I found out that it is near impossible to simply change the speed
-of a NPC so they are going to remain untouched for now. However,
-I plan to keep messing with this to see if I can get it to work. 
-As of now though, I would have to change each enemy's AI individually
-which is absolutely insane, hence I will not be doing it.
-
-However, this can be easily implemented with modded enemies, so I
-may consider doing such in the future.
-
-
-UPDATE 1.16.10:
-
-Fixed and reworked emotions so they properly work now
--Sad, Depressed, and Miserable were nerfed
---These properly make you slow now
-
--Happy, Ecstatic, and Manic were buffed
---Reworked speed buff
---Lowered chance to miss
-
--Angry, Enraged, and Furious were changed
---Deal higher damage than before
---Take more damage than before

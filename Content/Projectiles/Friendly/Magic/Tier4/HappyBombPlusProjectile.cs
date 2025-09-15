@@ -1,5 +1,5 @@
 ﻿using Terraria.ModLoader;
-using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Content.Projectiles.Friendly.Magic.Tier2;
 
 namespace OmoriMod.Content.Projectiles.Friendly.Magic.Tier4

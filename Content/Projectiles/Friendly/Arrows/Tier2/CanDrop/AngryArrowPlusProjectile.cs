@@ -1,5 +1,5 @@
 ﻿using OmoriMod.Content.Items.Ammo.Arrows.Regular.Tier2;
-using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Content.Projectiles.Friendly.Arrows.Tier2.CanDrop
 {

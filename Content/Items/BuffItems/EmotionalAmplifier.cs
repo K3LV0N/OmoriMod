@@ -1,8 +1,8 @@
-﻿using OmoriMod.Items.Abstract_Classes;
+﻿using OmoriMod.Content.Items.Abstract_Classes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;

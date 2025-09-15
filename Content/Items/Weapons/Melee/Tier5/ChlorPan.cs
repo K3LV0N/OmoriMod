@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Melee.Tier4;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
 
@@ -22,7 +22,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier5
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            MoveProjectileForward(ref position, ref velocity, meleeWeaponProjectileMoveTime);
+            MoveProjectileForward(ref position, ref velocity, ref type, meleeWeaponProjectileMoveTime);
         }
 
         public override void AddRecipes()

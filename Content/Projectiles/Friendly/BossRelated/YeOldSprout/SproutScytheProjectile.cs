@@ -1,5 +1,5 @@
 ﻿using Terraria.ModLoader;
-using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 
 
 namespace OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout
@@ -9,7 +9,7 @@ namespace OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout
         public override void SetDefaults()
         {
             // Set magic Projectile defaults
-            SetOtherDefaults(width: 32, height: 32, damageType: DamageClass.Magic, penetration: 3, aiStyle: 0, scale: 1.2f, timeLeft: 365);
+            SetOtherDefaults(width: 32, height: 32, damageType: DamageClass.Magic, penetration: 3, aiStyle: 0, scale: 1f, timeLeft: 365);
         }
 
         public override void OnKill(int timeLeft)

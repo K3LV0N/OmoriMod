@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using OmoriMod.Content.Buffs.Abstract;
 
-namespace OmoriMod.Items.Abstract_Classes
+namespace OmoriMod.Content.Items.Abstract_Classes
 {
     /// <summary>
     /// Parent class for any item that grants an <see cref="EmotionBuff"/>

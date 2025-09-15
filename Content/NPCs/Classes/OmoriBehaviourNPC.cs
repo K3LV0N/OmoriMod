@@ -1,11 +1,11 @@
-﻿using OmoriMod.Content.NPCs.State_Management;
+﻿using OmoriMod.Systems.State_Management.NPCs;
 
 namespace OmoriMod.Content.NPCs.Classes
 {
 	/// <summary>
-	/// Base class for NPCs that utilize the <see cref="BehaviourManager"/> system for AI behaviour and animation control.
+	/// Base class for NPCs that utilize the <see cref="NPCBehaviourManager"/> system for AI behaviour and animation control.
 	/// <para>
-	/// Inherits from <see cref="OmoriModNPC"/> and provides a protected <see cref="BehaviourManager"/> instance, 
+	/// Inherits from <see cref="OmoriModNPC"/> and provides a protected <see cref="NPCBehaviourManager"/> instance, 
 	/// allowing derived NPCs to define, manage, and execute multiple behaviours, background behaviours, and animations.
 	/// </para>
 	/// <para>
@@ -17,6 +17,6 @@ namespace OmoriMod.Content.NPCs.Classes
 		/// <summary>
 		/// The behaviour manager for this <see cref="OmoriBehaviourNPC"/>
 		/// </summary>
-        protected BehaviourManager behaviourManager;
+        protected NPCBehaviourManager behaviourManager;
     }
 }

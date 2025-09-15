@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace OmoriMod.Items.Abstract_Classes.BaseClasses
+namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
 {
 
     public enum ItemTypeForResearch
@@ -302,9 +302,9 @@ namespace OmoriMod.Items.Abstract_Classes.BaseClasses
         /// <param name="velocity">The current velocity of the projectile.</param>
         /// <param name="ticks">How many ticks to simulate this projectile moving for.</param>
         /// <returns><c>True</c> if no collision occured.</returns>
-        public virtual bool MoveProjectileForward(ref Vector2 position, ref Vector2 velocity, float ticks = 2)
+        public virtual bool MoveProjectileForward(ref Vector2 position, ref Vector2 velocity, ref int type, float ticks = 2)
         {
-            Projectile projectile = ModContent.GetModProjectile(Item.shoot).Projectile;
+            Projectile projectile = ModContent.GetModProjectile(type).Projectile;
 
             int actingTicks = (int)MathF.Floor(ticks);
             Vector2 actingVelocity = velocity;

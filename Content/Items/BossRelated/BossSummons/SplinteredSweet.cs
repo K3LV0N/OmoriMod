@@ -1,6 +1,6 @@
 ﻿using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

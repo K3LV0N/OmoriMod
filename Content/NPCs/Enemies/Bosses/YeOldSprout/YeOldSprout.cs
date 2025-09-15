@@ -3,16 +3,16 @@ using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.Enemies.Enemies.SproutMole.Behaviours;
-using OmoriMod.Content.NPCs.State_Management;
 using OmoriMod.Systems;
 using OmoriMod.Util;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.NPCs.Enemies.General_Behaviours.Backgrounds;
 using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours;
-using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
+using OmoriMod.Systems.State_Management.NPCs;
+using OmoriMod.Systems.State_Management.Behaviour_Info;
+using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
 
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
 {
@@ -46,7 +46,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             NPC.knockBackResist = 0.25f;
             NPC.aiStyle = -1;
 
-            behaviourManager = new BehaviourManager(this, _frames);
+            behaviourManager = new NPCBehaviourManager(this, _frames);
             behaviourManager.AddBehaviour(new YeOldSproutChaseBehaviour(1));
             behaviourManager.AddBehaviour(new YeOldSproutJumpAttack(0));
 
@@ -55,9 +55,9 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             behaviourManager.AddBackgroundBehaviour(new TargetClosestPlayer(new TickTimer(seconds: 3, ticks: 0)));
             behaviourManager.AddBackgroundBehaviour(new SpawnSproutMinions(new TickTimer(seconds: 10, ticks: 0)));
 
-            behaviourManager.AddAnimation("walking", new NPCAnimation(0, 9));
-            behaviourManager.AddAnimation("jump up", new NPCAnimation(11, 15));
-            behaviourManager.AddAnimation("jump down", new NPCAnimation(19, 23));
+            behaviourManager.AddAnimation("walking", new EntityAnimation(0, 9));
+            behaviourManager.AddAnimation("jump up", new EntityAnimation(11, 15));
+            behaviourManager.AddAnimation("jump down", new EntityAnimation(19, 23));
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

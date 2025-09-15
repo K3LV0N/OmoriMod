@@ -551,7 +551,7 @@ Buffs: {
 }
 
 NPCs: {
-	SproutMoleMinion.DisplayName: Sprout Mole
+	MiniMole.DisplayName: Mini Mole
 	SproutMole.DisplayName: Sprout Mole
 	YeOldSprout.DisplayName: Ye Old Sprout
 	SweetHeart.DisplayName: Sweetheart

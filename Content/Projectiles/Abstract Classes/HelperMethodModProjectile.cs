@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Projectiles.Abstract_Classes
+namespace OmoriMod.Content.Projectiles.Abstract_Classes
 {
 
     /// <summary>

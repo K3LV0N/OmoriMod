@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using OmoriMod.Content.Players;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
-using OmoriMod.Items.Abstract_Classes;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Items.Abstract_Classes.CompositionClasses;
-using OmoriMod.Items.Abstract_Classes.Interfaces;
+using OmoriMod.Content.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.CompositionClasses;
+using OmoriMod.Content.Items.Abstract_Classes.Interfaces;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives;
 using Terraria;
 using Terraria.DataStructures;

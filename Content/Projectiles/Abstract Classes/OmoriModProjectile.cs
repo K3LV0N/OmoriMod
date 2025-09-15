@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Projectiles.Abstract_Classes
+namespace OmoriMod.Content.Projectiles.Abstract_Classes
 {
     /// <summary>
     /// Final stage of <see cref="OmoriModProjectile"/> Contains AI methods.
@@ -67,7 +67,7 @@ namespace OmoriMod.Projectiles.Abstract_Classes
         protected void AI_ScytheProjectile(int ticksStationaryUntilDespawn, float rotation)
         {
             RotateBasedOnDirection(rotation: rotation);
-            SlowProjectile(slowPercentage: 0.97f, zeroThreshold: 0.5f);
+            SlowProjectile(slowPercentage: 0.95f, zeroThreshold: 0.5f);
             if (Projectile.velocity == Vector2.Zero)
             {
                 AI_Timer++;

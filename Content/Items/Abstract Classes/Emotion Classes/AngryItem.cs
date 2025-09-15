@@ -1,6 +1,6 @@
 ﻿using OmoriMod.Systems.EmotionSystem;
 
-namespace OmoriMod.Items.Abstract_Classes
+namespace OmoriMod.Content.Items.Abstract_Classes
 {
     /// <summary>
     /// Automatically sets <see cref="EmotionItem.Emotion"/> to <see cref="EmotionType.ANGRY"/>.

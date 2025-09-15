@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using OmoriMod.Items.Abstract_Classes;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Buffs.Abstract.Helpers;
 

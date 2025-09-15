@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
 
@@ -26,7 +26,7 @@ namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
 
             DamageDefaults(
                 damageType: DamageClass.Ranged,
-                damage: 6,
+                damage: 3,
                 knockback: 1f,
                 crit: 4,
                 noMelee: true

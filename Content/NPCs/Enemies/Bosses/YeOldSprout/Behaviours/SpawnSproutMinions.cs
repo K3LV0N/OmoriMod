@@ -1,6 +1,6 @@
 ﻿using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Content.NPCs.State_Management.Behaviour_Info;
-using OmoriMod.Content.NPCs.State_Management.NPC_Behaviour;
+using OmoriMod.Systems.State_Management.Behaviour_Info;
+using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 using OmoriMod.Util;
 using Terraria;
 using Terraria.ModLoader;
@@ -25,7 +25,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
                 {
                     foreach (var vec in npc.CreateVectors(sproutsSpawned, 60f))
                     {
-                        int sproutIndex = NPC.NewNPC(n.GetSource_FromAI(), (int)n.Center.X, (int)n.Center.Y, ModContent.NPCType<SproutMoleMinion>());
+                        int sproutIndex = NPC.NewNPC(n.GetSource_FromAI(), (int)n.Center.X, (int)n.Center.Y, ModContent.NPCType<MiniMole>());
                         NPC sprout = Main.npc[sproutIndex];
                         sprout.velocity = vec * initalSproutSpeed;
                     }

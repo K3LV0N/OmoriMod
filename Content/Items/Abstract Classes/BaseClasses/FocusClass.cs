@@ -6,7 +6,7 @@ using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Items.Abstract_Classes
+namespace OmoriMod.Content.Items.Abstract_Classes
 {
 
     public enum FocusState

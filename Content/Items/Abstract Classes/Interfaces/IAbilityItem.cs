@@ -1,6 +1,6 @@
-﻿using OmoriMod.Items.Abstract_Classes.CompositionClasses;
+﻿using OmoriMod.Content.Items.Abstract_Classes.CompositionClasses;
 
-namespace OmoriMod.Items.Abstract_Classes.Interfaces
+namespace OmoriMod.Content.Items.Abstract_Classes.Interfaces
 {
     public interface IAbilityItem
     {

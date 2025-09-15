@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
 
 namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
@@ -30,7 +30,7 @@ namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
 
             DamageDefaults(
                 damageType: DamageClass.Ranged,
-                damage: 12,
+                damage: 8,
                 knockback: 6,
                 crit: 4,
                 noMelee: true
@@ -109,7 +109,7 @@ namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            MoveProjectileForward(ref position, ref velocity, 2.1f);
+            MoveProjectileForward(ref position, ref velocity, ref type, 2.1f);
         }
     }
 }

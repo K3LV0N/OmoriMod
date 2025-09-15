@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Projectiles.Abstract_Classes
+namespace OmoriMod.Content.Projectiles.Abstract_Classes
 {
     /// <summary>
     /// Stage 1 of <see cref="OmoriModProjectile"/> Contains set methods and base method overrides.
@@ -45,9 +45,11 @@ namespace OmoriMod.Projectiles.Abstract_Classes
             Projectile.width = (int)(width * Projectile.scale);
             Projectile.height = (int)(height * Projectile.scale);
 
+            
 
             // Ranged damage
             Projectile.DamageType = damageType;
+            Projectile.penetrate = penetration;
 
             Projectile.tileCollide = tileCollide;
 

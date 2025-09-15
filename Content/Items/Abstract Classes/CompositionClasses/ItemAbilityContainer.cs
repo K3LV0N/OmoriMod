@@ -1,6 +1,6 @@
 ﻿using OmoriMod.Systems.AbilitySystem.ItemAbilities;
 
-namespace OmoriMod.Items.Abstract_Classes.CompositionClasses
+namespace OmoriMod.Content.Items.Abstract_Classes.CompositionClasses
 {
     public class ItemAbilityContainer
     {

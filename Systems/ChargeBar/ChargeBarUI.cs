@@ -5,7 +5,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.ModLoader;
 using ReLogic.Content;
-using OmoriMod.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Players;
 
 namespace OmoriMod.Systems.ChargeBar
@@ -74,44 +74,26 @@ namespace OmoriMod.Systems.ChargeBar
 
             // Here we get the screen dimensions of the barFrame element,
             // then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient.
-            Rectangle InnerBar = barFrame.GetInnerDimensions().ToRectangle();
-            InnerBar.X += 4;
-            InnerBar.Width -= 94;
-            InnerBar.Y += 3;
-            InnerBar.Height -= 21;
+            Rectangle innerBar = barFrame.GetInnerDimensions().ToRectangle();
+            innerBar.X += 4;
+            innerBar.Width -= 94;
+            innerBar.Y += 3;
+            innerBar.Height -= 21;
 
-            if (percentage == 1f)
+            if (percentage >= 1f)
             {
-                spriteBatch.Draw(barTextureFull, InnerBar, Color.White * 1);
+                spriteBatch.Draw(barTextureFull, innerBar, Color.White);
+                return;
             }
 
-            int currentWidth = (int)(InnerBar.Width * percentage);
-            if (currentWidth > 0 && percentage != 1f)
-            {
-                
-                int height = barTexture.Height;
-                Rectangle InnerBarPartial = new Rectangle(InnerBar.X, InnerBar.Y, currentWidth, InnerBar.Height);
-                Texture2D currentTexture = new Texture2D(barTexture.GraphicsDevice, currentWidth, height);
+            int currentWidth = (int)(innerBar.Width * percentage);
 
-                Color[] data = new Color[currentWidth * height];
-                Color[] originalData = new Color[barTexture.Width * height];
-                barTexture.GetData(originalData);
 
-                // copy texture until new width
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < currentWidth; x++)
-                    {
-                        // Copy pixels, excluding the rightmost pixels
-                        data[y * currentWidth + x] = originalData[y * barTexture.Width + x];
-                    }
-                }
+            Rectangle sourceRect = new Rectangle(0, 0, currentWidth, barTexture.Height);
 
-                currentTexture.SetData(data);  
-
-                spriteBatch.Draw(currentTexture, InnerBarPartial, Color.White * 1);
-                
-            }
+            // Adjust destination rectangle width to match percentage
+            Rectangle destRect = new Rectangle(innerBar.X, innerBar.Y, (int)(innerBar.Width * percentage), innerBar.Height);
+            spriteBatch.Draw(barTexture, destRect, sourceRect, Color.White);
         }
 
         public override void Update(GameTime gameTime)

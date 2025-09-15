@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Items.Abstract_Classes;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Magic.Tier3;
 using OmoriMod.Content.Projectiles.Friendly.Magic.Tier4;
 

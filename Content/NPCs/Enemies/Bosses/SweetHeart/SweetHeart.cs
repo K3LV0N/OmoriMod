@@ -1,5 +1,7 @@
 ﻿using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
 using OmoriMod.Systems;
+using OmoriMod.Systems.State_Management.NPCs;
 using OmoriMod.Util;
 using Terraria;
 using Terraria.ID;
@@ -11,6 +13,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart
     public class SweetHeart : OmoriBossEnemy
     {
 
+        private const int _frames = 1;
         public SweetHeart()
         {
             bossName = "SweetHeart".OmoriModString();
@@ -34,6 +37,12 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart
             NPC.value = 10000f;
             NPC.knockBackResist = 0.05f;
             NPC.aiStyle = NPCAIStyleID.Slime;
+
+            behaviourManager = new NPCBehaviourManager(this, _frames);
+
+            behaviourManager.AddBackgroundBehaviour(new FaceMovementDirection());
+            behaviourManager.AddBackgroundBehaviour(new DespawnBoss());
+            behaviourManager.AddBackgroundBehaviour(new TargetClosestPlayer(new TickTimer(seconds: 3, ticks: 0)));
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

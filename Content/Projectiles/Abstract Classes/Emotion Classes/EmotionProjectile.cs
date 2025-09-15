@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using OmoriMod.Systems.EmotionSystem;
 using OmoriMod.Content.Dusts;
 
-namespace OmoriMod.Projectiles.Abstract_Classes
+namespace OmoriMod.Content.Projectiles.Abstract_Classes
 {
     /// <summary>
     /// An abstract class for projectiles that inflict emotions.

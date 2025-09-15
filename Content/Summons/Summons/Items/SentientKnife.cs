@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Summons.Summons.Buffs;
 using OmoriMod.Content.Summons.Summons.Projectiles;

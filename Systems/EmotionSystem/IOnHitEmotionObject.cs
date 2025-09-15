@@ -1,5 +1,5 @@
-﻿using OmoriMod.Projectiles.Abstract_Classes;
-using OmoriMod.Items.Abstract_Classes;
+﻿using OmoriMod.Content.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes;
 using Terraria.ModLoader;
 using Terraria;
 using OmoriMod.Content.NPCs.Global;

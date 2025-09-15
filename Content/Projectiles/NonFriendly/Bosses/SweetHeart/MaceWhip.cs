@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using OmoriMod.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 using System;
 using Terraria;
 

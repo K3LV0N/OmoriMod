@@ -1,5 +1,5 @@
 ﻿using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
-using OmoriMod.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,7 +35,7 @@ namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
             ProjectileDefaults(
                 ammoID: AmmoID.None,
                 projectileID: ModContent.ProjectileType<SproutScytheProjectile>(),
-                shootSpeed: 20f
+                shootSpeed: 15f
                 );
 
             AnimationDefaults(

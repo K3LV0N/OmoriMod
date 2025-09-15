@@ -1,6 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using OmoriMod.Summons.Abstract_Classes;
+using OmoriMod.Content.Summons.Abstract_Classes;
 using OmoriMod.Content.Summons.Pets.Buffs;
 
 namespace OmoriMod.Content.Summons.Pets.Items
