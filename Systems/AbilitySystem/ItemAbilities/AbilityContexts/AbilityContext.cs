@@ -1,8 +1,6 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 
-namespace OmoriMod.Systems.AbilitySystem
+namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts
 {
     public class AbilityContext
     {

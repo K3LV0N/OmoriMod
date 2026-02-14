@@ -1,6 +1,6 @@
 using Terraria;
 
-namespace OmoriMod.Systems.AbilitySystem
+namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts
 {
     public class PassiveHitAbilityContext : AbilityContext
     {
