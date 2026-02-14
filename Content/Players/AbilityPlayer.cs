@@ -10,12 +10,10 @@ namespace OmoriMod.Content.Players
     public class AbilityPlayer : ModPlayer
     {
         public bool abilityMenuActive;
-        public int projectileID;
 
-        AbilityPlayer()
+        public AbilityPlayer()
         {
             abilityMenuActive = false;
-            projectileID = ModContent.ProjectileType<BatProjectile>();
         }
     }
 }

@@ -7,6 +7,8 @@ using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Melee.Tier3;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
 
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier4
 {
     public class HallowPan : HappyItem
@@ -17,13 +19,11 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier4
         }
         public override void SetDefaults()
         {
+            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.QUINTUPLE_PHANTOM_PAN;
             EmotionItemCloneWithDifferentProjectile<HallowBat>(ModContent.ProjectileType<PanProjectileFive>());
         }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            MoveProjectileForward(ref position, ref velocity, ref type, meleeWeaponProjectileMoveTime);
-        }
+
 
         public override void AddRecipes()
         {

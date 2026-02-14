@@ -4,9 +4,10 @@ using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
 {
@@ -18,6 +19,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
         }
         public override void SetDefaults()
         {
+            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
             ItemDefaults(
                 width: 32,
                 height: 32,
@@ -49,15 +51,9 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
                 );
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
-        }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            MoveProjectileForward(ref position, ref velocity, ref type, meleeWeaponProjectileMoveTime);
-        }
+
+
 
         public override void AddRecipes()
         {

@@ -66,31 +66,27 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
         /// This method expects a signature like 
         /// <see cref="ModItem.ModifyShootStats(Player, ref Vector2, ref Vector2, ref int, ref int, ref float)"/> with an <see cref="Item"/> object at the end.
         /// </summary>
-        /// <param name="args">
-        /// <see cref="Player"/> <paramref name="player"/>, 
-        /// ref <see cref="Vector2"/> <paramref name="position"/>, 
-        /// ref <see cref="Vector2"/> <paramref name="velocity"/>, 
-        /// ref <see cref="int"/> <paramref name="type"/>,
-        /// ref <see cref="int"/> <paramref name="damage"/>, 
-        /// ref <see cref="float"/> <paramref name="knockback"/>, 
-        /// <see cref="Item"/> <paramref name="item"/>,
-        /// <see cref="float"/> <paramref name="ticksToMoveProjectileForward"/>
+        /// <param name="context">
+        /// The <see cref="AbilityContext"/> containing all necessary data.
         /// </param>
         /// <returns>false</returns>
-        public bool PerformAbility(params object[] args)
+        public bool PerformAbility(AbilityContext context)
         {
-            Player player = (Player)args[0];
-            Vector2 position = (Vector2)args[1];
-            Vector2 velocity = (Vector2)args[2];
-            int type = (int)args[3];
-            int damage = (int)args[4];
-            float knockback = (float)args[5];
-            Item item = (Item)args[6];
+            if (context is not PassiveShootAbilityContext shootContext)
+            {
+                return false;
+            }
+
+            Player player = shootContext.Player;
+            Vector2 position = shootContext.Position;
+            Vector2 velocity = shootContext.Velocity;
+            int type = ProjectileType;
+            int damage = shootContext.Damage;
+            float knockback = shootContext.Knockback;
+            Item item = shootContext.Item;
 
             float ticksToMoveFoward = 0f;
-            if (args.Length > 7) { ticksToMoveFoward = (float)args[7]; }
-
-            type = ProjectileType;
+            if (shootContext.TicksToMoveForward.HasValue) { ticksToMoveFoward = shootContext.TicksToMoveForward.Value; }
 
             MoveProjectileForward(ref position, ref velocity, ticksToMoveFoward);
 
@@ -103,7 +99,7 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
                 string context = "ShootProjectileActiveAbility:ShootProjectile";
                 Projectile.NewProjectile(player.GetSource_ItemUse(item, context), position, velocity, type, damage, knockback, player.whoAmI);
             }
-            return false;
+            return true;
         }
     }
 }

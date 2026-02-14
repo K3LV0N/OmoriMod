@@ -7,6 +7,8 @@ using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Melee.Tier2;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Knife;
 
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier3
 {
     public class HellKnife : SadItem
@@ -17,13 +19,11 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier3
         }
         public override void SetDefaults()
         {
+            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.TRIPLE_PHANTOM_KNIFE;
             EmotionItemCloneWithDifferentProjectile<HellBat>(ModContent.ProjectileType<KnifeProjectileTriple>());
         }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            MoveProjectileForward(ref position, ref velocity, ref type, meleeWeaponProjectileMoveTime);
-        }
+
 
         public override void AddRecipes()
         {

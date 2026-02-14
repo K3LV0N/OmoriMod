@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OmoriMod.Content.Players;
-using OmoriMod.Content.Projectiles.Friendly.Arrows.Tier2.NoDrops;
-using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
 {
@@ -27,7 +27,10 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
 
             if (_selectedPassiveID != -1)
             {
-                Main.LocalPlayer.GetModPlayer<AbilityPlayer>().projectileID = _selectedPassiveID;
+               if (Main.LocalPlayer.HeldItem.ModItem is AbilityItem abilityItem)
+               {
+                   abilityItem.CurrentPassiveAbilityID = (PassiveAbilityRegistry.PassiveAbilityID)_selectedPassiveID;
+               }
             }
             Main.LocalPlayer.GetModPlayer<AbilityPlayer>().abilityMenuActive = false;
         }
@@ -38,11 +41,11 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
         private void SwitchPassive(UIMouseEvent evt, UIElement listeningElement) {
             if (listeningElement == phantom)
             {
-                _selectedPassiveID = ModContent.ProjectileType<BatProjectile>();
+                _selectedPassiveID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
             }
             if (listeningElement == arrow)
             {
-                _selectedPassiveID = ModContent.ProjectileType<HappyArrowPlusProjectileNoDrop>();
+                _selectedPassiveID = (int)PassiveAbilityRegistry.PassiveAbilityID.TRIPLE_PHANTOM_BAT;
             }
         }
 
@@ -120,6 +123,10 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
             if (!Main.LocalPlayer.GetModPlayer<AbilityPlayer>().abilityMenuActive)
             {
                 return;
+            }
+            if (PassiveAbilityRegistry.GetAbility(PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT) == null) 
+            {
+               PassiveAbilityRegistry.Initialize();
             }
             base.Update(gameTime);
         }

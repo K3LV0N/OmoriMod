@@ -7,6 +7,8 @@ using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Melee.Tier2;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
 
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier3
 {
     public class HellBat : AngryItem
@@ -17,6 +19,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier3
         }
         public override void SetDefaults()
         {
+            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.TRIPLE_PHANTOM_BAT;
             ItemDefaults(
                 width: 32,
                 height: 32,
@@ -48,10 +51,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier3
                 );
         }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            MoveProjectileForward(ref position, ref velocity, ref type, meleeWeaponProjectileMoveTime);
-        }
+
 
         public override void AddRecipes()
         {

@@ -14,7 +14,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
         private const float _inertia = 20f;
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = _frames;
+            Main.npcFrameCount[Type] = _frames;
         }
         public override void SetDefaults()
         {

@@ -20,7 +20,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart
         }
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 1;
+            Main.npcFrameCount[Type] = 1;
         }
         public override void SetDefaultsBossEnemy()
         {

@@ -1,6 +1,8 @@
-﻿using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+﻿using Microsoft.Xna.Framework;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Systems;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 

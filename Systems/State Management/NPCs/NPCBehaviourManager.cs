@@ -51,7 +51,7 @@ namespace OmoriMod.Systems.State_Management.NPCs
         /// <summary>
         /// Holds animation and AI information for the behaviours managed by this class.
         /// </summary>
-        private readonly BehaviourInfo behaviourInfo = new BehaviourInfo(totalFrames);
+        private readonly BehaviourInfo behaviourInfo = new(totalFrames);
 
         /// <summary>
         /// The NPC that this behaviour manager is controlling.
@@ -61,12 +61,12 @@ namespace OmoriMod.Systems.State_Management.NPCs
         /// <summary>
         /// Timer used to track the duration spent on the idle behaviour between active behaviours.
         /// </summary>
-        private TickTimer timeBetweenBehaviours = new TickTimer();
+        private TickTimer timeBetweenBehaviours = new();
 
         /// <summary>
         /// Random number generator used for randomly selecting behaviours.
         /// </summary>
-        private readonly Random random = new Random();
+        private readonly Random random = new();
         private readonly List<NPCBehaviour> behaviourList = [];
         private readonly List<NPCBackgroundBehaviour> backgroundBehaviourList = [];
         private NPCBehaviour idleBehaviour = null;

@@ -6,6 +6,6 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities
     { 
         public bool IsUnlocked(Item item, Player player);
         public bool IsEquippable(Item item, Player player);
-        public bool PerformAbility(params object[] args);
+        public bool PerformAbility(AbilityContext context);
     }
 }

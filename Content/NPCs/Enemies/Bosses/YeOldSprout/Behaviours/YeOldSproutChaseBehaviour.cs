@@ -4,7 +4,7 @@ using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Util;
 using Terraria;
 
-namespace OmoriMod.Content.NPCs.Enemies.Enemies.SproutMole.Behaviours
+namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
 {
     public class YeOldSproutChaseBehaviour(int exitStatus) 
         : ChasePlayerExitOnTimeOut(

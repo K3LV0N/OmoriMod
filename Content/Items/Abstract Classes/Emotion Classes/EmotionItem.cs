@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using OmoriMod.Systems.EmotionSystem;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Systems.AbilitySystem;
 
 namespace OmoriMod.Content.Items.Abstract_Classes
 {
@@ -11,7 +12,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes
     /// Use <see cref="AngryItem"/>, <see cref="HappyItem"/>, or <see cref="SadItem"/> 
     /// to set emotions. If <see cref="Emotion"/> is not set, it will default to <see cref="EmotionType.NONE"/>.
     /// </summary>
-    public abstract class EmotionItem : OmoriModItem, IOnHitEmotionObject
+    public abstract class EmotionItem : AbilityItem, IOnHitEmotionObject
     {
         public EmotionType Emotion { get; protected set; }
 

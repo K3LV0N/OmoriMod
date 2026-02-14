@@ -2,7 +2,6 @@
 using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Content.NPCs.Enemies.Enemies.SproutMole.Behaviours;
 using OmoriMod.Systems;
 using OmoriMod.Util;
 using Terraria;
@@ -28,7 +27,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
         private const int _frames = 24;
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = _frames;
+            Main.npcFrameCount[Type] = _frames;
         }
         public override void SetDefaultsBossEnemy()
         {
