@@ -17,7 +17,7 @@ namespace OmoriMod.Content.Items.TestingItems
 
         public override void SetDefaults()
         {
-            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
+            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.QUINTUPLE_SEEKING_PHANTOM_BAT;
 
             ItemDefaults(
                 width: 32,

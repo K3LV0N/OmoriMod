@@ -1,4 +1,5 @@
-﻿using OmoriMod.Content.Buffs.Abstract.Helpers;
+﻿using OmoriMod.Content.Buffs.Abstract;
+using OmoriMod.Content.Buffs.Abstract.Helpers;
 using OmoriMod.Systems.EmotionSystem;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,6 +9,7 @@ namespace OmoriMod.Content.Players
     public class EmotionPlayer : ModPlayer, IEmotionEntity
     {
         public EmotionType Emotion { get; set; }
+        public EmotionBuff ActiveEmotionBuff { get; set; }
 
         public bool ImmuneToEmotionChange => false;
         public int tier4EmotionLevel;
@@ -35,6 +37,7 @@ namespace OmoriMod.Content.Players
         public override void ResetEffects()
         {
             Emotion = EmotionType.NONE;
+            ActiveEmotionBuff = null;
             ResetMidEmotionLevel();
             ResetTier4EmotionLevel();
         }

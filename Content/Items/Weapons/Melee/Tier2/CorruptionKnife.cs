@@ -19,7 +19,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
         }
         public override void SetDefaults()
         {
-            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_KNIFE;
+            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_KNIFE;
             EmotionItemCloneWithDifferentProjectile<CorruptionBat>(ModContent.ProjectileType<KnifeProjectile>());
         }
 

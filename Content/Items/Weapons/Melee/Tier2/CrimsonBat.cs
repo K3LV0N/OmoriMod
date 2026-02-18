@@ -18,7 +18,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
         }
         public override void SetDefaults()
         {
-            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
+            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
             EmotionItemClone<CorruptionBat>();
         }
 

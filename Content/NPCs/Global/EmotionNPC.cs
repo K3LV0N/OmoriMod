@@ -13,6 +13,7 @@ namespace OmoriMod.Content.NPCs.Global
     {
         public override bool InstancePerEntity => true;
         public EmotionType Emotion { get; set; }
+        public EmotionBuff ActiveEmotionBuff { get; set; }
         public bool ImmuneToEmotionChange { get; set; }
 
         public int colorTimer;
@@ -38,6 +39,7 @@ namespace OmoriMod.Content.NPCs.Global
         public override void ResetEffects(NPC npc)
         {
             Emotion = EmotionType.NONE;
+            ActiveEmotionBuff = null;
         }
 
         private static int GetEmotionLevel(Entity entity)
@@ -117,7 +119,7 @@ namespace OmoriMod.Content.NPCs.Global
         public override void AI(NPC npc)
         {
             // Call movement here since it is an AI action (AKA if the npc is frozen or something, don't do this)
-            EmotionHelper.NPCMovementFromEmotion(npc);
+            // EmotionHelper.NPCMovementFromEmotion(npc); -> Moved to Buff.Update
         }
         public override void PostAI(NPC npc)
         {
@@ -125,6 +127,14 @@ namespace OmoriMod.Content.NPCs.Global
             NPCColorChangeFromEmotion(npc);
         }
 
+        private static int GetEmotionLevel(IEmotionEntity entity)
+        {
+            if (entity.ActiveEmotionBuff != null)
+            {
+                return entity.ActiveEmotionBuff.emotionLevel;
+            }
+            return 0;
+        }
 
         /// <summary>
         /// Returns the emotional advantage level of the attacker and the target.
@@ -134,17 +144,17 @@ namespace OmoriMod.Content.NPCs.Global
         /// <returns><c>0</c> means no advantage. 
         /// Any <c>positive value</c> means the attacker has advantage. 
         /// Any <c>negative value</c> means the defender has advantage.</returns>
-        private static int CalculateAdvantage(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity)
+        private static int CalculateAdvantage(IEmotionEntity attacker, IEmotionEntity defender)
         {
             bool? attackerAdvantage = attacker.CheckForAdvantage(defender);
             if (attackerAdvantage == null) { return 0; }
             if (attackerAdvantage == true)
             {
-                return GetEmotionLevel(attackEntity) - GetEmotionLevel(defendEntity) + 1;
+                return GetEmotionLevel(attacker) - GetEmotionLevel(defender) + 1;
             }
             else
             {
-                return GetEmotionLevel(defendEntity) - GetEmotionLevel(attackEntity) + 1;
+                return GetEmotionLevel(defender) - GetEmotionLevel(attacker) + 1;
             }
         }
 
@@ -170,76 +180,57 @@ namespace OmoriMod.Content.NPCs.Global
 
             if (advantage > 0)
             {
-                int index = advantage - 1;
+                // int index = advantage - 1; 
                 modifiers.SourceDamage += EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
 
             if (advantage < 0)
             {
-                int index = -advantage - 1;
+                // int index = -advantage - 1;
                 modifiers.SourceDamage -= EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
         }
 
 
-        private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, Entity attackEntity, ref NPC.HitModifiers modifiers)
+        private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, ref NPC.HitModifiers modifiers)
         {
-            if (attacker.Emotion == EmotionType.ANGRY)
-            {
-                AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
-                EmotionHelper.AngryDamageModifiers(angryEmotion, ref modifiers);
-            }
-
-            if (attacker.Emotion == EmotionType.HAPPY)
-            {
-                HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
-                EmotionHelper.HappyHitModifiers(happyEmotion, ref modifiers);
-            }
-        }
-        private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity, ref Player.HurtModifiers modifiers)
-        {
-            if (attacker.Emotion == EmotionType.ANGRY)
-            {
-                AngryEmotionBase angryEmotion = (AngryEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
-                EmotionHelper.AngryDamageModifiers(angryEmotion, ref modifiers);
-            }
-
-            if (attacker.Emotion == EmotionType.HAPPY)
-            {
-                HappyEmotionBase happyEmotion = (HappyEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(attackEntity).Value);
-                EmotionHelper.HappyHitModifiers(happyEmotion, ref modifiers);
-            }
-
-            if (defender.Emotion == EmotionType.SAD)
-            {
-                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(defendEntity).Value);
-                EmotionHelper.SadHitDamageReductionModifiers(sadEmotion, ref modifiers);
-            }
+            attacker.ActiveEmotionBuff?.ModifyPlayerOutgoingDamage(ref modifiers);
         }
 
-        private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity, ref NPC.HitModifiers modifiers)
+        private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, IEmotionEntity defender, ref Player.HurtModifiers modifiers)
         {
-            int advantage = CalculateAdvantage(
-                attacker: attacker,
-                defender: defender,
-                attackEntity: attackEntity,
-                defendEntity: defendEntity
-                );
+            // Attacker (NPC or Player) hitting Player
+            attacker.ActiveEmotionBuff?.ModifyNPCOutgoingDamage(ref modifiers);
+            attacker.ActiveEmotionBuff?.ModifyPlayerHitPlayer(ref modifiers); // In case attacker is player (PVP)
+
+            // Defender (Player) taking damage
+            defender.ActiveEmotionBuff?.ModifyPlayerIncomingDamage(ref modifiers);
+        }
+
+        private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, ref NPC.HitModifiers modifiers)
+        {
+            int advantage = CalculateAdvantage(attacker, defender);
             ApplyAdvantage(advantage, ref modifiers);
-            ApplyAdditionalEmotionModifiers(attacker, attackEntity, ref modifiers);
+            ApplyAdditionalEmotionModifiers(attacker, ref modifiers);
+            
+            // Happy vs NPC (if attacker is player) logic is now in ModifyPlayerOutgoingDamage/ModifyPlayerHitNPC?
+            // Wait, HappyEmotionBase implementation:
+            // ModifyPlayerHitNPC -> Miss/Crit
+            // ModifyPlayerOutgoingDamage -> Not implemented in HappyBase? Ah, I missed moving `ModifyPlayerHitNPC` call to `ApplyAdditionalEmotionModifiers`?
+            // Let's check `HappyEmotionBase`. It has `ModifyPlayerHitNPC`.
+            // So `ApplyAdditionalEmotionModifiers` needs to call THAT too if attacker is Player.
+            // But `ModifyPlayerOutgoingDamage` is for generic damage increase (Angry).
+            
+            attacker.ActiveEmotionBuff?.ModifyPlayerHitNPC(ref modifiers);
         }
-        private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, Entity attackEntity, Entity defendEntity, ref Player.HurtModifiers modifiers)
+
+        private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, ref Player.HurtModifiers modifiers)
         {
-            int advantage = CalculateAdvantage(
-                attacker: attacker,
-                defender: defender,
-                attackEntity: attackEntity,
-                defendEntity: defendEntity
-                );
+            int advantage = CalculateAdvantage(attacker, defender);
             ApplyAdvantage(advantage, ref modifiers);
-            ApplyAdditionalEmotionModifiers(attacker, defender, attackEntity, defendEntity, ref modifiers);
+            ApplyAdditionalEmotionModifiers(attacker, defender, ref modifiers);
         }
 
 
@@ -250,8 +241,6 @@ namespace OmoriMod.Content.NPCs.Global
             EmotionalAdvantage(
                 attacker: emotionPlayer,
                 defender: emotionNPC,
-                attackEntity: player,
-                defendEntity: npc,
                 modifiers: ref modifiers
                 );
         }
@@ -263,8 +252,6 @@ namespace OmoriMod.Content.NPCs.Global
             EmotionalAdvantage(
                 attacker: emotionPlayer,
                 defender: emotionNPC,
-                attackEntity: player,
-                defendEntity: npc,
                 modifiers: ref modifiers
                 );
 
@@ -276,8 +263,6 @@ namespace OmoriMod.Content.NPCs.Global
             EmotionalAdvantage(
                 attacker: emotionAttacker,
                 defender: emotionDefender,
-                attackEntity: npc,
-                defendEntity: target,
                 modifiers: ref modifiers
                 );
         }
@@ -289,8 +274,6 @@ namespace OmoriMod.Content.NPCs.Global
             EmotionalAdvantage(
                 attacker: emotionNPC,
                 defender: emotionPlayer,
-                attackEntity: npc,
-                defendEntity: target,
                 modifiers: ref modifiers
                 );
         }
@@ -300,11 +283,7 @@ namespace OmoriMod.Content.NPCs.Global
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             EmotionPlayer emotionPlayer = target.GetModPlayer<EmotionPlayer>();
-            if (emotionPlayer.Emotion == EmotionType.SAD)
-            {
-                SadEmotionBase sadEmotion = (SadEmotionBase)ModContent.GetModBuff(EmotionHelper.GetEmotionType(emotionPlayer.Player).Value);
-                EmotionHelper.SadHitManaModifiers(emotionPlayer.Player, sadEmotion, hurtInfo);
-            }
+            emotionPlayer.ActiveEmotionBuff?.OnPlayerHurt(target, hurtInfo);
         }
     }
 }

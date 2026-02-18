@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
 {
-    public class ShootProjectilePassiveAbility : IPassiveAbility
+    public class ShootProjectilePassiveAbility : IItemPassiveAbility
     {
         private int _projectileType;
         public int ProjectileType { get => _projectileType; set => _projectileType = value; }
@@ -73,7 +73,7 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
         /// <returns>false</returns>
         public bool PerformAbility(AbilityContext context)
         {
-            if (context is not PassiveShootAbilityContext shootContext)
+            if (context is not PassiveAbilityShootContext shootContext)
             {
                 return false;
             }

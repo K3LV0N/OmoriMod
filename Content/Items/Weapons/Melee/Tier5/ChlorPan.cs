@@ -19,7 +19,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier5
         }
         public override void SetDefaults()
         {
-            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.QUINTUPLE_SEEKING_PHANTOM_PAN;
+            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.QUINTUPLE_SEEKING_PHANTOM_PAN;
             EmotionItemCloneWithDifferentProjectile<ChlorBat>(ModContent.ProjectileType<PanProjectileFiveSeeking>());
         }
 

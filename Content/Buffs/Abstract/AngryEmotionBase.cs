@@ -77,13 +77,34 @@ namespace OmoriMod.Content.Buffs.Abstract
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
             EmotionHelper.AngryBuffRemovals(player);
-            EmotionHelper.AngryDefenseModifiers(this, player);
+            ModifyPlayerDefense(player);
         }
 
         public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
         {
             EmotionHelper.AngryBuffRemovals(npc);
-            EmotionHelper.AngryDefenseModifiers(this, npc);
+            ModifyNPCDefense(npc);
+        }
+
+        public override void ModifyPlayerOutgoingDamage(ref NPC.HitModifiers modifiers)
+        {
+            modifiers.SourceDamage *= 1 + PLAYER_DAMAGE_INCREASE_PERCENT;
+        }
+
+        public override void ModifyNPCOutgoingDamage(ref Player.HurtModifiers modifiers)
+        {
+            modifiers.SourceDamage *= 1 + NPC_DAMAGE_INCREASE_PERCENT;
+        }
+
+        public override void ModifyPlayerDefense(Player player)
+        {
+            player.statDefense -= (int)(player.statDefense * PLAYER_DEFENSE_DECREASE_PERCENT);
+        }
+
+        public override void ModifyNPCDefense(NPC npc)
+        {
+            int decreasedDefense = npc.defDefense * (int)(1 - NPC_DEFENSE_DECREASE_PERCENT);
+            npc.defense = decreasedDefense;
         }
 
         public virtual void AngryModifyBuffText(ref string buffName, ref string tip, ref int rare) { }

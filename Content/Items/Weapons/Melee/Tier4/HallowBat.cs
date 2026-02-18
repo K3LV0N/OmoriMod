@@ -19,7 +19,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier4
         }
         public override void SetDefaults()
         {
-            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.QUINTUPLE_PHANTOM_BAT;
+            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.QUINTUPLE_PHANTOM_BAT;
             ItemDefaults(
                 width: 32,
                 height: 32,

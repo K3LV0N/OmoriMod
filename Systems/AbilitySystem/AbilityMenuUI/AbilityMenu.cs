@@ -29,7 +29,7 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
             {
                if (Main.LocalPlayer.HeldItem.ModItem is AbilityItem abilityItem)
                {
-                   abilityItem.CurrentPassiveAbilityID = (PassiveAbilityRegistry.PassiveAbilityID)_selectedPassiveID;
+                   abilityItem.CurrentPassiveAbilityID = _selectedPassiveID;
                }
             }
             Main.LocalPlayer.GetModPlayer<AbilityPlayer>().abilityMenuActive = false;

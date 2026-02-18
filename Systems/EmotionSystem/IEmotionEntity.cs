@@ -1,8 +1,11 @@
-﻿namespace OmoriMod.Systems.EmotionSystem
+﻿using OmoriMod.Content.Buffs.Abstract;
+
+namespace OmoriMod.Systems.EmotionSystem
 {
     public interface IEmotionEntity : IEmotionObject
     {
         public bool ImmuneToEmotionChange { get; }
+        public EmotionBuff ActiveEmotionBuff { get; set; }
 
         /// <summary>
         /// Calculates which <see cref="IEmotionEntity"/> has the emotional advantage

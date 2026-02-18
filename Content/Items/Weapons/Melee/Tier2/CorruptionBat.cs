@@ -19,7 +19,7 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
         }
         public override void SetDefaults()
         {
-            InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
+            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
             ItemDefaults(
                 width: 32,
                 height: 32,
@@ -50,10 +50,6 @@ namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
                 autoReuse: true
                 );
         }
-
-
-
-
 
         public override void AddRecipes()
         {

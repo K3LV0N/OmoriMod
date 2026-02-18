@@ -17,7 +17,6 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
             _abilities.Clear();
             
             // Register Abilities
-            
         }
 
         public static void Register(int id, IItemAbility ability)

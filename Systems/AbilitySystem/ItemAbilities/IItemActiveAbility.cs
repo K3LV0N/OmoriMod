@@ -1,7 +1,7 @@
 ﻿namespace OmoriMod.Systems.AbilitySystem.ItemAbilities
 {
-    public interface IPassiveAbility : IItemAbility
+    public interface IItemActiveAbility : IItemAbility
     {
-
+        
     }
 }

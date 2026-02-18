@@ -30,7 +30,10 @@ namespace OmoriMod.Content.Buffs.Abstract
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<EmotionPlayer>().Emotion = Emotion;
+            var modPlayer = player.GetModPlayer<EmotionPlayer>();
+            modPlayer.Emotion = Emotion;
+            modPlayer.ActiveEmotionBuff = this;
+
             DustHandler(player, ref buffIndex);
             UpdateEmotionBuff(player, ref buffIndex);
             UpdateTier4EmotionBuff(player, ref buffIndex);
@@ -38,9 +41,34 @@ namespace OmoriMod.Content.Buffs.Abstract
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<EmotionNPC>().Emotion = Emotion;
+            var emotionNPC = npc.GetGlobalNPC<EmotionNPC>();
+            emotionNPC.Emotion = Emotion;
+            emotionNPC.ActiveEmotionBuff = this;
+
             UpdateEmotionBuff(npc, ref buffIndex);
         }
+
+        // Virtual Modifiers
+        public virtual void ModifyPlayerDefense(Player player) { }
+        public virtual void ModifyNPCDefense(NPC npc) { }
+        public virtual void ModifyPlayerMovement(Player player) { }
+        public virtual void ModifyNPCMovement(NPC npc) { }
+        
+        public virtual void ModifyPlayerOutgoingDamage(ref NPC.HitModifiers modifiers) { }
+        public virtual void ModifyPlayerOutgoingDamage(ref Player.HurtModifiers modifiers) { }
+        
+        public virtual void ModifyNPCOutgoingDamage(ref Player.HurtModifiers modifiers) { }
+        
+        // Happy Hit Modifiers (Player attacking NPC)
+        public virtual void ModifyPlayerHitNPC(ref NPC.HitModifiers modifiers) { }
+        // Happy Hit Modifiers (Player attacking Player/Self?)
+        public virtual void ModifyPlayerHitPlayer(ref Player.HurtModifiers modifiers) { }
+
+        // Sad Damage Reduction (Player taking damage)
+        public virtual void ModifyPlayerIncomingDamage(ref Player.HurtModifiers modifiers) { }
+        
+        // Sad Mana Conversion (NPC hitting Player)
+        public virtual void OnPlayerHurt(Player player, Player.HurtInfo hurtInfo) { }
 
 
         /// <summary>

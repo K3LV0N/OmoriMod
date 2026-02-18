@@ -97,13 +97,60 @@ namespace OmoriMod.Content.Buffs.Abstract
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
             EmotionHelper.SadBuffRemovals(player);
-            EmotionHelper.SadDefenseModifiers(this, player);
+            ModifyPlayerDefense(player);
+            ModifyPlayerMovement(player); // Sad also reduces speed
         }
-		public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
-		{
-			EmotionHelper.SadBuffRemovals(npc);
-			EmotionHelper.SadDefenseModifiers(this, npc);
-		}
+
+        public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
+        {
+            EmotionHelper.SadBuffRemovals(npc);
+            ModifyNPCDefense(npc);
+            ModifyNPCMovement(npc);
+        }
+
+        public override void ModifyPlayerDefense(Player player)
+        {
+            player.statDefense += (int)(player.statDefense * PLAYER_DEFENSE_INCREASE_PERCENT);
+        }
+
+        public override void ModifyPlayerMovement(Player player)
+        {
+            player.moveSpeed *= 1 - PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT;
+        }
+
+        public override void ModifyNPCDefense(NPC npc)
+        {
+            int increasedDefense = npc.defDefense * (int)(1 + NPC_DEFENSE_INCREASE_PERCENT);
+            npc.defense = increasedDefense;
+        }
+
+        public override void ModifyNPCMovement(NPC npc)
+        {
+            // CalculateNewPosition logic from Helper
+            float modifier = -NPC_MOVEMENT_SPEED_DECREASE_PERCENT;
+            Vector2 change;
+            if (npc.noGravity) { change = npc.velocity * modifier; }
+            else { change = new Vector2(npc.velocity.X * modifier, 0); }
+            npc.position = npc.position + change;
+        }
+
+        public override void ModifyPlayerIncomingDamage(ref Player.HurtModifiers modifiers)
+        {
+            modifiers.SourceDamage *= 1 - HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
+        }
+
+        public override void OnPlayerHurt(Player player, Player.HurtInfo hurtInfo)
+        {
+            float manaChange = hurtInfo.SourceDamage * HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
+            if ((int)(player.statMana - manaChange) > 0)
+            {
+                player.statMana = (int)(player.statMana - manaChange);
+            }
+            else
+            {
+                player.statMana = 0;
+            }
+        }
 
 		public virtual void SadModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)

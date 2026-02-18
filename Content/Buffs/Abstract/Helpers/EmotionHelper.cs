@@ -67,40 +67,6 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
             }
             return null;
         }
-        private static Vector2 CalculateNewPosition(NPC npc, float modifier)
-        {
-            Vector2 change;
-            if (npc.noGravity) { change = npc.velocity * modifier; }
-            else { change = new Vector2(npc.velocity.X * modifier, 0); }
-            return npc.position + change;
-        }
-
-        /// <summary>
-        /// Performs emotion related movement changes (speed up and down) to NPCs.
-        /// </summary>
-        /// <param name="npc"></param>
-        public static void NPCMovementFromEmotion(NPC npc)
-        {
-            // TODO: Return to this to fix buffType.
-            // Sometimes returns null even if the NPC has the emotion
-            EmotionNPC emotionNPC = npc.GetGlobalNPC<EmotionNPC>();
-            int? buffType = GetEmotionType(npc);
-            if (emotionNPC.Emotion == EmotionType.HAPPY)
-            {
-                if (buffType.HasValue) {
-                    HappyEmotionBase happyEmotionBase = (HappyEmotionBase)ModContent.GetModBuff(buffType.Value);
-                    if (happyEmotionBase != null) HappyMovementModifiers(happyEmotionBase, npc);
-                }
-            }
-            if (emotionNPC.Emotion == EmotionType.SAD)
-            {
-                if (buffType.HasValue)
-                {
-                    SadEmotionBase sadEmotionBase = (SadEmotionBase)ModContent.GetModBuff(buffType.Value);
-                    if (sadEmotionBase != null) SadMovementModifiers(sadEmotionBase, npc);
-                }
-            }
-        }
 
         private static void RemoveEmotion(Entity entity, int emotionType)
         {
@@ -175,6 +141,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
         {
             RemoveEmotions<SadEmotionBase, HappyEmotionBase>(player);
         }
+
         public static void AngryBuffRemovals(NPC npc)
         {
             RemoveEmotions<SadEmotionBase, HappyEmotionBase>(npc);
@@ -195,102 +162,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
         {
             RemoveEmotions<AngryEmotionBase, HappyEmotionBase>(npc);
         }
-
-
-
-        public static void AngryDefenseModifiers(AngryEmotionBase angryEmotion, Player player)
-        {
-            player.statDefense -= (int)(player.statDefense * angryEmotion.PLAYER_DEFENSE_DECREASE_PERCENT);
-        }
-        public static void AngryDefenseModifiers(AngryEmotionBase angryEmotion, NPC npc)
-        {
-            int decreasedDefense = npc.defDefense * (int)(1 - angryEmotion.NPC_DEFENSE_DECREASE_PERCENT);
-            npc.defense = decreasedDefense;
-        }
-        public static void HappyMovementModifiers(HappyEmotionBase happyEmotion, Player player)
-        {
-            player.moveSpeed *= 1 + happyEmotion.PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT;
-        }
-        public static void HappyMovementModifiers(HappyEmotionBase happyEmotion, NPC npc)
-        {
-            Vector2 newPos = CalculateNewPosition(npc, happyEmotion.NPC_MOVEMENT_SPEED_INCREASE_PERCENT);
-
-            // If the new speed collides with something, don't add it
-            if (!Collision.SolidCollision(newPos, npc.width, npc.height))
-            {
-                npc.position = newPos;
-            }
-        }
-        public static void SadDefenseModifiers(SadEmotionBase sadEmotion, Player player)
-        {
-            player.statDefense += (int)(player.statDefense * sadEmotion.PLAYER_DEFENSE_INCREASE_PERCENT);
-            player.moveSpeed *= 1 - sadEmotion.PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT;
-        }
-        public static void SadDefenseModifiers(SadEmotionBase sadEmotion, NPC npc)
-        {
-            int increasedDefense = npc.defDefense * (int)(1 + sadEmotion.NPC_DEFENSE_INCREASE_PERCENT);
-            npc.defense = increasedDefense;
-        }
-        public static void SadMovementModifiers(SadEmotionBase sadEmotion, NPC npc)
-        {
-            npc.position = CalculateNewPosition(npc, -sadEmotion.NPC_MOVEMENT_SPEED_DECREASE_PERCENT);
-        }
-
-
-
-        public static void AngryDamageModifiers(AngryEmotionBase angryEmotion, ref NPC.HitModifiers modifiers)
-        {
-            modifiers.SourceDamage *= 1 + angryEmotion.PLAYER_DAMAGE_INCREASE_PERCENT;
-        }
-        public static void AngryDamageModifiers(AngryEmotionBase angryEmotion, ref Player.HurtModifiers modifiers)
-        {
-            modifiers.SourceDamage *= 1 + angryEmotion.NPC_DAMAGE_INCREASE_PERCENT;
-        }
-        public static void HappyHitModifiers(HappyEmotionBase happyEmotion, ref NPC.HitModifiers modifiers)
-        {
-            // miss chance
-            var noDMG = new StatModifier();
-            noDMG *= 0;
-            noDMG -= 1;
-            modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
-
-            // extra crit chance
-            if (Main.rand.NextFloat() < happyEmotion.PLAYER_EXTRA_CRIT_CHANCE_PERCENT)
-            {
-                modifiers.SetCrit();
-            }
-        }
-        public static void HappyHitModifiers(HappyEmotionBase happyEmotion, ref Player.HurtModifiers modifiers)
-        {
-            // miss chance
-            var noDMG = new StatModifier();
-            noDMG *= 0;
-            noDMG -= 1;
-            modifiers.SourceDamage = Main.rand.NextFloat() < happyEmotion.PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
-
-            // extra crit chance
-            if (Main.rand.NextFloat() < happyEmotion.PLAYER_EXTRA_CRIT_CHANCE_PERCENT && modifiers.SourceDamage != noDMG)
-            {
-                modifiers.SourceDamage *= 1.5f;
-            }
-        }
-        public static void SadHitManaModifiers(Player player, SadEmotionBase sadEmotion, Player.HurtInfo hurtInfo)
-        {
-            float manaChange = hurtInfo.SourceDamage * sadEmotion.HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
-            if ((int)(player.statMana - manaChange) > 0)
-            {
-                player.statMana = (int)(player.statMana - manaChange);
-            }
-            else
-            {
-                player.statMana = 0;
-            }
-        }
-        public static void SadHitDamageReductionModifiers(SadEmotionBase sadEmotion, ref Player.HurtModifiers modifiers)
-        {
-            modifiers.SourceDamage *= 1 - sadEmotion.HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
-        }
-
+        
         private static bool HasOtherEmotions<T1, T2>(Entity entity)
         {
             if (entity is NPC npc)

@@ -7,22 +7,23 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
+using System.Transactions;
 
 namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
 {
     public abstract class AbilityItem : OmoriModItem
     {
-        public PassiveAbilityRegistry.PassiveAbilityID CurrentPassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.NONE;
-        public PassiveAbilityRegistry.PassiveAbilityID InnatePassiveAbilityID = PassiveAbilityRegistry.PassiveAbilityID.NONE;
+        public int CurrentPassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
+        public int InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
         
-        public ActiveAbilityRegistry.ActiveAbilityID CurrentActiveAbilityID = ActiveAbilityRegistry.ActiveAbilityID.NONE;
-        public ActiveAbilityRegistry.ActiveAbilityID InnateActiveAbilityID = ActiveAbilityRegistry.ActiveAbilityID.NONE;
+        public int CurrentActiveAbilityID = (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
+        public int InnateActiveAbilityID = (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
 
         public override void SaveData(TagCompound tag)
         {
             base.SaveData(tag);
-            tag["CurrentPassiveAbilityID"] = (int)CurrentPassiveAbilityID;
-            tag["CurrentActiveAbilityID"] = (int)CurrentActiveAbilityID;
+            tag["CurrentPassiveAbilityID"] = CurrentPassiveAbilityID;
+            tag["CurrentActiveAbilityID"] = CurrentActiveAbilityID;
         }
 
         public override void LoadData(TagCompound tag)
@@ -30,26 +31,26 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
             base.LoadData(tag);
             if (tag.ContainsKey("CurrentPassiveAbilityID"))
             {
-                CurrentPassiveAbilityID = (PassiveAbilityRegistry.PassiveAbilityID)tag.GetInt("CurrentPassiveAbilityID");
+                CurrentPassiveAbilityID = tag.GetInt("CurrentPassiveAbilityID");
             }
             if (tag.ContainsKey("CurrentActiveAbilityID"))
             {
-                CurrentActiveAbilityID = (ActiveAbilityRegistry.ActiveAbilityID)tag.GetInt("CurrentActiveAbilityID");
+                CurrentActiveAbilityID = tag.GetInt("CurrentActiveAbilityID");
             }
         }
 
         public override void NetSend(BinaryWriter writer)
         {
             base.NetSend(writer);
-            writer.Write((int)CurrentPassiveAbilityID);
-            writer.Write((int)CurrentActiveAbilityID);
+            writer.Write(CurrentPassiveAbilityID);
+            writer.Write(CurrentActiveAbilityID);
         }
 
         public override void NetReceive(BinaryReader reader)
         {
             base.NetReceive(reader);
-            CurrentPassiveAbilityID = (PassiveAbilityRegistry.PassiveAbilityID)reader.ReadInt32();
-            CurrentActiveAbilityID = (ActiveAbilityRegistry.ActiveAbilityID)reader.ReadInt32();
+            CurrentPassiveAbilityID = reader.ReadInt32();
+            CurrentActiveAbilityID = reader.ReadInt32();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -60,7 +61,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
                 if (ability != null)
                 {
                     // Create Shoot Context
-                    AbilityContext context = new PassiveShootAbilityContext(player, Item, source, position, velocity, type, damage, knockback);
+                    AbilityContext context = new PassiveAbilityShootContext(player, Item, source, position, velocity, type, damage, knockback);
                     bool result = ability.PerformAbility(context);
                     // prevent vanilla code from running if ability runs
                     if (result) return false;
@@ -78,7 +79,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
                 var ability = PassiveAbilityRegistry.GetAbility(EffectivePassiveAbilityID);
                 if (ability != null)
                 {
-                    AbilityContext context = new PassiveHitAbilityContext(player, Item, target, damageDone, hit.Knockback, hit.Crit);
+                    AbilityContext context = new PassiveAbilityOnHitContext(player, Item, target, damageDone, hit.Knockback, hit.Crit);
                     ability.PerformAbility(context);
                 }
             }
@@ -86,7 +87,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
         
         public override bool AltFunctionUse(Player player)
         {
-            return true;
+            return CanUseActiveAbility();
         }
 
         public override bool? UseItem(Player player)
@@ -107,23 +108,23 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
             return base.UseItem(player);
         }
         // Use this property to get the actual ability to perform. 
-        public PassiveAbilityRegistry.PassiveAbilityID EffectivePassiveAbilityID => CurrentPassiveAbilityID != PassiveAbilityRegistry.PassiveAbilityID.NONE ? CurrentPassiveAbilityID : InnatePassiveAbilityID;
-        public ActiveAbilityRegistry.ActiveAbilityID EffectiveActiveAbilityID => CurrentActiveAbilityID != ActiveAbilityRegistry.ActiveAbilityID.NONE ? CurrentActiveAbilityID : InnateActiveAbilityID;
+        public int EffectivePassiveAbilityID => CurrentPassiveAbilityID != (int)PassiveAbilityRegistry.PassiveAbilityID.NONE ? CurrentPassiveAbilityID : InnatePassiveAbilityID;
+        public int EffectiveActiveAbilityID => CurrentActiveAbilityID != (int)ActiveAbilityRegistry.ActiveAbilityID.NONE ? CurrentActiveAbilityID : InnateActiveAbilityID;
         
         public virtual bool CanUsePassiveAbility()
         {
-             return EffectivePassiveAbilityID != PassiveAbilityRegistry.PassiveAbilityID.NONE;
+             return EffectivePassiveAbilityID != (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
         }
 
         public virtual bool CanUseActiveAbility()
         {
-             return EffectiveActiveAbilityID != ActiveAbilityRegistry.ActiveAbilityID.NONE;
+             return EffectiveActiveAbilityID != (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
         }
         
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             base.ModifyTooltips(tooltips);
-            if (EffectivePassiveAbilityID != PassiveAbilityRegistry.PassiveAbilityID.NONE)
+            if (EffectivePassiveAbilityID != (int)PassiveAbilityRegistry.PassiveAbilityID.NONE)
             {
                 // Optionally add tooltip about current ability
                 // tooltips.Add(new TooltipLine(Mod, "Ability", $"Ability: {EffectivePassiveAbilityID}"));

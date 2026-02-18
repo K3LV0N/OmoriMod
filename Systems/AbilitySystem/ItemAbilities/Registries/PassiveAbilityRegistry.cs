@@ -35,7 +35,9 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
         {
             _abilities.Clear();
             
-            // Register Abilities
+            // Register Specific Abilities
+
+            // Bat Abilities
             Register((int)PassiveAbilityID.SINGLE_PHANTOM_BAT, new ShootProjectilePassiveAbility(ModContent.ProjectileType<BatProjectile>()));
             Register((int)PassiveAbilityID.TRIPLE_PHANTOM_BAT, new ShootProjectilePassiveAbility(ModContent.ProjectileType<BatProjectileTriple>()));
             Register((int)PassiveAbilityID.QUINTUPLE_PHANTOM_BAT, new ShootProjectilePassiveAbility(ModContent.ProjectileType<BatProjectileFive>()));

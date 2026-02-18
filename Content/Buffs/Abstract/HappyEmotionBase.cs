@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 using OmoriMod.Systems.EmotionSystem;
 using System;
 using OmoriMod.Content.Buffs.Abstract.Helpers;
@@ -99,13 +100,64 @@ namespace OmoriMod.Content.Buffs.Abstract
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
             EmotionHelper.HappyBuffRemovals(player);
-            EmotionHelper.HappyMovementModifiers(this, player);
+            ModifyPlayerMovement(player);
         }
 
 		public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
 		{
 			EmotionHelper.HappyBuffRemovals(npc);
+            ModifyNPCMovement(npc);
 		}
+
+        public override void ModifyPlayerMovement(Player player)
+        {
+            player.moveSpeed *= 1 + PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT;
+        }
+
+        public override void ModifyNPCMovement(NPC npc)
+        {
+            float modifier = NPC_MOVEMENT_SPEED_INCREASE_PERCENT;
+            Vector2 change;
+            if (npc.noGravity) { change = npc.velocity * modifier; }
+            else { change = new Vector2(npc.velocity.X * modifier, 0); }
+            Vector2 newPos = npc.position + change;
+
+            // If the new speed collides with something, don't add it
+            if (!Collision.SolidCollision(newPos, npc.width, npc.height))
+            {
+                npc.position = newPos;
+            }
+        }
+
+        public override void ModifyPlayerHitNPC(ref NPC.HitModifiers modifiers)
+        {
+            // miss chance
+            var noDMG = new StatModifier();
+            noDMG *= 0;
+            noDMG -= 1;
+            modifiers.SourceDamage = Main.rand.NextFloat() < PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
+
+            // extra crit chance
+            if (Main.rand.NextFloat() < PLAYER_EXTRA_CRIT_CHANCE_PERCENT)
+            {
+                modifiers.SetCrit();
+            }
+        }
+
+        public override void ModifyPlayerHitPlayer(ref Player.HurtModifiers modifiers)
+        {
+            // miss chance
+            var noDMG = new StatModifier();
+            noDMG *= 0;
+            noDMG -= 1;
+            modifiers.SourceDamage = Main.rand.NextFloat() < PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
+
+            // extra crit chance
+            if (Main.rand.NextFloat() < PLAYER_EXTRA_CRIT_CHANCE_PERCENT && modifiers.SourceDamage != noDMG)
+            {
+                modifiers.SourceDamage *= 1.5f;
+            }
+        }
 
 		public virtual void HappyModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
