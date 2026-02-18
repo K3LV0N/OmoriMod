@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using OmoriMod.Content.Buffs.Abstract;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
@@ -42,30 +41,7 @@ namespace OmoriMod.Content.NPCs.Global
             ActiveEmotionBuff = null;
         }
 
-        private static int GetEmotionLevel(Entity entity)
-        {
-            if (entity is NPC npc)
-            {
-                foreach (int buffID in npc.buffType)
-                {
-                    if (ModContent.GetModBuff(buffID) is EmotionBuff currentBuff)
-                    {
-                        return currentBuff.emotionLevel;
-                    }
-                }
-            }
-            if (entity is Player player)
-            {
-                foreach (int buffID in player.buffType)
-                {
-                    if (ModContent.GetModBuff(buffID) is EmotionBuff currentBuff)
-                    {
-                        return currentBuff.emotionLevel;
-                    }
-                }
-            }
-            return 0;
-        }
+
 
         /// <summary>
         /// Changes the color of the <paramref name="npc"/> depending on its <see cref="Emotion"/>
@@ -115,47 +91,10 @@ namespace OmoriMod.Content.NPCs.Global
             }
         }
 
-
-        public override void AI(NPC npc)
-        {
-            // Call movement here since it is an AI action (AKA if the npc is frozen or something, don't do this)
-            // EmotionHelper.NPCMovementFromEmotion(npc); -> Moved to Buff.Update
-        }
         public override void PostAI(NPC npc)
         {
             // Color change happens regardless of what happens in PreAI or AI
             NPCColorChangeFromEmotion(npc);
-        }
-
-        private static int GetEmotionLevel(IEmotionEntity entity)
-        {
-            if (entity.ActiveEmotionBuff != null)
-            {
-                return entity.ActiveEmotionBuff.emotionLevel;
-            }
-            return 0;
-        }
-
-        /// <summary>
-        /// Returns the emotional advantage level of the attacker and the target.
-        /// </summary>
-        /// <param name="attacker"></param>
-        /// <param name="defender"></param>
-        /// <returns><c>0</c> means no advantage. 
-        /// Any <c>positive value</c> means the attacker has advantage. 
-        /// Any <c>negative value</c> means the defender has advantage.</returns>
-        private static int CalculateAdvantage(IEmotionEntity attacker, IEmotionEntity defender)
-        {
-            bool? attackerAdvantage = attacker.CheckForAdvantage(defender);
-            if (attackerAdvantage == null) { return 0; }
-            if (attackerAdvantage == true)
-            {
-                return GetEmotionLevel(attacker) - GetEmotionLevel(defender) + 1;
-            }
-            else
-            {
-                return GetEmotionLevel(defender) - GetEmotionLevel(attacker) + 1;
-            }
         }
 
         private static void ApplyAdvantage(int advantage, ref NPC.HitModifiers modifiers)
@@ -164,13 +103,13 @@ namespace OmoriMod.Content.NPCs.Global
 
             if (advantage > 0)
             {
-                modifiers.SourceDamage += EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
+                modifiers.SourceDamage += EmotionSystem.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
 
             if (advantage < 0)
             {
-                modifiers.SourceDamage -= EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
+                modifiers.SourceDamage -= EmotionSystem.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
         }
@@ -181,14 +120,14 @@ namespace OmoriMod.Content.NPCs.Global
             if (advantage > 0)
             {
                 // int index = advantage - 1; 
-                modifiers.SourceDamage += EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
+                modifiers.SourceDamage += EmotionSystem.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
 
             if (advantage < 0)
             {
                 // int index = -advantage - 1;
-                modifiers.SourceDamage -= EmotionHelper.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
+                modifiers.SourceDamage -= EmotionSystem.EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL * advantage;
                 return;
             }
         }
@@ -211,7 +150,7 @@ namespace OmoriMod.Content.NPCs.Global
 
         private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, ref NPC.HitModifiers modifiers)
         {
-            int advantage = CalculateAdvantage(attacker, defender);
+            int advantage = EmotionSystem.CalculateAdvantage(attacker, defender);
             ApplyAdvantage(advantage, ref modifiers);
             ApplyAdditionalEmotionModifiers(attacker, ref modifiers);
             
@@ -228,7 +167,7 @@ namespace OmoriMod.Content.NPCs.Global
 
         private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, ref Player.HurtModifiers modifiers)
         {
-            int advantage = CalculateAdvantage(attacker, defender);
+            int advantage = EmotionSystem.CalculateAdvantage(attacker, defender);
             ApplyAdvantage(advantage, ref modifiers);
             ApplyAdditionalEmotionModifiers(attacker, defender, ref modifiers);
         }

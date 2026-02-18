@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using Terraria;
 
-namespace OmoriMod.Content.Buffs.Abstract.Helpers
+namespace OmoriMod.Content.Buffs.Abstract
 {
     /// <summary>
     /// A buff that does nothing. Used for custom buff logic (such as emotions).

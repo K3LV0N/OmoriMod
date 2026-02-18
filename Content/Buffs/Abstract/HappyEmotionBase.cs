@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ModLoader;
 using OmoriMod.Systems.EmotionSystem;
 using System;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {
@@ -51,14 +50,14 @@ namespace OmoriMod.Content.Buffs.Abstract
         public float PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT => LinearPerLevel(
             max: PLAYER_MOVEMENT_SPEED_INCREASE_MAX,
             rate: PLAYER_MOVEMENT_SPEED_INCREASE_RATE,
-            maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+            maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
             startingValue: PLAYER_MOVEMENT_SPEED_INCREASE_STARTING_VALUE
             );
 
         public float NPC_MOVEMENT_SPEED_INCREASE_PERCENT => LinearPerLevel(
 			max: NPC_MOVEMENT_SPEED_INCREASE_MAX,
 			rate: NPC_MOVEMENT_SPEED_INCREASE_RATE,
-			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
 			startingValue: NPC_MOVEMENT_SPEED_INCREASE_STARTING_VALUE
 			);
 
@@ -67,13 +66,13 @@ namespace OmoriMod.Content.Buffs.Abstract
 		public float PLAYER_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
 			max: PLAYER_EXTRA_CRIT_CHANCE_MAX,
 			rate: PLAYER_EXTRA_CRIT_CHANCE_RATE,
-			maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
 			startingValue: PLAYER_EXTRA_CRIT_CHANCE_STARTING_VALUE
 			);
 		public float NPC_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
 			max: NPC_EXTRA_CRIT_CHANCE_MAX,
 			rate: NPC_EXTRA_CRIT_CHANCE_RATE,
-			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
 			startingValue: NPC_EXTRA_CRIT_CHANCE_STARTING_VALUE
 			);
 
@@ -81,13 +80,13 @@ namespace OmoriMod.Content.Buffs.Abstract
 		public float PLAYER_MISS_CHANCE_PERCENT => LinearPerLevel(
 			max: PLAYER_MISS_CHANCE_MAX,
 			rate: PLAYER_MISS_CHANCE_RATE,
-			maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
 			startingValue: PLAYER_MISS_CHANCE_STARTING_VALUE
 			);
 		public float NPC_MISS_CHANCE_PERCENT => LinearPerLevel(
 			max: NPC_MISS_CHANCE_MAX,
 			rate: NPC_MISS_CHANCE_RATE,
-			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
 			startingValue: NPC_MISS_CHANCE_STARTING_VALUE
 			);
 
@@ -99,13 +98,13 @@ namespace OmoriMod.Content.Buffs.Abstract
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
-            EmotionHelper.HappyBuffRemovals(player);
+            EmotionSystem.RemoveIncompatibleEmotions<HappyEmotionBase>(player);
             ModifyPlayerMovement(player);
         }
 
 		public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
 		{
-			EmotionHelper.HappyBuffRemovals(npc);
+			EmotionSystem.RemoveIncompatibleEmotions<HappyEmotionBase>(npc);
             ModifyNPCMovement(npc);
 		}
 

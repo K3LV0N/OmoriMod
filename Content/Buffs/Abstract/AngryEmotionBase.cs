@@ -2,12 +2,12 @@
 using Microsoft.Xna.Framework;
 using OmoriMod.Systems.EmotionSystem;
 using System;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {
     public abstract class AngryEmotionBase : EmotionBuff
     {
+
 
         // Player Configuration
 
@@ -42,28 +42,28 @@ namespace OmoriMod.Content.Buffs.Abstract
         public float PLAYER_DAMAGE_INCREASE_PERCENT => LinearPerLevel(
             max: PLAYER_DAMAGE_INCREASE_MAX,
             rate: PLAYER_DAMAGE_INCREASE_RATE,
-            maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+            maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
             startingValue: PLAYER_DAMAGE_INCREASE_STARTING_VALUE
             );
 
         public float NPC_DAMAGE_INCREASE_PERCENT => LinearPerLevel(
             max: NPC_DAMAGE_INCREASE_MAX,
             rate: NPC_DAMAGE_INCREASE_RATE,
-            maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+            maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
             startingValue: NPC_DAMAGE_INCREASE_STARTING_VALUE
         );
 
         public float PLAYER_DEFENSE_DECREASE_PERCENT => LinearPerLevel(
             max: PLAYER_DEFENSE_DECREASE_MAX,
             rate: PLAYER_DEFENSE_DECREASE_RATE,
-            maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+            maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
             startingValue: PLAYER_DEFENSE_DECREASE_STARTING_VALUE
         );
 
         public float NPC_DEFENSE_DECREASE_PERCENT => LinearPerLevel(
             max: NPC_DEFENSE_DECREASE_MAX,
             rate: NPC_DEFENSE_DECREASE_RATE,
-            maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+            maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
             startingValue: NPC_DEFENSE_DECREASE_STARTING_VALUE
         );
 
@@ -76,13 +76,13 @@ namespace OmoriMod.Content.Buffs.Abstract
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
-            EmotionHelper.AngryBuffRemovals(player);
+            EmotionSystem.RemoveIncompatibleEmotions<AngryEmotionBase>(player);
             ModifyPlayerDefense(player);
         }
 
         public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
         {
-            EmotionHelper.AngryBuffRemovals(npc);
+            EmotionSystem.RemoveIncompatibleEmotions<AngryEmotionBase>(npc);
             ModifyNPCDefense(npc);
         }
 

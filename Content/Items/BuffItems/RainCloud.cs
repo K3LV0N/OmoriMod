@@ -6,7 +6,6 @@ using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Players;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.SadBuff;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
 
 namespace OmoriMod.Content.Items.BuffItems
 {
@@ -32,10 +31,10 @@ namespace OmoriMod.Content.Items.BuffItems
 
         public override bool? UseItemEmotionBuffItem(Player player)
         {
-            EmotionHelper.ApplyOrPromoteBuff<SadEmotionBase>(
+            EmotionSystem.ApplyOrPromoteBuff<SadEmotionBase>(
                 player: player,
                 baseBuffType: ModContent.BuffType<Sad>(),
-                duration: EmotionHelper.EMOTION_TIME_IN_SECONDS * 60
+                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
                 );
 
             return true;

@@ -20,6 +20,13 @@ namespace OmoriMod.Content.Buffs.Abstract
         /// </summary>
         protected int dustSpawnFrequency;
 
+        public virtual bool IsIncompatibleWith(EmotionBuff otherBuff)
+        {
+            return Emotion != otherBuff.Emotion;
+        }
+
+        public virtual int? NextTierEmotion => nextStageEmotionType;
+        
         public int? nextStageEmotionType;
 
         protected Color dustColor;

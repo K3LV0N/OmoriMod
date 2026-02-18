@@ -3,7 +3,7 @@ using Terraria;
 using OmoriMod.Systems.EmotionSystem;
 using System;
 using OmoriMod.Content.NPCs.Global;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
+using System.Collections.Generic;
 
 
 namespace OmoriMod.Content.Buffs.Abstract
@@ -54,13 +54,13 @@ namespace OmoriMod.Content.Buffs.Abstract
         public float PLAYER_DEFENSE_INCREASE_PERCENT => LinearPerLevel(
             max: PLAYER_DEFENSE_INCREASE_MAX,
             rate: PLAYER_DEFENSE_INCREASE_RATE,
-            maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+            maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
             startingValue: PLAYER_DEFENSE_INCREASE_STARTING_VALUE
             );
         public float NPC_DEFENSE_INCREASE_PERCENT => LinearPerLevel(
 			max: NPC_DEFENSE_INCREASE_MAX,
 			rate: NPC_DEFENSE_INCREASE_RATE,
-			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
 			startingValue: NPC_DEFENSE_INCREASE_STARTING_VALUE
 			);
 
@@ -68,13 +68,13 @@ namespace OmoriMod.Content.Buffs.Abstract
 		public float PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT => LinearPerLevel(
 			max: PLAYER_MOVEMENT_SPEED_DECREASE_MAX,
 			rate: PLAYER_MOVEMENT_SPEED_DECREASE_RATE,
-			maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
 			startingValue: PLAYER_MOVEMENT_SPEED_DECREASE_STARTING_VALUE
 			);
 		public float NPC_MOVEMENT_SPEED_DECREASE_PERCENT => LinearPerLevel(
 			max: NPC_MOVEMENT_SPEED_DECREASE_MAX,
 			rate: NPC_MOVEMENT_SPEED_DECREASE_RATE,
-			maxEmotionLevel: EmotionHelper.NPC_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
 			startingValue: NPC_MOVEMENT_SPEED_DECREASE_STARTING_VALUE
 			);
 
@@ -82,7 +82,7 @@ namespace OmoriMod.Content.Buffs.Abstract
 		public float HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT => LinearPerLevel(
 			max: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_MAX,
 			rate: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_RATE,
-			maxEmotionLevel: EmotionHelper.PLAYER_MAX_EMOTION_LEVEL,
+			maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
 			startingValue: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_STARTING_VALUE
 			);
 
@@ -96,14 +96,14 @@ namespace OmoriMod.Content.Buffs.Abstract
 
         public override void UpdateEmotionBuff(Player player, ref int buffIndex)
         {
-            EmotionHelper.SadBuffRemovals(player);
+            EmotionSystem.RemoveIncompatibleEmotions<SadEmotionBase>(player);
             ModifyPlayerDefense(player);
             ModifyPlayerMovement(player); // Sad also reduces speed
         }
 
         public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
         {
-            EmotionHelper.SadBuffRemovals(npc);
+            EmotionSystem.RemoveIncompatibleEmotions<SadEmotionBase>(npc);
             ModifyNPCDefense(npc);
             ModifyNPCMovement(npc);
         }
@@ -131,7 +131,7 @@ namespace OmoriMod.Content.Buffs.Abstract
             Vector2 change;
             if (npc.noGravity) { change = npc.velocity * modifier; }
             else { change = new Vector2(npc.velocity.X * modifier, 0); }
-            npc.position = npc.position + change;
+            npc.position += change;
         }
 
         public override void ModifyPlayerIncomingDamage(ref Player.HurtModifiers modifiers)

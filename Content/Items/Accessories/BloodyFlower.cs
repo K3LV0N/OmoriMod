@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Buffs.AngryBuff;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Items.Accessories
 {
@@ -24,7 +24,7 @@ namespace OmoriMod.Content.Items.Accessories
 
         public override void UpdateEquip(Player player)
         {
-            EmotionHelper.ClearAllEmotions(player);
+            EmotionSystem.ClearAllEmotions(player);
             player.AddBuff(ModContent.BuffType<AngryNoTime>(), 2);
         }
     }

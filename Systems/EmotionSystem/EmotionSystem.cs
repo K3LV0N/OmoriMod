@@ -1,28 +1,21 @@
-﻿using Terraria.ModLoader;
+using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using OmoriMod.Systems.EmotionSystem;
 using System.Collections.Generic;
-using OmoriMod.Content.NPCs.Global;
+using System.Linq;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
 
-namespace OmoriMod.Content.Buffs.Abstract.Helpers
+namespace OmoriMod.Systems.EmotionSystem
 {
-    /// <summary>
-    /// Class that handles all emotion related stat changes
-    /// </summary>
-    public static class EmotionHelper
+    public class EmotionSystem : ModSystem
     {
-
         public const int EMOTION_TIME_IN_SECONDS = 60;
         public const float EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL = 0.07f;
         public const int PLAYER_MAX_EMOTION_LEVEL = 43;
         public const int NPC_MAX_EMOTION_LEVEL = 1;
-
 
         public static readonly HashSet<int> TIER3_EMOTION_TYPES = [
             ModContent.BuffType<Furious>(),
@@ -36,13 +29,19 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
             ModContent.BuffType<Despondent>(),
         ];
 
+        public override void Load()
+        {
+            // Any initialization if needed
+        }
 
+        public override void Unload()
+        {
+            // Any cleanup if needed
+        }
 
         /// <summary>
         /// returns the type of the <see cref="EmotionBuff"/> currently on the <see cref="Entity"/>. If no buff exists, returns null.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
         public static int? GetEmotionType(Entity entity)
         {
             if (entity is NPC npc)
@@ -68,6 +67,37 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
             return null;
         }
 
+        public static int GetEmotionLevel(IEmotionEntity entity)
+        {
+            if (entity.ActiveEmotionBuff != null)
+            {
+                return entity.ActiveEmotionBuff.emotionLevel;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Returns the emotional advantage level of the attacker and the target.
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="defender"></param>
+        /// <returns><c>0</c> means no advantage. 
+        /// Any <c>positive value</c> means the attacker has advantage. 
+        /// Any <c>negative value</c> means the defender has advantage.</returns>
+        public static int CalculateAdvantage(IEmotionEntity attacker, IEmotionEntity defender)
+        {
+            bool? attackerAdvantage = attacker.CheckForAdvantage(defender);
+            if (attackerAdvantage == null) { return 0; }
+            if (attackerAdvantage == true)
+            {
+                return GetEmotionLevel(attacker) - GetEmotionLevel(defender) + 1;
+            }
+            else
+            {
+                return GetEmotionLevel(defender) - GetEmotionLevel(attacker) + 1;
+            }
+        }
+
         private static void RemoveEmotion(Entity entity, int emotionType)
         {
             if (entity is NPC npc)
@@ -86,31 +116,6 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
                 player.ClearBuff(emotionType);
             }
         }
-        private static void RemoveEmotions<T1, T2>(Entity entity) 
-            where T1 : EmotionBuff
-            where T2 : EmotionBuff
-        {
-            if (entity is NPC npc)
-            {
-                foreach (int buffID in npc.buffType)
-                {
-                    if(ModContent.GetModBuff(buffID) is T1 || ModContent.GetModBuff(buffID) is T2)
-                    {
-                        RemoveEmotion(entity, buffID);
-                    }   
-                }
-            }
-            if (entity is Player player)
-            {
-                foreach (int buffID in player.buffType)
-                {
-                    if (ModContent.GetModBuff(buffID) is T1 || ModContent.GetModBuff(buffID) is T2)
-                    {
-                        RemoveEmotion(entity, buffID);
-                    }
-                }
-            }
-        }
 
         public static void ClearAllEmotions(Entity entity)
         {
@@ -118,7 +123,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
             {
                 foreach (int buffID in npc.buffType)
                 {
-                    if (ModContent.GetModBuff(buffID) is EmotionBuff currentBuff)
+                    if (ModContent.GetModBuff(buffID) is EmotionBuff)
                     {
                         RemoveEmotion(entity, buffID);
                     }
@@ -128,7 +133,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
             {
                 foreach (int buffID in player.buffType)
                 {
-                    if (ModContent.GetModBuff(buffID) is EmotionBuff currentBuff)
+                    if (ModContent.GetModBuff(buffID) is EmotionBuff)
                     {
                         RemoveEmotion(entity, buffID);
                     }
@@ -136,56 +141,41 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
             }
         }
 
+        /// <summary>
+        /// Removes any emotions that are incompatible with the provided emotion type T.
+        /// </summary>
+        public static void RemoveIncompatibleEmotions<T>(Entity entity) where T : EmotionBuff
+        {
+            T buffInstance = ModContent.GetInstance<T>();
+            if (buffInstance == null) return;
 
-        public static void AngryBuffRemovals(Player player)
-        {
-            RemoveEmotions<SadEmotionBase, HappyEmotionBase>(player);
-        }
-
-        public static void AngryBuffRemovals(NPC npc)
-        {
-            RemoveEmotions<SadEmotionBase, HappyEmotionBase>(npc);
-        }
-        public static void HappyBuffRemovals(Player player)
-        {
-            RemoveEmotions<AngryEmotionBase, SadEmotionBase>(player);
-        }
-        public static void HappyBuffRemovals(NPC npc)
-        {
-            RemoveEmotions<AngryEmotionBase, SadEmotionBase>(npc);
-        }
-        public static void SadBuffRemovals(Player player)
-        {
-            RemoveEmotions<AngryEmotionBase, HappyEmotionBase>(player);
-        }
-        public static void SadBuffRemovals(NPC npc)
-        {
-            RemoveEmotions<AngryEmotionBase, HappyEmotionBase>(npc);
-        }
-        
-        private static bool HasOtherEmotions<T1, T2>(Entity entity)
-        {
             if (entity is NPC npc)
             {
+                // To avoid modifying collection while iterating, collect removals first
+                List<int> buffsToRemove = [];
                 foreach (int buffID in npc.buffType)
                 {
-                    if (ModContent.GetModBuff(buffID) is T1 || ModContent.GetModBuff(buffID) is T2)
+                    ModBuff modBuff = ModContent.GetModBuff(buffID);
+                    if (modBuff is EmotionBuff currentBuff && buffInstance.IsIncompatibleWith(currentBuff))
                     {
-                        return true;
+                        buffsToRemove.Add(buffID);
                     }
                 }
+                foreach (int id in buffsToRemove) RemoveEmotion(entity, id);
             }
             if (entity is Player player)
             {
+                List<int> buffsToRemove = [];
                 foreach (int buffID in player.buffType)
                 {
-                    if (ModContent.GetModBuff(buffID) is T1 || ModContent.GetModBuff(buffID) is T2)
+                    ModBuff modBuff = ModContent.GetModBuff(buffID);
+                    if (modBuff is EmotionBuff currentBuff && buffInstance.IsIncompatibleWith(currentBuff))
                     {
-                        return true;
+                        buffsToRemove.Add(buffID);
                     }
                 }
+                foreach (int id in buffsToRemove) RemoveEmotion(entity, id);
             }
-            return false;
         }
 
         /// <summary>
@@ -193,26 +183,21 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="player"></param>
-        /// <param name="duration"></param>
         /// <returns></returns>
-        public static bool CanApplyEmotion<T>(Player player, int duration) where T : EmotionBuff
+        public static bool CanApplyEmotion<T>(Player player) where T : EmotionBuff
         {
-            // check for other emotion types
-            bool otherEmotions = false;
-            if (typeof(AngryEmotionBase).IsAssignableFrom(typeof(T))) 
-            {
-                otherEmotions = HasOtherEmotions<HappyEmotionBase, SadEmotionBase>(player);
-            }
-            if (typeof(HappyEmotionBase).IsAssignableFrom(typeof(T)))
-            {
-                otherEmotions = HasOtherEmotions<AngryEmotionBase, SadEmotionBase>(player);
-            }
-            if (typeof(SadEmotionBase).IsAssignableFrom(typeof(T)))
-            {
-                otherEmotions = HasOtherEmotions<AngryEmotionBase, HappyEmotionBase>(player);
-            }
+            T buffInstance = ModContent.GetInstance<T>();
+            if (buffInstance == null) return false;
 
-            if (otherEmotions) { return false; }
+            foreach (int buffID in player.buffType)
+            {
+                ModBuff modBuff = ModContent.GetModBuff(buffID);
+                // Check if current buff is incompatible with T
+                if (modBuff is EmotionBuff currentBuff && buffInstance.IsIncompatibleWith(currentBuff))
+                {
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -225,10 +210,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
         /// <param name="duration"></param>
         public static void ApplyOrPromoteBuff<T>(Player player, int baseBuffType, int duration) where T : EmotionBuff
         {
-
-            if (typeof(AngryEmotionBase).IsAssignableFrom(typeof(T))) AngryBuffRemovals(player);
-            if (typeof(HappyEmotionBase).IsAssignableFrom(typeof(T))) HappyBuffRemovals(player);
-            if (typeof(SadEmotionBase).IsAssignableFrom(typeof(T))) SadBuffRemovals(player);
+            RemoveIncompatibleEmotions<T>(player);
 
             // Check which emotion buff the player currently has
             foreach (int buffID in player.buffType)
@@ -236,7 +218,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
                 if (ModContent.GetModBuff(buffID) is T currentBuff)
                 {
                     // Try to promote emotion
-                    int? nextStage = currentBuff.nextStageEmotionType;
+                    int? nextStage = currentBuff.NextTierEmotion;
                     if (nextStage.HasValue)
                     {
                         player.ClearBuff(buffID);
@@ -250,7 +232,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
                 }
             }
 
-            // If no angry-type buff was found, apply base
+            // If no same-type buff was found, apply base
             player.AddBuff(baseBuffType, duration);
         }
 
@@ -263,9 +245,7 @@ namespace OmoriMod.Content.Buffs.Abstract.Helpers
         /// <param name="duration"></param>
         public static void ApplyTier4Emotion<T>(Player player, int baseBuffType, int duration) where T : EmotionBuff
         {
-            if (typeof(AngryEmotionBase).IsAssignableFrom(typeof(T))) AngryBuffRemovals(player);
-            if (typeof(HappyEmotionBase).IsAssignableFrom(typeof(T))) HappyBuffRemovals(player);
-            if (typeof(SadEmotionBase).IsAssignableFrom(typeof(T))) SadBuffRemovals(player);
+            RemoveIncompatibleEmotions<T>(player);
 
             // Find any and tier 3 or lower buffs and remove them
             foreach (int buffID in player.buffType)

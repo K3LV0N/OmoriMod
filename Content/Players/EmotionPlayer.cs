@@ -1,5 +1,4 @@
 ﻿using OmoriMod.Content.Buffs.Abstract;
-using OmoriMod.Content.Buffs.Abstract.Helpers;
 using OmoriMod.Systems.EmotionSystem;
 using Terraria;
 using Terraria.ModLoader;
@@ -29,9 +28,9 @@ namespace OmoriMod.Content.Players
         private void ResetTier4EmotionLevel()
         {
             // only reset tier4EmotionLevel when no buff is there
-            int? emotionType = EmotionHelper.GetEmotionType(Player);
+            int? emotionType = EmotionSystem.GetEmotionType(Player);
             if (!emotionType.HasValue) { tier4EmotionLevel = 4; }
-            else if (!EmotionHelper.TIER4_EMOTION_TYPES.Contains(emotionType.Value)) { tier4EmotionLevel = 4; }
+            else if (!EmotionSystem.TIER4_EMOTION_TYPES.Contains(emotionType.Value)) { tier4EmotionLevel = 4; }
         }
 
         public override void ResetEffects()
