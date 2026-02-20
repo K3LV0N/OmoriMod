@@ -1,15 +1,15 @@
-﻿using Terraria.GameContent.ItemDropRules;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Systems.State_Management.NPCs;
-using OmoriMod.Content.NPCs.General_Behaviours.Actives;
 using OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours;
+using OmoriMod.Content.NPCs.General_Behaviours.Actives;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
+using OmoriMod.Systems.State_Management.NPCs;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
 {

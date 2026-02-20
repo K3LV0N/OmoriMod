@@ -1,6 +1,5 @@
-﻿using Terraria.ModLoader;
+using Terraria.ModLoader;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
-
 
 namespace OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout
 {

@@ -1,10 +1,10 @@
-﻿using OmoriMod.Content.Items.Abstract_Classes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
 using OmoriMod.Content.Items.Ammo.Bullets.Regular.Tier1;
+using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
 
 namespace OmoriMod.Content.Items.Ammo.Bullets.Unlimited.Tier1
 {

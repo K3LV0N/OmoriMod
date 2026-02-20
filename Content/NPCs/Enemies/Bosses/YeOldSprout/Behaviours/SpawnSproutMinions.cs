@@ -1,9 +1,9 @@
-﻿using OmoriMod.Content.NPCs.Classes;
+using Terraria;
+using Terraria.ModLoader;
+using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 using OmoriMod.Util;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
 {

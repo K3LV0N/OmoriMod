@@ -2,20 +2,18 @@ using Terraria;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts
 {
-    public class PassiveAbilityOnHitContext : AbilityContext
+    public class PassiveAbilityOnHitContext(
+        Player player, 
+        Item item, 
+        NPC target, 
+        int damageDone, 
+        float knockback, 
+        bool crit
+        ) : AbilityContext(player, item)
     {
-        public NPC Target { get; set; }
-        public int DamageDone { get; set; }
-        public float Knockback { get; set; }
-        public bool Crit { get; set; }
-
-        public PassiveAbilityOnHitContext(Player player, Item item, NPC target, int damageDone, float knockback, bool crit) 
-            : base(player, item)
-        {
-            Target = target;
-            DamageDone = damageDone;
-            Knockback = knockback;
-            Crit = crit;
-        }
+        public NPC Target { get; set; } = target;
+        public int DamageDone { get; set; } = damageDone;
+        public float Knockback { get; set; } = knockback;
+        public bool Crit { get; set; } = crit;
     }
 }

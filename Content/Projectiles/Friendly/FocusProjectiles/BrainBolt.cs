@@ -1,6 +1,6 @@
-﻿using Terraria;
-using OmoriMod.Content.Projectiles.Abstract_Classes;
+using Terraria;
 using OmoriMod.Content.DamageClasses;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 
 namespace OmoriMod.Content.Projectiles.Friendly.FocusProjectiles
 {

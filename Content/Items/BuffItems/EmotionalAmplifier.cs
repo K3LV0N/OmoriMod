@@ -1,12 +1,12 @@
-﻿using OmoriMod.Content.Items.Abstract_Classes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
+using OmoriMod.Content.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Items.BuffItems

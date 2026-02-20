@@ -1,13 +1,12 @@
+using System.Collections.Generic;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
-using System.Transactions;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
 {

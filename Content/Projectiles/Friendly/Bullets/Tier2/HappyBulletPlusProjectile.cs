@@ -1,5 +1,5 @@
-﻿using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
 
 namespace OmoriMod.Content.Projectiles.Friendly.Bullets.Tier2
 {

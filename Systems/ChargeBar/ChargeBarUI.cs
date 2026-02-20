@@ -1,12 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
 using Terraria.ModLoader;
-using ReLogic.Content;
+using Terraria.UI;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Players;
+using ReLogic.Content;
 
 namespace OmoriMod.Systems.ChargeBar
 {

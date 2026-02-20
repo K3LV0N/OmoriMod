@@ -1,9 +1,9 @@
-﻿using OmoriMod.Content.NPCs.Classes;
+using System;
+using System.Collections.Generic;
+using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 using OmoriMod.Util;
-using System;
-using System.Collections.Generic;
 
 namespace OmoriMod.Systems.State_Management.NPCs
 {

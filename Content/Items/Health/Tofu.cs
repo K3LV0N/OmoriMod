@@ -1,6 +1,6 @@
-﻿using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Terraria;
 using Terraria.ID;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 
 namespace OmoriMod.Content.Items.Health
 {

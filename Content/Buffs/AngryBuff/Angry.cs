@@ -1,5 +1,5 @@
-﻿using OmoriMod.Content.Buffs.Abstract;
 using Terraria.ModLoader;
+using OmoriMod.Content.Buffs.Abstract;
 
 namespace OmoriMod.Content.Buffs.AngryBuff
 {

@@ -1,8 +1,8 @@
-﻿using OmoriMod.Content.NPCs.Classes;
+using Terraria;
+using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.General_Behaviours.Actives.Chase_Player;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Util;
-using Terraria;
 
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
 {

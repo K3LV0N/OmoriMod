@@ -1,8 +1,6 @@
-﻿using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using System;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 
 namespace OmoriMod.Content.Items.Starter
 {

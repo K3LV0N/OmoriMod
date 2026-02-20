@@ -1,9 +1,8 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+using Terraria;
 using Terraria.ID;
-using OmoriMod.Systems.EmotionSystem;
+using Terraria.ModLoader;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Systems.AbilitySystem;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Items.Abstract_Classes
 {

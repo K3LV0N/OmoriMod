@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Content.NPCs.Global
 {

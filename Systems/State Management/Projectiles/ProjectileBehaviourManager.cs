@@ -1,9 +1,9 @@
-﻿using OmoriMod.Content.Projectiles.Abstract_Classes;
+using System;
+using System.Collections.Generic;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour;
 using OmoriMod.Util;
-using System;
-using System.Collections.Generic;
 
 namespace OmoriMod.Systems.State_Management.Projectiles
 {

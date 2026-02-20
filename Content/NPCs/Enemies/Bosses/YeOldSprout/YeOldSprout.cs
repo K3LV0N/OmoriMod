@@ -1,17 +1,17 @@
-﻿using OmoriMod.Content.Items.BossRelated.BossBags;
-using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
-using OmoriMod.Content.Items.Health;
-using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Systems;
-using OmoriMod.Util;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OmoriMod.Content.Items.BossRelated.BossBags;
+using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
+using OmoriMod.Content.Items.Health;
+using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours;
-using OmoriMod.Systems.State_Management.NPCs;
-using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
+using OmoriMod.Systems;
+using OmoriMod.Systems.State_Management.Behaviour_Info;
+using OmoriMod.Systems.State_Management.NPCs;
+using OmoriMod.Util;
 
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
 {

@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
 {

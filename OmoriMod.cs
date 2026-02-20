@@ -1,7 +1,7 @@
+using Terraria.ModLoader;
 using OmoriMod.Content.Items.BossRelated.BossSummons;
 using OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart;
 using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
-using Terraria.ModLoader;
 
 namespace OmoriMod
 {

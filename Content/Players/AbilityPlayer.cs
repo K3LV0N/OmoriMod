@@ -1,5 +1,4 @@
-﻿using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Players
 {

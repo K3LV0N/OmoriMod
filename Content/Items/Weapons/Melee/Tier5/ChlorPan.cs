@@ -1,12 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Content.Items.Abstract_Classes;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Melee.Tier4;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
-
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier5

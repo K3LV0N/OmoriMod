@@ -1,7 +1,7 @@
-﻿using OmoriMod.Content.Buffs.Abstract;
-using OmoriMod.Systems.EmotionSystem;
-using OmoriMod.Content.Players;
 using Terraria;
+using OmoriMod.Content.Buffs.Abstract;
+using OmoriMod.Content.Players;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Buffs.SadBuff
 {

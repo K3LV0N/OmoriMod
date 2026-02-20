@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
-using OmoriMod.Content.Projectiles.Abstract_Classes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
 
 namespace OmoriMod.Content.Projectiles.Tests
 {

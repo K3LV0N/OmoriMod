@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 using OmoriMod.Content.Dusts;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
-using System;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {

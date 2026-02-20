@@ -1,5 +1,5 @@
-﻿using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
 using Terraria;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities
 {

@@ -1,7 +1,7 @@
-﻿using Terraria.ID;
-using Terraria;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 
 namespace OmoriMod.Content.Summons.Abstract_Classes
 {

@@ -1,7 +1,7 @@
-﻿using Terraria;
-using Microsoft.Xna.Framework;
-using OmoriMod.Systems.EmotionSystem;
 using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {

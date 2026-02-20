@@ -1,7 +1,7 @@
-﻿using OmoriMod.Content.Buffs.Abstract;
-using OmoriMod.Systems.EmotionSystem;
 using Terraria;
 using Terraria.ModLoader;
+using OmoriMod.Content.Buffs.Abstract;
+using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Players
 {

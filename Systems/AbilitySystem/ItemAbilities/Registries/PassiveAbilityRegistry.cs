@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives;
-using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
-using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
-using OmoriMod.Content.Projectiles.Friendly.Melee.Knife;
 using Terraria.ModLoader;
+using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
+using OmoriMod.Content.Projectiles.Friendly.Melee.Knife;
+using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
 {
     public static class PassiveAbilityRegistry
     {
-        private static Dictionary<int, IItemAbility> _abilities = new Dictionary<int, IItemAbility>();
+        private static readonly Dictionary<int, IItemAbility> _abilities = [];
 
         // ID Enum
         public enum PassiveAbilityID : int
@@ -58,10 +58,7 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
 
         public static void Register(int id, IItemAbility ability)
         {
-            if (!_abilities.ContainsKey(id))
-            {
-                _abilities.Add(id, ability);
-            }
+            _abilities.TryAdd(id, ability);
         }
 
         public static IItemAbility GetAbility(int id)

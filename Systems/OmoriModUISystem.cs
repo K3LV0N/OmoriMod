@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Systems.AbilitySystem.AbilityMenuUI;
-using OmoriMod.Systems.ChargeBar;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
+using OmoriMod.Systems.AbilitySystem.AbilityMenuUI;
+using OmoriMod.Systems.ChargeBar;
 
 namespace OmoriMod.Systems
 {

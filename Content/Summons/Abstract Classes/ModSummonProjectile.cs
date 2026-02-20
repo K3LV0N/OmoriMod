@@ -1,9 +1,9 @@
-﻿using System;
-using Terraria.ID;
-using Terraria;
-using OmoriMod.Content.Projectiles.Abstract_Classes;
-using Terraria.ModLoader;
+using System;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Content.Summons.Summons.Buffs;
 
 namespace OmoriMod.Content.Summons.Abstract_Classes

@@ -1,8 +1,8 @@
-﻿using OmoriMod.Content.Players;
-using OmoriMod.Content.Summons.Pets.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OmoriMod.Content.Players;
+using OmoriMod.Content.Summons.Pets.Buffs;
 
 namespace OmoriMod.Content.Summons.Pets.Projectiles
 {

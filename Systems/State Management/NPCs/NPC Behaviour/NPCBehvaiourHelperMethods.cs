@@ -1,7 +1,7 @@
-﻿using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Systems.State_Management.Behaviour_Info;
 using System;
 using Terraria;
+using OmoriMod.Content.NPCs.Classes;
+using OmoriMod.Systems.State_Management.Behaviour_Info;
 
 namespace OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour
 {

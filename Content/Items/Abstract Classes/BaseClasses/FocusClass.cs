@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Content.Dusts;
-using OmoriMod.Content.Players;
 using System;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using OmoriMod.Content.Dusts;
+using OmoriMod.Content.Players;
 
 namespace OmoriMod.Content.Items.Abstract_Classes
 {

@@ -1,7 +1,7 @@
-﻿using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {

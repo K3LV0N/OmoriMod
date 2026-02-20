@@ -1,7 +1,7 @@
-﻿using OmoriMod.Content.Items.Starter;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using OmoriMod.Content.Items.Starter;
 
 namespace OmoriMod.Content.Players
 {

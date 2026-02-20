@@ -1,6 +1,6 @@
-﻿using OmoriMod.Util.Interfaces;
 using System;
 using Terraria.ModLoader.IO;
+using OmoriMod.Util.Interfaces;
 
 namespace OmoriMod.Util
 {

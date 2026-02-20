@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using OmoriMod.Content.Summons.Pets.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using OmoriMod.Content.Summons.Pets.Projectiles;
 
 namespace OmoriMod.Content.Summons.Pets.Buffs
 {

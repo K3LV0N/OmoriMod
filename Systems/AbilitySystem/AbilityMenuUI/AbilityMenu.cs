@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OmoriMod.Content.Players;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Players;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
