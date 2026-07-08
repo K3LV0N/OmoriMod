@@ -1,3 +1,5 @@
+## Sorts imports in a specified manner because I am insane and I want them to be in order in every file
+
 $files = Get-ChildItem -Path . -Filter *.cs -Recurse | Where-Object { $_.FullName -notmatch '\\obj\\' -and $_.FullName -notmatch '\\bin\\' }
 $modifiedCount = 0
 
