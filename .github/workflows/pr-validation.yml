@@ -76,9 +76,15 @@ jobs:
             --force \
             --output "${TML_DIR}"
 
+          ln -sf \
+            "${TML_DIR}/Libraries/Native/Linux/libSDL2-2.0.so.0" \
+            "${TML_DIR}/Libraries/Native/Linux/libSDL2.so"
+
       - name: Build mod
         working-directory: ${{ env.MOD_DIR }}
         shell: bash
+        env:
+          LD_LIBRARY_PATH: ${{ env.TML_DIR }}/Libraries/Native/Linux
         run: |
           set -euo pipefail
           dotnet build OmoriMod.csproj --configuration Release
@@ -126,6 +132,8 @@ jobs:
       - name: Run headless tModLoader server smoke test
         working-directory: ${{ env.TML_DIR }}
         shell: bash
+        env:
+          LD_LIBRARY_PATH: ${{ env.TML_DIR }}/Libraries/Native/Linux
         run: |
           set -euo pipefail
 
