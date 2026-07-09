@@ -58,6 +58,24 @@ jobs:
 
           chmod +x "${TML_DIR}"/*.sh || true
 
+          cat > "${TML_DIR}/ModSources/tModLoader.targets" <<'EOF'
+          <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+            <Import Project="$(MSBuildThisFileDirectory)../tMLMod.targets" />
+          </Project>
+          EOF
+
+          sdk_version="$(dotnet --list-sdks | awk '/^8\.0\./ { print $1 }' | sort -V | tail -n 1)"
+          if [[ -z "${sdk_version}" ]]; then
+            echo "A .NET 8 SDK was not installed." >&2
+            exit 1
+          fi
+
+          dotnet new globaljson \
+            --sdk-version "${sdk_version}" \
+            --roll-forward latestPatch \
+            --force \
+            --output "${TML_DIR}"
+
       - name: Build mod
         working-directory: ${{ env.MOD_DIR }}
         shell: bash
