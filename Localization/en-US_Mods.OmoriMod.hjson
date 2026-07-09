@@ -456,6 +456,16 @@ Items: {
 		DisplayName: Test Bat
 		Tooltip: ""
 	}
+
+	OrangeJuice: {
+		DisplayName: Orange Juice
+		Tooltip: Apparently better than Apple Juice
+	}
+
+	AppleJuice: {
+		DisplayName: Apple Juice
+		Tooltip: Apparently better than orange juice.
+	}
 }
 
 Buffs: {
@@ -556,6 +566,8 @@ NPCs: {
 	YeOldSprout.DisplayName: Ye Old Sprout
 	SweetHeart.DisplayName: Sweetheart
 	SproutMoleOld.DisplayName: Sprout Mole Old
+	ForestBunny.DisplayName: Forest Bunny
+	UFO.DisplayName: U.F.O
 }
 
 Projectiles: {
@@ -620,6 +632,7 @@ Projectiles: {
 	SadBombPlusProjectile.DisplayName: Sad Bomb Plus Projectile
 	HomingHeart.DisplayName: Homing Heart
 	MaceWhip.DisplayName: Mace Whip
+	UFOLaser.DisplayName: U F O Laser
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage

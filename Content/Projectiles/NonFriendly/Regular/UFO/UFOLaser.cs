@@ -1,0 +1,122 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using OmoriMod.Content.Buffs.HappyBuff;
+using OmoriMod.Content.Buffs.SadBuff;
+using OmoriMod.Content.Buffs.AngryBuff;
+using OmoriMod.Content.NPCs.Enemies.Regular.UFO;
+using OmoriMod.Content.Projectiles.Abstract_Classes;
+
+
+namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
+{
+    public class UFOLaser : OmoriModProjectile
+    {
+        private bool hasHitTarget = false;
+        private int postHitTimer = 0;
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.aiStyle = 0;
+            Projectile.hostile = true;
+            Projectile.friendly = false;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 300; 
+            Projectile.ignoreWater = true;  
+            Projectile.tileCollide = true; 
+        }
+
+        public override void AI()
+        {
+
+            int ufoIndex = (int)Projectile.ai[0];
+
+            if (ufoIndex >= 0 && ufoIndex < Main.maxNPCs)
+            {
+                NPC ufo = Main.npc[ufoIndex];
+
+                if (!ufo.active || ufo.type != ModContent.NPCType<global::OmoriMod.Content.NPCs.Enemies.Regular.UFO.UFO>())
+
+                {
+                    Projectile.Kill();
+                    return;
+                }
+            }
+            else
+            {
+                Projectile.Kill();
+                return;
+            }
+
+
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(0f);
+
+            float homingRange = 200f;
+            float homingSpeed = 0.1f;
+            Player targetPlayer = null;
+            float closestDistance = homingRange;
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player p = Main.player[i];
+                if (p.active && !p.dead)
+                {
+                    float distance = Vector2.Distance(Projectile.Center, p.Center);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        targetPlayer = p;
+                    }
+                }
+            }
+
+            if (targetPlayer != null)
+            {
+                Vector2 desiredVelocity = targetPlayer.Center - Projectile.Center;
+                desiredVelocity.Normalize();
+                desiredVelocity *= 8f;
+
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, homingSpeed);
+            }
+
+            //lighting 
+            Lighting.AddLight(Projectile.Center, 0.5f, 0.0f, 0.0f);
+
+            if (hasHitTarget)
+            {
+                postHitTimer++;
+                if (postHitTimer >= 1000)
+                {
+                    postHitTimer = 0;
+                    hasHitTarget = false;
+                }
+            }
+        }
+
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            //IDs
+            int happyID = ModContent.BuffType<Happy>();
+            int sadID = ModContent.BuffType<Sad>();
+            int angryID = ModContent.BuffType<Angry>();
+
+            //if you already have an emotion buff, do nothing
+            if (target.HasBuff(happyID) || target.HasBuff(sadID) || target.HasBuff(angryID))
+            {
+                return;
+            }
+
+            int[] potentialBuffs = new int[] { happyID, sadID, angryID };
+            int randomIndex = Main.rand.Next(potentialBuffs.Length);
+            int selectedBuff = potentialBuffs[randomIndex];
+
+            // 4. Give the new buff for 1000 ticks (16.67 seconds) heh 67 heheheh
+            target.AddBuff(selectedBuff, 1000);
+        }
+
+    }
+}
