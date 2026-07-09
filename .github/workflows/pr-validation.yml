@@ -1,6 +1,7 @@
 name: PR Validation
 
 on:
+  push:
   pull_request:
     branches:
       - main
@@ -8,6 +9,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
 
 env:
   TML_VERSION: v2026.05.3.0
@@ -79,6 +84,16 @@ jobs:
           ln -sf \
             "${TML_DIR}/Libraries/Native/Linux/libSDL2-2.0.so.0" \
             "${TML_DIR}/Libraries/Native/Linux/libSDL2.so"
+
+      - name: Lint C# analyzers
+        working-directory: ${{ env.MOD_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet format analyzers OmoriMod.csproj \
+            --verify-no-changes \
+            --severity warn \
+            --verbosity minimal
 
       - name: Build mod
         working-directory: ${{ env.MOD_DIR }}
