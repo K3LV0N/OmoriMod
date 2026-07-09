@@ -87,7 +87,10 @@ jobs:
           LD_LIBRARY_PATH: ${{ env.TML_DIR }}/Libraries/Native/Linux
         run: |
           set -euo pipefail
-          dotnet build OmoriMod.csproj --configuration Release
+          mkdir -p "${TML_SAVE_DIR}"
+          dotnet build OmoriMod.csproj \
+            --configuration Release \
+            -p:ExtraBuildModFlags="-tmlsavedirectory ${TML_SAVE_DIR}"
 
       - name: Prepare smoke-test save
         id: smoke_save
@@ -96,17 +99,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          tmod_file="$(find "${MOD_DIR}/bin" -type f -name "${MOD_NAME}.tmod" | sort | tail -n 1)"
-          if [[ -z "${tmod_file}" ]]; then
-            echo "Could not find built ${MOD_NAME}.tmod under ${MOD_DIR}/bin" >&2
+          mods_dir="${TML_SAVE_DIR}/Mods"
+          tmod_file="${mods_dir}/${MOD_NAME}.tmod"
+          if [[ ! -f "${tmod_file}" ]]; then
+            echo "Could not find built mod at ${tmod_file}" >&2
             exit 1
           fi
 
-          mods_dir="${TML_SAVE_DIR}/Mods"
           worlds_dir="${TML_SAVE_DIR}/Worlds"
           mkdir -p "${mods_dir}" "${worlds_dir}"
 
-          cp "${tmod_file}" "${mods_dir}/${MOD_NAME}.tmod"
           printf '["%s"]\n' "${MOD_NAME}" > "${mods_dir}/enabled.json"
 
           server_config="${RUNNER_TEMP}/tml-serverconfig.txt"
