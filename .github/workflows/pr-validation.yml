@@ -14,14 +14,13 @@ env:
   MOD_NAME: OmoriMod
   MOD_DIR: ${{ github.workspace }}/tModLoader/ModSources/OmoriMod
   TML_DIR: ${{ github.workspace }}/tModLoader
+  TML_SAVE_DIR: ${{ github.workspace }}/tml-save
 
 jobs:
   validate:
     name: Lint, build, and smoke test
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      TML_SAVE_DIR: ${{ runner.temp }}/tml-save
 
     steps:
       - name: Check out repository
