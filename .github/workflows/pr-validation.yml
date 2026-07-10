@@ -1,7 +1,6 @@
 name: PR Validation
 
 on:
-  push:
   pull_request:
     branches:
       - main
@@ -11,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 env:
@@ -22,10 +21,10 @@ env:
   TML_SAVE_DIR: ${{ github.workspace }}/tml-save
 
 jobs:
-  validate:
-    name: Lint, build, and smoke test
+  lint:
+    name: PR lint
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     steps:
       - name: Check out repository
@@ -50,40 +49,10 @@ jobs:
             exit 1
           }
 
-      - name: Download pinned tModLoader
+      - name: Set up tModLoader
         working-directory: ${{ github.workspace }}
         shell: bash
-        run: |
-          set -euo pipefail
-
-          curl --fail --location --retry 3 \
-            --output tModLoader.zip \
-            "https://github.com/tModLoader/tModLoader/releases/download/${TML_VERSION}/tModLoader.zip"
-          unzip -q tModLoader.zip -d "${TML_DIR}"
-
-          chmod +x "${TML_DIR}"/*.sh || true
-
-          cat > "${TML_DIR}/ModSources/tModLoader.targets" <<'EOF'
-          <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-            <Import Project="$(MSBuildThisFileDirectory)../tMLMod.targets" />
-          </Project>
-          EOF
-
-          sdk_version="$(dotnet --list-sdks | awk '/^8\.0\./ { print $1 }' | sort -V | tail -n 1)"
-          if [[ -z "${sdk_version}" ]]; then
-            echo "A .NET 8 SDK was not installed." >&2
-            exit 1
-          fi
-
-          dotnet new globaljson \
-            --sdk-version "${sdk_version}" \
-            --roll-forward latestPatch \
-            --force \
-            --output "${TML_DIR}"
-
-          ln -sf \
-            "${TML_DIR}/Libraries/Native/Linux/libSDL2-2.0.so.0" \
-            "${TML_DIR}/Libraries/Native/Linux/libSDL2.so"
+        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
 
       - name: Lint C# analyzers
         working-directory: ${{ env.MOD_DIR }}
@@ -94,6 +63,27 @@ jobs:
             --verify-no-changes \
             --severity warn \
             --verbosity minimal
+
+  compile:
+    name: Compile mod
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          path: tModLoader/ModSources/OmoriMod
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Set up tModLoader
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
 
       - name: Build mod
         working-directory: ${{ env.MOD_DIR }}
@@ -107,6 +97,54 @@ jobs:
             --configuration Release \
             -p:ExtraBuildModFlags="-tmlsavedirectory ${TML_SAVE_DIR}"
 
+      - name: Verify built mod
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmod_file="${TML_SAVE_DIR}/Mods/${MOD_NAME}.tmod"
+          if [[ ! -f "${tmod_file}" ]]; then
+            echo "Could not find built mod at ${tmod_file}" >&2
+            exit 1
+          fi
+
+      - name: Upload built mod
+        uses: actions/upload-artifact@v7
+        with:
+          name: omorimod-tmod
+          path: ${{ env.TML_SAVE_DIR }}/Mods/${{ env.MOD_NAME }}.tmod
+          if-no-files-found: error
+          retention-days: 1
+
+  runtime:
+    name: Run mod in tModLoader
+    needs:
+      - lint
+      - compile
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          path: tModLoader/ModSources/OmoriMod
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Set up tModLoader
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
+
+      - name: Download built mod
+        uses: actions/download-artifact@v8
+        with:
+          name: omorimod-tmod
+          path: ${{ env.TML_SAVE_DIR }}/Mods
+
       - name: Prepare smoke-test save
         id: smoke_save
         working-directory: ${{ env.MOD_DIR }}
@@ -117,7 +155,7 @@ jobs:
           mods_dir="${TML_SAVE_DIR}/Mods"
           tmod_file="${mods_dir}/${MOD_NAME}.tmod"
           if [[ ! -f "${tmod_file}" ]]; then
-            echo "Could not find built mod at ${tmod_file}" >&2
+            echo "Could not find downloaded mod at ${tmod_file}" >&2
             exit 1
           fi
 
@@ -141,7 +179,6 @@ jobs:
           EOF
 
           {
-            echo "tmod_file=${tmod_file}"
             echo "mods_dir=${mods_dir}"
             echo "server_config=${server_config}"
           } >> "${GITHUB_OUTPUT}"

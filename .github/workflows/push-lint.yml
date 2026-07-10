@@ -1,0 +1,60 @@
+name: Push Lint
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TML_VERSION: v2026.05.3.0
+  MOD_DIR: ${{ github.workspace }}/tModLoader/ModSources/OmoriMod
+  TML_DIR: ${{ github.workspace }}/tModLoader
+
+jobs:
+  lint:
+    name: Push lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          path: tModLoader/ModSources/OmoriMod
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Check import ordering
+        working-directory: ${{ env.MOD_DIR }}
+        shell: pwsh
+        run: |
+          ./sort_imports.ps1
+
+          git diff --exit-code
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Import ordering is out of date. Run ./sort_imports.ps1 locally and commit the result."
+            exit 1
+          }
+
+      - name: Set up tModLoader
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
+
+      - name: Lint C# analyzers
+        working-directory: ${{ env.MOD_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet format analyzers OmoriMod.csproj \
+            --verify-no-changes \
+            --severity warn \
+            --verbosity minimal
