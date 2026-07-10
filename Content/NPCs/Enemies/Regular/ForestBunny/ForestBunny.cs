@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
+using OmoriMod.Content.Items.Accessories;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
@@ -48,6 +49,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.ForestBunny
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AirHorn>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PartyPopper>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RainCloud>(), 5));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RabbitsFoot>(), 5));
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)

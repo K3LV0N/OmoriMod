@@ -466,6 +466,31 @@ Items: {
 		DisplayName: Apple Juice
 		Tooltip: Apparently better than orange juice.
 	}
+
+	RabbitsFoot: {
+		DisplayName: Rabbits Foot
+		Tooltip: increases your Jump and Speed by 50%
+	}
+
+	RabbitsFootKeychain: {
+		DisplayName: Rabbits Foot Keychain
+		Tooltip: Brings forth a challenger from the depths of hell
+	}
+
+	RabbitBossBag: {
+		DisplayName: Rabbit Boss Bag
+		Tooltip: ""
+	}
+
+	RabbitGun: {
+		DisplayName: Rabbit Gun
+		Tooltip: ""
+	}
+
+	GShroober: {
+		DisplayName: G Shroober
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -558,6 +583,11 @@ Buffs: {
 		DisplayName: You are not supposed to see this.
 		Description: Stop looking :(
 	}
+
+	GShrooberBuff: {
+		DisplayName: G Shroober Buff
+		Description: Mods.OmoriMod.Buffs.GShrooberBuff.Description
+	}
 }
 
 NPCs: {
@@ -568,6 +598,9 @@ NPCs: {
 	SproutMoleOld.DisplayName: Sprout Mole Old
 	ForestBunny.DisplayName: Forest Bunny
 	UFO.DisplayName: U.F.O
+	Squizzard.DisplayName: Squizzard
+	Rabbit.DisplayName: Rabbit?
+	Snaley.DisplayName: Snaley
 }
 
 Projectiles: {
@@ -633,6 +666,8 @@ Projectiles: {
 	HomingHeart.DisplayName: Homing Heart
 	MaceWhip.DisplayName: Mace Whip
 	UFOLaser.DisplayName: U F O Laser
+	SquizzardBeam.DisplayName: Squizzard Beam
+	GShrooberProjectile.DisplayName: G Shroober Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage

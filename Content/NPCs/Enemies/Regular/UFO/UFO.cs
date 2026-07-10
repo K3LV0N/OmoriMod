@@ -6,12 +6,12 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Items.Health;
+using OmoriMod.Content.Items.Mana;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.General_Behaviours.Actives;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
-using OmoriMod.Systems.State_Management.NPCs;
-using OmoriMod.Content.Items.Mana;
 using OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO;
+using OmoriMod.Systems.State_Management.NPCs;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.UFO
 {

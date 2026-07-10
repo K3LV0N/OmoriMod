@@ -5,15 +5,17 @@ using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
-using OmoriMod.Content.NPCs.Enemies.Regular.UFO;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
 
-namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
+namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.Squizzard
 {
-    public class UFOLaser : OmoriModProjectile
+    public class SquizzardBeam : OmoriModProjectile
     {
         private bool hasHitTarget = false;
         private int postHitTimer = 0;
+
+        float homingRange = 400f;
+        float homingSpeed = 0.02f;
 
         public override void SetDefaults()
         {
@@ -28,21 +30,24 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
             Projectile.tileCollide = true; 
         }
 
-        public override void AI()
-        {
+            public override void AI()
+            {   
 
-            int shooterIndex = (int)Projectile.ai[0];
+            int shooterIndex = (int)Projectile.ai[1];
 
             if (shooterIndex >= 0 && shooterIndex < Main.maxNPCs)
             {
                 NPC shooter = Main.npc[shooterIndex];
 
-                if (!shooter.active || (shooter.type != ModContent.NPCType<global::OmoriMod.Content.NPCs.Enemies.Regular.UFO.UFO>()))
+
+                if (!shooter.active || (shooter.type != ModContent.NPCType<global::OmoriMod.Content.NPCs.Enemies.Regular.Squizzard.Squizzard>()))
                 {
                     Projectile.Kill();
                     return;
                 }
             }
+            
+            
             else
             {
                 Projectile.Kill();
@@ -53,8 +58,6 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(0f);
 
-            float homingRange = 200f;
-            float homingSpeed = 0.1f;
             Player targetPlayer = null;
             float closestDistance = homingRange;
 
@@ -82,7 +85,7 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
             }
 
             //lighting 
-            Lighting.AddLight(Projectile.Center, 0.5f, 0.0f, 0.0f);
+            Lighting.AddLight(Projectile.Center, 1f, 0.0f, 0.0f);
 
             if (hasHitTarget)
             {
@@ -98,14 +101,14 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            //IDs
+
             int happyID = ModContent.BuffType<Happy>();
             int sadID = ModContent.BuffType<Sad>();
             int angryID = ModContent.BuffType<Angry>();
 
-            //if you already have an emotion buff, do nothing
             if (target.HasBuff(happyID) || target.HasBuff(sadID) || target.HasBuff(angryID))
             {
+                Projectile.Kill();
                 return;
             }
 
@@ -113,9 +116,11 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Regular.UFO
             int randomIndex = Main.rand.Next(potentialBuffs.Length);
             int selectedBuff = potentialBuffs[randomIndex];
 
-            // 4. Give the new buff for 1000 ticks (16.67 seconds) heh 67 heheheh
             target.AddBuff(selectedBuff, 1000);
+
+            Projectile.Kill();
         }
+
 
     }
 }
