@@ -56,6 +56,9 @@ namespace OmoriMod.Content.Items.Abstract_Classes
                 case EmotionType.HAPPY:
                     Item.rare = ItemRarityID.Yellow;
                     break;
+                case EmotionType.FEAR:
+                    Item.rare = ItemRarityID.Purple;
+                    break;
             }
         }
 

@@ -6,6 +6,7 @@ using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Buffs.FearBuff;
 
 namespace OmoriMod.Systems.EmotionSystem
 {
@@ -46,6 +47,12 @@ namespace OmoriMod.Systems.EmotionSystem
                         if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
                         {
                             target.AddBuff(ModContent.BuffType<Happy>(), ticks);
+                        }
+                        break;
+                    case EmotionType.FEAR:
+                        if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>() && !target.HasBuff<Sad>())
+                        {
+                            target.AddBuff(ModContent.BuffType<Fear>(), ticks);
                         }
                         break;
                 }

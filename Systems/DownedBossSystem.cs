@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using OmoriMod.Content.Items.BossRelated.BossSummons;
+using OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart;
+using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
+using OmoriMod.Content.NPCs.Enemies.Bosses.Rabbit;
+using OmoriMod.Util;
 
 namespace OmoriMod.Systems
 {
@@ -63,6 +70,55 @@ namespace OmoriMod.Systems
             int n = reader.ReadInt32();
             for (int i = 0; i < n; i++)
                 _downed.Add(reader.ReadString());
+        }
+
+        public override void PostSetupContent()
+        {
+            // BossChecklist integration
+            if (ModLoader.TryGetMod("BossChecklist", out Mod bossChecklist))
+            {
+                bossChecklist.Call(
+                    "LogBoss",
+                    Mod,
+                    nameof(YeOldSprout),
+                    4.0f,
+                    (Func<bool>)(() => IsDowned("YeOldSprout".OmoriModString())),
+                    ModContent.NPCType<YeOldSprout>(),
+                    new Dictionary<string, object>()
+                    {
+                        ["spawnItems"] = ModContent.ItemType<MegaTofu>(),
+                        ["spawnInfo"] = Language.GetOrRegister("Mods.OmoriMod.BossChecklist.YeOldSprout.SpawnInfo", () => "Use a Mega Tofu to summon Ye Old Sprout."),
+                    }
+                );
+
+                bossChecklist.Call(
+                    "LogBoss",
+                    Mod,
+                    nameof(SweetHeart),
+                    7.0f,
+                    (Func<bool>)(() => IsDowned("SweetHeart".OmoriModString())),
+                    ModContent.NPCType<SweetHeart>(),
+                    new Dictionary<string, object>()
+                    {
+                        ["spawnItems"] = ModContent.ItemType<SplinteredSweet>(),
+                        ["spawnInfo"] = Language.GetOrRegister("Mods.OmoriMod.BossChecklist.SweetHeart.SpawnInfo", () => "Use a Splintered Sweet to summon Sweetheart."),
+                    }
+                );
+
+                bossChecklist.Call(
+                    "LogBoss",
+                    Mod,
+                    nameof(Rabbit),
+                    8.0f,
+                    (Func<bool>)(() => IsDowned("Rabbit".OmoriModString())),
+                    ModContent.NPCType<Rabbit>(),
+                    new Dictionary<string, object>()
+                    {
+                        ["spawnItems"] = ModContent.ItemType<RabbitsFootKeychain>(),
+                        ["spawnInfo"] = Language.GetOrRegister("Mods.OmoriMod.BossChecklist.Rabbit.SpawnInfo", () => "Use a Rabbit's Foot Keychain to summon the Rabbit."),
+                    }
+                );
+            }
         }
     }
 }
