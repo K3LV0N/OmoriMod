@@ -703,6 +703,7 @@ Projectiles: {
 	UFOLaser.DisplayName: U F O Laser
 	SquizzardBeam.DisplayName: Squizzard Beam
 	GShrooberProjectile.DisplayName: G Shroober Projectile
+	GShrooberPoisonProjectile.DisplayName: G Shroober Poison Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage

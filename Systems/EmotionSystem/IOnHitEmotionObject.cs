@@ -1,12 +1,12 @@
 using Terraria;
 using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.AngryBuff;
+using OmoriMod.Content.Buffs.FearBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
-using OmoriMod.Content.Buffs.FearBuff;
 
 namespace OmoriMod.Systems.EmotionSystem
 {

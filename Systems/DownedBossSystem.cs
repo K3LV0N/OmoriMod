@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,9 +8,9 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using OmoriMod.Content.Items.BossRelated.BossSummons;
+using OmoriMod.Content.NPCs.Enemies.Bosses.Rabbit;
 using OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart;
 using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
-using OmoriMod.Content.NPCs.Enemies.Bosses.Rabbit;
 using OmoriMod.Util;
 
 namespace OmoriMod.Systems
