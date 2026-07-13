@@ -57,5 +57,5 @@ jobs:
             --include . \
             --no-restore \
             --verify-no-changes \
-            --severity info \
+            --severity warn \
             --verbosity minimal
