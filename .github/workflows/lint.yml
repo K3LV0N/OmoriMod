@@ -12,7 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  TML_VERSION: v2026.05.3.0
   MOD_DIR: ${{ github.workspace }}/tModLoader/ModSources/OmoriMod
+  TML_DIR: ${{ github.workspace }}/tModLoader
 
 jobs:
   lint:
@@ -30,6 +32,19 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
+
+      - name: Cache tModLoader install
+        id: tml-cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.TML_DIR }}
+          key: tmloader-${{ env.TML_VERSION }}-${{ runner.os }}-${{ hashFiles('tModLoader/ModSources/OmoriMod/.github/scripts/setup-tmodloader.sh') }}
+
+      - name: Set up tModLoader
+        if: steps.tml-cache.outputs.cache-hit != 'true'
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
 
       - name: Restore
         working-directory: ${{ env.MOD_DIR }}
