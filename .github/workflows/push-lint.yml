@@ -36,11 +36,11 @@ jobs:
         working-directory: ${{ env.MOD_DIR }}
         shell: pwsh
         run: |
-          ./sort_imports.ps1
+          ./PowerShell/sort_imports.ps1
 
           git diff --exit-code
           if ($LASTEXITCODE -ne 0) {
-            Write-Error "Import ordering is out of date. Run ./sort_imports.ps1 locally and commit the result."
+            Write-Error "Import ordering is out of date. Run ./PowerShell/sort_imports.ps1 locally and commit the result."
             exit 1
           }
 
