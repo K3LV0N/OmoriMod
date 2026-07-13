@@ -30,10 +30,10 @@ namespace OmoriMod.Systems.ChargeBar
             area.HAlign = area.VAlign = 0.5f;
 
 
-            barFrame = new UIImage(ModContent.Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarFrame"));
+            barFrame = new UIImage(ModContent.Request<Texture2D>("OmoriMod/Content/Systems/ChargeBar/ChargeBarFrame"));
 
-            barTexture = ModContent.Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarMiddle", AssetRequestMode.ImmediateLoad).Value;
-            barTextureFull = ModContent.Request<Texture2D>("OmoriMod/Systems/ChargeBar/ChargeBarFull", AssetRequestMode.ImmediateLoad).Value;
+            barTexture = ModContent.Request<Texture2D>("OmoriMod/Content/Systems/ChargeBar/ChargeBarMiddle", AssetRequestMode.ImmediateLoad).Value;
+            barTextureFull = ModContent.Request<Texture2D>("OmoriMod/Content/Systems/ChargeBar/ChargeBarFull", AssetRequestMode.ImmediateLoad).Value;
 
             barFrame.Left.Set(0, 0f);
             barFrame.Top.Set(0, 0f);

@@ -58,21 +58,21 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
             area.Height.Set(800, 0f);
             area.HAlign = area.VAlign = 0.5f;
 
-            menu = new UIImage(ModContent.Request<Texture2D>("OmoriMod/Systems/AbilitySystem/AbilityMenuUI/CrudeMenu"));
+            menu = new UIImage(ModContent.Request<Texture2D>("OmoriMod/Content/Systems/AbilitySystem/AbilityMenuUI/CrudeMenu"));
             menu.Left.Set(0, 0f);
             menu.Top.Set(0, 0f);
             menu.Width.Set(512, 0f);
             menu.Height.Set(512, 0f);
 
 
-            confirm = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Systems/AbilitySystem/AbilityMenuUI/CrudeConfirmIcon"));
+            confirm = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Content/Systems/AbilitySystem/AbilityMenuUI/CrudeConfirmIcon"));
             confirm.OnLeftClick += Confirm;
             confirm.Left.Set(0, .8f);
             confirm.Top.Set(0, .8f);
             confirm.Width.Set(64, 0f);
             confirm.Height.Set(64, 0f);
 
-            cancel = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Systems/AbilitySystem/AbilityMenuUI/CrudeExitIcon"));
+            cancel = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Content/Systems/AbilitySystem/AbilityMenuUI/CrudeExitIcon"));
             cancel.OnLeftClick += Cancel;
             cancel.Left.Set(0, 0.2f);
             cancel.Top.Set(0, .8f);
@@ -80,14 +80,14 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
             cancel.Height.Set(64, 0f);
 
 
-            arrow = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Systems/AbilitySystem/AbilityMenuUI/SelectHappyArrow"));
+            arrow = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Content/Systems/AbilitySystem/AbilityMenuUI/SelectHappyArrow"));
             arrow.OnLeftClick += SwitchPassive;
             arrow.Left.Set(0, 0.2f);
             arrow.Top.Set(0, 0.2f);
             arrow.Width.Set(64, 0f);
             arrow.Height.Set(64, 0f);
 
-            phantom = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Systems/AbilitySystem/AbilityMenuUI/SelectRegular"));
+            phantom = new UIImageButton(ModContent.Request<Texture2D>("OmoriMod/Content/Systems/AbilitySystem/AbilityMenuUI/SelectRegular"));
             phantom.OnLeftClick += SwitchPassive;
             phantom.Left.Set(0, 0.5f);
             phantom.Top.Set(0, 0.2f);
