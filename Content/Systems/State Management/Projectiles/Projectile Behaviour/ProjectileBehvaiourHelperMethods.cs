@@ -1,6 +1,5 @@
-﻿namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
+﻿namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour;
+
+public static class ProjectileBehvaiourHelperMethods
 {
-    public static class ProjectileBehvaiourHelperMethods
-    {
-    }
 }

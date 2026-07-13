@@ -6,33 +6,32 @@ using OmoriMod.Content.Projectiles.Friendly.Arrows.Tier1.CanDrop;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Items.Ammo.Arrows.Regular.Tier1
+namespace OmoriMod.Content.Items.Ammo.Arrows.Regular.Tier1;
+
+public class SadArrow : SadItem
 {
-    public class SadArrow : SadItem
+    SadArrow()
     {
-        SadArrow()
-        {
-            itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
-        }
-        public override void SetDefaults()
-        {
-            EmotionItemCloneWithDifferentProjectile<AngryArrow>(ModContent.ProjectileType<SadArrowProjectile>());
-        }
+        itemTypeForResearch = ItemTypeForResearch.Ammo_Explosives;
+    }
+    public override void SetDefaults()
+    {
+        EmotionItemCloneWithDifferentProjectile<AngryArrow>(ModContent.ProjectileType<SadArrowProjectile>());
+    }
 
-        public override void AddRecipes()
-        {
-            // Create recipes
-            MakeAmmoRecipes(
-                resultAmount: 50,
+    public override void AddRecipes()
+    {
+        // Create recipes
+        MakeAmmoRecipes(
+            resultAmount: 50,
 
-                baseIngredientID: ModContent.ItemType<RainCloud>(),
-                baseAmount: 1,
+            baseIngredientID: ModContent.ItemType<RainCloud>(),
+            baseAmount: 1,
 
-                nonEndlessIngredientID: ItemID.WoodenArrow,
-                nonEndlessAmount: 50,
+            nonEndlessIngredientID: ItemID.WoodenArrow,
+            nonEndlessAmount: 50,
 
-                endlessIngredientID: ItemID.EndlessQuiver
-                );
-        }
+            endlessIngredientID: ItemID.EndlessQuiver
+            );
     }
 }

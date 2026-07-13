@@ -6,27 +6,26 @@ using OmoriMod.Content.Projectiles.Friendly.Magic.Tier3;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Items.Weapons.Magic.Tier3
-{
-    public class HappyBomb : HappyItem
-    {
-        HappyBomb()
-        {
-            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
-        }
-        public override void SetDefaults()
-        {
-            EmotionItemCloneWithDifferentProjectile<AngryBomb>(ModContent.ProjectileType<HappyBombProjectile>());
-        }
+namespace OmoriMod.Content.Items.Weapons.Magic.Tier3;
 
-        public override void AddRecipes()
-        {
-            MakeUpgradeRecipe(
-                baseItemID: ModContent.ItemType<HappyBundle>(),
-                extraItemID: ItemID.HallowedBar,
-                extraItemAmount: 20,
-                craftingStationID: TileID.Bookcases
-                );
-        }
+public class HappyBomb : HappyItem
+{
+    HappyBomb()
+    {
+        itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+    }
+    public override void SetDefaults()
+    {
+        EmotionItemCloneWithDifferentProjectile<AngryBomb>(ModContent.ProjectileType<HappyBombProjectile>());
+    }
+
+    public override void AddRecipes()
+    {
+        MakeUpgradeRecipe(
+            baseItemID: ModContent.ItemType<HappyBundle>(),
+            extraItemID: ItemID.HallowedBar,
+            extraItemAmount: 20,
+            craftingStationID: TileID.Bookcases
+            );
     }
 }

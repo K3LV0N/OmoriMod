@@ -4,28 +4,27 @@ using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
 
 using Terraria.ModLoader;
 
-namespace OmoriMod
+namespace OmoriMod;
+
+
+public class OmoriMod : Mod
 {
+    private static Mod _modInstance;
+    public const string MOD_NAME = "OmoriMod";
 
-    public class OmoriMod : Mod
+    public static Mod Mod { get => _modInstance; }
+
+    public OmoriMod()
     {
-        private static Mod _modInstance;
-        public const string MOD_NAME = "OmoriMod";
+        _modInstance = this;
+    }
 
-        public static Mod Mod { get => _modInstance; }
-
-        public OmoriMod()
+    public override void PostSetupContent()
+    {
+        if (ModLoader.TryGetMod("dementiaMod", out Mod dementiaMod))
         {
-            _modInstance = this;
-        }
-
-        public override void PostSetupContent()
-        {
-            if (ModLoader.TryGetMod("dementiaMod", out Mod dementiaMod))
-            {
-                dementiaMod.Call("AddBossSummon", ModContent.ItemType<MegaTofu>(), new int[] { ModContent.NPCType<YeOldSprout>() });
-                dementiaMod.Call("AddBossSummon", ModContent.ItemType<SplinteredSweet>(), new int[] { ModContent.NPCType<SweetHeart>() });
-            }
+            dementiaMod.Call("AddBossSummon", ModContent.ItemType<MegaTofu>(), new int[] { ModContent.NPCType<YeOldSprout>() });
+            dementiaMod.Call("AddBossSummon", ModContent.ItemType<SplinteredSweet>(), new int[] { ModContent.NPCType<SweetHeart>() });
         }
     }
 }

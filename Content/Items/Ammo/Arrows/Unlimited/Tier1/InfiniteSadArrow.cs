@@ -5,22 +5,21 @@ using OmoriMod.Content.Projectiles.Friendly.Arrows.Tier1.NoDrops;
 
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Items.Ammo.Arrows.Unlimited.Tier1
-{
-    public class InfiniteSadArrow : SadItem
-    {
-        InfiniteSadArrow()
-        {
-            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
-        }
-        public override void SetDefaults()
-        {
-            EmotionItemCloneWithDifferentProjectile<InfiniteAngryArrow>(ModContent.ProjectileType<SadArrowProjectileNoDrop>());
-        }
+namespace OmoriMod.Content.Items.Ammo.Arrows.Unlimited.Tier1;
 
-        public override void AddRecipes()
-        {
-            MakeEndlessAmmoRecipe(ModContent.ItemType<SadArrow>());
-        }
+public class InfiniteSadArrow : SadItem
+{
+    InfiniteSadArrow()
+    {
+        itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+    }
+    public override void SetDefaults()
+    {
+        EmotionItemCloneWithDifferentProjectile<InfiniteAngryArrow>(ModContent.ProjectileType<SadArrowProjectileNoDrop>());
+    }
+
+    public override void AddRecipes()
+    {
+        MakeEndlessAmmoRecipe(ModContent.ItemType<SadArrow>());
     }
 }

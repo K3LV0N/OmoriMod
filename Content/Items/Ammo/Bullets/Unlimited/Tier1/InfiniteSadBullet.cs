@@ -5,22 +5,21 @@ using OmoriMod.Content.Projectiles.Friendly.Bullets.Tier1;
 
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Items.Ammo.Bullets.Unlimited.Tier1
-{
-    public class InfiniteSadBullet : SadItem
-    {
-        InfiniteSadBullet()
-        {
-            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
-        }
-        public override void SetDefaults()
-        {
-            EmotionItemCloneWithDifferentProjectile<InfiniteAngryBullet>(ModContent.ProjectileType<SadBulletProjectile>());
-        }
+namespace OmoriMod.Content.Items.Ammo.Bullets.Unlimited.Tier1;
 
-        public override void AddRecipes()
-        {
-            MakeEndlessAmmoRecipe(ModContent.ItemType<SadBullet>());
-        }
+public class InfiniteSadBullet : SadItem
+{
+    InfiniteSadBullet()
+    {
+        itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+    }
+    public override void SetDefaults()
+    {
+        EmotionItemCloneWithDifferentProjectile<InfiniteAngryBullet>(ModContent.ProjectileType<SadBulletProjectile>());
+    }
+
+    public override void AddRecipes()
+    {
+        MakeEndlessAmmoRecipe(ModContent.ItemType<SadBullet>());
     }
 }

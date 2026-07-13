@@ -7,30 +7,29 @@ using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Items.Weapons.Melee.Tier2
+namespace OmoriMod.Content.Items.Weapons.Melee.Tier2;
+
+public class CorruptionKnife : SadItem
 {
-    public class CorruptionKnife : SadItem
+    CorruptionKnife()
     {
-        CorruptionKnife()
-        {
-            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
-        }
-        public override void SetDefaults()
-        {
-            InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_KNIFE;
-            EmotionItemCloneWithDifferentProjectile<CorruptionBat>(ModContent.ProjectileType<KnifeProjectile>());
-        }
+        itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+    }
+    public override void SetDefaults()
+    {
+        InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_KNIFE;
+        EmotionItemCloneWithDifferentProjectile<CorruptionBat>(ModContent.ProjectileType<KnifeProjectile>());
+    }
 
 
 
-        public override void AddRecipes()
-        {
-            MakeUpgradeRecipe(
-                baseItemID: ModContent.ItemType<Knife>(),
-                extraItemID: ItemID.DemoniteBar,
-                extraItemAmount: 10,
-                craftingStationID: TileID.Anvils
-                );
-        }
+    public override void AddRecipes()
+    {
+        MakeUpgradeRecipe(
+            baseItemID: ModContent.ItemType<Knife>(),
+            extraItemID: ItemID.DemoniteBar,
+            extraItemAmount: 10,
+            craftingStationID: TileID.Anvils
+            );
     }
 }

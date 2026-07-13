@@ -2,18 +2,17 @@
 
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Projectiles.Friendly.Magic.Tier1
-{
-    public class AngryBoltProjectileNoDust : AngryProjectile
-    {
-        public override void SetDefaults()
-        {
-            Projectile.CloneDefaults(ModContent.ProjectileType<AngryBoltProjectile>());
-        }
+namespace OmoriMod.Content.Projectiles.Friendly.Magic.Tier1;
 
-        public override void OnKill(int timeLeft)
-        {
-            OnKillNoDrop(timeLeft);
-        }
+public class AngryBoltProjectileNoDust : AngryProjectile
+{
+    public override void SetDefaults()
+    {
+        Projectile.CloneDefaults(ModContent.ProjectileType<AngryBoltProjectile>());
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        OnKillNoDrop(timeLeft);
     }
 }

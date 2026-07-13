@@ -6,27 +6,26 @@ using OmoriMod.Content.Projectiles.Friendly.Magic.Tier1;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Content.Items.Weapons.Magic.Tier1
-{
-    public class HappyBolt : HappyItem
-    {
-        HappyBolt()
-        {
-            itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
-        }
-        public override void SetDefaults()
-        {
-            EmotionItemCloneWithDifferentProjectile<AngryBolt>(ModContent.ProjectileType<HappyBoltProjectile>());
-        }
+namespace OmoriMod.Content.Items.Weapons.Magic.Tier1;
 
-        public override void AddRecipes()
-        {
-            MakeUpgradeRecipe(
-                baseItemID: ItemID.Book,
-                extraItemID: ModContent.ItemType<PartyPopper>(),
-                extraItemAmount: 10,
-                craftingStationID: TileID.Bookcases
-                );
-        }
+public class HappyBolt : HappyItem
+{
+    HappyBolt()
+    {
+        itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
+    }
+    public override void SetDefaults()
+    {
+        EmotionItemCloneWithDifferentProjectile<AngryBolt>(ModContent.ProjectileType<HappyBoltProjectile>());
+    }
+
+    public override void AddRecipes()
+    {
+        MakeUpgradeRecipe(
+            baseItemID: ItemID.Book,
+            extraItemID: ModContent.ItemType<PartyPopper>(),
+            extraItemAmount: 10,
+            craftingStationID: TileID.Bookcases
+            );
     }
 }

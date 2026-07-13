@@ -2,12 +2,11 @@ using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
 
 using Terraria;
 
-namespace OmoriMod.Systems.AbilitySystem.ItemAbilities
+namespace OmoriMod.Systems.AbilitySystem.ItemAbilities;
+
+public interface IItemAbility
 {
-    public interface IItemAbility
-    {
-        public bool IsUnlocked(Item item, Player player);
-        public bool IsEquippable(Item item, Player player);
-        public bool PerformAbility(AbilityContext context);
-    }
+    public bool IsUnlocked(Item item, Player player);
+    public bool IsEquippable(Item item, Player player);
+    public bool PerformAbility(AbilityContext context);
 }

@@ -2,18 +2,17 @@
 
 using Terraria;
 
-namespace OmoriMod.Content.Buffs.HappyBuff
+namespace OmoriMod.Content.Buffs.HappyBuff;
+
+public class HappyNoTime : HappyEmotionBase
 {
-    public class HappyNoTime : HappyEmotionBase
+    HappyNoTime()
     {
-        HappyNoTime()
-        {
-            emotionLevel = 1;
-            dustSpawnFrequency = 1;
-        }
-        public override void SetStaticDefaults()
-        {
-            Main.buffNoTimeDisplay[Type] = true;
-        }
+        emotionLevel = 1;
+        dustSpawnFrequency = 1;
+    }
+    public override void SetStaticDefaults()
+    {
+        Main.buffNoTimeDisplay[Type] = true;
     }
 }

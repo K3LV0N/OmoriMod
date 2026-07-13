@@ -35,7 +35,7 @@ jobs:
 
       - name: Cache tModLoader install
         id: tml-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.TML_DIR }}
           key: tmloader-${{ env.TML_VERSION }}-${{ runner.os }}-${{ hashFiles('tModLoader/ModSources/OmoriMod/.github/scripts/setup-tmodloader.sh') }}
@@ -54,6 +54,8 @@ jobs:
         working-directory: ${{ env.MOD_DIR }}
         run: |
           dotnet format OmoriMod.csproj \
+            --include . \
+            --no-restore \
             --verify-no-changes \
             --severity warn \
             --verbosity minimal
