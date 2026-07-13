@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  push:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MOD_DIR: ${{ github.workspace }}/tModLoader/ModSources/OmoriMod
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          path: tModLoader/ModSources/OmoriMod
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        working-directory: ${{ env.MOD_DIR }}
+        run: dotnet restore OmoriMod.csproj
+
+      - name: Format check
+        working-directory: ${{ env.MOD_DIR }}
+        run: |
+          dotnet format OmoriMod.csproj \
+            --verify-no-changes \
+            --severity warn \
+            --verbosity minimal
