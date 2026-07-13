@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.ModLoader;
 
@@ -299,7 +301,7 @@ namespace OmoriMod.Content.Projectiles.Abstract_Classes
         /// </summary>
         /// <param name="slowPercentage">The percentage of speed that should be retained.</param>
         /// <param name="zeroThreshold">The speed in which triggers the velocity to be set to 0.</param>
-        protected void SlowProjectile(float slowPercentage, float zeroThreshold=0)
+        protected void SlowProjectile(float slowPercentage, float zeroThreshold = 0)
         {
             SlowProjectileX(slowPercentage, zeroThreshold);
             SlowProjectileY(slowPercentage, zeroThreshold);

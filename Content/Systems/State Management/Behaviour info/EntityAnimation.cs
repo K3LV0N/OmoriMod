@@ -9,16 +9,18 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
         public int CurrentFrame { get => _currentIndex; set => _currentIndex = value; }
         private int _currentIndex;
 
-        public EntityAnimation(int begin, int end) {
+        public EntityAnimation(int begin, int end)
+        {
             _beginningIndex = begin;
             _currentIndex = begin;
             _endingIndex = end;
         }
 
-        public EntityAnimation(int end) {
+        public EntityAnimation(int end)
+        {
             _beginningIndex = 0;
             _currentIndex = 0;
-            _endingIndex = end;     
+            _endingIndex = end;
         }
 
         public EntityAnimation(EntityAnimation animation)
@@ -35,7 +37,7 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
 
         public bool ContainsIndex(int index)
         {
-            return _beginningIndex <= index ||  index <= _endingIndex;
+            return _beginningIndex <= index || index <= _endingIndex;
         }
 
         public EntityAnimation Copy()

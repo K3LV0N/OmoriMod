@@ -1,8 +1,11 @@
 using System;
+
 using Microsoft.Xna.Framework;
+
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
+
 using Terraria;
 using Terraria.ModLoader;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
 {
@@ -11,7 +14,8 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives
         private int _projectileType;
         public int ProjectileType { get => _projectileType; set => _projectileType = value; }
 
-        public ShootProjectilePassiveAbility(int projectileType) {
+        public ShootProjectilePassiveAbility(int projectileType)
+        {
             ProjectileType = projectileType;
         }
 

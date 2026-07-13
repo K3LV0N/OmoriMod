@@ -1,12 +1,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Players;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Content.Players;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
 {
@@ -23,14 +25,15 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
 
         private int _selectedPassiveID = -1;
 
-        private void Confirm(UIMouseEvent evt, UIElement listeningElement) {
+        private void Confirm(UIMouseEvent evt, UIElement listeningElement)
+        {
 
             if (_selectedPassiveID != -1)
             {
-               if (Main.LocalPlayer.HeldItem.ModItem is AbilityItem abilityItem)
-               {
-                   abilityItem.CurrentPassiveAbilityID = _selectedPassiveID;
-               }
+                if (Main.LocalPlayer.HeldItem.ModItem is AbilityItem abilityItem)
+                {
+                    abilityItem.CurrentPassiveAbilityID = _selectedPassiveID;
+                }
             }
             Main.LocalPlayer.GetModPlayer<AbilityPlayer>().abilityMenuActive = false;
         }
@@ -38,7 +41,8 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
         private void Cancel(UIMouseEvent evt, UIElement listeningElement) { Main.LocalPlayer.GetModPlayer<AbilityPlayer>().abilityMenuActive = false; }
 
 
-        private void SwitchPassive(UIMouseEvent evt, UIElement listeningElement) {
+        private void SwitchPassive(UIMouseEvent evt, UIElement listeningElement)
+        {
             if (listeningElement == phantom)
             {
                 _selectedPassiveID = (int)PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT;
@@ -101,7 +105,7 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
             area.Append(menu);
 
             Append(area);
-            
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -124,9 +128,9 @@ namespace OmoriMod.Systems.AbilitySystem.AbilityMenuUI
             {
                 return;
             }
-            if (PassiveAbilityRegistry.GetAbility(PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT) == null) 
+            if (PassiveAbilityRegistry.GetAbility(PassiveAbilityRegistry.PassiveAbilityID.SINGLE_PHANTOM_BAT) == null)
             {
-               PassiveAbilityRegistry.Initialize();
+                PassiveAbilityRegistry.Initialize();
             }
             base.Update(gameTime);
         }

@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.IO;
+
 using Microsoft.Xna.Framework;
+
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
+using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
 
 namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
 {
@@ -14,7 +17,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
     {
         public int CurrentPassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
         public int InnatePassiveAbilityID = (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
-        
+
         public int CurrentActiveAbilityID = (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
         public int InnateActiveAbilityID = (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
 
@@ -83,7 +86,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
                 }
             }
         }
-        
+
         public override bool AltFunctionUse(Player player)
         {
             return CanUseActiveAbility();
@@ -109,17 +112,17 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
         // Use this property to get the actual ability to perform. 
         public int EffectivePassiveAbilityID => CurrentPassiveAbilityID != (int)PassiveAbilityRegistry.PassiveAbilityID.NONE ? CurrentPassiveAbilityID : InnatePassiveAbilityID;
         public int EffectiveActiveAbilityID => CurrentActiveAbilityID != (int)ActiveAbilityRegistry.ActiveAbilityID.NONE ? CurrentActiveAbilityID : InnateActiveAbilityID;
-        
+
         public virtual bool CanUsePassiveAbility()
         {
-             return EffectivePassiveAbilityID != (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
+            return EffectivePassiveAbilityID != (int)PassiveAbilityRegistry.PassiveAbilityID.NONE;
         }
 
         public virtual bool CanUseActiveAbility()
         {
-             return EffectiveActiveAbilityID != (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
+            return EffectiveActiveAbilityID != (int)ActiveAbilityRegistry.ActiveAbilityID.NONE;
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             base.ModifyTooltips(tooltips);

@@ -1,7 +1,8 @@
-using Terraria;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
+
+using Terraria;
 
 namespace OmoriMod.Content.NPCs.General_Behaviours.Actives
 {
@@ -23,10 +24,10 @@ namespace OmoriMod.Content.NPCs.General_Behaviours.Actives
             if (npc.AI_Timer == 0)
             {
                 bool leftOrRight = Main.rand.NextBool(2);
-                n.direction = leftOrRight ? 1: -1;
+                n.direction = leftOrRight ? 1 : -1;
                 n.netUpdate = true;
             }
-            
+
             n.velocity.X = n.direction;
 
             if (n.collideX)

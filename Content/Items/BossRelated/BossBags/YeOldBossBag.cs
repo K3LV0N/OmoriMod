@@ -1,16 +1,18 @@
-using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
 
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 namespace OmoriMod.Content.Items.BossRelated.BossBags
 {
     public class YeOldBossBag : OmoriModItem
     {
-        YeOldBossBag() {
+        YeOldBossBag()
+        {
             itemTypeForResearch = ItemTypeForResearch.TreasureBag_BossSummons_Dye;
         }
 
@@ -49,7 +51,7 @@ namespace OmoriMod.Content.Items.BossRelated.BossBags
                 ModContent.ItemType<SproutScythe>(),
                 ];
             itemLoot.Add(ItemDropRule.OneFromOptions(1, weaponOptions));
-       
+
 
             itemLoot.Add(ItemDropRule.Common(ItemID.LesserHealingPotion, 1, 8, 12));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tofu>(), 1, 30, 50));

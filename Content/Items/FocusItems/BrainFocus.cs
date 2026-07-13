@@ -1,11 +1,12 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.DamageClasses;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Projectiles.Friendly.FocusProjectiles;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.FocusItems
 {
@@ -16,7 +17,7 @@ namespace OmoriMod.Content.Items.FocusItems
             itemTypeForResearch = ItemTypeForResearch.Weapons_Tools_Armor_Accessory;
         }
         public override void SetDefaults()
-        { 
+        {
             InitFocusItem(
                 maxCharge: 7,
                 dpsIncrease: 2,

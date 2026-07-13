@@ -1,12 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OmoriMod.Content.Items.Abstract_Classes;
+using OmoriMod.Content.Players;
+
+using ReLogic.Content;
+
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-using OmoriMod.Content.Items.Abstract_Classes;
-using OmoriMod.Content.Players;
-using ReLogic.Content;
 
 namespace OmoriMod.Systems.ChargeBar
 {
@@ -48,7 +51,7 @@ namespace OmoriMod.Systems.ChargeBar
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-            if(Main.LocalPlayer.HeldItem.ModItem is not FocusItem)
+            if (Main.LocalPlayer.HeldItem.ModItem is not FocusItem)
             {
                 return;
             }
@@ -102,7 +105,7 @@ namespace OmoriMod.Systems.ChargeBar
             {
                 return;
             }
-            
+
             // typically base functions are empty, but not this one
             base.Update(gameTime);
         }

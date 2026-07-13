@@ -43,7 +43,7 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
         /// <returns>True if successful, false otherwise</returns>
         public bool SetCurrentFrame(int newFrame)
         {
-            foreach(var key in _animationInfo.Keys)
+            foreach (var key in _animationInfo.Keys)
             {
                 var val = _animationInfo[key];
                 if (key != DEFAULT && val.ContainsIndex(newFrame))
@@ -55,7 +55,7 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
             }
 
             _selectedFrameIterator = DEFAULT;
-            if (_animationInfo[_selectedFrameIterator].ContainsIndex(newFrame)) 
+            if (_animationInfo[_selectedFrameIterator].ContainsIndex(newFrame))
             {
                 SelectAnimation(_selectedFrameIterator);
                 _animationInfo[_selectedFrameIterator].CurrentFrame = newFrame;
@@ -72,8 +72,9 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
         /// <returns></returns>
         public bool SelectAnimation(string animationName)
         {
-            
-            if (_animationInfo.ContainsKey(animationName)) {
+
+            if (_animationInfo.ContainsKey(animationName))
+            {
                 if (_selectedFrameIterator == animationName) { return true; }
                 _animationInfo[_selectedFrameIterator].Reset();
                 _selectedFrameIterator = animationName;
@@ -97,7 +98,7 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
 
         public static AnimationInfo operator ++(AnimationInfo a)
         {
-            a._animationInfo[a._selectedFrameIterator]++; 
+            a._animationInfo[a._selectedFrameIterator]++;
             return a;
         }
 

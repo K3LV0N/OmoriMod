@@ -1,10 +1,11 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Ammo.Arrows.Regular.Tier2;
 using OmoriMod.Content.Projectiles.Friendly.Arrows.Tier2.NoDrops;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.Ammo.Arrows.Unlimited.Tier2
 {

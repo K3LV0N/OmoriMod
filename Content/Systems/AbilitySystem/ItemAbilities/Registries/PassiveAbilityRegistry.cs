@@ -1,9 +1,11 @@
 using System.Collections.Generic;
-using Terraria.ModLoader;
+
 using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Knife;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives;
+
+using Terraria.ModLoader;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
 {
@@ -24,7 +26,7 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
             TRIPLE_PHANTOM_PAN = 6,
             QUINTUPLE_PHANTOM_PAN = 7,
             QUINTUPLE_SEEKING_PHANTOM_PAN = 8,
-            
+
             SINGLE_PHANTOM_KNIFE = 9,
             TRIPLE_PHANTOM_KNIFE = 10,
             QUINTUPLE_PHANTOM_KNIFE = 11,
@@ -34,7 +36,7 @@ namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries
         public static void Initialize()
         {
             _abilities.Clear();
-            
+
             // Register Specific Abilities
 
             // Bat Abilities

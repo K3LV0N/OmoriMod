@@ -2,7 +2,7 @@
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours
 {
-    public class SproutMoleChaseBehaviour(int jumpIndex, int exitStatus) 
+    public class SproutMoleChaseBehaviour(int jumpIndex, int exitStatus)
         : ChasePlayerExitOnTooFarFromTarget(
             jumpIndex: jumpIndex,
             exitStatus: exitStatus,

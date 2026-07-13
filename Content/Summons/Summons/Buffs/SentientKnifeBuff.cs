@@ -1,6 +1,7 @@
-﻿using Terraria;
+﻿using OmoriMod.Content.Summons.Summons.Projectiles;
+
+using Terraria;
 using Terraria.ModLoader;
-using OmoriMod.Content.Summons.Summons.Projectiles;
 
 namespace OmoriMod.Content.Summons.Summons.Buffs
 {

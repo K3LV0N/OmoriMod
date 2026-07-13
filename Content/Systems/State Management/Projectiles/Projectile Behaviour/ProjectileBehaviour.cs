@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Util;
@@ -37,7 +38,7 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
         private BehaviourInfo _behaviourSnapshot;
 
         private bool _runSubBehaviour;
-        
+
 
 
         private void Init(string name, int defaultExitStatus)
@@ -57,7 +58,7 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
         public ProjectileBehaviour(int defaultExitStatus)
         {
             string name = (behaviourName ?? GetType().Name).OmoriModString();
-            Init(name, defaultExitStatus);     
+            Init(name, defaultExitStatus);
         }
 
         /// <summary>
@@ -125,7 +126,8 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
         protected virtual void FindFrame(OmoriBehaviourProjectile projectile, BehaviourInfo behaviourInfo, int frameHeight) { }
 
 
-        private void Start(OmoriBehaviourProjectile projectile, BehaviourInfo info) {
+        private void Start(OmoriBehaviourProjectile projectile, BehaviourInfo info)
+        {
             _inProgress = true;
             _hasStarted = true;
             info.ExitStatus = -1;
@@ -148,15 +150,18 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
                 _runSubBehaviour = false;
                 subBehaviour?.Reset();
 
-                if (isSubBehaviour) {
+                if (isSubBehaviour)
+                {
                     // if it is a sub-behaviour, then revert to snapshot
-                    RevertToSnapshot(info); 
-                } else {
+                    RevertToSnapshot(info);
+                }
+                else
+                {
                     // regular ending stuff if not sub-behaviour
                     _inProgress = false;
                     _justCompleted = true;
                     return true;
-                } 
+                }
             }
             return false;
         }
@@ -168,17 +173,20 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
         /// When the submethod is finished, the <see cref="BehaviourInfo"/> <paramref name="info"/> will be reset to the 
         /// value it was before the submethod started running.
         /// </summary>
-        public void PerformAI(OmoriBehaviourProjectile projectile, BehaviourInfo info) {
-            if (IsDone) {
+        public void PerformAI(OmoriBehaviourProjectile projectile, BehaviourInfo info)
+        {
+            if (IsDone)
+            {
                 _justCompleted = false;
                 return;
             }
 
-            if (!_hasStarted) {
+            if (!_hasStarted)
+            {
                 Start(projectile, info);
             }
 
-            if(RunAI(GuaranteedAI, projectile, info, false)) { return; }
+            if (RunAI(GuaranteedAI, projectile, info, false)) { return; }
             if (_runSubBehaviour)
             {
                 RunAI(subBehaviour.PerformAI, projectile, info, true);
@@ -186,7 +194,7 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
             else
             {
                 if (RunAI(AI, projectile, info, false)) { return; }
-            } 
+            }
         }
 
         /// <summary>
@@ -195,7 +203,7 @@ namespace OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour
         /// <param name="projectile"></param>
         /// <param name="behaviourInfo"></param>
         /// <param name="frameHeight"></param>
-        public void PerformFindFrame(OmoriBehaviourProjectile projectile, BehaviourInfo behaviourInfo,int frameHeight)
+        public void PerformFindFrame(OmoriBehaviourProjectile projectile, BehaviourInfo behaviourInfo, int frameHeight)
         {
             FindFrame(projectile, behaviourInfo, frameHeight);
         }

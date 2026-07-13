@@ -1,7 +1,9 @@
 using System.Collections.Generic;
-using Terraria.ID;
+
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+
+using Terraria.ID;
 
 namespace OmoriMod.Content.Items.Weapons.Melee.Tier1
 {

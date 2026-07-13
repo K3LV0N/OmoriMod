@@ -1,7 +1,3 @@
-using Terraria;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.Items.BossRelated.BossBags;
 using OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons;
 using OmoriMod.Content.Items.Health;
@@ -13,11 +9,16 @@ using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs;
 using OmoriMod.Util;
 
+using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
 {
     [AutoloadBossHead]
 
-    public class YeOldSprout: OmoriBossEnemy
+    public class YeOldSprout : OmoriBossEnemy
     {
         public YeOldSprout()
         {
@@ -86,7 +87,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             // Add all drops except for the bag. These drops only get added if the difficulty is not expert
 
             int[] weaponOptions = [
-                ModContent.ItemType<SproutShotgun>(), 
+                ModContent.ItemType<SproutShotgun>(),
                 ModContent.ItemType<SproutScythe>()
             ];
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, weaponOptions));
@@ -103,7 +104,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<YeOldBossBag>()));
 
         }
-    
+
 
         public override void OnKill()
         {

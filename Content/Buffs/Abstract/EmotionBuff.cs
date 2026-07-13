@@ -1,11 +1,14 @@
 using System;
+
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
+
 using OmoriMod.Content.Dusts;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {
@@ -26,7 +29,7 @@ namespace OmoriMod.Content.Buffs.Abstract
         }
 
         public virtual int? NextTierEmotion => nextStageEmotionType;
-        
+
         public int? nextStageEmotionType;
 
         protected Color dustColor;
@@ -60,12 +63,12 @@ namespace OmoriMod.Content.Buffs.Abstract
         public virtual void ModifyNPCDefense(NPC npc) { }
         public virtual void ModifyPlayerMovement(Player player) { }
         public virtual void ModifyNPCMovement(NPC npc) { }
-        
+
         public virtual void ModifyPlayerOutgoingDamage(ref NPC.HitModifiers modifiers) { }
         public virtual void ModifyPlayerOutgoingDamage(ref Player.HurtModifiers modifiers) { }
-        
+
         public virtual void ModifyNPCOutgoingDamage(ref Player.HurtModifiers modifiers) { }
-        
+
         // Happy Hit Modifiers (Player attacking NPC)
         public virtual void ModifyPlayerHitNPC(ref NPC.HitModifiers modifiers) { }
         // Happy Hit Modifiers (Player attacking Player/Self?)
@@ -73,7 +76,7 @@ namespace OmoriMod.Content.Buffs.Abstract
 
         // Sad Damage Reduction (Player taking damage)
         public virtual void ModifyPlayerIncomingDamage(ref Player.HurtModifiers modifiers) { }
-        
+
         // Sad Mana Conversion (NPC hitting Player)
         public virtual void OnPlayerHurt(Player player, Player.HurtInfo hurtInfo) { }
 

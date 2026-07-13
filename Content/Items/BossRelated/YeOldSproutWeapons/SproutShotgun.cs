@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
 
 namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
 {
@@ -86,7 +89,7 @@ namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
                 {
                     randNumber = rand.Next(minAngle, maxAngle);
                 }
-                
+
             }
 
             foreach (int randomAngle in randomAngles)
@@ -100,7 +103,7 @@ namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
                     proj = Vector2.Transform(proj, matrix);
                     Projectile.NewProjectile(source, position, proj, ModContent.ProjectileType<SproutBulletProjectile>(), damage, knockback);
                 }
-                
+
             }
 
             return true;

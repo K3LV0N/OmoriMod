@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
+
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.NPCs.Global
 {
@@ -153,7 +155,7 @@ namespace OmoriMod.Content.NPCs.Global
             int advantage = EmotionSystem.CalculateAdvantage(attacker, defender);
             ApplyAdvantage(advantage, ref modifiers);
             ApplyAdditionalEmotionModifiers(attacker, ref modifiers);
-            
+
             // Happy vs NPC (if attacker is player) logic is now in ModifyPlayerOutgoingDamage/ModifyPlayerHitNPC?
             // Wait, HappyEmotionBase implementation:
             // ModifyPlayerHitNPC -> Miss/Crit
@@ -161,7 +163,7 @@ namespace OmoriMod.Content.NPCs.Global
             // Let's check `HappyEmotionBase`. It has `ModifyPlayerHitNPC`.
             // So `ApplyAdditionalEmotionModifiers` needs to call THAT too if attacker is Player.
             // But `ModifyPlayerOutgoingDamage` is for generic damage increase (Angry).
-            
+
             attacker.ActiveEmotionBuff?.ModifyPlayerHitNPC(ref modifiers);
         }
 

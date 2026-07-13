@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
+
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Summons.Summons.Buffs;
 using OmoriMod.Content.Summons.Summons.Projectiles;
+
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Summons.Summons.Items
 {
@@ -67,19 +69,19 @@ namespace OmoriMod.Content.Summons.Summons.Items
             return false;
         }
 
-		public override void AddRecipes()
-		{
-			Recipe recipe1 = CreateRecipe();
-			recipe1.AddIngredient(ModContent.ItemType<RainCloud>(), 100);
-			recipe1.AddIngredient(ItemID.IronBar, 10);
-			recipe1.AddTile(TileID.Anvils);
-			recipe1.Register();
+        public override void AddRecipes()
+        {
+            Recipe recipe1 = CreateRecipe();
+            recipe1.AddIngredient(ModContent.ItemType<RainCloud>(), 100);
+            recipe1.AddIngredient(ItemID.IronBar, 10);
+            recipe1.AddTile(TileID.Anvils);
+            recipe1.Register();
 
-			Recipe recipe2 = CreateRecipe();
-			recipe2.AddIngredient(ModContent.ItemType<RainCloud>(), 100);
-			recipe2.AddIngredient(ItemID.LeadBar, 10);
-			recipe2.AddTile(TileID.Anvils);
-			recipe2.Register();
-		}
-	}
+            Recipe recipe2 = CreateRecipe();
+            recipe2.AddIngredient(ModContent.ItemType<RainCloud>(), 100);
+            recipe2.AddIngredient(ItemID.LeadBar, 10);
+            recipe2.AddTile(TileID.Anvils);
+            recipe2.Register();
+        }
+    }
 }

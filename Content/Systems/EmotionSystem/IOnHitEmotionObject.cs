@@ -1,11 +1,12 @@
-using Terraria;
-using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Systems.EmotionSystem
 {
@@ -24,7 +25,7 @@ namespace OmoriMod.Systems.EmotionSystem
         /// <param name="ticks">The amount of ticks the emotion will be applied for.</param>
         public virtual void InflictEmotion(NPC target, int ticks = 600)
         {
-            if(!target.GetGlobalNPC<EmotionNPC>().ImmuneToEmotionChange)
+            if (!target.GetGlobalNPC<EmotionNPC>().ImmuneToEmotionChange)
             {
                 switch (Emotion)
                 {
@@ -49,7 +50,7 @@ namespace OmoriMod.Systems.EmotionSystem
                         }
                         break;
                 }
-            } 
+            }
         }
     }
 }

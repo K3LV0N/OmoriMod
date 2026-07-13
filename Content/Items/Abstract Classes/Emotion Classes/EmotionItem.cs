@@ -1,8 +1,9 @@
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Systems.EmotionSystem;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Items.Abstract_Classes
 {
@@ -67,7 +68,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes
         public void EmotionItemClone<T>() where T : ModItem
         {
             ModItemClone<T>();
-            SetRarity(); 
+            SetRarity();
         }
 
         /// <summary>

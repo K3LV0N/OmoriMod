@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
-using Terraria;
+
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 using OmoriMod.Util;
+
+using Terraria;
 
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
 {
@@ -41,7 +43,8 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
             NPC n = npc.NPC;
             tickTimer--;
 
-            if(n.velocity.Y > 0 && !falling && CollideIn12Ticks(n)) { 
+            if (n.velocity.Y > 0 && !falling && CollideIn12Ticks(n))
+            {
                 falling = true;
                 n.frameCounter = 0;
             }
@@ -72,16 +75,18 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
 
         protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
-            if (falling) { 
+            if (falling)
+            {
                 behaviourInfo.SelectAnimation("jump down");
             }
-            else { 
+            else
+            {
                 behaviourInfo.SelectAnimation("jump up");
             }
 
             NPC n = npc.NPC;
             n.spriteDirection = n.direction;
-            
+
 
             int frameTime = 3;
             n.frameCounter++;
@@ -98,7 +103,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout.Behaviours
             {
                 behaviourInfo++;
             }
-            
+
             n.frame.Y = behaviourInfo.CurrentFrame * frameHeight;
         }
     }

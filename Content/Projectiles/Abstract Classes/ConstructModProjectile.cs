@@ -45,7 +45,7 @@ namespace OmoriMod.Content.Projectiles.Abstract_Classes
             Projectile.width = (int)(width * Projectile.scale);
             Projectile.height = (int)(height * Projectile.scale);
 
-            
+
 
             // Ranged damage
             Projectile.DamageType = damageType;

@@ -1,8 +1,9 @@
-using Terraria;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 using OmoriMod.Util;
+
+using Terraria;
 
 namespace OmoriMod.Content.NPCs.General_Behaviours.Backgrounds
 {
@@ -11,7 +12,7 @@ namespace OmoriMod.Content.NPCs.General_Behaviours.Backgrounds
     /// </summary>
     /// <param name="timer">How long between <see cref="NPC.TargetClosest(bool)"/> calls. If <c>null</c>, then this gets called every tick<see cref=""/></param>
     /// <param name="faceTarget">Whether the npc should face its target.</param>
-    public class TargetClosestPlayer(TickTimer timer = null, bool faceTarget=false) : NPCBackgroundBehaviour()
+    public class TargetClosestPlayer(TickTimer timer = null, bool faceTarget = false) : NPCBackgroundBehaviour()
     {
         private TickTimer _timer = timer;
 
@@ -21,7 +22,7 @@ namespace OmoriMod.Content.NPCs.General_Behaviours.Backgrounds
         }
         protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
-            if(_timer is null)
+            if (_timer is null)
             {
                 npc.NPC.TargetClosest(faceTarget);
             }

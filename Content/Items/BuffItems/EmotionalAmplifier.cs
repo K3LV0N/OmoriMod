@@ -1,6 +1,3 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
@@ -8,6 +5,10 @@ using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.BuffItems
 {
@@ -36,7 +37,7 @@ namespace OmoriMod.Content.Items.BuffItems
         {
             int? buffType = EmotionSystem.GetEmotionType(player);
             ModBuff buff = ModContent.GetModBuff(buffType.Value);
-            if(buff is AngryEmotionBase)
+            if (buff is AngryEmotionBase)
             {
                 EmotionSystem.ApplyTier4Emotion<AngryEmotionBase>(
                     player: player,

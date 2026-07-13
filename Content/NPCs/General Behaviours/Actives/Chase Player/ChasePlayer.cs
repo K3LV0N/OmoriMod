@@ -1,11 +1,12 @@
-using Terraria;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 
+using Terraria;
+
 namespace OmoriMod.Content.NPCs.General_Behaviours.Actives.Chase_Player
 {
-    public class ChasePlayer(int jumpIndex, float speed, float inertia, int minFrameTime = 5,  int exitStatus = -1) : NPCBehaviour(exitStatus)
+    public class ChasePlayer(int jumpIndex, float speed, float inertia, int minFrameTime = 5, int exitStatus = -1) : NPCBehaviour(exitStatus)
     {
         protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {

@@ -3,11 +3,11 @@ using Terraria;
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts
 {
     public class PassiveAbilityOnHitContext(
-        Player player, 
-        Item item, 
-        NPC target, 
-        int damageDone, 
-        float knockback, 
+        Player player,
+        Item item,
+        NPC target,
+        int damageDone,
+        float knockback,
         bool crit
         ) : AbilityContext(player, item)
     {

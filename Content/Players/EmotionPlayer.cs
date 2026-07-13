@@ -1,7 +1,8 @@
-using Terraria;
-using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Players
 {
@@ -16,7 +17,8 @@ namespace OmoriMod.Content.Players
 
         private void ResetMidEmotionLevel()
         {
-            if (Main.hardMode) {
+            if (Main.hardMode)
+            {
                 MidEmotionLevel = 10;
             }
             else

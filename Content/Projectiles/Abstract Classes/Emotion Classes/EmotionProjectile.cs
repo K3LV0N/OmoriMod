@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
+
 using OmoriMod.Content.Dusts;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Projectiles.Abstract_Classes
 {

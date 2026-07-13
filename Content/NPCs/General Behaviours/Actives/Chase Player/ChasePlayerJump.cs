@@ -1,7 +1,8 @@
-using Terraria;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
+
+using Terraria;
 
 namespace OmoriMod.Content.NPCs.General_Behaviours.Actives.Chase_Player
 {
@@ -20,12 +21,13 @@ namespace OmoriMod.Content.NPCs.General_Behaviours.Actives.Chase_Player
         protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             NPC n = npc.NPC;
-            if (npc.AI_Timer == 0) {
+            if (npc.AI_Timer == 0)
+            {
                 n.velocity.Y += -10f;
             }
 
             npc.MoveHorizontal(speed, inertia, npc.DirectionToTarget());
-            
+
             if (npc.AI_Timer > 3 && n.collideY)
             {
                 behaviourInfo.ExitStatus = _defaultExitStatus;

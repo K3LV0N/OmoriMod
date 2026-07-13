@@ -1,6 +1,7 @@
-﻿using Terraria.ModLoader;
-using OmoriMod.Content.Projectiles.Abstract_Classes;
+﻿using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
+
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Projectiles.Friendly.Melee.Pan
 {

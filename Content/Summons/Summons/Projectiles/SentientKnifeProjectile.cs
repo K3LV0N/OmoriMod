@@ -1,6 +1,7 @@
-﻿using Terraria;
-using OmoriMod.Content.Summons.Abstract_Classes;
+﻿using OmoriMod.Content.Summons.Abstract_Classes;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
 
 namespace OmoriMod.Content.Summons.Summons.Projectiles
 {

@@ -1,7 +1,8 @@
-using Terraria;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Players;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
 
 namespace OmoriMod.Content.Buffs.HappyBuff
 {

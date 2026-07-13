@@ -1,7 +1,10 @@
 using System;
+
 using Microsoft.Xna.Framework;
-using Terraria;
+
 using OmoriMod.Content.Projectiles.Abstract_Classes;
+
+using Terraria;
 
 namespace OmoriMod.Content.Projectiles.NonFriendly.Bosses.SweetHeart
 {
@@ -50,14 +53,15 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Bosses.SweetHeart
             {
                 return true;
 
-            } else if (IsStopped())
+            }
+            else if (IsStopped())
             {
                 Projectile.velocity = velocity;
                 retractionCounter++;
             }
             else
             {
-                if(retractionCounter < 3)
+                if (retractionCounter < 3)
                 {
                     AirResistance(ARROW_GRAVITY, TERMINAL, 0.96f, 0.5f);
                 }
@@ -111,7 +115,7 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Bosses.SweetHeart
             }
             else if (phase == 2f)
             {
-                if(RetractWhip(owner, initialSpeed, swingRadius))
+                if (RetractWhip(owner, initialSpeed, swingRadius))
                 {
                     phase = 3f;
                     Projectile.velocity = Vector2.Zero;
@@ -135,7 +139,7 @@ namespace OmoriMod.Content.Projectiles.NonFriendly.Bosses.SweetHeart
                 AirResistance(ARROW_GRAVITY, TERMINAL, 0.97f, 0.5f);
             }
 
-                AI_Timer++;
+            AI_Timer++;
         }
     }
 }

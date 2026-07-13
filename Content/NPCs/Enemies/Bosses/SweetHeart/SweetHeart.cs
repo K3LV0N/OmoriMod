@@ -1,11 +1,12 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
 using OmoriMod.Systems;
 using OmoriMod.Systems.State_Management.NPCs;
 using OmoriMod.Util;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart
 {
@@ -47,7 +48,7 @@ namespace OmoriMod.Content.NPCs.Enemies.Bosses.SweetHeart
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            
+
         }
 
 

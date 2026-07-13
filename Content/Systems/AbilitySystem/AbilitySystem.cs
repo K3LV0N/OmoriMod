@@ -1,5 +1,6 @@
-using Terraria.ModLoader;
 using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+
+using Terraria.ModLoader;
 
 namespace OmoriMod.Systems.AbilitySystem
 {

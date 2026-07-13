@@ -1,18 +1,19 @@
 using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.DataStructures;
 
 namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts
 {
     public class PassiveAbilityShootContext(
-        Player player, 
-        Item item, 
-        EntitySource_ItemUse_WithAmmo source, 
-        Vector2 position, 
-        Vector2 velocity, 
-        int type, 
-        int damage, 
-        float knockback, 
+        Player player,
+        Item item,
+        EntitySource_ItemUse_WithAmmo source,
+        Vector2 position,
+        Vector2 velocity,
+        int type,
+        int damage,
+        float knockback,
         float? ticksToMoveForward = null
         ) : AbilityContext(player, item)
     {

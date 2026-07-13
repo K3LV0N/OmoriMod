@@ -9,7 +9,7 @@ namespace OmoriMod.Content.NPCs.General_Behaviours.Tests
     /// </summary>
     public class ShootToTheMoonAhhBehaviour() : NPCBehaviour(0)
     {
-        
+
         protected override void AI(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo)
         {
             npc.NPC.velocity.Y = -80f;

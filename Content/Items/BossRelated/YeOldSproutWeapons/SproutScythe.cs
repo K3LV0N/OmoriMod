@@ -1,8 +1,9 @@
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout;
 
 namespace OmoriMod.Content.Items.BossRelated.YeOldSproutWeapons
 {

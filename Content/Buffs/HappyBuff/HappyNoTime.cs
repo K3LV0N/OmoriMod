@@ -1,5 +1,6 @@
-﻿using Terraria;
-using OmoriMod.Content.Buffs.Abstract;
+﻿using OmoriMod.Content.Buffs.Abstract;
+
+using Terraria;
 
 namespace OmoriMod.Content.Buffs.HappyBuff
 {

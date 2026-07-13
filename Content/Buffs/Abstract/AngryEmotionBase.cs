@@ -1,7 +1,10 @@
 using System;
+
 using Microsoft.Xna.Framework;
-using Terraria;
+
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {
@@ -35,7 +38,7 @@ namespace OmoriMod.Content.Buffs.Abstract
         private const float NPC_DEFENSE_DECREASE_MAX = 40.0f;
         private const float NPC_DEFENSE_DECREASE_RATE = 8.5f;
         private const float NPC_DEFENSE_DECREASE_STARTING_VALUE = 3.5f;
-        
+
 
 
 

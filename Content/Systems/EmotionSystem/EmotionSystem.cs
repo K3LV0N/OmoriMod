@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Systems.EmotionSystem
 {
@@ -223,7 +225,8 @@ namespace OmoriMod.Systems.EmotionSystem
                     {
                         player.ClearBuff(buffID);
                         player.AddBuff(nextStage.Value, duration);
-                    } else
+                    }
+                    else
                     {
                         // reapply max lvl emotion
                         player.AddBuff(currentBuff.Type, duration);

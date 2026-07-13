@@ -1,5 +1,6 @@
-﻿using Terraria.ModLoader;
-using OmoriMod.Content.Projectiles.Abstract_Classes;
+﻿using OmoriMod.Content.Projectiles.Abstract_Classes;
+
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Projectiles.Friendly.Melee.Bat
 {
@@ -19,6 +20,6 @@ namespace OmoriMod.Content.Projectiles.Friendly.Melee.Bat
         public override void AI()
         {
             AI_ScytheProjectile(ticksStationaryUntilDespawn: 60, rotation: 0.5f);
-        }        
+        }
     }
 }

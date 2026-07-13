@@ -10,7 +10,8 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
         public int CurrentFrame { get => animationInfo.GetCurrentFrame(); set => animationInfo.SetCurrentFrame(value); }
 
         public string SelectedAnimation { get => animationInfo.SelectedAnimation; }
-        public BehaviourInfo() {
+        public BehaviourInfo()
+        {
             aiInfo = new AIInfo();
             animationInfo = new AnimationInfo(-1);
         }
@@ -21,7 +22,8 @@ namespace OmoriMod.Systems.State_Management.Behaviour_Info
             animationInfo = new AnimationInfo(totalFrames);
         }
 
-        public BehaviourInfo(BehaviourInfo other) { 
+        public BehaviourInfo(BehaviourInfo other)
+        {
             aiInfo = other.aiInfo.Copy();
             animationInfo = other.animationInfo.Copy();
         }

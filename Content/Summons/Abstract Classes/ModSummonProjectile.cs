@@ -1,10 +1,13 @@
 using System;
+
 using Microsoft.Xna.Framework;
+
+using OmoriMod.Content.Projectiles.Abstract_Classes;
+using OmoriMod.Content.Summons.Summons.Buffs;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.Projectiles.Abstract_Classes;
-using OmoriMod.Content.Summons.Summons.Buffs;
 
 namespace OmoriMod.Content.Summons.Abstract_Classes
 {

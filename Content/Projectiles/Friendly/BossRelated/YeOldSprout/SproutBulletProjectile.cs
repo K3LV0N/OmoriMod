@@ -11,7 +11,7 @@ namespace OmoriMod.Content.Projectiles.Friendly.BossRelated.YeOldSprout
         }
 
         public override bool PreAI()
-        {   
+        {
             VelocityRotateWith90(flip: false);
             return true;
         }

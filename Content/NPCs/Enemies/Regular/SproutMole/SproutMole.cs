@@ -1,8 +1,3 @@
-using Terraria;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
@@ -10,6 +5,12 @@ using OmoriMod.Content.NPCs.Enemies.Regular.SproutMole.Behaviours;
 using OmoriMod.Content.NPCs.General_Behaviours.Actives;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
 using OmoriMod.Systems.State_Management.NPCs;
+
+using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
 {
@@ -57,14 +58,14 @@ namespace OmoriMod.Content.NPCs.Enemies.Regular.SproutMole
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PartyPopper>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RainCloud>(), 5));
         }
-        
+
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             float spawnModifier = .4f;
             // good chance of spawning if day on surface and underground / Caverns
-            return SpawnCondition.OverworldDaySlime.Chance * spawnModifier + 
-                SpawnCondition.Underground.Chance * spawnModifier + 
+            return SpawnCondition.OverworldDaySlime.Chance * spawnModifier +
+                SpawnCondition.Underground.Chance * spawnModifier +
                 SpawnCondition.Cavern.Chance * spawnModifier;
         }
 

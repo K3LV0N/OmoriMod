@@ -4,7 +4,7 @@ namespace OmoriMod.Content.Players
 {
     public class FocusPlayer : ModPlayer
     {
-        
+
         public bool hasChargeItem;
         public bool reachedMaxCharge;
         public int currentCharge;

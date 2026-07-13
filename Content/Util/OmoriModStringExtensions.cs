@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static string OmoriModString(this string str)
         {
-            return _string  + ":" + str;
+            return _string + ":" + str;
         }
     }
 }

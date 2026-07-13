@@ -1,7 +1,9 @@
 using System;
-using Terraria;
+
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
+
+using Terraria;
 
 namespace OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour
 {
@@ -45,7 +47,7 @@ namespace OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour
             {
                 behaviourInfo.CurrentFrame = selectedFrame;
                 npc.NPC.frame.Y = behaviourInfo.CurrentFrame * frameHeight;
-            }   
+            }
         }
     }
 }

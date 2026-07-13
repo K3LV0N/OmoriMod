@@ -1,9 +1,10 @@
-using Terraria;
-using Terraria.ModLoader;
 using OmoriMod.Content.Buffs.AngryBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Systems.EmotionSystem;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.Accessories
 {
@@ -16,8 +17,8 @@ namespace OmoriMod.Content.Items.Accessories
         public override void SetDefaults()
         {
             SetAccessoryDefaults(
-                width: 20, 
-                height: 30, 
+                width: 20,
+                height: 30,
                 buyPrice: Item.buyPrice(1, 0, 0, 0)
                 );
         }

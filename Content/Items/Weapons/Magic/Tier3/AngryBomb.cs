@@ -1,10 +1,11 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using OmoriMod.Content.Items.Abstract_Classes;
+﻿using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Magic.Tier2;
 using OmoriMod.Content.Projectiles.Friendly.Magic.Tier3;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.Weapons.Magic.Tier3
 {

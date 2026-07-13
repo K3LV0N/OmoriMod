@@ -1,10 +1,11 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.BuffItems;
 using OmoriMod.Content.Projectiles.Friendly.Arrows.Tier1.CanDrop;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.Ammo.Arrows.Regular.Tier1
 {
@@ -52,7 +53,7 @@ namespace OmoriMod.Content.Items.Ammo.Arrows.Regular.Tier1
                 nonEndlessIngredientID: ItemID.WoodenArrow,
                 nonEndlessAmount: 50,
 
-                endlessIngredientID: ItemID.EndlessQuiver       
+                endlessIngredientID: ItemID.EndlessQuiver
                 );
         }
     }

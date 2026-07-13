@@ -1,52 +1,55 @@
 using System;
+
 using Microsoft.Xna.Framework;
+
+using OmoriMod.Systems.EmotionSystem;
+
 using Terraria;
 using Terraria.ModLoader;
-using OmoriMod.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Buffs.Abstract
 {
     public abstract class HappyEmotionBase : EmotionBuff
     {
-		// Player Configuration
+        // Player Configuration
 
-		// ===== Movement Speed Increase =====
-		private const float PLAYER_MOVEMENT_SPEED_INCREASE_MAX = 50.0f;
-		private const float PLAYER_MOVEMENT_SPEED_INCREASE_RATE = 5.0f;
-		private const float PLAYER_MOVEMENT_SPEED_INCREASE_STARTING_VALUE = 5.0f;
+        // ===== Movement Speed Increase =====
+        private const float PLAYER_MOVEMENT_SPEED_INCREASE_MAX = 50.0f;
+        private const float PLAYER_MOVEMENT_SPEED_INCREASE_RATE = 5.0f;
+        private const float PLAYER_MOVEMENT_SPEED_INCREASE_STARTING_VALUE = 5.0f;
 
-		// ===== Crit Chance Increase =====
-		private const float PLAYER_EXTRA_CRIT_CHANCE_MAX = 60.0f;
-		private const float PLAYER_EXTRA_CRIT_CHANCE_RATE = 08.0f;
-		private const float PLAYER_EXTRA_CRIT_CHANCE_STARTING_VALUE = 3.5f;
+        // ===== Crit Chance Increase =====
+        private const float PLAYER_EXTRA_CRIT_CHANCE_MAX = 60.0f;
+        private const float PLAYER_EXTRA_CRIT_CHANCE_RATE = 08.0f;
+        private const float PLAYER_EXTRA_CRIT_CHANCE_STARTING_VALUE = 3.5f;
 
-		// ===== Miss Chance =====
-		private const float PLAYER_MISS_CHANCE_MAX = 70.0f;
-		private const float PLAYER_MISS_CHANCE_RATE = 09.5f;
-		private const float PLAYER_MISS_CHANCE_STARTING_VALUE = 4.0f;
-
-
-
-		// NPC Configuration
-
-		// ===== Movement Speed Increase =====
-		private const float NPC_MOVEMENT_SPEED_INCREASE_MAX = 35.0f;
-		private const float NPC_MOVEMENT_SPEED_INCREASE_RATE = 3.5f;
-		private const float NPC_MOVEMENT_SPEED_INCREASE_STARTING_VALUE = 4.5f;
-
-		// ===== Crit Chance Increase =====
-		private const float NPC_EXTRA_CRIT_CHANCE_MAX = 50.0f;
-		private const float NPC_EXTRA_CRIT_CHANCE_RATE = 6.0f;
-		private const float NPC_EXTRA_CRIT_CHANCE_STARTING_VALUE = 3.0f;
-
-		// ===== Miss Chance =====
-		private const float NPC_MISS_CHANCE_MAX = 55.0f;
-		private const float NPC_MISS_CHANCE_RATE = 8.0f;
-		private const float NPC_MISS_CHANCE_STARTING_VALUE = 4.0f;
+        // ===== Miss Chance =====
+        private const float PLAYER_MISS_CHANCE_MAX = 70.0f;
+        private const float PLAYER_MISS_CHANCE_RATE = 09.5f;
+        private const float PLAYER_MISS_CHANCE_STARTING_VALUE = 4.0f;
 
 
 
-		// movement speed
+        // NPC Configuration
+
+        // ===== Movement Speed Increase =====
+        private const float NPC_MOVEMENT_SPEED_INCREASE_MAX = 35.0f;
+        private const float NPC_MOVEMENT_SPEED_INCREASE_RATE = 3.5f;
+        private const float NPC_MOVEMENT_SPEED_INCREASE_STARTING_VALUE = 4.5f;
+
+        // ===== Crit Chance Increase =====
+        private const float NPC_EXTRA_CRIT_CHANCE_MAX = 50.0f;
+        private const float NPC_EXTRA_CRIT_CHANCE_RATE = 6.0f;
+        private const float NPC_EXTRA_CRIT_CHANCE_STARTING_VALUE = 3.0f;
+
+        // ===== Miss Chance =====
+        private const float NPC_MISS_CHANCE_MAX = 55.0f;
+        private const float NPC_MISS_CHANCE_RATE = 8.0f;
+        private const float NPC_MISS_CHANCE_STARTING_VALUE = 4.0f;
+
+
+
+        // movement speed
         public float PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT => LinearPerLevel(
             max: PLAYER_MOVEMENT_SPEED_INCREASE_MAX,
             rate: PLAYER_MOVEMENT_SPEED_INCREASE_RATE,
@@ -55,42 +58,42 @@ namespace OmoriMod.Content.Buffs.Abstract
             );
 
         public float NPC_MOVEMENT_SPEED_INCREASE_PERCENT => LinearPerLevel(
-			max: NPC_MOVEMENT_SPEED_INCREASE_MAX,
-			rate: NPC_MOVEMENT_SPEED_INCREASE_RATE,
-			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
-			startingValue: NPC_MOVEMENT_SPEED_INCREASE_STARTING_VALUE
-			);
+            max: NPC_MOVEMENT_SPEED_INCREASE_MAX,
+            rate: NPC_MOVEMENT_SPEED_INCREASE_RATE,
+            maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
+            startingValue: NPC_MOVEMENT_SPEED_INCREASE_STARTING_VALUE
+            );
 
 
-		// crit chance increase
-		public float PLAYER_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
-			max: PLAYER_EXTRA_CRIT_CHANCE_MAX,
-			rate: PLAYER_EXTRA_CRIT_CHANCE_RATE,
-			maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
-			startingValue: PLAYER_EXTRA_CRIT_CHANCE_STARTING_VALUE
-			);
-		public float NPC_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
-			max: NPC_EXTRA_CRIT_CHANCE_MAX,
-			rate: NPC_EXTRA_CRIT_CHANCE_RATE,
-			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
-			startingValue: NPC_EXTRA_CRIT_CHANCE_STARTING_VALUE
-			);
+        // crit chance increase
+        public float PLAYER_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
+            max: PLAYER_EXTRA_CRIT_CHANCE_MAX,
+            rate: PLAYER_EXTRA_CRIT_CHANCE_RATE,
+            maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
+            startingValue: PLAYER_EXTRA_CRIT_CHANCE_STARTING_VALUE
+            );
+        public float NPC_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
+            max: NPC_EXTRA_CRIT_CHANCE_MAX,
+            rate: NPC_EXTRA_CRIT_CHANCE_RATE,
+            maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
+            startingValue: NPC_EXTRA_CRIT_CHANCE_STARTING_VALUE
+            );
 
-		// miss chance
-		public float PLAYER_MISS_CHANCE_PERCENT => LinearPerLevel(
-			max: PLAYER_MISS_CHANCE_MAX,
-			rate: PLAYER_MISS_CHANCE_RATE,
-			maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
-			startingValue: PLAYER_MISS_CHANCE_STARTING_VALUE
-			);
-		public float NPC_MISS_CHANCE_PERCENT => LinearPerLevel(
-			max: NPC_MISS_CHANCE_MAX,
-			rate: NPC_MISS_CHANCE_RATE,
-			maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
-			startingValue: NPC_MISS_CHANCE_STARTING_VALUE
-			);
+        // miss chance
+        public float PLAYER_MISS_CHANCE_PERCENT => LinearPerLevel(
+            max: PLAYER_MISS_CHANCE_MAX,
+            rate: PLAYER_MISS_CHANCE_RATE,
+            maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
+            startingValue: PLAYER_MISS_CHANCE_STARTING_VALUE
+            );
+        public float NPC_MISS_CHANCE_PERCENT => LinearPerLevel(
+            max: NPC_MISS_CHANCE_MAX,
+            rate: NPC_MISS_CHANCE_RATE,
+            maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
+            startingValue: NPC_MISS_CHANCE_STARTING_VALUE
+            );
 
-        public HappyEmotionBase() 
+        public HappyEmotionBase()
         {
             Emotion = EmotionType.HAPPY;
             dustColor = Color.Yellow;
@@ -102,11 +105,11 @@ namespace OmoriMod.Content.Buffs.Abstract
             ModifyPlayerMovement(player);
         }
 
-		public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
-		{
-			EmotionSystem.RemoveIncompatibleEmotions<HappyEmotionBase>(npc);
+        public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
+        {
+            EmotionSystem.RemoveIncompatibleEmotions<HappyEmotionBase>(npc);
             ModifyNPCMovement(npc);
-		}
+        }
 
         public override void ModifyPlayerMovement(Player player)
         {
@@ -158,7 +161,7 @@ namespace OmoriMod.Content.Buffs.Abstract
             }
         }
 
-		public virtual void HappyModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
+        public virtual void HappyModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
             int speedUp = (int)MathF.Round(PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT * 100);
@@ -169,6 +172,6 @@ namespace OmoriMod.Content.Buffs.Abstract
                 $" Hit chance down by {miss}%!";
             tip = buffTip;
             HappyModifyBuffText(ref buffName, ref tip, ref rare);
-        }   
+        }
     }
 }

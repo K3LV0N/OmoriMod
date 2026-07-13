@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -67,7 +69,7 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
         }
 
         // Rarity Setting
-        
+
 
 
 
@@ -192,11 +194,11 @@ namespace OmoriMod.Content.Items.Abstract_Classes.BaseClasses
         {
             Item.accessory = true;
             ItemDefaults(
-                width: width, 
-                height: height, 
-                scale: 1, 
-                buyPrice: buyPrice, 
-                stackSize: 1, 
+                width: width,
+                height: height,
+                scale: 1,
+                buyPrice: buyPrice,
+                stackSize: 1,
                 consumable: false
             );
         }

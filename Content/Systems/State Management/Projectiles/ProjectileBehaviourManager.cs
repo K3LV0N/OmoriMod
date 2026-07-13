@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.Projectiles.Projectile_Behaviour;
@@ -193,12 +194,12 @@ namespace OmoriMod.Systems.State_Management.Projectiles
         /// </param>
         private void RandomSelector(bool init)
         {
-            if(init) { selectedBehaviour ??= behaviourList[random.Next(behaviourList.Count)]; }
+            if (init) { selectedBehaviour ??= behaviourList[random.Next(behaviourList.Count)]; }
             else
             {
                 SelectNewBehaviour(random.Next(behaviourList.Count));
             }
-		}
+        }
 
         /// <summary>
         /// Selects a new behaviour from <see cref="behaviourList"/> in order, looping 
@@ -217,7 +218,7 @@ namespace OmoriMod.Systems.State_Management.Projectiles
                 selectedBehaviourIndex = (selectedBehaviourIndex + 1) % behaviourList.Count;
                 SelectNewBehaviour(selectedBehaviourIndex);
             }
-		}
+        }
 
         /// <summary>
         /// Selects a new behaviour from <see cref="behaviourList"/> based on the 
@@ -235,7 +236,7 @@ namespace OmoriMod.Systems.State_Management.Projectiles
             {
                 SelectNewBehaviour(behaviourInfo.ExitStatus);
             }
-		}
+        }
 
         /// <summary>
         /// Core AI update loop. 

@@ -1,15 +1,16 @@
-using Terraria;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
 using OmoriMod.Util;
+
+using Terraria;
 
 namespace OmoriMod.Content.NPCs.General_Behaviours.Actives.Chase_Player
 {
     public class ChasePlayerExitOnTimeOut(int exitStatus, float speed, float inertia, TickTimer timeOut, int minFrameTime = 5) : NPCBehaviour(exitStatus)
     {
         private TickTimer _timeOut = timeOut;
-        
+
 
         protected override void FindFrame(OmoriBehaviourNPC npc, BehaviourInfo behaviourInfo, int frameHeight)
         {
@@ -29,7 +30,7 @@ namespace OmoriMod.Content.NPCs.General_Behaviours.Actives.Chase_Player
             _timeOut--;
             if (_timeOut.IsDone)
             {
-                if(npc.NPC.collideY)
+                if (npc.NPC.collideY)
                 {
                     behaviourInfo.ExitStatus = _defaultExitStatus;
                     return;

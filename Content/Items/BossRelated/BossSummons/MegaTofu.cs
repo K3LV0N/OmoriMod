@@ -1,10 +1,11 @@
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Health;
+using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Content.Items.Health;
-using OmoriMod.Content.NPCs.Enemies.Bosses.YeOldSprout;
 
 namespace OmoriMod.Content.Items.BossRelated.BossSummons
 {
@@ -69,7 +70,7 @@ namespace OmoriMod.Content.Items.BossRelated.BossSummons
         public override void AddRecipes()
         {
             Recipe r1 = CreateRecipe();
-            r1.AddIngredient<Tofu>(10); 
+            r1.AddIngredient<Tofu>(10);
             r1.Register();
         }
     }

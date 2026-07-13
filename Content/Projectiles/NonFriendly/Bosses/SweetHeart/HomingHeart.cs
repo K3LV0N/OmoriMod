@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
-using Terraria;
+
 using OmoriMod.Content.Projectiles.Abstract_Classes;
+
+using Terraria;
 
 namespace OmoriMod.Content.Projectiles.NonFriendly.Bosses.SweetHeart
 {
