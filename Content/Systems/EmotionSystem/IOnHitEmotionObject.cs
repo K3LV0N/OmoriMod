@@ -1,4 +1,5 @@
 using OmoriMod.Content.Buffs.AngryBuff;
+using OmoriMod.Content.Buffs.FearBuff;
 using OmoriMod.Content.Buffs.HappyBuff;
 using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
@@ -47,6 +48,12 @@ public interface IOnHitEmotionObject : IEmotionObject
                     if (!target.HasBuff<Angry>() && !target.HasBuff<Sad>())
                     {
                         target.AddBuff(ModContent.BuffType<Happy>(), ticks);
+                    }
+                    break;
+                case EmotionType.FEAR:
+                    if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>() && !target.HasBuff<Sad>())
+                    {
+                        target.AddBuff(ModContent.BuffType<Fear>(), ticks);
                     }
                     break;
             }

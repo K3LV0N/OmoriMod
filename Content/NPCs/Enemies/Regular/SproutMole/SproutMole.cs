@@ -57,6 +57,10 @@ public class SproutMole : OmoriBehaviourNPC
         npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AirHorn>(), 5));
         npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PartyPopper>(), 5));
         npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RainCloud>(), 5));
+
+        LeadingConditionRule hardmodeRule = new(new Conditions.IsHardmode());
+        hardmodeRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Firecracker>(), 20));
+        npcLoot.Add(hardmodeRule);
     }
 
 
@@ -79,4 +83,5 @@ public class SproutMole : OmoriBehaviourNPC
     {
         behaviourManager.PerformFindFrame(frameHeight);
     }
+
 }

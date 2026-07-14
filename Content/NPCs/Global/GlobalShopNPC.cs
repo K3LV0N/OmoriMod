@@ -18,6 +18,7 @@ public class GlobalShopNPC : GlobalNPC
             shop.Add<RainCloud>();
             shop.Add<AirHorn>();
             shop.Add<Something>();
+            shop.Add<Firecracker>(Condition.Hardmode);
         }
 
         if (shop.NpcType == NPCID.Dryad)
