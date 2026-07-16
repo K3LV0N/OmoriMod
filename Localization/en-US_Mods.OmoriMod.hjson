@@ -469,7 +469,7 @@ Items: {
 
 	RabbitsFoot: {
 		DisplayName: Rabbits Foot
-		Tooltip: increases your Jump and Speed by 50%
+		Tooltip: increases your Jump and Speed by 8%
 	}
 
 	RabbitsFootKeychain: {
