@@ -22,7 +22,7 @@ namespace OmoriMod.Content.Items.Accessories
             player.jumpSpeedBoost += 3.0f; //Frog Leg is 2.4f so this is fine prob if i could test but noooooooooooooooooooo i cant bumb error vro
             player.autoJump = true;
 
-            player.moveSpeed += 0.50f;
+            player.moveSpeed += 0.08f;
         }
 
     }
