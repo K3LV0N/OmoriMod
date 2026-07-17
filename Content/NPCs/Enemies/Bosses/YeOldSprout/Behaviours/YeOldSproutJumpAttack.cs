@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Content.Systems.State_Management.NPCs.NPC_Behaviour;
-using OmoriMod.Util.Systems;
+using OmoriMod.Content.Util;
 
 using Terraria;
 

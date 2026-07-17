@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Content.Systems.State_Management.Behaviour_Info;
-using OmoriMod.Util.Systems;
+using OmoriMod.Content.Util;
 
 namespace OmoriMod.Content.Systems.State_Management.Projectiles.Projectile_Behaviour;
 
@@ -210,9 +210,7 @@ public abstract class ProjectileBehaviour
 
     public override bool Equals(object obj)
     {
-        if (obj is ProjectileBehaviour other)
-            return BehaviourName == other.BehaviourName;
-        return false;
+        return obj is ProjectileBehaviour other ? BehaviourName == other.BehaviourName : false;
     }
 
     public override int GetHashCode()

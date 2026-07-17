@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using OmoriMod.Content.Projectiles.Abstract_Classes;
 using OmoriMod.Content.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Content.Systems.State_Management.Projectiles.Projectile_Behaviour;
-using OmoriMod.Util.Systems;
+using OmoriMod.Content.Util;
 
 namespace OmoriMod.Content.Systems.State_Management.Projectiles;
 

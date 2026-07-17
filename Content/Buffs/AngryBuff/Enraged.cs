@@ -1,7 +1,5 @@
 using OmoriMod.Content.Buffs.Abstract;
 
-using Terraria.ModLoader;
-
 namespace OmoriMod.Content.Buffs.AngryBuff;
 
 public class Enraged : AngryEmotionBase
@@ -10,10 +8,5 @@ public class Enraged : AngryEmotionBase
     {
         emotionLevel = 2;
         dustSpawnFrequency = 2;
-    }
-
-    public override void SetStaticDefaults()
-    {
-        nextStageEmotionType = ModContent.BuffType<Furious>();
     }
 }

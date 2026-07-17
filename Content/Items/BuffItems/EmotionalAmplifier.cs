@@ -1,7 +1,4 @@
 using OmoriMod.Content.Buffs.Abstract;
-using OmoriMod.Content.Buffs.AngryBuff;
-using OmoriMod.Content.Buffs.HappyBuff;
-using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Systems.EmotionSystem;
@@ -29,36 +26,46 @@ public class EmotionalAmplifier : EmotionBuffItem
     {
         int? buffType = EmotionSystem.GetEmotionType(player);
         if (!buffType.HasValue) return false;
-        if (EmotionSystem.TIER3_EMOTION_TYPES.Contains(buffType.Value) || EmotionSystem.TIER4_EMOTION_TYPES.Contains(buffType.Value)) return true;
-        return false;
+
+        if (ModContent.GetModBuff(buffType.Value) is not EmotionBuff emotionBuff)
+        {
+            return false;
+        }
+
+        int? currentTier = EmotionSystem.GetEmotionTier(buffType.Value);
+        int? maxTier = EmotionSystem.GetMaxEmotionTier(emotionBuff.Emotion);
+        return currentTier.HasValue
+            && maxTier.HasValue
+            && currentTier.Value >= maxTier.Value - 1;
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
         int? buffType = EmotionSystem.GetEmotionType(player);
         ModBuff buff = ModContent.GetModBuff(buffType.Value);
+
         if (buff is AngryEmotionBase)
         {
-            EmotionSystem.ApplyTier4Emotion<AngryEmotionBase>(
+            EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
                 player: player,
-                baseBuffType: ModContent.BuffType<Livid>(),
-                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
+                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
+                canPromoteToFinalTier: true
             );
         }
         if (buff is HappyEmotionBase)
         {
-            EmotionSystem.ApplyTier4Emotion<HappyEmotionBase>(
+            EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
                 player: player,
-                baseBuffType: ModContent.BuffType<Hysterical>(),
-                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
+                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
+                canPromoteToFinalTier: true
             );
         }
         if (buff is SadEmotionBase)
         {
-            EmotionSystem.ApplyTier4Emotion<SadEmotionBase>(
+            EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
                 player: player,
-                baseBuffType: ModContent.BuffType<Despondent>(),
-                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
+                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
+                canPromoteToFinalTier: true
             );
         }
 

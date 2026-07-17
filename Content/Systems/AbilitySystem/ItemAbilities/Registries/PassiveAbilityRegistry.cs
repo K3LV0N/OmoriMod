@@ -65,11 +65,7 @@ public static class PassiveAbilityRegistry
 
     public static IItemAbility GetAbility(int id)
     {
-        if (_abilities.TryGetValue(id, out IItemAbility ability))
-        {
-            return ability;
-        }
-        return null;
+        return _abilities.TryGetValue(id, out IItemAbility ability) ? ability : null;
     }
 
     public static IItemAbility GetAbility(PassiveAbilityID id)

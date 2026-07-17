@@ -119,5 +119,6 @@ public abstract class AngryEmotionBase : EmotionBuff
             $" Defense down by {defenseDown}%!";
         tip = buffTip;
         AngryModifyBuffText(ref buffName, ref tip, ref rare);
+        FinalTierModifyBuffText(ref buffName, ref tip, ref rare);
     }
 }

@@ -38,7 +38,7 @@ public abstract class EmotionItem : AbilityItem, IOnHitEmotionObject
 
     public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
     {
-        ((IOnHitEmotionObject)this).InflictEmotion(target);
+        ((IOnHitEmotionObject)this).InflictEmotionOnNPC(target);
         OnHitNPCEmotion(player, target, hit, damageDone);
     }
 

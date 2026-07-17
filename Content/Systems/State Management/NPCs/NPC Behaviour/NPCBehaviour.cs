@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Systems.State_Management.Behaviour_Info;
-using OmoriMod.Util.Systems;
+using OmoriMod.Content.Util;
 
 namespace OmoriMod.Content.Systems.State_Management.NPCs.NPC_Behaviour;
 
@@ -210,9 +210,7 @@ public abstract class NPCBehaviour
 
     public override bool Equals(object obj)
     {
-        if (obj is NPCBehaviour other)
-            return BehaviourName == other.BehaviourName;
-        return false;
+        return obj is NPCBehaviour other ? BehaviourName == other.BehaviourName : false;
     }
 
     public override int GetHashCode()

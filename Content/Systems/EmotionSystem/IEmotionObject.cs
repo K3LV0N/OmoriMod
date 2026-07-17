@@ -12,6 +12,15 @@ public enum EmotionType
 }
 
 /// <summary>
+/// Distinguishes emotion buffs that share an emotion and tier but differ in how their duration is displayed.
+/// </summary>
+public enum EmotionBuffVariant
+{
+    Standard,
+    NoTime,
+}
+
+/// <summary>
 /// An interface to consolidate emotion application.
 /// </summary>
 public interface IEmotionObject

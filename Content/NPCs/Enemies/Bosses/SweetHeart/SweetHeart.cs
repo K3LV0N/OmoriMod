@@ -2,7 +2,7 @@ using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
 using OmoriMod.Content.Systems;
 using OmoriMod.Content.Systems.State_Management.NPCs;
-using OmoriMod.Util.Systems;
+using OmoriMod.Content.Util;
 
 using Terraria;
 using Terraria.ID;

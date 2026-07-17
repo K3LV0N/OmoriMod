@@ -172,5 +172,6 @@ public abstract class HappyEmotionBase : EmotionBuff
             $" Hit chance down by {miss}%!";
         tip = buffTip;
         HappyModifyBuffText(ref buffName, ref tip, ref rare);
+        FinalTierModifyBuffText(ref buffName, ref tip, ref rare);
     }
 }

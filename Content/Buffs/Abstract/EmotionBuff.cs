@@ -28,13 +28,8 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         return Emotion != otherBuff.Emotion;
     }
 
-    public virtual int? NextTierEmotion => nextStageEmotionType;
-
-    public int? nextStageEmotionType;
-
     protected Color dustColor;
 
-    public virtual void UpdateTier4EmotionBuff(Player player, ref int buffIndex) { }
     public virtual void UpdateEmotionBuff(Player player, ref int buffIndex) { }
     public virtual void UpdateEmotionBuff(NPC npc, ref int buffIndex) { }
 
@@ -44,9 +39,9 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         modPlayer.Emotion = Emotion;
         modPlayer.ActiveEmotionBuff = this;
 
+        UpdateFinalTierEmotionBuff(player);
         DustHandler(player, ref buffIndex);
         UpdateEmotionBuff(player, ref buffIndex);
-        UpdateTier4EmotionBuff(player, ref buffIndex);
     }
 
     public override void Update(NPC npc, ref int buffIndex)
@@ -56,6 +51,52 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         emotionNPC.ActiveEmotionBuff = this;
 
         UpdateEmotionBuff(npc, ref buffIndex);
+    }
+
+    private void UpdateFinalTierEmotionBuff(Player player)
+    {
+        if (!EmotionSystem.IsFinalEmotionTier(Type))
+        {
+            int? registeredTier = EmotionSystem.GetEmotionTier(Type);
+            if (registeredTier.HasValue)
+            {
+                emotionLevel = registeredTier.Value;
+            }
+            return;
+        }
+
+        int? finalTier = EmotionSystem.GetMaxEmotionTier(Emotion);
+        if (!finalTier.HasValue)
+        {
+            return;
+        }
+
+        EmotionPlayer modPlayer = player.GetModPlayer<EmotionPlayer>();
+        modPlayer.EnsureScalingEmotion(Emotion, finalTier.Value);
+        emotionLevel = modPlayer.scalingEmotionLevel;
+    }
+
+    public override bool ReApply(Player player, int time, int buffIndex)
+    {
+        if (!EmotionSystem.IsFinalEmotionTier(Type))
+        {
+            return base.ReApply(player, time, buffIndex);
+        }
+
+        int? finalTier = EmotionSystem.GetMaxEmotionTier(Emotion);
+        if (!finalTier.HasValue)
+        {
+            return base.ReApply(player, time, buffIndex);
+        }
+
+        EmotionPlayer modPlayer = player.GetModPlayer<EmotionPlayer>();
+        modPlayer.EnsureScalingEmotion(Emotion, finalTier.Value);
+        if (modPlayer.scalingEmotionLevel < EmotionSystem.PLAYER_MAX_EMOTION_LEVEL)
+        {
+            modPlayer.scalingEmotionLevel++;
+        }
+
+        return false;
     }
 
     // Virtual Modifiers
@@ -173,9 +214,17 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
     }
 
 
-    protected virtual void Tier4ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+    protected void FinalTierModifyBuffText(ref string buffName, ref string tip, ref int rare)
     {
-        string buffTip = $" Level: {emotionLevel - 3}";
-        tip += buffTip;
+        if (!EmotionSystem.IsFinalEmotionTier(Type))
+        {
+            return;
+        }
+
+        int? finalTier = EmotionSystem.GetMaxEmotionTier(Emotion);
+        if (finalTier.HasValue)
+        {
+            tip += $" Level: {emotionLevel - finalTier.Value + 1}";
+        }
     }
 }

@@ -12,7 +12,8 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
     public EmotionBuff ActiveEmotionBuff { get; set; }
 
     public bool ImmuneToEmotionChange => false;
-    public int tier4EmotionLevel;
+    public int scalingEmotionLevel;
+    public EmotionType scalingEmotion;
     public int MidEmotionLevel;
 
     private void ResetMidEmotionLevel()
@@ -27,12 +28,31 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
         }
     }
 
-    private void ResetTier4EmotionLevel()
+    public void EnsureScalingEmotion(EmotionType emotion, int finalTier)
     {
-        // only reset tier4EmotionLevel when no buff is there
+        if (scalingEmotion != emotion || scalingEmotionLevel < finalTier)
+        {
+            scalingEmotion = emotion;
+            scalingEmotionLevel = finalTier;
+        }
+    }
+
+    private void ResetScalingEmotionLevel()
+    {
         int? emotionType = EmotionSystem.GetEmotionType(Player);
-        if (!emotionType.HasValue) { tier4EmotionLevel = 4; }
-        else if (!EmotionSystem.TIER4_EMOTION_TYPES.Contains(emotionType.Value)) { tier4EmotionLevel = 4; }
+        if (!emotionType.HasValue
+            || !EmotionSystem.IsFinalEmotionTier(emotionType.Value)
+            || ModContent.GetModBuff(emotionType.Value) is not EmotionBuff emotionBuff
+            || !EmotionSystem.GetMaxEmotionTier(emotionBuff.Emotion).HasValue)
+        {
+            scalingEmotion = EmotionType.NONE;
+            scalingEmotionLevel = 0;
+            return;
+        }
+
+        EnsureScalingEmotion(
+            emotionBuff.Emotion,
+            EmotionSystem.GetMaxEmotionTier(emotionBuff.Emotion).Value);
     }
 
     public override void ResetEffects()
@@ -40,7 +60,7 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
         Emotion = EmotionType.NONE;
         ActiveEmotionBuff = null;
         ResetMidEmotionLevel();
-        ResetTier4EmotionLevel();
+        ResetScalingEmotionLevel();
     }
 
     public override void PreUpdateBuffs()

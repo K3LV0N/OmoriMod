@@ -1,6 +1,6 @@
 using System;
 
-using OmoriMod.Util.Systems.Interfaces;
+using OmoriMod.Content.Util.Interfaces;
 
 using Terraria.ModLoader.IO;
 
@@ -246,9 +246,7 @@ public class TickTimer : ISaveableWithGenerate
 
     public override bool Equals(object obj)
     {
-        if (obj is TickTimer other)
-            return _totalTicks == other._totalTicks;
-        return false;
+        return obj is TickTimer other ? _totalTicks == other._totalTicks : false;
     }
 
     public override int GetHashCode()

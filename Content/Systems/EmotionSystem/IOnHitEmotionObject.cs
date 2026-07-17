@@ -23,14 +23,12 @@ public interface IOnHitEmotionObject : IEmotionObject
     /// </summary>
     /// <param name="target">The <see cref="NPC"/> the emotion will be applied to.</param>
     /// <param name="ticks">The amount of ticks the emotion will be applied for.</param>
-    public virtual void InflictEmotion(NPC target, int ticks = 600)
+    public virtual void InflictEmotionOnNPC(NPC target, int ticks = 600)
     {
         if (!target.GetGlobalNPC<EmotionNPC>().ImmuneToEmotionChange)
         {
             switch (Emotion)
             {
-                case EmotionType.NONE:
-                    break;
                 case EmotionType.SAD:
                     if (!target.HasBuff<Happy>() && !target.HasBuff<Angry>())
                     {
@@ -48,6 +46,8 @@ public interface IOnHitEmotionObject : IEmotionObject
                     {
                         target.AddBuff(ModContent.BuffType<Happy>(), ticks);
                     }
+                    break;
+                default:
                     break;
             }
         }

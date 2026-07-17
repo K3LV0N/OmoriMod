@@ -17,25 +17,19 @@ public interface IEmotionEntity : IEmotionObject
     /// </returns>
     public bool? CheckForAdvantage(IEmotionEntity otherEntity)
     {
-        if (Emotion == EmotionType.ANGRY)
+        switch (Emotion)
         {
-            if (otherEntity.Emotion == EmotionType.SAD) return true;
-            if (otherEntity.Emotion == EmotionType.HAPPY) return false;
-            return null;
+            case EmotionType.SAD:
+                if (otherEntity.Emotion == EmotionType.HAPPY) return true;
+                return otherEntity.Emotion == EmotionType.ANGRY ? false : null;
+            case EmotionType.ANGRY:
+                if (otherEntity.Emotion == EmotionType.SAD) return true;
+                return otherEntity.Emotion == EmotionType.HAPPY ? false : null;
+            case EmotionType.HAPPY:
+                if (otherEntity.Emotion == EmotionType.ANGRY) return true;
+                return otherEntity.Emotion == EmotionType.SAD ? false : null;
+            default:
+                return null;
         }
-        if (Emotion == EmotionType.HAPPY)
-        {
-            if (otherEntity.Emotion == EmotionType.ANGRY) return true;
-            if (otherEntity.Emotion == EmotionType.SAD) return false;
-            return null;
-        }
-        if (Emotion == EmotionType.SAD)
-        {
-            if (otherEntity.Emotion == EmotionType.HAPPY) return true;
-            if (otherEntity.Emotion == EmotionType.ANGRY) return false;
-            return null;
-        }
-
-        return null;
     }
 }

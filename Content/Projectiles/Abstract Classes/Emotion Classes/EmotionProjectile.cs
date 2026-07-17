@@ -38,7 +38,7 @@ public abstract class EmotionProjectile : OmoriModProjectile, IOnHitEmotionObjec
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        ((IOnHitEmotionObject)this).InflictEmotion(target);
+        ((IOnHitEmotionObject)this).InflictEmotionOnNPC(target);
         OnHitNPCEmotion(target, hit, damageDone);
     }
 

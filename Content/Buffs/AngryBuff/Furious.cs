@@ -9,9 +9,4 @@ public class Furious : AngryEmotionBase
         emotionLevel = 3;
         dustSpawnFrequency = 3;
     }
-
-    public override void SetStaticDefaults()
-    {
-        nextStageEmotionType = null;
-    }
 }

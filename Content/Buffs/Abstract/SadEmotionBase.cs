@@ -164,5 +164,6 @@ public abstract class SadEmotionBase : EmotionBuff
             $" {mana}% of damage convertd to mana damage!";
         tip = buffTip;
         SadModifyBuffText(ref buffName, ref tip, ref rare);
+        FinalTierModifyBuffText(ref buffName, ref tip, ref rare);
     }
 }

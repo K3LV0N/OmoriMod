@@ -26,18 +26,15 @@ public class RainCloud : EmotionBuffItem
     {
         EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
 
-        if (emotionPlayer.Emotion == EmotionType.SAD || emotionPlayer.Emotion == EmotionType.NONE) { return true; }
-        return false;
+        return emotionPlayer.Emotion == EmotionType.SAD || emotionPlayer.Emotion == EmotionType.NONE;
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
-        EmotionSystem.ApplyOrPromoteBuff<SadEmotionBase>(
+        EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
             player: player,
-            baseBuffType: ModContent.BuffType<Sad>(),
             duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
-            );
-
+        );
         return true;
     }
 }

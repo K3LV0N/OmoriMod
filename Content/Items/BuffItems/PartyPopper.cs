@@ -26,18 +26,15 @@ public class PartyPopper : EmotionBuffItem
     {
         EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
 
-        if (emotionPlayer.Emotion == EmotionType.HAPPY || emotionPlayer.Emotion == EmotionType.NONE) { return true; }
-        return false;
+        return emotionPlayer.Emotion == EmotionType.HAPPY || emotionPlayer.Emotion == EmotionType.NONE;
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
-        EmotionSystem.ApplyOrPromoteBuff<HappyEmotionBase>(
+        EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
             player: player,
-            baseBuffType: ModContent.BuffType<Happy>(),
             duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
-            );
-
+        );
         return true;
     }
 }

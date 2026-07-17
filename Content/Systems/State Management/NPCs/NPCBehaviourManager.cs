@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Systems.State_Management.Behaviour_Info;
 using OmoriMod.Content.Systems.State_Management.NPCs.NPC_Behaviour;
-using OmoriMod.Util.Systems;
+using OmoriMod.Content.Util;
 
 namespace OmoriMod.Content.Systems.State_Management.NPCs;
 
