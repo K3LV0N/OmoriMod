@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using OmoriMod.Content.Dusts;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Players;
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 using Terraria.ModLoader;

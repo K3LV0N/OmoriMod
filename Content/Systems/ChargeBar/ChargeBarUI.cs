@@ -11,7 +11,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace OmoriMod.Systems.ChargeBar;
+namespace OmoriMod.Content.Systems.ChargeBar;
 
 public class ChargeBarUI : UIState
 {

@@ -1,4 +1,4 @@
-﻿namespace OmoriMod.Systems.EmotionSystem;
+﻿namespace OmoriMod.Content.Systems.EmotionSystem;
 
 /// <summary>
 /// An enum to simplify emotion types. All I<see cref="IEmotionObject"/> communicate through this enum.

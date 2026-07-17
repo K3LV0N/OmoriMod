@@ -1,6 +1,6 @@
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Players;
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 

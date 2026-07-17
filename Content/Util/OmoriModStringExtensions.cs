@@ -1,4 +1,4 @@
-﻿namespace OmoriMod.Util;
+﻿namespace OmoriMod.Content.Util;
 
 public static class OmoriModStringExtensions
 {

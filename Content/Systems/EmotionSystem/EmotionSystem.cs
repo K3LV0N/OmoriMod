@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Systems.EmotionSystem;
+namespace OmoriMod.Content.Systems.EmotionSystem;
 
 public class EmotionSystem : ModSystem
 {
@@ -30,16 +30,6 @@ public class EmotionSystem : ModSystem
         ModContent.BuffType<Hysterical>(),
         ModContent.BuffType<Despondent>(),
     ];
-
-    public override void Load()
-    {
-        // Any initialization if needed
-    }
-
-    public override void Unload()
-    {
-        // Any cleanup if needed
-    }
 
     /// <summary>
     /// returns the type of the <see cref="EmotionBuff"/> currently on the <see cref="Entity"/>. If no buff exists, returns null.

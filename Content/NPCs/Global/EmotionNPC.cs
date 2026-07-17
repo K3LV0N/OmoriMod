@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.Players;
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 using Terraria.ModLoader;

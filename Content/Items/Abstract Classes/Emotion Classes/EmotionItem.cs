@@ -1,5 +1,5 @@
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 using Terraria.ID;

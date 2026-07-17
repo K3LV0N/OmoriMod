@@ -2,14 +2,14 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using OmoriMod.Systems.AbilitySystem.AbilityMenuUI;
-using OmoriMod.Systems.ChargeBar;
+using OmoriMod.Content.Systems.AbilitySystem.AbilityMenuUI;
+using OmoriMod.Content.Systems.ChargeBar;
 
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace OmoriMod.Systems;
+namespace OmoriMod.Content.Systems;
 
 public class OmoriModUISystem : ModSystem
 {

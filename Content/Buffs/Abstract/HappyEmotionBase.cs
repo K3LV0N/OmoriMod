@@ -2,7 +2,7 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 using Terraria.ModLoader;

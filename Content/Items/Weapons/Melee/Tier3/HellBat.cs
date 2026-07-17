@@ -2,7 +2,7 @@ using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Items.Weapons.Melee.Tier2;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+using OmoriMod.Content.Systems.AbilitySystem.ItemAbilities.Registries;
 
 using Terraria;
 using Terraria.ID;

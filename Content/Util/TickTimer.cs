@@ -1,10 +1,10 @@
 using System;
 
-using OmoriMod.Util.Interfaces;
+using OmoriMod.Util.Systems.Interfaces;
 
 using Terraria.ModLoader.IO;
 
-namespace OmoriMod.Util;
+namespace OmoriMod.Content.Util;
 
 /// <summary>
 /// A utility class that helps with timing. Can run for a really long time.

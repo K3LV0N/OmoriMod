@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+namespace OmoriMod.Content.Systems.AbilitySystem.ItemAbilities.Registries;
 
 public static class ActiveAbilityRegistry
 {

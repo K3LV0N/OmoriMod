@@ -3,8 +3,8 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+using OmoriMod.Content.Systems.AbilitySystem.ItemAbilities.AbilityContexts;
+using OmoriMod.Content.Systems.AbilitySystem.ItemAbilities.Registries;
 
 using Terraria;
 using Terraria.DataStructures;

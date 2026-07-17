@@ -1,5 +1,5 @@
 ﻿using OmoriMod.Content.Summons.Abstract_Classes;
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 

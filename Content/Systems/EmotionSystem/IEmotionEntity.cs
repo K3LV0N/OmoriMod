@@ -1,6 +1,6 @@
 ﻿using OmoriMod.Content.Buffs.Abstract;
 
-namespace OmoriMod.Systems.EmotionSystem;
+namespace OmoriMod.Content.Systems.EmotionSystem;
 
 public interface IEmotionEntity : IEmotionObject
 {

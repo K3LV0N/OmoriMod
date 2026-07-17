@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Bat;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Knife;
 using OmoriMod.Content.Projectiles.Friendly.Melee.Pan;
-using OmoriMod.Systems.AbilitySystem.ItemAbilities.Passives;
+using OmoriMod.Content.Systems.AbilitySystem.ItemAbilities.Passives;
 
 using Terraria.ModLoader;
 
-namespace OmoriMod.Systems.AbilitySystem.ItemAbilities.Registries;
+namespace OmoriMod.Content.Systems.AbilitySystem.ItemAbilities.Registries;
 
 public static class PassiveAbilityRegistry
 {

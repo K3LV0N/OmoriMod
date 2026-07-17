@@ -8,7 +8,7 @@ using OmoriMod.Content.Projectiles.Abstract_Classes;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OmoriMod.Systems.EmotionSystem;
+namespace OmoriMod.Content.Systems.EmotionSystem;
 
 
 /// <summary>

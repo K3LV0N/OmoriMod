@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 using OmoriMod.Content.NPCs.Global;
-using OmoriMod.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 

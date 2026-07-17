@@ -1,4 +1,4 @@
-﻿using OmoriMod.Systems.EmotionSystem;
+﻿using OmoriMod.Content.Systems.EmotionSystem;
 
 namespace OmoriMod.Content.Projectiles.Abstract_Classes;
 

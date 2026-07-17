@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace OmoriMod.Systems;
+namespace OmoriMod.Content.Systems;
 
 public class DownedBossSystem : ModSystem
 {

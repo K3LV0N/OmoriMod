@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 
 using OmoriMod.Content.NPCs.Classes;
-using OmoriMod.Systems.State_Management.Behaviour_Info;
-using OmoriMod.Util;
+using OmoriMod.Content.Systems.State_Management.Behaviour_Info;
+using OmoriMod.Util.Systems;
 
-namespace OmoriMod.Systems.State_Management.NPCs.NPC_Behaviour;
+namespace OmoriMod.Content.Systems.State_Management.NPCs.NPC_Behaviour;
 
 /// <summary>
 /// Helper class that can store behaviours for NPCs for state management
