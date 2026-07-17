@@ -33,14 +33,16 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Cache tModLoader install
-        id: tml-cache
+      - name: Cache tModLoader archive
         uses: actions/cache@v5
         with:
-          path: |
-            ${{ env.TML_DIR }}
-            !${{ env.MOD_DIR }}
-          key: tmloader-v2-${{ env.TML_VERSION }}-${{ runner.os }}-${{ hashFiles('tModLoader/ModSources/OmoriMod/.github/scripts/setup-tmodloader.sh') }}
+          path: ${{ runner.temp }}/tModLoader-${{ env.TML_VERSION }}.zip
+          key: tmloader-${{ env.TML_VERSION }}-${{ runner.os }}-${{ hashFiles('tModLoader/ModSources/OmoriMod/.github/scripts/setup-tmodloader.sh') }}
+
+      - name: Set up tModLoader
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
 
       - name: Verify checkout integrity
         working-directory: ${{ env.MOD_DIR }}
@@ -59,12 +61,6 @@ jobs:
             git status --short >&2
             exit 1
           fi
-
-      - name: Set up tModLoader
-        if: steps.tml-cache.outputs.cache-hit != 'true'
-        working-directory: ${{ github.workspace }}
-        shell: bash
-        run: bash "${MOD_DIR}/.github/scripts/setup-tmodloader.sh"
 
       - name: Restore
         working-directory: ${{ env.MOD_DIR }}
