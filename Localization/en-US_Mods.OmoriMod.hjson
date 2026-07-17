@@ -456,16 +456,10 @@ Items: {
 		DisplayName: Test Bat
 		Tooltip: ""
 	}
-
+}
 	RabbitsFoot: {
 		DisplayName: Rabbits Foot
 		Tooltip: increases your Jump and Speed by 2%
-	}
-
-
-	HeadspacePortalCan: {
-		DisplayName: Headspace Portal Can
-		Tooltip: ""
 	}
 
 Buffs: {
@@ -558,12 +552,6 @@ Buffs: {
 		DisplayName: You are not supposed to see this.
 		Description: Stop looking :(
 	}
-
-	GShrooberBuff: {
-		DisplayName: G Shroober Buff
-		Description: Mods.OmoriMod.Buffs.GShrooberBuff.Description
-	}
-
 
 
 NPCs: {
