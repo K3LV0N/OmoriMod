@@ -653,16 +653,3 @@ Configs: {
 }
 
 RecipeCondition.DevMode: Requires Dev Mode
-
-BossChecklist: {
-	YeOldSprout.SpawnInfo: Use a Mega Tofu to summon Ye Old Sprout.
-	SweetHeart.SpawnInfo: Use a Splintered Sweet to summon Sweetheart.
-	Rabbit.SpawnInfo: Use a Rabbit's Foot Keychain to summon the Rabbit.
-}
-
-Biomes: {
-	HeadspaceBiome: {
-		DisplayName: Headspace Biome
-		TownNPCDialogueName: the Headspace Biome
-	}
-}
