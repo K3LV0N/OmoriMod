@@ -37,8 +37,28 @@ jobs:
         id: tml-cache
         uses: actions/cache@v5
         with:
-          path: ${{ env.TML_DIR }}
-          key: tmloader-${{ env.TML_VERSION }}-${{ runner.os }}-${{ hashFiles('tModLoader/ModSources/OmoriMod/.github/scripts/setup-tmodloader.sh') }}
+          path: |
+            ${{ env.TML_DIR }}
+            !${{ env.MOD_DIR }}
+          key: tmloader-v2-${{ env.TML_VERSION }}-${{ runner.os }}-${{ hashFiles('tModLoader/ModSources/OmoriMod/.github/scripts/setup-tmodloader.sh') }}
+
+      - name: Verify checkout integrity
+        working-directory: ${{ env.MOD_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          actual_sha="$(git rev-parse HEAD)"
+          if [[ "${actual_sha}" != "${GITHUB_SHA}" ]]; then
+            echo "Expected checkout ${GITHUB_SHA}, but found ${actual_sha} after restoring the tModLoader cache." >&2
+            exit 1
+          fi
+
+          if [[ -n "$(git status --porcelain=v1)" ]]; then
+            echo "The mod checkout was modified while restoring the tModLoader cache:" >&2
+            git status --short >&2
+            exit 1
+          fi
 
       - name: Set up tModLoader
         if: steps.tml-cache.outputs.cache-hit != 'true'
