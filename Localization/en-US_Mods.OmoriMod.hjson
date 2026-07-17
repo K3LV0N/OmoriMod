@@ -552,7 +552,7 @@ Buffs: {
 		DisplayName: You are not supposed to see this.
 		Description: Stop looking :(
 	}
-
+}
 
 NPCs: {
 	MiniMole.DisplayName: Mini Mole
