@@ -457,96 +457,16 @@ Items: {
 		Tooltip: ""
 	}
 
-	OrangeJuice: {
-		DisplayName: Orange Juice
-		Tooltip: Apparently better than Apple Juice
-	}
-
-	AppleJuice: {
-		DisplayName: Apple Juice
-		Tooltip: Apparently better than orange juice.
-	}
-
 	RabbitsFoot: {
 		DisplayName: Rabbits Foot
-		Tooltip: increases your Jump and Speed by 8%
+		Tooltip: increases your Jump and Speed by 2%
 	}
 
-	RabbitsFootKeychain: {
-		DisplayName: Rabbits Foot Keychain
-		Tooltip: Brings forth a challenger from the depths of hell
-	}
-
-	RabbitBossBag: {
-		DisplayName: Rabbit Boss Bag
-		Tooltip: ""
-	}
-
-	RabbitGun: {
-		DisplayName: Rabbit Gun
-		Tooltip: ""
-	}
-
-	GShroober: {
-		DisplayName: G Shroober
-		Tooltip: ""
-	}
 
 	HeadspacePortalCan: {
 		DisplayName: Headspace Portal Can
 		Tooltip: ""
 	}
-
-	HeadspaceDirtBlockItem: {
-		DisplayName: Headspace Dirt Block Item
-		Tooltip: ""
-	}
-
-	HeadspaceGrassBlockItem: {
-		DisplayName: Headspace Grass Block Item
-		Tooltip: ""
-	}
-
-	HeadspaceStoneBlockItem: {
-		DisplayName: Headspace Stone Block Item
-		Tooltip: ""
-	}
-
-	HeadspaceWood: {
-		DisplayName: Headspace Wood
-		Tooltip: ""
-	}
-
-	Firecracker: {
-		DisplayName: Firecracker
-		Tooltip: ""
-	}
-
-	SproutMoleBanner: {
-		Tooltip: ""
-		DisplayName: Sprout Mole Banner
-	}
-
-	SproutMoleDish: {
-		Tooltip: ""
-		DisplayName: Sprout Mole Dish
-	}
-
-	SproutMoleMissileRemote: {
-		DisplayName: Sprout Mole Missile Remote
-		Tooltip: ""
-	}
-
-	FlyingSproutMole: {
-		DisplayName: Flying Sprout Mole
-		Tooltip: ""
-	}
-
-	PlantationSpear: {
-		Tooltip: ""
-		DisplayName: Plantation Spear
-	}
-}
 
 Buffs: {
 	AngryNoTime: {
@@ -644,16 +564,7 @@ Buffs: {
 		Description: Mods.OmoriMod.Buffs.GShrooberBuff.Description
 	}
 
-	Fear: {
-		DisplayName: Fear
-		Description: Mods.OmoriMod.Buffs.Fear.Description
-	}
 
-	FlyingSproutMoleBuff: {
-		DisplayName: Flying Sprout Mole Buff
-		Description: Mods.OmoriMod.Buffs.FlyingSproutMoleBuff.Description
-	}
-}
 
 NPCs: {
 	MiniMole.DisplayName: Mini Mole
@@ -662,40 +573,6 @@ NPCs: {
 	SweetHeart.DisplayName: Sweetheart
 	SproutMoleOld.DisplayName: Sprout Mole Old
 	ForestBunny.DisplayName: Forest Bunny
-	UFO.DisplayName: U.F.O
-	Squizzard.DisplayName: Squizzard
-	Rabbit.DisplayName: Rabbit?
-	Snaley.DisplayName: Snaley
-
-	Basil: {
-		TownNPCMood: {
-			Princess_LovesNPC: I like {NPCName}.
-			LikeNPC_Princess: I like {NPCName}.
-			HateCrowded: I hate how crowded I am.
-			DislikeCrowded: I dislike how crowded I am.
-			LoveSpace: I love having so much space.
-			FarFromHome: I am too far from home.
-			NoHome: I hate not having a home.
-			Content: I am content.
-		}
-
-		DisplayName: Basil
-	}
-
-	Mari: {
-		TownNPCMood: {
-			Princess_LovesNPC: I like {NPCName}.
-			LikeNPC_Princess: I like {NPCName}.
-			HateCrowded: I hate how crowded I am.
-			DislikeCrowded: I dislike how crowded I am.
-			LoveSpace: I love having so much space.
-			FarFromHome: I am too far from home.
-			NoHome: I hate not having a home.
-			Content: I am content.
-		}
-
-		DisplayName: Mari
-	}
 }
 
 Projectiles: {
@@ -760,13 +637,6 @@ Projectiles: {
 	SadBombPlusProjectile.DisplayName: Sad Bomb Plus Projectile
 	HomingHeart.DisplayName: Homing Heart
 	MaceWhip.DisplayName: Mace Whip
-	UFOLaser.DisplayName: U F O Laser
-	SquizzardBeam.DisplayName: Squizzard Beam
-	GShrooberProjectile.DisplayName: G Shroober Projectile
-	GShrooberPoisonProjectile.DisplayName: G Shroober Poison Projectile
-	SproutMoleMissileProjectile.DisplayName: Sprout Mole Missile Projectile
-	FlyingSproutMoleBulletProjectile.DisplayName: Flying Sprout Mole Bullet Projectile
-	FlyingSproutMoleProjectile.DisplayName: Flying Sprout Mole Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage
