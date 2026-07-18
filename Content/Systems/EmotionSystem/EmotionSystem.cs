@@ -304,7 +304,7 @@ public class EmotionSystem : ModSystem
             ? 0
             : attackerAdvantage == true
             ? GetEmotionLevel(attacker) - GetEmotionLevel(defender) + 1
-            : GetEmotionLevel(defender) - GetEmotionLevel(attacker) + 1;
+            : GetEmotionLevel(defender) - GetEmotionLevel(attacker) - 1;
     }
 
     /// <summary>
