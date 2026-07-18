@@ -2,6 +2,8 @@ using System;
 
 using Microsoft.Xna.Framework;
 
+using OmoriMod.Content.NPCs.Global;
+using OmoriMod.Content.Players;
 using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
@@ -50,14 +52,16 @@ public abstract class HappyEmotionBase : EmotionBuff
 
 
     // movement speed
-    public float PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT => LinearPerLevel(
+    public float GetPlayerMovementSpeedIncreasePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: PLAYER_MOVEMENT_SPEED_INCREASE_MAX,
         rate: PLAYER_MOVEMENT_SPEED_INCREASE_RATE,
         maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
         startingValue: PLAYER_MOVEMENT_SPEED_INCREASE_STARTING_VALUE
         );
 
-    public float NPC_MOVEMENT_SPEED_INCREASE_PERCENT => LinearPerLevel(
+    public float GetNPCMovementSpeedIncreasePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: NPC_MOVEMENT_SPEED_INCREASE_MAX,
         rate: NPC_MOVEMENT_SPEED_INCREASE_RATE,
         maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
@@ -66,13 +70,15 @@ public abstract class HappyEmotionBase : EmotionBuff
 
 
     // crit chance increase
-    public float PLAYER_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
+    public float GetPlayerExtraCritChancePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: PLAYER_EXTRA_CRIT_CHANCE_MAX,
         rate: PLAYER_EXTRA_CRIT_CHANCE_RATE,
         maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
         startingValue: PLAYER_EXTRA_CRIT_CHANCE_STARTING_VALUE
         );
-    public float NPC_EXTRA_CRIT_CHANCE_PERCENT => LinearPerLevel(
+    public float GetNPCExtraCritChancePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: NPC_EXTRA_CRIT_CHANCE_MAX,
         rate: NPC_EXTRA_CRIT_CHANCE_RATE,
         maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
@@ -80,13 +86,15 @@ public abstract class HappyEmotionBase : EmotionBuff
         );
 
     // miss chance
-    public float PLAYER_MISS_CHANCE_PERCENT => LinearPerLevel(
+    public float GetPlayerMissChancePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: PLAYER_MISS_CHANCE_MAX,
         rate: PLAYER_MISS_CHANCE_RATE,
         maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
         startingValue: PLAYER_MISS_CHANCE_STARTING_VALUE
         );
-    public float NPC_MISS_CHANCE_PERCENT => LinearPerLevel(
+    public float GetNPCMissChancePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: NPC_MISS_CHANCE_MAX,
         rate: NPC_MISS_CHANCE_RATE,
         maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
@@ -102,23 +110,23 @@ public abstract class HappyEmotionBase : EmotionBuff
     public override void UpdateEmotionBuff(Player player, ref int buffIndex)
     {
         EmotionSystem.RemoveIncompatibleEmotions<HappyEmotionBase>(player);
-        ModifyPlayerMovement(player);
+        ModifyPlayerMovement(player, player.GetModPlayer<EmotionPlayer>().EmotionLevel);
     }
 
     public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
     {
         EmotionSystem.RemoveIncompatibleEmotions<HappyEmotionBase>(npc);
-        ModifyNPCMovement(npc);
+        ModifyNPCMovement(npc, npc.GetGlobalNPC<EmotionNPC>().EmotionLevel);
     }
 
-    public override void ModifyPlayerMovement(Player player)
+    public override void ModifyPlayerMovement(Player player, int emotionLevel)
     {
-        player.moveSpeed *= 1 + PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT;
+        player.moveSpeed *= 1 + GetPlayerMovementSpeedIncreasePercent(emotionLevel);
     }
 
-    public override void ModifyNPCMovement(NPC npc)
+    public override void ModifyNPCMovement(NPC npc, int emotionLevel)
     {
-        float modifier = NPC_MOVEMENT_SPEED_INCREASE_PERCENT;
+        float modifier = GetNPCMovementSpeedIncreasePercent(emotionLevel);
         Vector2 change;
         if (npc.noGravity) { change = npc.velocity * modifier; }
         else { change = new Vector2(npc.velocity.X * modifier, 0); }
@@ -131,31 +139,31 @@ public abstract class HappyEmotionBase : EmotionBuff
         }
     }
 
-    public override void ModifyPlayerHitNPC(ref NPC.HitModifiers modifiers)
+    public override void ModifyPlayerHitNPC(int emotionLevel, ref NPC.HitModifiers modifiers)
     {
         // miss chance
         var noDMG = new StatModifier();
         noDMG *= 0;
         noDMG -= 1;
-        modifiers.SourceDamage = Main.rand.NextFloat() < PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
+        modifiers.SourceDamage = Main.rand.NextFloat() < GetPlayerMissChancePercent(emotionLevel) ? noDMG : modifiers.SourceDamage;
 
         // extra crit chance
-        if (Main.rand.NextFloat() < PLAYER_EXTRA_CRIT_CHANCE_PERCENT)
+        if (Main.rand.NextFloat() < GetPlayerExtraCritChancePercent(emotionLevel))
         {
             modifiers.SetCrit();
         }
     }
 
-    public override void ModifyPlayerHitPlayer(ref Player.HurtModifiers modifiers)
+    public override void ModifyPlayerHitPlayer(int emotionLevel, ref Player.HurtModifiers modifiers)
     {
         // miss chance
         var noDMG = new StatModifier();
         noDMG *= 0;
         noDMG -= 1;
-        modifiers.SourceDamage = Main.rand.NextFloat() < PLAYER_MISS_CHANCE_PERCENT ? noDMG : modifiers.SourceDamage;
+        modifiers.SourceDamage = Main.rand.NextFloat() < GetPlayerMissChancePercent(emotionLevel) ? noDMG : modifiers.SourceDamage;
 
         // extra crit chance
-        if (Main.rand.NextFloat() < PLAYER_EXTRA_CRIT_CHANCE_PERCENT && modifiers.SourceDamage != noDMG)
+        if (Main.rand.NextFloat() < GetPlayerExtraCritChancePercent(emotionLevel) && modifiers.SourceDamage != noDMG)
         {
             modifiers.SourceDamage *= 1.5f;
         }
@@ -164,14 +172,15 @@ public abstract class HappyEmotionBase : EmotionBuff
     public virtual void HappyModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
     {
-        int speedUp = (int)MathF.Round(PLAYER_MOVEMENT_SPEED_INCREASE_PERCENT * 100);
-        int extraCrit = (int)MathF.Round(PLAYER_EXTRA_CRIT_CHANCE_PERCENT * 100);
-        int miss = (int)MathF.Round(PLAYER_MISS_CHANCE_PERCENT * 100);
+        int emotionLevel = GetTooltipEmotionLevel();
+        int speedUp = (int)MathF.Round(GetPlayerMovementSpeedIncreasePercent(emotionLevel) * 100);
+        int extraCrit = (int)MathF.Round(GetPlayerExtraCritChancePercent(emotionLevel) * 100);
+        int miss = (int)MathF.Round(GetPlayerMissChancePercent(emotionLevel) * 100);
         string buffTip = $"Speed up by {speedUp}%!" +
             $" Crit rate up by {extraCrit}%!" +
             $" Hit chance down by {miss}%!";
         tip = buffTip;
         HappyModifyBuffText(ref buffName, ref tip, ref rare);
-        FinalTierModifyBuffText(ref buffName, ref tip, ref rare);
+        FinalTierModifyBuffText(emotionLevel, ref buffName, ref tip, ref rare);
     }
 }

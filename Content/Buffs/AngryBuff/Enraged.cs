@@ -6,7 +6,7 @@ public class Enraged : AngryEmotionBase
 {
     Enraged()
     {
-        emotionLevel = 2;
+        EmotionTier = 2;
         dustSpawnFrequency = 2;
     }
 }

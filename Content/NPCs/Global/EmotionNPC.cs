@@ -15,6 +15,7 @@ public class EmotionNPC : GlobalNPC, IEmotionEntity
     public override bool InstancePerEntity => true;
     public EmotionType Emotion { get; set; }
     public EmotionBuff ActiveEmotionBuff { get; set; }
+    public int EmotionLevel { get; set; }
     public bool ImmuneToEmotionChange { get; set; }
 
     public int colorTimer;
@@ -41,6 +42,7 @@ public class EmotionNPC : GlobalNPC, IEmotionEntity
     {
         Emotion = EmotionType.NONE;
         ActiveEmotionBuff = null;
+        EmotionLevel = 0;
     }
 
 
@@ -137,17 +139,17 @@ public class EmotionNPC : GlobalNPC, IEmotionEntity
 
     private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, ref NPC.HitModifiers modifiers)
     {
-        attacker.ActiveEmotionBuff?.ModifyPlayerOutgoingDamage(ref modifiers);
+        attacker.ActiveEmotionBuff?.ModifyPlayerOutgoingDamage(attacker.EmotionLevel, ref modifiers);
     }
 
     private static void ApplyAdditionalEmotionModifiers(IEmotionEntity attacker, IEmotionEntity defender, ref Player.HurtModifiers modifiers)
     {
         // Attacker (NPC or Player) hitting Player
-        attacker.ActiveEmotionBuff?.ModifyNPCOutgoingDamage(ref modifiers);
-        attacker.ActiveEmotionBuff?.ModifyPlayerHitPlayer(ref modifiers); // In case attacker is player (PVP)
+        attacker.ActiveEmotionBuff?.ModifyNPCOutgoingDamage(attacker.EmotionLevel, ref modifiers);
+        attacker.ActiveEmotionBuff?.ModifyPlayerHitPlayer(attacker.EmotionLevel, ref modifiers); // In case attacker is player (PVP)
 
         // Defender (Player) taking damage
-        defender.ActiveEmotionBuff?.ModifyPlayerIncomingDamage(ref modifiers);
+        defender.ActiveEmotionBuff?.ModifyPlayerIncomingDamage(defender.EmotionLevel, ref modifiers);
     }
 
     private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, ref NPC.HitModifiers modifiers)
@@ -164,7 +166,7 @@ public class EmotionNPC : GlobalNPC, IEmotionEntity
         // So `ApplyAdditionalEmotionModifiers` needs to call THAT too if attacker is Player.
         // But `ModifyPlayerOutgoingDamage` is for generic damage increase (Angry).
 
-        attacker.ActiveEmotionBuff?.ModifyPlayerHitNPC(ref modifiers);
+        attacker.ActiveEmotionBuff?.ModifyPlayerHitNPC(attacker.EmotionLevel, ref modifiers);
     }
 
     private static void EmotionalAdvantage(IEmotionEntity attacker, IEmotionEntity defender, ref Player.HurtModifiers modifiers)
@@ -224,6 +226,6 @@ public class EmotionNPC : GlobalNPC, IEmotionEntity
     public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
     {
         EmotionPlayer emotionPlayer = target.GetModPlayer<EmotionPlayer>();
-        emotionPlayer.ActiveEmotionBuff?.OnPlayerHurt(target, hurtInfo);
+        emotionPlayer.ActiveEmotionBuff?.OnPlayerHurt(target, emotionPlayer.EmotionLevel, hurtInfo);
     }
 }

@@ -48,17 +48,14 @@ public class AirHorn : EmotionBuffItem
 
     public override bool CanUseItemEmotionBuffItem(Player player)
     {
-        EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
-
-        return emotionPlayer.Emotion == EmotionType.ANGRY || emotionPlayer.Emotion == EmotionType.NONE;
+        return EmotionSystem.CanApplyOrPromoteEmotion<AngryEmotionBase>(player);
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
-        EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
+        return EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
             player: player,
             duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
         );
-        return true;
     }
 }

@@ -6,7 +6,7 @@ public class Hysterical : HappyEmotionBase
 {
     Hysterical()
     {
-        emotionLevel = 4;
+        EmotionTier = 4;
         dustSpawnFrequency = 4;
     }
 }

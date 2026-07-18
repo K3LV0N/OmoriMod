@@ -6,7 +6,7 @@ public class Ecstatic : HappyEmotionBase
 {
     Ecstatic()
     {
-        emotionLevel = 2;
+        EmotionTier = 2;
         dustSpawnFrequency = 2;
     }
 }

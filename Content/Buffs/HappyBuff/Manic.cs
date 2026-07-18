@@ -6,7 +6,7 @@ public class Manic : HappyEmotionBase
 {
     Manic()
     {
-        emotionLevel = 3;
+        EmotionTier = 3;
         dustSpawnFrequency = 3;
     }
 }

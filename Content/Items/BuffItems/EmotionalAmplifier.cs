@@ -34,19 +34,37 @@ public class EmotionalAmplifier : EmotionBuffItem
 
         int? currentTier = EmotionSystem.GetEmotionTier(buffType.Value);
         int? maxTier = EmotionSystem.GetMaxEmotionTier(emotionBuff.Emotion);
-        return currentTier.HasValue
+        bool isEligibleTier = EmotionSystem.GetEmotionVariant(buffType.Value) == EmotionBuffVariant.Standard
+            && currentTier.HasValue
             && maxTier.HasValue
             && currentTier.Value >= maxTier.Value - 1;
+        if (!isEligibleTier)
+        {
+            return false;
+        }
+
+        return emotionBuff switch
+        {
+            AngryEmotionBase => EmotionSystem.CanApplyOrPromoteEmotion<AngryEmotionBase>(player),
+            HappyEmotionBase => EmotionSystem.CanApplyOrPromoteEmotion<HappyEmotionBase>(player),
+            SadEmotionBase => EmotionSystem.CanApplyOrPromoteEmotion<SadEmotionBase>(player),
+            _ => false
+        };
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
         int? buffType = EmotionSystem.GetEmotionType(player);
+        if (!buffType.HasValue)
+        {
+            return false;
+        }
+
         ModBuff buff = ModContent.GetModBuff(buffType.Value);
 
         if (buff is AngryEmotionBase)
         {
-            EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
+            return EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
                 player: player,
                 duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
                 canPromoteToFinalTier: true
@@ -54,7 +72,7 @@ public class EmotionalAmplifier : EmotionBuffItem
         }
         if (buff is HappyEmotionBase)
         {
-            EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
+            return EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
                 player: player,
                 duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
                 canPromoteToFinalTier: true
@@ -62,13 +80,13 @@ public class EmotionalAmplifier : EmotionBuffItem
         }
         if (buff is SadEmotionBase)
         {
-            EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
+            return EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
                 player: player,
                 duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
                 canPromoteToFinalTier: true
             );
         }
 
-        return true;
+        return false;
     }
 }

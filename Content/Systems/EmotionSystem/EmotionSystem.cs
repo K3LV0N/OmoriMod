@@ -102,7 +102,7 @@ public class EmotionSystem : ModSystem
                 continue;
             }
 
-            int tier = emotionBuff.emotionLevel;
+            int tier = emotionBuff.EmotionTier;
             if (tier < 1)
             {
                 throw new InvalidOperationException(
@@ -273,7 +273,17 @@ public class EmotionSystem : ModSystem
 
     public static int GetEmotionLevel(IEmotionEntity entity)
     {
-        return entity.ActiveEmotionBuff != null ? entity.ActiveEmotionBuff.emotionLevel : 0;
+        return entity.EmotionLevel;
+    }
+
+    /// <summary>
+    /// Returns the registered variant of an emotion buff.
+    /// </summary>
+    public static EmotionBuffVariant? GetEmotionVariant(int buffType)
+    {
+        return EmotionMetadataByBuffType.TryGetValue(buffType, out EmotionBuffMetadata metadata)
+            ? metadata.Variant
+            : null;
     }
 
     /// <summary>
@@ -391,6 +401,28 @@ public class EmotionSystem : ModSystem
         }
         return true;
     }
+
+    /// <summary>
+    /// Checks whether <see cref="ApplyOrPromoteEmotion{T}"/> can perform a standard
+    /// emotion application, refresh, or promotion for this player.
+    /// </summary>
+    public static bool CanApplyOrPromoteEmotion<T>(Player player) where T : EmotionBuff
+    {
+        if (!CanApplyEmotion<T>(player))
+        {
+            return false;
+        }
+
+        foreach (int buffID in player.buffType)
+        {
+            if (ModContent.GetModBuff(buffID) is T)
+            {
+                return GetEmotionVariant(buffID) == EmotionBuffVariant.Standard;
+            }
+        }
+
+        return GetEmotionBuffType<T>(1).HasValue;
+    }
     
 
     /// <summary>
@@ -404,23 +436,23 @@ public class EmotionSystem : ModSystem
         return currentTier.HasValue && maxTier.HasValue && (buffData.Variant == EmotionBuffVariant.Standard);
     }
 
-    private static void PromoteEmotion<T>(T currentEmotion, Player player, int duration, bool canPromoteToFinalTier) where T : EmotionBuff
+    private static bool PromoteEmotion<T>(T currentEmotion, Player player, int duration, bool canPromoteToFinalTier) where T : EmotionBuff
     {
         int? currentTier = GetEmotionTier(currentEmotion.Type);
         int? maxTier =  GetMaxEmotionTier(currentEmotion.Emotion);
-        if (!IsPromotableEmotion(currentEmotion.Type, currentTier, maxTier)) {return;}
+        if (!IsPromotableEmotion(currentEmotion.Type, currentTier, maxTier)) { return false; }
 
         if (currentTier.Value == maxTier.Value)
         {
             player.AddBuff(currentEmotion.Type, duration);
-            return;
+            return true;
         }
 
         bool isTierBeforeFinal = currentTier.Value == maxTier.Value - 1;
         if (isTierBeforeFinal && !canPromoteToFinalTier)
         {
             player.AddBuff(currentEmotion.Type, duration);
-            return;
+            return true;
         }
 
         int? nextEmotionType = GetNextTierEmotionType(currentEmotion);
@@ -428,12 +460,15 @@ public class EmotionSystem : ModSystem
         {
             player.ClearBuff(currentEmotion.Type);
             player.AddBuff(nextEmotionType.Value, duration);
+            return true;
         }
+
+        return false;
     }
 
     
 
-    public static void ApplyOrPromoteEmotion<T>(Player player, int duration, bool canPromoteToFinalTier = false) where T : EmotionBuff
+    public static bool ApplyOrPromoteEmotion<T>(Player player, int duration, bool canPromoteToFinalTier = false) where T : EmotionBuff
     {
         // first, remove incompatible emotions
         RemoveIncompatibleEmotions<T>(player);
@@ -443,9 +478,8 @@ public class EmotionSystem : ModSystem
         {
             if (ModContent.GetModBuff(buffID) is T currentEmotion)
             {
-                // promotable emotion found, now promote
-                PromoteEmotion<T>(currentEmotion, player, duration, canPromoteToFinalTier);
-                return;
+                // Non-standard variants such as accessory emotions cannot be promoted.
+                return GetEmotionVariant(buffID) == EmotionBuffVariant.Standard && PromoteEmotion<T>(currentEmotion, player, duration, canPromoteToFinalTier);
             }
         }
 
@@ -454,6 +488,9 @@ public class EmotionSystem : ModSystem
         if (buffType.HasValue)
         {
             player.AddBuff(buffType.Value, duration);
+            return true;
         }
+
+        return false;
     }
 }

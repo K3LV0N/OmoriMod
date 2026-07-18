@@ -6,7 +6,7 @@ public class Miserable : SadEmotionBase
 {
     Miserable()
     {
-        emotionLevel = 3;
+        EmotionTier = 3;
         dustSpawnFrequency = 3;
     }
 }

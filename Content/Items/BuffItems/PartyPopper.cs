@@ -24,17 +24,14 @@ public class PartyPopper : EmotionBuffItem
 
     public override bool CanUseItemEmotionBuffItem(Player player)
     {
-        EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
-
-        return emotionPlayer.Emotion == EmotionType.HAPPY || emotionPlayer.Emotion == EmotionType.NONE;
+        return EmotionSystem.CanApplyOrPromoteEmotion<HappyEmotionBase>(player);
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
-        EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
+        return EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
             player: player,
             duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
         );
-        return true;
     }
 }

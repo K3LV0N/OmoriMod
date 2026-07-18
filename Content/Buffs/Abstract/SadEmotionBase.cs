@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 using OmoriMod.Content.NPCs.Global;
+using OmoriMod.Content.Players;
 using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
@@ -52,13 +53,15 @@ public abstract class SadEmotionBase : EmotionBuff
 
 
     // defense up
-    public float PLAYER_DEFENSE_INCREASE_PERCENT => LinearPerLevel(
+    public float GetPlayerDefenseIncreasePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: PLAYER_DEFENSE_INCREASE_MAX,
         rate: PLAYER_DEFENSE_INCREASE_RATE,
         maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
         startingValue: PLAYER_DEFENSE_INCREASE_STARTING_VALUE
         );
-    public float NPC_DEFENSE_INCREASE_PERCENT => LinearPerLevel(
+    public float GetNPCDefenseIncreasePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: NPC_DEFENSE_INCREASE_MAX,
         rate: NPC_DEFENSE_INCREASE_RATE,
         maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
@@ -66,13 +69,15 @@ public abstract class SadEmotionBase : EmotionBuff
         );
 
     // movement speed down
-    public float PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT => LinearPerLevel(
+    public float GetPlayerMovementSpeedDecreasePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: PLAYER_MOVEMENT_SPEED_DECREASE_MAX,
         rate: PLAYER_MOVEMENT_SPEED_DECREASE_RATE,
         maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
         startingValue: PLAYER_MOVEMENT_SPEED_DECREASE_STARTING_VALUE
         );
-    public float NPC_MOVEMENT_SPEED_DECREASE_PERCENT => LinearPerLevel(
+    public float GetNPCMovementSpeedDecreasePercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: NPC_MOVEMENT_SPEED_DECREASE_MAX,
         rate: NPC_MOVEMENT_SPEED_DECREASE_RATE,
         maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
@@ -80,7 +85,8 @@ public abstract class SadEmotionBase : EmotionBuff
         );
 
     // damage to mana damage
-    public float HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT => LinearPerLevel(
+    public float GetHealthDamageToManaDamageConversionPercent(int emotionLevel) => LinearPerLevel(
+        emotionLevel,
         max: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_MAX,
         rate: HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_RATE,
         maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
@@ -98,51 +104,53 @@ public abstract class SadEmotionBase : EmotionBuff
     public override void UpdateEmotionBuff(Player player, ref int buffIndex)
     {
         EmotionSystem.RemoveIncompatibleEmotions<SadEmotionBase>(player);
-        ModifyPlayerDefense(player);
-        ModifyPlayerMovement(player); // Sad also reduces speed
+        int emotionLevel = player.GetModPlayer<EmotionPlayer>().EmotionLevel;
+        ModifyPlayerDefense(player, emotionLevel);
+        ModifyPlayerMovement(player, emotionLevel); // Sad also reduces speed
     }
 
     public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
     {
         EmotionSystem.RemoveIncompatibleEmotions<SadEmotionBase>(npc);
-        ModifyNPCDefense(npc);
-        ModifyNPCMovement(npc);
+        int emotionLevel = npc.GetGlobalNPC<EmotionNPC>().EmotionLevel;
+        ModifyNPCDefense(npc, emotionLevel);
+        ModifyNPCMovement(npc, emotionLevel);
     }
 
-    public override void ModifyPlayerDefense(Player player)
+    public override void ModifyPlayerDefense(Player player, int emotionLevel)
     {
-        player.statDefense += (int)(player.statDefense * PLAYER_DEFENSE_INCREASE_PERCENT);
+        player.statDefense += (int)(player.statDefense * GetPlayerDefenseIncreasePercent(emotionLevel));
     }
 
-    public override void ModifyPlayerMovement(Player player)
+    public override void ModifyPlayerMovement(Player player, int emotionLevel)
     {
-        player.moveSpeed *= 1 - PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT;
+        player.moveSpeed *= 1 - GetPlayerMovementSpeedDecreasePercent(emotionLevel);
     }
 
-    public override void ModifyNPCDefense(NPC npc)
+    public override void ModifyNPCDefense(NPC npc, int emotionLevel)
     {
-        int increasedDefense = npc.defDefense * (int)(1 + NPC_DEFENSE_INCREASE_PERCENT);
+        int increasedDefense = npc.defDefense * (int)(1 + GetNPCDefenseIncreasePercent(emotionLevel));
         npc.defense = increasedDefense;
     }
 
-    public override void ModifyNPCMovement(NPC npc)
+    public override void ModifyNPCMovement(NPC npc, int emotionLevel)
     {
         // CalculateNewPosition logic from Helper
-        float modifier = -NPC_MOVEMENT_SPEED_DECREASE_PERCENT;
+        float modifier = -GetNPCMovementSpeedDecreasePercent(emotionLevel);
         Vector2 change;
         if (npc.noGravity) { change = npc.velocity * modifier; }
         else { change = new Vector2(npc.velocity.X * modifier, 0); }
         npc.position += change;
     }
 
-    public override void ModifyPlayerIncomingDamage(ref Player.HurtModifiers modifiers)
+    public override void ModifyPlayerIncomingDamage(int emotionLevel, ref Player.HurtModifiers modifiers)
     {
-        modifiers.SourceDamage *= 1 - HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
+        modifiers.SourceDamage *= 1 - GetHealthDamageToManaDamageConversionPercent(emotionLevel);
     }
 
-    public override void OnPlayerHurt(Player player, Player.HurtInfo hurtInfo)
+    public override void OnPlayerHurt(Player player, int emotionLevel, Player.HurtInfo hurtInfo)
     {
-        float manaChange = hurtInfo.SourceDamage * HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT;
+        float manaChange = hurtInfo.SourceDamage * GetHealthDamageToManaDamageConversionPercent(emotionLevel);
         if ((int)(player.statMana - manaChange) > 0)
         {
             player.statMana = (int)(player.statMana - manaChange);
@@ -156,14 +164,15 @@ public abstract class SadEmotionBase : EmotionBuff
     public virtual void SadModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
     {
-        int defenseUp = (int)MathF.Round(PLAYER_DEFENSE_INCREASE_PERCENT * 100);
-        int speedDown = (int)MathF.Round(PLAYER_MOVEMENT_SPEED_DECREASE_PERCENT * 100);
-        int mana = (int)MathF.Round(HEALTH_DAMAGE_TO_MANA_DAMAGE_CONVERSION_PERCENT * 100);
+        int emotionLevel = GetTooltipEmotionLevel();
+        int defenseUp = (int)MathF.Round(GetPlayerDefenseIncreasePercent(emotionLevel) * 100);
+        int speedDown = (int)MathF.Round(GetPlayerMovementSpeedDecreasePercent(emotionLevel) * 100);
+        int mana = (int)MathF.Round(GetHealthDamageToManaDamageConversionPercent(emotionLevel) * 100);
         string buffTip = $"Defense up by {defenseUp}%!" +
             $" Speed down by {speedDown}%!" +
             $" {mana}% of damage convertd to mana damage!";
         tip = buffTip;
         SadModifyBuffText(ref buffName, ref tip, ref rare);
-        FinalTierModifyBuffText(ref buffName, ref tip, ref rare);
+        FinalTierModifyBuffText(emotionLevel, ref buffName, ref tip, ref rare);
     }
 }

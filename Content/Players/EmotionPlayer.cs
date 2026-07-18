@@ -10,6 +10,7 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
 {
     public EmotionType Emotion { get; set; }
     public EmotionBuff ActiveEmotionBuff { get; set; }
+    public int EmotionLevel { get; set; }
 
     public bool ImmuneToEmotionChange => false;
     public int scalingEmotionLevel;
@@ -59,6 +60,7 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
     {
         Emotion = EmotionType.NONE;
         ActiveEmotionBuff = null;
+        EmotionLevel = 0;
         ResetMidEmotionLevel();
         ResetScalingEmotionLevel();
     }

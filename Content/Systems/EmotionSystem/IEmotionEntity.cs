@@ -6,6 +6,7 @@ public interface IEmotionEntity : IEmotionObject
 {
     public bool ImmuneToEmotionChange { get; }
     public EmotionBuff ActiveEmotionBuff { get; set; }
+    public int EmotionLevel { get; set; }
 
     /// <summary>
     /// Calculates which <see cref="IEmotionEntity"/> has the emotional advantage

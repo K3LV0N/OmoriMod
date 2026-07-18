@@ -24,17 +24,14 @@ public class RainCloud : EmotionBuffItem
 
     public override bool CanUseItemEmotionBuffItem(Player player)
     {
-        EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
-
-        return emotionPlayer.Emotion == EmotionType.SAD || emotionPlayer.Emotion == EmotionType.NONE;
+        return EmotionSystem.CanApplyOrPromoteEmotion<SadEmotionBase>(player);
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
-        EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
+        return EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
             player: player,
             duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
         );
-        return true;
     }
 }
