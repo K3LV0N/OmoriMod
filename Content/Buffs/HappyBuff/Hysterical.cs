@@ -7,6 +7,6 @@ public class Hysterical : HappyEmotionBase
     Hysterical()
     {
         EmotionTier = 4;
-        dustSpawnFrequency = 4;
+        _dustSpawnFrequency = 4;
     }
 }

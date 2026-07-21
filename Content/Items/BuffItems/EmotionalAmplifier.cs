@@ -1,11 +1,10 @@
-using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.Emotion_Classes;
 using OmoriMod.Content.Systems.EmotionSystem;
 
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Items.BuffItems;
 
@@ -13,7 +12,7 @@ public class EmotionalAmplifier : EmotionBuffItem
 {
     EmotionalAmplifier()
     {
-        cooldownTicks = 5;
+        _cooldownTicks = 5;
         itemTypeForResearch = ItemTypeForResearch.BuffPotion;
     }
     public override void SetDefaults()
@@ -24,69 +23,14 @@ public class EmotionalAmplifier : EmotionBuffItem
 
     public override bool CanUseItemEmotionBuffItem(Player player)
     {
-        int? buffType = EmotionSystem.GetEmotionType(player);
-        if (!buffType.HasValue) return false;
-
-        if (ModContent.GetModBuff(buffType.Value) is not EmotionBuff emotionBuff)
-        {
-            return false;
-        }
-
-        int? currentTier = EmotionSystem.GetEmotionTier(buffType.Value);
-        int? maxTier = EmotionSystem.GetMaxEmotionTier(emotionBuff.Emotion);
-        bool isEligibleTier = EmotionSystem.GetEmotionVariant(buffType.Value) == EmotionBuffVariant.Standard
-            && currentTier.HasValue
-            && maxTier.HasValue
-            && currentTier.Value >= maxTier.Value - 1;
-        if (!isEligibleTier)
-        {
-            return false;
-        }
-
-        return emotionBuff switch
-        {
-            AngryEmotionBase => EmotionSystem.CanApplyOrPromoteEmotion<AngryEmotionBase>(player),
-            HappyEmotionBase => EmotionSystem.CanApplyOrPromoteEmotion<HappyEmotionBase>(player),
-            SadEmotionBase => EmotionSystem.CanApplyOrPromoteEmotion<SadEmotionBase>(player),
-            _ => false
-        };
+        return EmotionSystem.CanApplyFinalTierEmotion(player);
     }
 
     public override bool? UseItemEmotionBuffItem(Player player)
     {
-        int? buffType = EmotionSystem.GetEmotionType(player);
-        if (!buffType.HasValue)
-        {
-            return false;
-        }
-
-        ModBuff buff = ModContent.GetModBuff(buffType.Value);
-
-        if (buff is AngryEmotionBase)
-        {
-            return EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
-                player: player,
-                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
-                canPromoteToFinalTier: true
-            );
-        }
-        if (buff is HappyEmotionBase)
-        {
-            return EmotionSystem.ApplyOrPromoteEmotion<HappyEmotionBase>(
-                player: player,
-                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
-                canPromoteToFinalTier: true
-            );
-        }
-        if (buff is SadEmotionBase)
-        {
-            return EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
-                player: player,
-                duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60,
-                canPromoteToFinalTier: true
-            );
-        }
-
-        return false;
+        return EmotionSystem.ApplyFinalTierEmotion(
+            player: player,
+            duration: EmotionStatTuning.EmotionTimeInSeconds * 60
+        );
     }
 }

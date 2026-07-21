@@ -7,6 +7,6 @@ public class Livid : AngryEmotionBase
     Livid()
     {
         EmotionTier = 4;
-        dustSpawnFrequency = 4;
+        _dustSpawnFrequency = 4;
     }
 }

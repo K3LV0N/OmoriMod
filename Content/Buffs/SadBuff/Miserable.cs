@@ -7,6 +7,6 @@ public class Miserable : SadEmotionBase
     Miserable()
     {
         EmotionTier = 3;
-        dustSpawnFrequency = 3;
+        _dustSpawnFrequency = 3;
     }
 }

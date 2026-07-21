@@ -10,77 +10,39 @@ using Terraria;
 
 namespace OmoriMod.Content.Buffs.Abstract;
 
+/// <summary>
+/// Implements the Angry emotion family: increased outgoing damage at the cost of defense.
+/// </summary>
+/// <remarks>
+/// Concrete Angry buffs only declare their tier and visual frequency; all shared stat scaling,
+/// combat hooks, incompatibility cleanup, and tooltip text are handled here.
+/// </remarks>
 public abstract class AngryEmotionBase : EmotionBuff
 {
-
-
-    // Player Configuration
-
-    // ===== Damage Increase =====
-    private const float PLAYER_DAMAGE_INCREASE_MAX = 60.0f;
-    private const float PLAYER_DAMAGE_INCREASE_RATE = 7.0f;
-    private const float PLAYER_DAMAGE_INCREASE_STARTING_VALUE = 2.0f;
-
-    // ===== Defense Decrease =====
-    private const float PLAYER_DEFENSE_DECREASE_MAX = 99.9f;
-    private const float PLAYER_DEFENSE_DECREASE_RATE = 12.5f;
-    private const float PLAYER_DEFENSE_DECREASE_STARTING_VALUE = 12.5f;
-
-
-
-
-    // NPC Configuration
-
-    // ===== Damage Increase =====
-    private const float NPC_DAMAGE_INCREASE_MAX = 50.0f;
-    private const float NPC_DAMAGE_INCREASE_RATE = 5.0f;
-    private const float NPC_DAMAGE_INCREASE_STARTING_VALUE = 7.0f;
-
-    // ===== Defense Decrease =====
-    private const float NPC_DEFENSE_DECREASE_MAX = 40.0f;
-    private const float NPC_DEFENSE_DECREASE_RATE = 8.5f;
-    private const float NPC_DEFENSE_DECREASE_STARTING_VALUE = 3.5f;
-
-
-
-
-    public float GetPlayerDamageIncreasePercent(int emotionLevel) => LinearPerLevel(
+    public static float GetPlayerDamageIncreasePercent(int emotionLevel) => LinearPerLevel(
         emotionLevel,
-        max: PLAYER_DAMAGE_INCREASE_MAX,
-        rate: PLAYER_DAMAGE_INCREASE_RATE,
-        maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
-        startingValue: PLAYER_DAMAGE_INCREASE_STARTING_VALUE
-        );
+        EmotionStatTuning.Angry.PlayerStats.DamageIncrease,
+        EmotionStatTuning.PlayerMaxEmotionLevel);
 
-    public float GetNPCDamageIncreasePercent(int emotionLevel) => LinearPerLevel(
+    public static float GetNpcDamageIncreasePercent(int emotionLevel) => LinearPerLevel(
         emotionLevel,
-        max: NPC_DAMAGE_INCREASE_MAX,
-        rate: NPC_DAMAGE_INCREASE_RATE,
-        maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
-        startingValue: NPC_DAMAGE_INCREASE_STARTING_VALUE
-    );
+        EmotionStatTuning.Angry.NpcStats.DamageIncrease,
+        EmotionStatTuning.NpcMaxEmotionLevel);
 
-    public float GetPlayerDefenseDecreasePercent(int emotionLevel) => LinearPerLevel(
+    public static float GetPlayerDefenseDecreasePercent(int emotionLevel) => LinearPerLevel(
         emotionLevel,
-        max: PLAYER_DEFENSE_DECREASE_MAX,
-        rate: PLAYER_DEFENSE_DECREASE_RATE,
-        maxEmotionLevel: EmotionSystem.PLAYER_MAX_EMOTION_LEVEL,
-        startingValue: PLAYER_DEFENSE_DECREASE_STARTING_VALUE
-    );
+        EmotionStatTuning.Angry.PlayerStats.DefenseDecrease,
+        EmotionStatTuning.PlayerMaxEmotionLevel);
 
-    public float GetNPCDefenseDecreasePercent(int emotionLevel) => LinearPerLevel(
+    public static float GetNpcDefenseDecreasePercent(int emotionLevel) => LinearPerLevel(
         emotionLevel,
-        max: NPC_DEFENSE_DECREASE_MAX,
-        rate: NPC_DEFENSE_DECREASE_RATE,
-        maxEmotionLevel: EmotionSystem.NPC_MAX_EMOTION_LEVEL,
-        startingValue: NPC_DEFENSE_DECREASE_STARTING_VALUE
-    );
+        EmotionStatTuning.Angry.NpcStats.DefenseDecrease,
+        EmotionStatTuning.NpcMaxEmotionLevel);
 
-
-    public AngryEmotionBase()
+    protected AngryEmotionBase()
     {
-        Emotion = EmotionType.ANGRY;
-        dustColor = Color.Red;
+        Emotion = EmotionType.Angry;
+        _dustColor = Color.Red;
     }
 
     public override void UpdateEmotionBuff(Player player, ref int buffIndex)
@@ -92,30 +54,40 @@ public abstract class AngryEmotionBase : EmotionBuff
     public override void UpdateEmotionBuff(NPC npc, ref int buffIndex)
     {
         EmotionSystem.RemoveIncompatibleEmotions<AngryEmotionBase>(npc);
-        ModifyNPCDefense(npc, npc.GetGlobalNPC<EmotionNPC>().EmotionLevel);
+        ModifyNpcDefense(npc, npc.GetGlobalNPC<EmotionNPC>().EmotionLevel);
     }
 
     public override void ModifyPlayerOutgoingDamage(int emotionLevel, ref NPC.HitModifiers modifiers)
     {
-        modifiers.SourceDamage *= 1 + GetPlayerDamageIncreasePercent(emotionLevel);
+        modifiers.SourceDamage += GetPlayerDamageIncreasePercent(emotionLevel);
     }
 
-    public override void ModifyNPCOutgoingDamage(int emotionLevel, ref Player.HurtModifiers modifiers)
+    public override void ModifyPlayerOutgoingDamage(int emotionLevel, ref Player.HurtModifiers modifiers)
     {
-        modifiers.SourceDamage *= 1 + GetNPCDamageIncreasePercent(emotionLevel);
+        modifiers.SourceDamage += GetPlayerDamageIncreasePercent(emotionLevel);
+    }
+
+    public override void ModifyNpcOutgoingDamage(int emotionLevel, ref Player.HurtModifiers modifiers)
+    {
+        modifiers.SourceDamage += GetNpcDamageIncreasePercent(emotionLevel);
+    }
+
+    public override void ModifyNpcHitNpc(int emotionLevel, ref NPC.HitModifiers modifiers)
+    {
+        modifiers.SourceDamage += GetNpcDamageIncreasePercent(emotionLevel);
     }
 
     public override void ModifyPlayerDefense(Player player, int emotionLevel)
     {
-        player.statDefense -= (int)(player.statDefense * GetPlayerDefenseDecreasePercent(emotionLevel));
+        player.statDefense *= (1 - GetPlayerDefenseDecreasePercent(emotionLevel));
     }
 
-    public override void ModifyNPCDefense(NPC npc, int emotionLevel)
+    public override void ModifyNpcDefense(NPC npc, int emotionLevel)
     {
-        int decreasedDefense = npc.defDefense * (int)(1 - GetNPCDefenseDecreasePercent(emotionLevel));
-        npc.defense = decreasedDefense;
+        npc.defense = (int)(npc.defDefense * (1.0f - GetNpcDefenseDecreasePercent(emotionLevel)));
     }
 
+    /// <summary>Allows a concrete Angry tier to append or replace tier-specific tooltip content.</summary>
     public virtual void AngryModifyBuffText(ref string buffName, ref string tip, ref int rare) { }
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
     {

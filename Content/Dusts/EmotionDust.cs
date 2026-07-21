@@ -16,5 +16,4 @@ public class EmotionDust : ModDust
         dust.noLight = true;
         dust.scale = 1f;
     }
-
 }

@@ -2,6 +2,7 @@ using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Buffs.SadBuff;
 using OmoriMod.Content.Items.Abstract_Classes;
 using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
+using OmoriMod.Content.Items.Abstract_Classes.Emotion_Classes;
 using OmoriMod.Content.Players;
 using OmoriMod.Content.Systems.EmotionSystem;
 
@@ -18,7 +19,7 @@ public class RainCloud : EmotionBuffItem
     }
     public override void SetDefaults()
     {
-        SetEmotionType(EmotionType.SAD);
+        SetEmotionType(EmotionType.Sad);
         EmotionItemClone<AirHorn>();
     }
 
@@ -31,7 +32,7 @@ public class RainCloud : EmotionBuffItem
     {
         return EmotionSystem.ApplyOrPromoteEmotion<SadEmotionBase>(
             player: player,
-            duration: EmotionSystem.EMOTION_TIME_IN_SECONDS * 60
+            duration: EmotionStatTuning.EmotionTimeInSeconds * 60
         );
     }
 }

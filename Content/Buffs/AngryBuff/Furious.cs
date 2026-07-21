@@ -7,6 +7,6 @@ public class Furious : AngryEmotionBase
     Furious()
     {
         EmotionTier = 3;
-        dustSpawnFrequency = 3;
+        _dustSpawnFrequency = 3;
     }
 }

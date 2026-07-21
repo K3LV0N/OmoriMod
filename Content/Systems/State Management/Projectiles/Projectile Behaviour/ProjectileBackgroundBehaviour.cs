@@ -5,6 +5,4 @@ namespace OmoriMod.Content.Systems.State_Management.Projectiles.Projectile_Behav
 /// <summary>
 /// Creates a background behaviour. Do NOT change any <see cref="BehaviourInfo"/> in any instances of this class
 /// </summary>
-public abstract class ProjectileBackgroundBehaviour() : ProjectileBehaviour(1)
-{
-}
+public abstract class ProjectileBackgroundBehaviour() : ProjectileBehaviour(1);

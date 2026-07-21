@@ -2,6 +2,8 @@
 
 Thanks for wanting to help improve OmoriMod.
 
+Return to the [documentation index](README.md).
+
 ## Development setup
 
 This project includes VS Code build and launch configurations for building the mod and debugging it in tModLoader. The configurations use the `TMLSTEAMPATH` environment variable so that each contributor can use their own tModLoader installation.
@@ -22,7 +24,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 
 After setup, fully close and reopen VS Code so it can read the new environment variable. To build and debug the mod, open the **Run and Debug** panel (`Ctrl+Shift+D`), select **Launch tModLoader**, and press `F5`.
 
-For additional setup troubleshooting, see the [Dev Setup section in the README](README.md#dev-setup-vs-code).
+For additional setup troubleshooting, see the [Dev Setup section in the project README](../README.md#dev-setup-vs-code).
 
 ## Formatting and linting
 

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using OmoriMod.Content.Items.Abstract_Classes;
+using OmoriMod.Content.Items.Abstract_Classes.BaseClasses;
 using OmoriMod.Content.Players;
 
 using ReLogic.Content;

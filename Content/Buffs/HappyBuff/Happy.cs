@@ -7,6 +7,6 @@ public class Happy : HappyEmotionBase
     Happy()
     {
         EmotionTier = 1;
-        dustSpawnFrequency = 1;
+        _dustSpawnFrequency = 1;
     }
 }

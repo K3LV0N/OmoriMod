@@ -22,7 +22,7 @@ public class SentientKnifeProjectile : ModSummonProjectile
         Projectile.penetrate = -1; // Needed so the minion doesn't despawn on collision with enemies or tiles
 
         SetContactMinionDefaults();
-        SetEmotionType(EmotionType.SAD);
+        SetEmotionType(EmotionType.Sad);
     }
 
     public override bool MinionContactDamage()

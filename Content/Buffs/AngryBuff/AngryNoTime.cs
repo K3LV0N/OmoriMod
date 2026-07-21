@@ -9,7 +9,7 @@ public class AngryNoTime : AngryEmotionBase
     AngryNoTime()
     {
         EmotionTier = 1;
-        dustSpawnFrequency = 1;
+        _dustSpawnFrequency = 1;
     }
     public override void SetStaticDefaults()
     {

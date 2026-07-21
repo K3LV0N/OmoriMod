@@ -7,6 +7,6 @@ public class Depressed : SadEmotionBase
     Depressed()
     {
         EmotionTier = 2;
-        dustSpawnFrequency = 2;
+        _dustSpawnFrequency = 2;
     }
 }

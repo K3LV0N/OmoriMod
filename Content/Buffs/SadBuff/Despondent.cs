@@ -7,6 +7,6 @@ public class Despondent : SadEmotionBase
     Despondent()
     {
         EmotionTier = 4;
-        dustSpawnFrequency = 4;
+        _dustSpawnFrequency = 4;
     }
 }

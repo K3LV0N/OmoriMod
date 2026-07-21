@@ -6,37 +6,55 @@ using OmoriMod.Content.Dusts;
 using OmoriMod.Content.NPCs.Global;
 using OmoriMod.Content.Players;
 using OmoriMod.Content.Systems.EmotionSystem;
+using OmoriMod.Content.Systems.EmotionSystem.Interfaces;
 
 using Terraria;
 using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Buffs.Abstract;
 
+/// <summary>
+/// Base class for registered emotion buffs and the dispatch point for emotion-specific
+/// player, NPC, combat, tooltip, scaling, and visual behavior.
+/// </summary>
+/// <remarks>
+/// Concrete tier buffs declare immutable content metadata such as <see cref="EmotionTier"/>.
+/// Emotion-family base classes override the effect hooks, while this class synchronizes the
+/// active buff into <see cref="EmotionPlayer"/> or <see cref="EmotionNPC"/> each tick.
+/// </remarks>
 public abstract class EmotionBuff : ModBuff, IEmotionObject
 {
+    /// <summary>Gets the emotion family represented by this buff.</summary>
     public EmotionType Emotion { get; protected set; }
 
     /// <summary>
-    /// The tier declared by this buff type. This is configuration data shared by every
-    /// entity using the buff and must not contain runtime player or NPC state.
+    /// Gets the tier declared by this buff type.
     /// </summary>
     public int EmotionTier { get; protected set; }
 
     /// <summary>
-    /// How often dust spawns for this <see cref="EmotionBuff"/>. A value of 2 means 2 dust is spawned every second.
+    /// The number of emotion-dust particles spawned per second while this buff is active on a player.
     /// </summary>
-    protected int dustSpawnFrequency;
+    protected int _dustSpawnFrequency;
 
+    /// <summary>
+    /// Determines whether this buff cannot coexist with another emotion buff.
+    /// </summary>
+    /// <remarks>The default policy makes different emotion families mutually exclusive.</remarks>
     public virtual bool IsIncompatibleWith(EmotionBuff otherBuff)
     {
         return Emotion != otherBuff.Emotion;
     }
 
-    protected Color dustColor;
+    /// <summary>The color assigned to emotion dust emitted by this buff.</summary>
+    protected Color _dustColor;
 
+    /// <summary>Runs emotion-family behavior during a player's buff update.</summary>
     public virtual void UpdateEmotionBuff(Player player, ref int buffIndex) { }
+    /// <summary>Runs emotion-family behavior during an NPC's buff update.</summary>
     public virtual void UpdateEmotionBuff(NPC npc, ref int buffIndex) { }
 
+    /// <summary>Synchronizes player emotion state, scaling, visuals, and family-specific effects.</summary>
     public override void Update(Player player, ref int buffIndex)
     {
         var modPlayer = player.GetModPlayer<EmotionPlayer>();
@@ -48,12 +66,13 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         UpdateEmotionBuff(player, ref buffIndex);
     }
 
+    /// <summary>Synchronizes NPC emotion state and family-specific effects.</summary>
     public override void Update(NPC npc, ref int buffIndex)
     {
-        var emotionNPC = npc.GetGlobalNPC<EmotionNPC>();
-        emotionNPC.Emotion = Emotion;
-        emotionNPC.ActiveEmotionBuff = this;
-        emotionNPC.EmotionLevel = EmotionSystem.GetEmotionTier(Type) ?? EmotionTier;
+        var emotionNpc = npc.GetGlobalNPC<EmotionNPC>();
+        emotionNpc.Emotion = Emotion;
+        emotionNpc.ActiveEmotionBuff = this;
+        emotionNpc.EmotionLevel = EmotionSystem.GetEmotionTier(Type) ?? EmotionTier;
 
         UpdateEmotionBuff(npc, ref buffIndex);
     }
@@ -74,9 +93,16 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         }
 
         modPlayer.EnsureScalingEmotion(Emotion, finalTier.Value);
-        modPlayer.EmotionLevel = modPlayer.scalingEmotionLevel;
+        modPlayer.EmotionLevel = modPlayer.ScalingEmotionLevel;
     }
 
+    /// <summary>
+    /// Increments a player's scaling level when the active final-tier emotion is reapplied.
+    /// </summary>
+    /// <remarks>
+    /// Final-tier reapplication increments the retained scaling level and then allows tModLoader's
+    /// normal duration refresh behavior. Non-final tiers use the base implementation unchanged.
+    /// </remarks>
     public override bool ReApply(Player player, int time, int buffIndex)
     {
         if (!EmotionSystem.IsFinalEmotionTier(Type))
@@ -92,49 +118,62 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
 
         EmotionPlayer modPlayer = player.GetModPlayer<EmotionPlayer>();
         modPlayer.EnsureScalingEmotion(Emotion, finalTier.Value);
-        if (modPlayer.scalingEmotionLevel < EmotionSystem.PLAYER_MAX_EMOTION_LEVEL)
+        if (modPlayer.ScalingEmotionLevel < EmotionStatTuning.PlayerMaxEmotionLevel)
         {
-            modPlayer.scalingEmotionLevel++;
+            modPlayer.ScalingEmotionLevel++;
         }
-        modPlayer.EmotionLevel = modPlayer.scalingEmotionLevel;
+        modPlayer.EmotionLevel = modPlayer.ScalingEmotionLevel;
 
         return false;
     }
 
-    // Virtual Modifiers
+    /// <summary>Applies this emotion's defense effect to a player.</summary>
     public virtual void ModifyPlayerDefense(Player player, int emotionLevel) { }
-    public virtual void ModifyNPCDefense(NPC npc, int emotionLevel) { }
+    /// <summary>Applies this emotion's defense effect to an NPC.</summary>
+    public virtual void ModifyNpcDefense(NPC npc, int emotionLevel) { }
+    /// <summary>Applies this emotion's movement effect to a player.</summary>
     public virtual void ModifyPlayerMovement(Player player, int emotionLevel) { }
-    public virtual void ModifyNPCMovement(NPC npc, int emotionLevel) { }
+    /// <summary>Applies this emotion's movement effect to an NPC.</summary>
+    public virtual void ModifyNpcMovement(NPC npc, int emotionLevel) { }
 
+    /// <summary>Modifies damage when an emotional player attacks an NPC.</summary>
     public virtual void ModifyPlayerOutgoingDamage(int emotionLevel, ref NPC.HitModifiers modifiers) { }
+    /// <summary>Modifies damage when an emotional player attacks another player.</summary>
     public virtual void ModifyPlayerOutgoingDamage(int emotionLevel, ref Player.HurtModifiers modifiers) { }
 
-    public virtual void ModifyNPCOutgoingDamage(int emotionLevel, ref Player.HurtModifiers modifiers) { }
+    /// <summary>Modifies damage when an emotional NPC attacks a player.</summary>
+    public virtual void ModifyNpcOutgoingDamage(int emotionLevel, ref Player.HurtModifiers modifiers) { }
+    /// <summary>Modifies damage when an emotional NPC attacks another NPC.</summary>
+    public virtual void ModifyNpcHitNpc(int emotionLevel, ref NPC.HitModifiers modifiers) { }
 
-    // Happy Hit Modifiers (Player attacking NPC)
-    public virtual void ModifyPlayerHitNPC(int emotionLevel, ref NPC.HitModifiers modifiers) { }
-    // Happy Hit Modifiers (Player attacking Player/Self?)
+    /// <summary>Applies non-damage hit effects when an emotional player attacks an NPC.</summary>
+    public virtual void ModifyPlayerHitNpc(int emotionLevel, ref NPC.HitModifiers modifiers) { }
+    /// <summary>Applies non-damage hit effects when an emotional player attacks another player.</summary>
     public virtual void ModifyPlayerHitPlayer(int emotionLevel, ref Player.HurtModifiers modifiers) { }
 
-    // Sad Damage Reduction (Player taking damage)
+    /// <summary>Modifies incoming damage before an emotional player is hurt.</summary>
     public virtual void ModifyPlayerIncomingDamage(int emotionLevel, ref Player.HurtModifiers modifiers) { }
 
-    // Sad Mana Conversion (NPC hitting Player)
+    /// <summary>Runs emotion-specific behavior after a player takes damage.</summary>
     public virtual void OnPlayerHurt(Player player, int emotionLevel, Player.HurtInfo hurtInfo) { }
 
 
     /// <summary>
-    /// Calculates a linear rate of change using <paramref name="rate"/> until
-    /// <paramref name="emotionLevel"/> = <paramref name="rateChange"/>. Then shifts to linear rate of change using percentage of remaining emotion levels up until
-    /// <paramref name="maxEmotionLevel"/> to reach <paramref name="max"/>.
+    /// Calculates a two-phase percentage curve for an emotion stat.
     /// </summary>
-    /// <param name="max">The maximum return value of this function. In percentage form.</param>
-    /// <param name="rate">The rate of change for the linear function until <paramref name="emotionLevel"/> = <paramref name="rateChange"/>.</param>
-    /// <param name="startingValue">The starting value for this function.</param>
-    /// <param name="maxEmotionLevel">The maximum value that <paramref name="emotionLevel"/> can be.</param>
-    /// <param name="rateChange">The emotion level when the percentage remaining linear function begins.</param>
-    /// <returns></returns>
+    /// <remarks>
+    /// Levels through <paramref name="rateChange"/> use <paramref name="rate"/> per level.
+    /// Remaining levels interpolate toward <paramref name="max"/> at <paramref name="maxEmotionLevel"/>.
+    /// The result includes <paramref name="startingValue"/>, is capped at <paramref name="max"/>,
+    /// and is returned as a decimal multiplier rather than a whole percentage.
+    /// </remarks>
+    /// <param name="emotionLevel">The effective emotion level.</param>
+    /// <param name="max">The maximum whole-percentage value.</param>
+    /// <param name="rate">The whole-percentage gain per level during the initial phase.</param>
+    /// <param name="maxEmotionLevel">The level at which the curve reaches its maximum.</param>
+    /// <param name="startingValue">The flat whole-percentage value added to the curve.</param>
+    /// <param name="rateChange">The final level of the initial linear phase.</param>
+    /// <returns>The scaled value as a decimal multiplier.</returns>
     protected static float LinearPerLevel(int emotionLevel, float max, float rate, int maxEmotionLevel, float startingValue = 0f, int rateChange = 3)
     {
         float result;
@@ -156,7 +195,23 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         return Math.Min(result, max) / 100f;
     }
 
+    /// <summary>Calculates a two-phase percentage curve from an <see cref="EmotionStatScaling"/> definition.</summary>
+    protected static float LinearPerLevel(
+        int emotionLevel,
+        EmotionStatScaling scaling,
+        int maxEmotionLevel,
+        int rateChange = 3)
+    {
+        return LinearPerLevel(
+            emotionLevel,
+            scaling.MaximumPercent,
+            scaling.RatePercent,
+            maxEmotionLevel,
+            scaling.StartingPercent,
+            rateChange);
+    }
 
+    /// <summary>Calculates uncapped compound percentage growth by emotion level.</summary>
     protected static float ExponentialGrowthPerLevel(int emotionLevel, float perLvl, float startingValue = 0)
     {
         // turn values into percents
@@ -171,8 +226,13 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         return growth + percentStartingValue;
     }
 
-
-    /// <param name="emotionMidLevel">The emotion level which will result in the function outputting <paramref name="maxValue"/> + <paramref name="minValue"/> / 2</param>
+    /// <summary>Calculates logistic percentage growth bounded by minimum and maximum values.</summary>
+    /// <param name="emotionLevel">The effective emotion level.</param>
+    /// <param name="perLvl">The whole-percentage steepness of the curve.</param>
+    /// <param name="maxValue">The upper whole-percentage bound.</param>
+    /// <param name="emotionMidLevel">The emotion level at the midpoint of the output range.</param>
+    /// <param name="minValue">The lower whole-percentage bound.</param>
+    /// <returns>The scaled value as a decimal multiplier.</returns>
     protected static float LogisticGrowthPerLevel(int emotionLevel, float perLvl, float maxValue, float emotionMidLevel, float minValue = 0f)
     {
         float percentMaxValue = maxValue / 100;
@@ -187,6 +247,7 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         return value + percentMinValue;
     }
 
+    /// <summary>Calculates uncapped linear percentage growth by emotion level.</summary>
     protected static float LinearPerLevel(int emotionLevel, float perLvl, float startingValue = 0)
     {
         // turn values into percents
@@ -198,7 +259,7 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
 
     private void DustHandler(Player player, ref int buffIndex)
     {
-        int dustFrequency = 60 / dustSpawnFrequency;
+        int dustFrequency = 60 / _dustSpawnFrequency;
 
         if (player.buffTime[buffIndex] % dustFrequency == 0)
         {
@@ -210,12 +271,15 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
             SpeedX: 0f,
             SpeedY: 0f,
             Alpha: 0,
-            newColor: dustColor
+            newColor: _dustColor
             );
         }
     }
 
 
+    /// <summary>
+    /// Gets the effective level to display in a buff tooltip, including final-tier player scaling.
+    /// </summary>
     protected int GetTooltipEmotionLevel()
     {
         int registeredTier = EmotionSystem.GetEmotionTier(Type) ?? EmotionTier;
@@ -232,12 +296,13 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         }
 
         return EmotionSystem.IsFinalEmotionTier(Type)
-            && emotionPlayer.scalingEmotion == Emotion
-            && emotionPlayer.scalingEmotionLevel >= registeredTier
-                ? emotionPlayer.scalingEmotionLevel
+            && emotionPlayer.ScalingEmotion == Emotion
+            && emotionPlayer.ScalingEmotionLevel >= registeredTier
+                ? emotionPlayer.ScalingEmotionLevel
                 : registeredTier;
     }
 
+    /// <summary>Appends the post-final-tier scaling level to a final-tier buff tooltip.</summary>
     protected void FinalTierModifyBuffText(int emotionLevel, ref string buffName, ref string tip, ref int rare)
     {
         if (!EmotionSystem.IsFinalEmotionTier(Type))
@@ -252,3 +317,7 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         }
     }
 }
+    /// <remarks>
+    /// This is content metadata shared by every entity using the buff. Runtime player and NPC
+    /// levels belong to their respective <see cref="IEmotionEntity"/> implementations.
+    /// </remarks>

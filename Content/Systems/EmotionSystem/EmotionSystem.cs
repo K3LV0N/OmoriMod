@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 
 using OmoriMod.Content.Buffs.Abstract;
+using OmoriMod.Content.NPCs.Global;
+using OmoriMod.Content.Players;
+using OmoriMod.Content.Systems.EmotionSystem.Interfaces;
 
 using Terraria;
 using Terraria.ID;
@@ -9,347 +12,268 @@ using Terraria.ModLoader;
 
 namespace OmoriMod.Content.Systems.EmotionSystem;
 
-public class EmotionSystem : ModSystem
+/// <summary>
+/// Provides the gameplay-facing API for querying, applying, promoting, removing, and resolving emotions.
+/// </summary>
+/// <remarks>
+/// Registration details are delegated to <see cref="EmotionRegistry"/>. Runtime state lives on
+/// <see cref="EmotionPlayer"/> and <see cref="EmotionNPC"/>, while <see cref="EmotionBuff"/>
+/// subclasses implement emotion-specific stat and combat effects.
+/// </remarks>
+public static class EmotionSystem
 {
-    private readonly record struct EmotionLookupKey(EmotionType Emotion, int Tier, EmotionBuffVariant Variant);
-    private readonly record struct EmotionFamilyLookupKey(Type FamilyType, int Tier, EmotionBuffVariant Variant);
-    private readonly record struct EmotionBuffMetadata(EmotionType Emotion, int Tier, EmotionBuffVariant Variant);
-
-    private static readonly Dictionary<EmotionLookupKey, int> EmotionBuffTypes = [];
-    private static readonly Dictionary<EmotionFamilyLookupKey, int> EmotionBuffTypesByFamily = [];
-    private static readonly Dictionary<int, EmotionBuffMetadata> EmotionMetadataByBuffType = [];
-    private static readonly Dictionary<EmotionType, int> MaxEmotionTierByType = [];
-
-    /// <summary>
-    /// How long emotions last on entities
-    /// </summary>
-    public const int EMOTION_TIME_IN_SECONDS = 60;
-
-    /// <summary>
-    /// The additional source damage scaling per emotional advantage level multiplier
-    /// </summary>
-    public const float EMOTIONAL_ADVANTAGE_VALUE_PER_LEVEL = 0.07f;
-
-    /// <summary>
-    /// The max emotionLevel of emotions for Players (including endlessly scaling ones)
-    /// </summary>
-    public const int PLAYER_MAX_EMOTION_LEVEL = 43;
-
-    /// <summary>
-    /// The max emotionLevel of emotions for NPCs
-    /// </summary>
-    public const int NPC_MAX_EMOTION_LEVEL = 1;
-
-
-    /// <summary>
-    /// Ensures that each <paramref name="registry"/> does not try to contain duplicate values (or overwrite values)
-    /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <param name="registry"></param>
-    /// <param name="key"></param>
-    /// <param name="emotionBuff"></param>
-    /// <exception cref="InvalidOperationException"></exception>
-    private static void AddUniqueRegistration<TKey>(Dictionary<TKey, int> registry, TKey key, EmotionBuff emotionBuff)
-        where TKey : notnull
-    {
-        if (registry.TryGetValue(key, out int existingBuffType))
-        {
-            ModBuff existingBuff = ModContent.GetModBuff(existingBuffType);
-            string existingName = existingBuff?.FullName ?? existingBuffType.ToString();
-            throw new InvalidOperationException(
-                $"Duplicate emotion buff registration for {key}: '{existingName}' and '{emotionBuff.FullName}'.");
-        }
-
-        registry.Add(key, emotionBuff.Type);
-    }
-
-    /// <summary>
-    /// Registers a specific <see cref="EmotionBuff"/> into <see cref="EmotionBuffTypes"/>, and <see cref="EmotionBuffTypesByfamily"/>
-    /// </summary>
-    /// <param name="emotionBuff"></param>
-    /// <param name="metadata"></param>
-    private static void RegisterEmotionBuff(EmotionBuff emotionBuff, EmotionBuffMetadata metadata)
-    {
-        EmotionLookupKey emotionKey = new(metadata.Emotion, metadata.Tier, metadata.Variant);
-        AddUniqueRegistration(EmotionBuffTypes, emotionKey, emotionBuff);
-
-        Type familyType = emotionBuff.GetType();
-        while (familyType != null
-            && familyType != typeof(EmotionBuff)
-            && typeof(EmotionBuff).IsAssignableFrom(familyType))
-        {
-            EmotionFamilyLookupKey familyKey = new(familyType, metadata.Tier, metadata.Variant);
-            AddUniqueRegistration(EmotionBuffTypesByFamily, familyKey, emotionBuff);
-            familyType = familyType.BaseType;
-        }
-    }
-
-    /// <summary>
-    /// Populates <see cref="EmotionBuffTypes"/>, <see cref="EmotionBuffTypesByFamily"/>, <see cref="EmotionMetadataByBuffType"/>, and <see cref="MaxEmotionTierByType"/>
-    /// </summary>
-    /// <exception cref="InvalidOperationException"></exception>
-    public override void PostSetupContent()
-    {
-        EmotionBuffTypes.Clear();
-        EmotionBuffTypesByFamily.Clear();
-        EmotionMetadataByBuffType.Clear();
-        MaxEmotionTierByType.Clear();
-
-        for (int buffType = 0; buffType < BuffLoader.BuffCount; buffType++)
-        {
-            if (ModContent.GetModBuff(buffType) is not EmotionBuff emotionBuff)
-            {
-                continue;
-            }
-
-            int tier = emotionBuff.EmotionTier;
-            if (tier < 1)
-            {
-                throw new InvalidOperationException(
-                    $"Emotion buff '{emotionBuff.FullName}' must declare an emotion level of at least 1, but declared {tier}.");
-            }
-
-            EmotionBuffVariant variant = Main.buffNoTimeDisplay[buffType]
-                ? EmotionBuffVariant.NoTime
-                : EmotionBuffVariant.Standard;
-            EmotionBuffMetadata metadata = new(emotionBuff.Emotion, tier, variant);
-
-            RegisterEmotionBuff(emotionBuff, metadata);
-            EmotionMetadataByBuffType.Add(buffType, metadata);
-
-            if (variant == EmotionBuffVariant.Standard
-                && (!MaxEmotionTierByType.TryGetValue(emotionBuff.Emotion, out int currentMax) || tier > currentMax))
-            {
-                MaxEmotionTierByType[emotionBuff.Emotion] = tier;
-            }
-        }
-
-        ValidateStandardEmotionTiers();
-    }
-    
-    /// <summary>
-    /// Makes sure that <see cref="MaxEmotionTierByType"/> is formatted correctly
-    /// </summary>
-    /// <exception cref="InvalidOperationException"></exception>
-    private static void ValidateStandardEmotionTiers()
-    {
-        foreach ((EmotionType emotion, int maxTier) in MaxEmotionTierByType)
-        {
-            if (maxTier > PLAYER_MAX_EMOTION_LEVEL)
-            {
-                throw new InvalidOperationException(
-                    $"Emotion '{emotion}' has a final tier of {maxTier}, which exceeds PLAYER_MAX_EMOTION_LEVEL ({PLAYER_MAX_EMOTION_LEVEL}).");
-            }
-
-            for (int tier = 1; tier <= maxTier; tier++)
-            {
-                EmotionLookupKey key = new(emotion, tier, EmotionBuffVariant.Standard);
-                if (!EmotionBuffTypes.ContainsKey(key))
-                {
-                    throw new InvalidOperationException(
-                        $"Emotion '{emotion}' is missing standard tier {tier}. Standard emotion tiers must be contiguous from 1 through {maxTier}.");
-                }
-            }
-        }
-    }
-
-
-    /// <summary>
-    /// A general function that allows the generalization of Entity's
-    /// </summary>
-    /// <param name="entity">The owner of the bufflist returned</param>
-    /// <returns>The bufflist of the entity</returns>
-    private static int[] GetBuffListOfEntity(Entity entity)
-    {
-        return (entity is NPC npc)
-            ? npc.buffType
-            : (entity is Player player)
-            ? player.buffType
-            : [];
-    }
-
-    /// <summary>
-    /// gets the typing of the <see cref="EmotionBuff"/> that matches the <paramref name="emotion"/>, <paramref name="emotionLevel"/>, and <paramref name="variant"/>
-    /// </summary>
-    /// <param name="emotion">The <see cref="EmotionType"/> of this <see cref="EmotionBuff"/></param>
-    /// <param name="emotionLevel">The emotionLevel of this <see cref="EmotionBuff"/></param>
-    /// <param name="variant">What the variant of this <see cref="EmotionBuff"/> is</param>
-    /// <returns>The Type of the corresponding <see cref="EmotionBuff"/>, if there is one.</returns>
+    /// <summary>Gets the registered buff type for an emotion, tier, and duration variant.</summary>
+    /// <returns>The buff type, or <see langword="null"/> if no matching registration exists.</returns>
     public static int? GetEmotionBuffType(
         EmotionType emotion,
         int emotionLevel,
         EmotionBuffVariant variant = EmotionBuffVariant.Standard)
     {
-        EmotionLookupKey key = new(emotion, emotionLevel, variant);
-        return EmotionBuffTypes.TryGetValue(key, out int buffType) ? buffType : null;
+        return EmotionRegistry.GetEmotionBuffType(emotion, emotionLevel, variant);
     }
 
-    /// <summary>
-    /// gets the typing of the <see cref="EmotionBuff"/> that matches the same <see cref="EmotionBuff"/> subtype, <paramref name="emotionLevel"/>, and <paramref name="variant"/>
-    /// </summary>
-    /// <typeparam name="T">An <see cref="EmotionBuff"/> in the same family as the targeted one.</typeparam>
-    /// <param name="emotionLevel">The emotionLevel of this <see cref="EmotionBuff"/></param>
-    /// <param name="variant">What the variant of this <see cref="EmotionBuff"/> is</param>
-    /// <returns>The Type of the corresponding <see cref="EmotionBuff"/>, if there is one.</returns>
-    private static int? GetEmotionBuffType<T>(
+    /// <summary>Gets the registered buff type in a buff family for a tier and duration variant.</summary>
+    /// <typeparam name="T">The concrete or base emotion-buff family to search.</typeparam>
+    /// <returns>The buff type, or <see langword="null"/> if no matching registration exists.</returns>
+    public static int? GetEmotionBuffType<T>(
         int emotionLevel,
         EmotionBuffVariant variant = EmotionBuffVariant.Standard)
         where T : EmotionBuff
     {
-        EmotionFamilyLookupKey key = new(typeof(T), emotionLevel, variant);
-        return EmotionBuffTypesByFamily.TryGetValue(key, out int buffType) ? buffType : null;
+        return EmotionRegistry.GetEmotionBuffType<T>(emotionLevel, variant);
+    }
+
+    /// <summary>Gets the next registered standard buff tier for an emotion.</summary>
+    /// <returns>The next buff type, or <see langword="null"/> if it does not exist.</returns>
+    public static int? GetNextTierEmotionType(EmotionType currentEmotionType, int currentEmotionLevel)
+    {
+        return EmotionRegistry.GetNextTierEmotionType(currentEmotionType, currentEmotionLevel);
+    }
+
+    /// <summary>Gets the next registered standard tier in an emotion buff's family.</summary>
+    /// <returns>The next buff type, or <see langword="null"/> at the final tier or when unregistered.</returns>
+    public static int? GetNextTierEmotionType<T>(T currentEmotion) where T : EmotionBuff
+    {
+        return EmotionRegistry.GetNextTierEmotionType(currentEmotion);
+    }
+
+    /// <summary>Gets the registered tier of an emotion buff type.</summary>
+    /// <returns>The declared tier, or <see langword="null"/> for an unregistered buff type.</returns>
+    public static int? GetEmotionTier(int buffType)
+    {
+        return EmotionRegistry.GetEmotionTier(buffType);
+    }
+
+    /// <summary>Gets the highest registered standard tier for an emotion.</summary>
+    /// <returns>The final tier, or <see langword="null"/> if the emotion has no standard buffs.</returns>
+    public static int? GetMaxEmotionTier(EmotionType emotion)
+    {
+        return EmotionRegistry.GetMaxEmotionTier(emotion);
+    }
+
+    /// <summary>Determines whether a buff type is the final registered standard tier of its emotion.</summary>
+    public static bool IsFinalEmotionTier(int buffType)
+    {
+        return EmotionRegistry.IsFinalEmotionTier(buffType);
+    }
+
+    /// <summary>Gets the registered duration variant of an emotion buff type.</summary>
+    /// <returns>The variant, or <see langword="null"/> for an unregistered buff type.</returns>
+    public static EmotionBuffVariant? GetEmotionVariant(int buffType)
+    {
+        return EmotionRegistry.GetEmotionVariant(buffType);
     }
 
     /// <summary>
-    /// returns the type of the <see cref="EmotionBuff"/> currently on the <see cref="Entity"/>. If no buff exists, returns null.
+    /// Gets the fixed-size buff-type array owned by a supported entity.
     /// </summary>
-    /// <param name="entity">The <see cref="Entity"/> that is being checked</param>
-    /// <returns>The buffType of the <see cref="EmotionBuff"/> currentlt on the <see cref="Entity"/>.</returns>
+    /// <param name="entity">The player or NPC whose buffs are requested.</param>
+    /// <returns>The entity's buff-type array, or an empty array for unsupported entity types.</returns>
+    private static int[] GetBuffListOfEntity(Entity entity)
+    {
+        return entity switch
+        {
+            NPC npc => npc.buffType,
+            Player player => player.buffType,
+            _ => []
+        };
+    }
+
+    /// <summary>
+    /// Gets the tModLoader buff type of the first active <see cref="EmotionBuff"/> on an entity.
+    /// </summary>
+    /// <param name="entity">The player or NPC to inspect.</param>
+    /// <returns>The active emotion buff type, or <see langword="null"/> when none is present.</returns>
     public static int? GetEmotionType(Entity entity)
     {
         int[] buffs = GetBuffListOfEntity(entity);
-        foreach (int buffID in buffs)
+        foreach (int buffId in buffs)
         {
-            if (ModContent.GetModBuff(buffID) is EmotionBuff currentBuff)
+            if (ModContent.GetModBuff(buffId) is EmotionBuff currentBuff)
             {
                 return currentBuff.Type;
             }
         }
         return null;
     }
-
-    /// <summary>
-    /// Gets the next tier of emotion for the <paramref name="currentEmotion"/>, if there is one.
-    /// </summary>
-    /// <typeparam name="T">The type of the current emotion</typeparam>
-    /// <param name="currentEmotion">The <see cref="EmotionBuff"/> that is being checked</param>
-    /// <returns>The next tier of <see cref="EmotionBuff"/> for <paramref name="currentEmotion"/>, if there is one.</returns>
-    private static int? GetNextTierEmotionType<T>(T currentEmotion) where T : EmotionBuff
-    {
-        if (!EmotionMetadataByBuffType.TryGetValue(currentEmotion.Type, out EmotionBuffMetadata metadata)
-            || IsFinalEmotionTier(currentEmotion.Type))
-        {
-            return null;
-        }
-
-        return GetEmotionBuffType(metadata.Emotion, metadata.Tier + 1);
-    }
-
-    /// <summary>
-    /// Returns the emotion tier of the <see cref="EmotionBuff"/> with type <paramref name="buffType"/>
-    /// </summary>
-    /// <param name="buffType">The Type of the <see cref="EmotionBuff"/> that is being checked.</param>
-    /// <returns>The tier of the <see cref="EmotionBuff"/> if there is one.</returns>
-    public static int? GetEmotionTier(int buffType)
-    {
-        return EmotionMetadataByBuffType.TryGetValue(buffType, out EmotionBuffMetadata metadata)
-            ? metadata.Tier
-            : null;
-    }
-
-    /// <summary>
-    /// Returns the max tier of an <see cref="EmotionType"/>.
-    /// </summary>
-    /// <param name="emotion">The <see cref="EmotionType"/> of the <see cref="EmotionBuff"/> being checked</param>
-    /// <returns>The max tier of the <see cref="EmotionBuff"/> if there is one.</returns>
-    public static int? GetMaxEmotionTier(EmotionType emotion)
-    {
-        return MaxEmotionTierByType.TryGetValue(emotion, out int maxTier) ? maxTier : null;
-    }
-
-    /// <summary>
-    /// Checks to see if the emotion of <paramref name="buffType"/> is the final tier of that <see cref="EmotionType"/>
-    /// </summary>
-    /// <param name="buffType">The buffType of the <see cref="EmotionBuff"/></param>
-    /// <returns><c>True</c> if the <see cref="EmotionBuff"/> is the final tier, <c>False</c> otherwise</returns>
-    public static bool IsFinalEmotionTier(int buffType)
-    {
-        return EmotionMetadataByBuffType.TryGetValue(buffType, out EmotionBuffMetadata metadata)
-            && metadata.Variant == EmotionBuffVariant.Standard
-            && MaxEmotionTierByType.TryGetValue(metadata.Emotion, out int maxTier)
-            && metadata.Tier == maxTier;
-    }
-
-
+    /// <summary>Gets the stat-scaling level currently resolved for an emotion-aware entity.</summary>
     public static int GetEmotionLevel(IEmotionEntity entity)
     {
         return entity.EmotionLevel;
     }
 
     /// <summary>
-    /// Returns the registered variant of an emotion buff.
+    /// Gets the registered tier of an entity's active emotion buff.
     /// </summary>
-    public static EmotionBuffVariant? GetEmotionVariant(int buffType)
+    public static int GetEmotionTier(IEmotionEntity entity)
     {
-        return EmotionMetadataByBuffType.TryGetValue(buffType, out EmotionBuffMetadata metadata)
-            ? metadata.Variant
-            : null;
+        EmotionBuff activeEmotion = entity.ActiveEmotionBuff;
+        return activeEmotion == null
+            ? 0
+            : GetEmotionTier(activeEmotion.Type) ?? activeEmotion.EmotionTier;
     }
 
     /// <summary>
-    /// Returns the emotional advantage level of the attacker and the target.
+    /// Determines which side wins the Angry-Happy-Sad advantage triangle.
     /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="defender"></param>
-    /// <returns><c>0</c> means no advantage. 
-    /// Any <c>positive value</c> means the attacker has advantage. 
-    /// Any <c>negative value</c> means the defender has advantage.</returns>
+    private static bool? CheckForAdvantage(EmotionType attacker, EmotionType defender)
+    {
+        return attacker switch
+        {
+            EmotionType.Sad when defender == EmotionType.Happy => true,
+            EmotionType.Sad when defender == EmotionType.Angry => false,
+            EmotionType.Angry when defender == EmotionType.Sad => true,
+            EmotionType.Angry when defender == EmotionType.Happy => false,
+            EmotionType.Happy when defender == EmotionType.Angry => true,
+            EmotionType.Happy when defender == EmotionType.Sad => false,
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Calculates the signed strength of emotional advantage between an attacker and defender.
+    /// </summary>
+    /// <param name="attacker">The entity initiating the hit.</param>
+    /// <param name="defender">The entity receiving the hit.</param>
+    /// <returns>
+    /// Zero when neither side has advantage; a positive value when the attacker has advantage;
+    /// otherwise, a negative value when the defender has advantage. Magnitude is the absolute
+    /// tier difference plus one.
+    /// </returns>
     public static int CalculateAdvantage(IEmotionEntity attacker, IEmotionEntity defender)
     {
-        bool? attackerAdvantage = attacker.CheckForAdvantage(defender);
+        bool? attackerAdvantage = CheckForAdvantage(attacker.Emotion, defender.Emotion);
 
-        // checks if attackerAdvantage is null, if it is return 0
-        // if an advantage exists, return the advantage
-        return attackerAdvantage == null
-            ? 0
-            : attackerAdvantage == true
-            ? GetEmotionLevel(attacker) - GetEmotionLevel(defender) + 1
-            : GetEmotionLevel(defender) - GetEmotionLevel(attacker) - 1;
+        if (!attackerAdvantage.HasValue)
+        {
+            return 0;
+        }
+
+        // The emotion triangle always determines who wins. Tier distance only
+        // determines the strength of that win, never reverses its direction.
+        int advantageMagnitude = Math.Abs(GetEmotionTier(attacker) - GetEmotionTier(defender)) + 1;
+        return attackerAdvantage.Value ? advantageMagnitude : -advantageMagnitude;
+    }
+
+    private static void ApplyAdvantage(int advantage, ref NPC.HitModifiers modifiers)
+    {
+        modifiers.SourceDamage += EmotionStatTuning.EmotionalAdvantageValuePerLevel * advantage;
+    }
+
+    private static void ApplyAdvantage(int advantage, ref Player.HurtModifiers modifiers)
+    {
+        modifiers.SourceDamage += EmotionStatTuning.EmotionalAdvantageValuePerLevel * advantage;
     }
 
     /// <summary>
-    /// Removes a specific <see cref="EmotionBuff"/> off of an entity
+    /// Applies emotional advantage and the attacker's active emotion effects to an NPC hit.
     /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="emotionType"></param>
+    public static void ApplyCombatModifiers(
+        IEmotionEntity attacker,
+        IEmotionEntity defender,
+        ref NPC.HitModifiers modifiers)
+    {
+        ApplyAdvantage(CalculateAdvantage(attacker, defender), ref modifiers);
+
+        if (attacker is EmotionPlayer)
+        {
+            attacker.ActiveEmotionBuff?.ModifyPlayerOutgoingDamage(attacker.EmotionLevel, ref modifiers);
+            attacker.ActiveEmotionBuff?.ModifyPlayerHitNpc(attacker.EmotionLevel, ref modifiers);
+            return;
+        }
+
+        attacker.ActiveEmotionBuff?.ModifyNpcHitNpc(attacker.EmotionLevel, ref modifiers);
+    }
+
+    /// <summary>
+    /// Applies emotional advantage and the attacker's active emotion effects to a player hit.
+    /// </summary>
+    public static void ApplyCombatModifiers(
+        IEmotionEntity attacker,
+        IEmotionEntity defender,
+        ref Player.HurtModifiers modifiers)
+    {
+        ApplyAdvantage(CalculateAdvantage(attacker, defender), ref modifiers);
+
+        if (attacker is EmotionPlayer)
+        {
+            attacker.ActiveEmotionBuff?.ModifyPlayerOutgoingDamage(attacker.EmotionLevel, ref modifiers);
+            attacker.ActiveEmotionBuff?.ModifyPlayerHitPlayer(attacker.EmotionLevel, ref modifiers);
+            return;
+        }
+
+        attacker.ActiveEmotionBuff?.ModifyNpcOutgoingDamage(attacker.EmotionLevel, ref modifiers);
+    }
+
+    /// <summary>
+    /// Dispatches post-hurt behavior to the player's active emotion buff.
+    /// </summary>
+    public static void HandlePlayerHurt(Player player, Player.HurtInfo hurtInfo)
+    {
+        EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
+        emotionPlayer.ActiveEmotionBuff?.OnPlayerHurt(player, emotionPlayer.EmotionLevel, hurtInfo);
+    }
+
+    /// <summary>
+    /// Removes a specific emotion buff using the correct player or NPC networking path.
+    /// </summary>
+    /// <param name="entity">The player or NPC that owns the buff.</param>
+    /// <param name="emotionType">The tModLoader buff type to remove.</param>
     private static void RemoveEmotion(Entity entity, int emotionType)
     {
-        if (entity is NPC npc)
+        switch (entity)
         {
-            if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
-            {
+            case NPC npc when Main.dedServ || Main.netMode == NetmodeID.SinglePlayer:
                 npc.DelBuff(npc.FindBuffIndex(emotionType));
-            }
-            else
-            {
+                break;
+            case NPC npc:
                 npc.RequestBuffRemoval(emotionType);
-            }
-        }
-        if (entity is Player player)
-        {
-            player.ClearBuff(emotionType);
+                break;
+            case Player player:
+                player.ClearBuff(emotionType);
+                break;
         }
     }
 
 
     /// <summary>
-    /// Clears all the <see cref="EmotionBuff"/> off an entity
+    /// Removes every active <see cref="EmotionBuff"/> from a player or NPC.
     /// </summary>
-    /// <param name="entity">The entity scheduling the removal</param>
+    /// <param name="entity">The player or NPC whose emotions should be cleared.</param>
     public static void ClearAllEmotions(Entity entity)
     {
         int[] buffs = GetBuffListOfEntity(entity);
-        foreach (int buffID in buffs)
+        foreach (int buffId in buffs)
         {
-            if (ModContent.GetModBuff(buffID) is EmotionBuff)
+            if (ModContent.GetModBuff(buffId) is EmotionBuff)
             {
-                RemoveEmotion(entity, buffID);
+                RemoveEmotion(entity, buffId);
             }
         }
     }
 
     /// <summary>
-    /// Removes any emotions that are incompatible with the provided emotion type T.
+    /// Removes active emotions that are incompatible with the specified emotion-buff family.
     /// </summary>
     public static void RemoveIncompatibleEmotions<T>(Entity entity) where T : EmotionBuff
     {
@@ -360,26 +284,31 @@ public class EmotionSystem : ModSystem
             return;
         }
 
+        RemoveIncompatibleEmotions(entity, buffInstance);
+    }
+
+    private static void RemoveIncompatibleEmotions(Entity entity, EmotionBuff emotion)
+    {
         int[] buffs = GetBuffListOfEntity(entity);
 
         List<int> buffsToRemove = [];
-        foreach (int buffID in buffs)
+        foreach (int buffId in buffs)
         {
-            ModBuff modBuff = ModContent.GetModBuff(buffID);
-            if (modBuff is EmotionBuff currentBuff && buffInstance.IsIncompatibleWith(currentBuff))
+            ModBuff modBuff = ModContent.GetModBuff(buffId);
+            if (modBuff is EmotionBuff currentBuff && emotion.IsIncompatibleWith(currentBuff))
             {
-                buffsToRemove.Add(buffID);
+                buffsToRemove.Add(buffId);
             }
         }
         foreach (int id in buffsToRemove) RemoveEmotion(entity, id);
     }
 
     /// <summary>
-    /// Checks to see if the <see cref="EmotionBuff"/> of type <typeparamref name="T"/> can be applied to the <paramref name="entity"/>.
+    /// Determines whether the specified emotion-buff family is compatible with an entity's active emotions.
     /// </summary>
-    /// <typeparam name="T">The <see cref="EmotionBuff"/> to be applied</typeparam>
-    /// <param name="entity">The <see cref="Entity"/> this check is running on</param>
-    /// <returns></returns>
+    /// <typeparam name="T">The concrete or base emotion-buff family to test.</typeparam>
+    /// <param name="entity">The player or NPC to inspect.</param>
+    /// <returns><see langword="true"/> when the family is registered and no active emotion rejects it.</returns>
     public static bool CanApplyEmotion<T>(Entity entity) where T : EmotionBuff
     {
         int? representativeBuffType = GetEmotionBuffType<T>(1);
@@ -389,12 +318,17 @@ public class EmotionSystem : ModSystem
             return false;
         }
 
+        return CanApplyEmotion(entity, buffInstance);
+    }
+
+    private static bool CanApplyEmotion(Entity entity, EmotionBuff emotion)
+    {
         int[] buffs = GetBuffListOfEntity(entity);
-        foreach (int buffID in buffs)
+        foreach (int buffId in buffs)
         {
-            ModBuff modBuff = ModContent.GetModBuff(buffID);
+            ModBuff modBuff = ModContent.GetModBuff(buffId);
             // Check if current buff is incompatible with T
-            if (modBuff is EmotionBuff currentBuff && buffInstance.IsIncompatibleWith(currentBuff))
+            if (modBuff is EmotionBuff currentBuff && emotion.IsIncompatibleWith(currentBuff))
             {
                 return false;
             }
@@ -403,8 +337,30 @@ public class EmotionSystem : ModSystem
     }
 
     /// <summary>
-    /// Checks whether <see cref="ApplyOrPromoteEmotion{T}"/> can perform a standard
-    /// emotion application, refresh, or promotion for this player.
+    /// Applies the standard tier-one buff for an emotion to an eligible NPC.
+    /// </summary>
+    public static bool ApplyEmotion(NPC target, EmotionType emotion, int duration = 600)
+    {
+        if (emotion == EmotionType.None
+            || target.GetGlobalNPC<EmotionNPC>().ImmuneToEmotionChange)
+        {
+            return false;
+        }
+
+        int? buffType = GetEmotionBuffType(emotion, 1);
+        if (!buffType.HasValue
+            || ModContent.GetModBuff(buffType.Value) is not EmotionBuff emotionBuff
+            || !CanApplyEmotion(target, emotionBuff))
+        {
+            return false;
+        }
+
+        target.AddBuff(buffType.Value, duration);
+        return true;
+    }
+
+    /// <summary>
+    /// Determines whether a standard emotion can be applied, refreshed, or promoted for a player.
     /// </summary>
     public static bool CanApplyOrPromoteEmotion<T>(Player player) where T : EmotionBuff
     {
@@ -413,33 +369,37 @@ public class EmotionSystem : ModSystem
             return false;
         }
 
-        foreach (int buffID in player.buffType)
+        foreach (int buffId in player.buffType)
         {
-            if (ModContent.GetModBuff(buffID) is T)
+            if (ModContent.GetModBuff(buffId) is T)
             {
-                return GetEmotionVariant(buffID) == EmotionBuffVariant.Standard;
+                return GetEmotionVariant(buffId) == EmotionBuffVariant.Standard;
             }
         }
 
         return GetEmotionBuffType<T>(1).HasValue;
     }
-    
+
 
     /// <summary>
-    /// checks to see an <see cref="EmotionBuff"/> of Type <paramref name="buffType"/> can be promoted.
+    /// Determines whether a registered buff belongs to a promotable standard emotion progression.
     /// </summary>
-    /// <param name="buffType">the Type of the <see cref="EmotionBuff"/> being checked</param>
-    /// <returns><c>True</c> if promotable, <c>False</c> otherwise</returns>
+    /// <param name="buffType">The tModLoader buff type being checked.</param>
+    /// <param name="currentTier">The buff's registered tier.</param>
+    /// <param name="maxTier">The highest registered standard tier for its emotion.</param>
     private static bool IsPromotableEmotion(int buffType, int? currentTier, int? maxTier)
     {
-        EmotionBuffMetadata buffData = EmotionMetadataByBuffType[buffType];
-        return currentTier.HasValue && maxTier.HasValue && (buffData.Variant == EmotionBuffVariant.Standard);
+        return currentTier.HasValue
+            && maxTier.HasValue
+            && GetEmotionVariant(buffType) == EmotionBuffVariant.Standard;
     }
 
-    private static bool PromoteEmotion<T>(T currentEmotion, Player player, int duration, bool canPromoteToFinalTier) where T : EmotionBuff
+    private static bool PromoteEmotion(EmotionBuff currentEmotion, Player player, int duration, bool canPromoteToFinalTier)
     {
         int? currentTier = GetEmotionTier(currentEmotion.Type);
-        int? maxTier =  GetMaxEmotionTier(currentEmotion.Emotion);
+        int? maxTier = GetMaxEmotionTier(currentEmotion.Emotion);
+
+        if (currentTier == null || maxTier == null) { return false; }
         if (!IsPromotableEmotion(currentEmotion.Type, currentTier, maxTier)) { return false; }
 
         if (currentTier.Value == maxTier.Value)
@@ -456,41 +416,98 @@ public class EmotionSystem : ModSystem
         }
 
         int? nextEmotionType = GetNextTierEmotionType(currentEmotion);
-        if (nextEmotionType.HasValue)
-        {
-            player.ClearBuff(currentEmotion.Type);
-            player.AddBuff(nextEmotionType.Value, duration);
-            return true;
-        }
+        if (!nextEmotionType.HasValue) { return false; }
 
-        return false;
+        player.ClearBuff(currentEmotion.Type);
+        player.AddBuff(nextEmotionType.Value, duration);
+        return true;
+
     }
 
-    
+    /// <summary>
+    /// Determines whether the player's current standard emotion can be promoted to or refreshed at its final tier.
+    /// </summary>
+    public static bool CanApplyFinalTierEmotion(Player player)
+    {
+        int? buffType = GetEmotionType(player);
+        if (!buffType.HasValue
+            || ModContent.GetModBuff(buffType.Value) is not EmotionBuff emotionBuff)
+        {
+            return false;
+        }
 
+        int? currentTier = GetEmotionTier(buffType.Value);
+        int? maxTier = GetMaxEmotionTier(emotionBuff.Emotion);
+        return GetEmotionVariant(buffType.Value) == EmotionBuffVariant.Standard
+            && currentTier.HasValue
+            && maxTier.HasValue
+            && currentTier.Value >= maxTier.Value - 1
+            && CanApplyEmotion(player, emotionBuff);
+    }
+
+    /// <summary>
+    /// Promotes the player's current standard emotion to its final tier, or refreshes it when already final.
+    /// </summary>
+    public static bool ApplyFinalTierEmotion(Player player, int duration)
+    {
+        if (!CanApplyFinalTierEmotion(player))
+        {
+            return false;
+        }
+
+        int buffType = GetEmotionType(player).Value;
+        EmotionBuff currentEmotion = (EmotionBuff)ModContent.GetModBuff(buffType);
+        RemoveIncompatibleEmotions(player, currentEmotion);
+        return PromoteEmotion(currentEmotion, player, duration, canPromoteToFinalTier: true);
+    }
+
+    /// <summary>
+    /// Applies tier one of an emotion family, promotes an existing standard tier, or refreshes the current tier.
+    /// </summary>
+    /// <typeparam name="T">The concrete or base emotion-buff family to apply.</typeparam>
+    /// <param name="player">The player whose emotion should be changed.</param>
+    /// <param name="duration">The applied or refreshed buff duration in ticks.</param>
+    /// <param name="canPromoteToFinalTier">
+    /// Whether this operation may cross from the penultimate tier into the final tier.
+    /// </param>
+    /// <returns><see langword="true"/> when an emotion was applied, promoted, or refreshed.</returns>
     public static bool ApplyOrPromoteEmotion<T>(Player player, int duration, bool canPromoteToFinalTier = false) where T : EmotionBuff
     {
         // first, remove incompatible emotions
         RemoveIncompatibleEmotions<T>(player);
 
         // next, check if the player has a promotable emotion
-        foreach (int buffID in player.buffType)
+        foreach (int buffId in player.buffType)
         {
-            if (ModContent.GetModBuff(buffID) is T currentEmotion)
+            if (ModContent.GetModBuff(buffId) is T currentEmotion)
             {
                 // Non-standard variants such as accessory emotions cannot be promoted.
-                return GetEmotionVariant(buffID) == EmotionBuffVariant.Standard && PromoteEmotion<T>(currentEmotion, player, duration, canPromoteToFinalTier);
+                return GetEmotionVariant(buffId) == EmotionBuffVariant.Standard && PromoteEmotion(currentEmotion, player, duration, canPromoteToFinalTier);
             }
         }
 
         // promotable emotion not found, apply tier 1 version of emotion
         int? buffType = GetEmotionBuffType<T>(1);
-        if (buffType.HasValue)
-        {
-            player.AddBuff(buffType.Value, duration);
-            return true;
-        }
+        if (!buffType.HasValue) { return false; }
 
-        return false;
+        player.AddBuff(buffType.Value, duration);
+        return true;
+
     }
 }
+    /// <remarks>
+    /// A player's scaling level may continue increasing after the final tier; this method still
+    /// returns the final buff's declared tier so advantage calculations use tier progression only.
+    /// </remarks>
+    /// <returns>The registered tier, or zero when the entity has no active emotion.</returns>
+    /// <typeparam name="T">The emotion-buff family that should remain compatible.</typeparam>
+    /// <param name="entity">The player or NPC to update.</param>
+    /// <param name="target">The NPC that should receive the emotion.</param>
+    /// <param name="emotion">The emotion family to apply.</param>
+    /// <param name="duration">The buff duration in ticks.</param>
+    /// <returns><see langword="true"/> when the emotion was accepted and added.</returns>
+    /// <typeparam name="T">The emotion-buff family to test.</typeparam>
+    /// <param name="player">The player to inspect.</param>
+    /// <param name="player">The player whose active emotion should be promoted.</param>
+    /// <param name="duration">The new buff duration in ticks.</param>
+    /// <returns><see langword="true"/> when the final-tier promotion or refresh succeeds.</returns>

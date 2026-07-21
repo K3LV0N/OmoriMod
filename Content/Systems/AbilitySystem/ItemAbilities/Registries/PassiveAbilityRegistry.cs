@@ -16,7 +16,7 @@ public static class PassiveAbilityRegistry
     // ID Enum
     public enum PassiveAbilityID : int
     {
-        NONE = 0,
+        None = 0,
         SINGLE_PHANTOM_BAT = 1,
         TRIPLE_PHANTOM_BAT = 2,
         QUINTUPLE_PHANTOM_BAT = 3,

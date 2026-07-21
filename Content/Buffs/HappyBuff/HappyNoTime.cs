@@ -9,7 +9,7 @@ public class HappyNoTime : HappyEmotionBase
     HappyNoTime()
     {
         EmotionTier = 1;
-        dustSpawnFrequency = 1;
+        _dustSpawnFrequency = 1;
     }
     public override void SetStaticDefaults()
     {

@@ -3,6 +3,13 @@
 
 This is a content expansion mod for Terraria based on Omori built using the tModLoader API. This README serves as a guide to understanding the mod's file structure and naming conventions.
 
+## Documentation
+
+See the [documentation index](docs/README.md) for all project guides, including:
+
+- the [emotion system architecture and extension guide](docs/EmotionSystem.md); and
+- the [contribution guide](docs/CONTRIBUTING.md).
+
 ## 📁 File Structure
 
 The project is organized hierarchically for clarity and scalability, and is typically defined as such:

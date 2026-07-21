@@ -9,7 +9,7 @@ public static class ActiveAbilityRegistry
     // ID Enum
     public enum ActiveAbilityID : int
     {
-        NONE = 0
+        None = 0
     }
 
     public static void Initialize()
