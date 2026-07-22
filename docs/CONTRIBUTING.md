@@ -22,7 +22,12 @@ If PowerShell reports that script execution is disabled, run the following comma
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
 
-After setup, fully close and reopen VS Code so it can read the new environment variable. To build and debug the mod, open the **Run and Debug** panel (`Ctrl+Shift+D`), select **Launch tModLoader**, and press `F5`.
+After setup, fully close and reopen VS Code so it can read the new environment variable. To build and debug the mod, open the **Run and Debug** panel (`Ctrl+Shift+D`) and select the profile matching your debugger:
+
+- Use **Launch tModLoader — Microsoft C#** with the Microsoft C# debugger when ReSharper is disabled or not installed. This preserves the original `dotnet tModLoader.dll` workflow.
+- Use **Launch tModLoader — ReSharper** when ReSharper 2026.2 or newer is enabled. ReSharper 2026.2 introduced its own `coreclr` debugger and requires `tModLoader.dll` and the bundled .NET runtime to be configured separately.
+
+Press `F5` after selecting the profile. VS Code remembers the last selected profile, so this is normally a one-time choice. Both profiles use the same `TMLSTEAMPATH` environment variable, setup script, and pre-launch build task.
 
 For additional setup troubleshooting, see the [Dev Setup section in the project README](../README.md#dev-setup-vs-code).
 
