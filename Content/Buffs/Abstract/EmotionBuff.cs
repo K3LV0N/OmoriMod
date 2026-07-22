@@ -30,7 +30,21 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
     /// <summary>
     /// Gets the tier declared by this buff type.
     /// </summary>
+    /// <remarks>
+    /// This is content metadata shared by every entity using the buff. Runtime player and NPC
+    /// levels belong to their respective <see cref="IEmotionEntity"/> implementations.
+    /// </remarks>
     public int EmotionTier { get; protected set; }
+
+    /// <summary>
+    /// Gets the policy used when a player reapplies this family's final standard tier.
+    /// </summary>
+    /// <remarks>
+    /// Family base classes may override this property. Every standard tier registered to the
+    /// same <see cref="EmotionType"/> must declare the same value. NPC and no-time buffs do not
+    /// participate in final-tier player scaling.
+    /// </remarks>
+    public virtual EmotionScalingMode ScalingMode => EmotionScalingMode.Capped;
 
     /// <summary>
     /// The number of emotion-dust particles spawned per second while this buff is active on a player.
@@ -80,7 +94,8 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
     private void UpdateEmotionLevel(EmotionPlayer modPlayer)
     {
         int registeredTier = EmotionSystem.GetEmotionTier(Type) ?? EmotionTier;
-        if (!EmotionSystem.IsFinalEmotionTier(Type))
+        if (!EmotionSystem.IsFinalEmotionTier(Type)
+            || ScalingMode == EmotionScalingMode.Disabled)
         {
             modPlayer.EmotionLevel = registeredTier;
             return;
@@ -97,17 +112,23 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
     }
 
     /// <summary>
-    /// Increments a player's scaling level when the active final-tier emotion is reapplied.
+    /// Applies the family's scaling policy when a player's final standard tier is reapplied.
     /// </summary>
     /// <remarks>
-    /// Final-tier reapplication increments the retained scaling level and then allows tModLoader's
-    /// normal duration refresh behavior. Non-final tiers use the base implementation unchanged.
+    /// Capped families increment their retained scaling level up to the configured maximum.
+    /// Disabled families leave their effective level fixed. Both policies allow tModLoader's
+    /// normal duration refresh behavior, while non-final tiers use the base implementation.
     /// </remarks>
     public override bool ReApply(Player player, int time, int buffIndex)
     {
         if (!EmotionSystem.IsFinalEmotionTier(Type))
         {
             return base.ReApply(player, time, buffIndex);
+        }
+
+        if (ScalingMode == EmotionScalingMode.Disabled)
+        {
+            return false;
         }
 
         int? finalTier = EmotionSystem.GetMaxEmotionTier(Emotion);
@@ -295,7 +316,8 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
             return emotionPlayer.EmotionLevel;
         }
 
-        return EmotionSystem.IsFinalEmotionTier(Type)
+        return ScalingMode == EmotionScalingMode.Capped
+            && EmotionSystem.IsFinalEmotionTier(Type)
             && emotionPlayer.ScalingEmotion == Emotion
             && emotionPlayer.ScalingEmotionLevel >= registeredTier
                 ? emotionPlayer.ScalingEmotionLevel
@@ -305,7 +327,8 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
     /// <summary>Appends the post-final-tier scaling level to a final-tier buff tooltip.</summary>
     protected void FinalTierModifyBuffText(int emotionLevel, ref string buffName, ref string tip, ref int rare)
     {
-        if (!EmotionSystem.IsFinalEmotionTier(Type))
+        if (ScalingMode == EmotionScalingMode.Disabled
+            || !EmotionSystem.IsFinalEmotionTier(Type))
         {
             return;
         }
@@ -317,7 +340,3 @@ public abstract class EmotionBuff : ModBuff, IEmotionObject
         }
     }
 }
-    /// <remarks>
-    /// This is content metadata shared by every entity using the buff. Runtime player and NPC
-    /// levels belong to their respective <see cref="IEmotionEntity"/> implementations.
-    /// </remarks>

@@ -14,19 +14,21 @@ namespace OmoriMod.Content.Systems.EmotionSystem;
 /// </summary>
 /// <remarks>
 /// Standard tiers are validated during content setup. Each emotion family must begin at tier one,
-/// remain contiguous, and not exceed the configured player tier limit. No-time variants are
-/// registered for lookup but do not define the maximum standard tier.
+/// remain contiguous, use one scaling policy, and not exceed the configured player tier limit.
+/// No-time variants are registered for lookup but do not define standard-family policy or limits.
 /// </remarks>
 public sealed class EmotionRegistry : ModSystem
 {
     private readonly record struct EmotionLookupKey(EmotionType Emotion, int Tier, EmotionBuffVariant Variant);
     private readonly record struct EmotionFamilyLookupKey(Type FamilyType, int Tier, EmotionBuffVariant Variant);
     private readonly record struct EmotionBuffMetadata(EmotionType Emotion, int Tier, EmotionBuffVariant Variant);
+    private readonly record struct EmotionScalingRegistration(EmotionScalingMode Mode, int BuffType);
 
     private static readonly Dictionary<EmotionLookupKey, int> EmotionBuffTypes = [];
     private static readonly Dictionary<EmotionFamilyLookupKey, int> EmotionBuffTypesByFamily = [];
     private static readonly Dictionary<int, EmotionBuffMetadata> EmotionMetadataByBuffType = [];
     private static readonly Dictionary<EmotionType, int> MaxEmotionTierByType = [];
+    private static readonly Dictionary<EmotionType, EmotionScalingRegistration> StandardScalingByType = [];
 
     private static void ClearRegistries()
     {
@@ -34,6 +36,7 @@ public sealed class EmotionRegistry : ModSystem
         EmotionBuffTypesByFamily.Clear();
         EmotionMetadataByBuffType.Clear();
         MaxEmotionTierByType.Clear();
+        StandardScalingByType.Clear();
     }
 
     private static void AddUniqueRegistration<TKey>(Dictionary<TKey, int> registry, TKey key, EmotionBuff emotionBuff)
@@ -95,14 +98,43 @@ public sealed class EmotionRegistry : ModSystem
             RegisterEmotionBuff(emotionBuff, metadata);
             EmotionMetadataByBuffType.Add(buffType, metadata);
 
-            if (variant == EmotionBuffVariant.Standard
-                && (!MaxEmotionTierByType.TryGetValue(emotionBuff.Emotion, out int currentMax) || tier > currentMax))
+            if (variant != EmotionBuffVariant.Standard)
+            {
+                continue;
+            }
+
+            ValidateStandardScalingMode(emotionBuff);
+
+            if (!MaxEmotionTierByType.TryGetValue(emotionBuff.Emotion, out int currentMax) || tier > currentMax)
             {
                 MaxEmotionTierByType[emotionBuff.Emotion] = tier;
             }
         }
 
         ValidateStandardEmotionTiers();
+    }
+
+    private static void ValidateStandardScalingMode(EmotionBuff emotionBuff)
+    {
+        if (!StandardScalingByType.TryGetValue(emotionBuff.Emotion, out EmotionScalingRegistration existing))
+        {
+            StandardScalingByType.Add(
+                emotionBuff.Emotion,
+                new EmotionScalingRegistration(emotionBuff.ScalingMode, emotionBuff.Type));
+            return;
+        }
+
+        if (existing.Mode == emotionBuff.ScalingMode)
+        {
+            return;
+        }
+
+        ModBuff existingBuff = ModContent.GetModBuff(existing.BuffType);
+        string existingName = existingBuff?.FullName ?? existing.BuffType.ToString();
+        throw new InvalidOperationException(
+            $"Emotion '{emotionBuff.Emotion}' mixes standard scaling modes: " +
+            $"'{existingName}' declares {existing.Mode}, while '{emotionBuff.FullName}' declares {emotionBuff.ScalingMode}. " +
+            "Every standard tier in an emotion family must use the same EmotionScalingMode.");
     }
 
     /// <summary>Releases all cached emotion registration data when the mod unloads.</summary>

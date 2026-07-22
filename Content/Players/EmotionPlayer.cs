@@ -31,7 +31,7 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
     /// <summary>Gets whether normal emotion applications are blocked for this player.</summary>
     public bool ImmuneToEmotionChange => false;
 
-    /// <summary>The persistent scaling level reached while a final-tier emotion remains active.</summary>
+    /// <summary>The retained scaling level reached while a capped final-tier emotion remains active.</summary>
     public int ScalingEmotionLevel;
 
     /// <summary>The emotion family associated with <see cref="ScalingEmotionLevel"/>.</summary>
@@ -65,6 +65,7 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
         if (!emotionType.HasValue
             || !EmotionSystem.IsFinalEmotionTier(emotionType.Value)
             || ModContent.GetModBuff(emotionType.Value) is not EmotionBuff emotionBuff
+            || emotionBuff.ScalingMode != EmotionScalingMode.Capped
             || !EmotionSystem.GetMaxEmotionTier(emotionBuff.Emotion).HasValue)
         {
             ScalingEmotion = EmotionType.None;

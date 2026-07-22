@@ -21,3 +21,14 @@ public enum EmotionBuffVariant
     /// <summary>An untimed-display buff intended for persistent sources such as accessories.</summary>
     NoTime,
 }
+
+/// <summary>
+/// Controls whether a standard emotion family's final tier can raise its effective player level.
+/// </summary>
+public enum EmotionScalingMode
+{
+    /// <summary>The effective level remains fixed at the registered final tier.</summary>
+    Disabled,
+    /// <summary>The effective level can increase up to the configured player maximum.</summary>
+    Capped,
+}

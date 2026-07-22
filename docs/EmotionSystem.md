@@ -1,6 +1,6 @@
 # Emotion System
 
-The emotion system gives players, NPCs, items, and projectiles an `Angry`, `Happy`, `Sad`, or `None` identity. Emotion buffs provide tiered stat changes, the emotion triangle modifies combat damage, and repeated final-tier applications let player effects continue scaling without requiring a separate buff class for every level.
+The emotion system gives players, NPCs, items, and projectiles an `Angry`, `Happy`, `Sad`, or `None` identity. Emotion buffs provide tiered stat changes, the emotion triangle modifies combat damage, and each family decides whether repeated final-tier applications can raise the player's effective level.
 
 This document describes the implementation in `Content/Systems/EmotionSystem` and the related buff, player, NPC, item, and projectile classes.
 
@@ -12,7 +12,7 @@ The system uses three related values that should not be confused:
 
 - **Emotion** is the family (`Angry`, `Happy`, `Sad`, or `None`). It is represented by `EmotionType`.
 - **Tier** is the progression stage declared by a concrete buff type. The current standard families have tiers 1 through 4.
-- **Level** is the value used to scale stats. It normally equals the tier, but a player at the final tier can continue raising the level up to `EmotionStatTuning.PlayerMaxEmotionLevel`.
+- **Level** is the value used to scale stats. It normally equals the tier. A capped family lets a player at the final standard tier continue raising the level up to `EmotionStatTuning.PlayerMaxEmotionLevel`; a disabled family keeps it equal to the tier.
 
 For example, `Livid` is always the tier-4 Angry buff. Reapplying it can raise a player's effective Angry level above four, but registry queries and emotional-advantage calculations still treat it as tier four.
 
@@ -167,18 +167,29 @@ Normal emotion items pass `canPromoteToFinalTier: false`. They can reach the pen
 
 No-time variants cannot participate in this promotion path.
 
-## Final-tier scaling
+## Final-tier scaling policies
 
-Final-tier scaling separates the number of concrete buff classes from the number of balance levels.
+`EmotionBuff.ScalingMode` declares how a family handles reapplication of its final standard player buff. Family base classes should override this property so all concrete tiers inherit the same policy. It defaults to `EmotionScalingMode.Capped`, preserving the behavior of Angry, Happy, and Sad.
+
+The available policies are:
+
+| Mode | Final-tier level behavior | Reapplication behavior |
+| --- | --- | --- |
+| `Disabled` | Remains fixed at the registered final tier. | Refreshes the timed buff without retaining or incrementing a scaling level. |
+| `Capped` | Can rise above the registered final tier. | Refreshes the timed buff and increments the retained level through `EmotionStatTuning.PlayerMaxEmotionLevel` (currently 43). |
+
+Endless or unbounded scaling is not supported. Registry setup rejects a standard emotion family whose tiers declare different scaling modes. No-time variants and NPCs do not participate in final-tier player scaling.
+
+Capped final-tier scaling separates the number of concrete buff classes from the number of balance levels.
 
 `EmotionPlayer` retains:
 
 - `ScalingEmotion`, the family being scaled; and
 - `ScalingEmotionLevel`, the current effective level.
 
-When a final-tier buff becomes active, `EnsureScalingEmotion` initializes the scaling level to at least the registered final tier. Reapplying that buff increments the level by one until `EmotionStatTuning.PlayerMaxEmotionLevel` is reached. The same buff type remains active throughout this process.
+When a capped final-tier buff becomes active, `EnsureScalingEmotion` initializes the scaling level to at least the registered final tier. Reapplying that buff increments the level by one until `EmotionStatTuning.PlayerMaxEmotionLevel` is reached. The same buff type remains active throughout this process.
 
-Changing families or losing the final-tier buff resets the retained scaling state. Tooltips use the effective scaling level and append the level reached beyond the final tier.
+Changing families, losing the final-tier buff, or activating a disabled, non-final, or non-standard emotion clears the retained scaling state. Capped tooltips use the effective scaling level and append the level reached beyond the final tier. Disabled families do not show that suffix.
 
 Final-tier scaling affects stat calculations, but it does not increase emotional-advantage tier strength. This prevents repeated applications from turning a single tier-4 buff into an unbounded advantage-tier value.
 
@@ -287,20 +298,164 @@ No central tier dictionary needs to be edited; the registry discovers the new bu
 
 Remember that no-time variants are intentionally excluded from standard promotion and maximum-tier calculations.
 
-### Add a new emotion family
+### Add a fully functioning new emotion family
 
-Adding a family is a broader change:
+The following walkthrough uses a one-tier, non-scaling `Foobar` family. Keep the family base even when there is only one tier: it provides one place for the identity, scaling policy, tuning behavior, tooltip, and any future standard or no-time variants.
 
-1. Add the identity to `EmotionType`.
-2. Create a family base class derived from `EmotionBuff`.
-3. Add player and NPC tuning values to `EmotionStatTuning`.
-4. Create a contiguous set of concrete standard tier buffs.
-5. Decide its relationships in `EmotionSystem.CheckForAdvantage`.
-6. Add typed item and projectile bases if the family needs on-hit content.
-7. Add visual colors, tooltip behavior, localization, and textures.
-8. Verify every combat pairing, compatibility behavior, and multiplayer removal path.
+#### 1. Add the identity
 
-The current advantage model is a three-member cycle. A fourth emotion requires an explicit design for ties and winning relationships rather than only another enum member.
+Append a unique value to `EmotionType` in `EmotionTypes.cs`. Keep existing numeric values stable rather than inserting or renumbering members.
+
+```csharp
+public enum EmotionType
+{
+    None = 0,
+    Sad = 1,
+    Angry = 2,
+    Happy = 3,
+    Foobar = 4,
+}
+```
+
+The registry and entity state use the enum generically; they do not need a separate Foobar entry.
+
+#### 2. Add balance values
+
+Add a nested `Foobar` group to `EmotionStatTuning` containing the player and NPC values required by the family's effects. Keep numerical balance in the tuning class and gameplay behavior in the family base. A family with no numerical effect does not require placeholder tuning values.
+
+#### 3. Create the family base
+
+Derive `FoobarEmotionBase` from `EmotionBuff`, set its identity and dust color in the constructor, and disable scaling at the family level:
+
+```csharp
+public abstract class FoobarEmotionBase : EmotionBuff
+{
+    protected FoobarEmotionBase()
+    {
+        Emotion = EmotionType.Foobar;
+        _dustColor = Color.Purple;
+    }
+
+    public override EmotionScalingMode ScalingMode =>
+        EmotionScalingMode.Disabled;
+}
+```
+
+Implement the family's behavior here by overriding the hooks it needs. Common hooks include:
+
+- `UpdateEmotionBuff(Player, ref int)` and `UpdateEmotionBuff(NPC, ref int)` for continuously applied stats;
+- player and NPC outgoing-damage or hit hooks for attack behavior;
+- `ModifyPlayerIncomingDamage` and `OnPlayerHurt` for defensive behavior; and
+- `ModifyBuffText` for calculated tooltip text.
+
+The base `IsIncompatibleWith` implementation already makes Foobar incompatible with other emotion identities and compatible with other Foobar emotion buffs. Override it only when Foobar needs different coexistence rules.
+
+#### 4. Create every standard tier
+
+Create a concrete `ModBuff` for each standard tier. Tiers must start at one, remain contiguous, stay at or below `EmotionStatTuning.PlayerMaxEmotionLevel`, and inherit the same `ScalingMode`.
+
+```csharp
+public class Foobar : FoobarEmotionBase
+{
+    public Foobar()
+    {
+        EmotionTier = 1;
+        _dustSpawnFrequency = 1;
+    }
+}
+```
+
+`_dustSpawnFrequency` must be between 1 and 60 because it is used as a divisor when calculating the particle interval. Do not set `Main.buffNoTimeDisplay` for a normal timed buff. The registry discovers the class automatically and treats this one-tier family as having a final tier of one.
+
+With `Disabled`, Foobar always has an effective level of one. Reapplication refreshes its duration, does not retain or increment a scaling level, and does not add a post-final-tier tooltip suffix. To use capped scaling instead, inherit the default or override the property with `EmotionScalingMode.Capped`; reapplications will then advance through the shared level-43 cap. Endless scaling is not supported.
+
+#### 5. Add buff content assets
+
+Add a texture next to every concrete buff using the same filename, such as `Foobar.cs` and `Foobar.png`. Add its `DisplayName` and `Description` under `Buffs` in `Localization/en-US_Mods.OmoriMod.hjson`. Add equivalent entries to other locale files when those translations exist.
+
+#### 6. Define emotional advantage
+
+Review `EmotionSystem.CheckForAdvantage`. It currently encodes the Angry-Happy-Sad triangle as paired switch arms. Add both directions for every relationship involving Foobar:
+
+```csharp
+EmotionType.Foobar when defender == EmotionType.Angry => true,
+EmotionType.Angry when defender == EmotionType.Foobar => false,
+```
+
+Repeat that pairing for Happy and Sad according to the intended design. Matching emotions already fall through to no advantage. If Foobar is deliberately neutral against another emotion, add no arms for that pairing and the existing `_ => null` fallback will produce zero advantage.
+
+A fourth emotion is not automatically inserted into the existing three-member cycle. Its wins, losses, and neutral matchups must be designed explicitly and tested in both attacker directions.
+
+#### 7. Update visual and content switches where applicable
+
+Adding an enum member does not require changing every `EmotionType.None` check. Review these switches and add Foobar only when the associated feature is used:
+
+| Location | Change | Result if omitted |
+| --- | --- | --- |
+| `EmotionNPC.NpcColorChangeFromEmotion` | Map `EmotionType.Foobar` to its NPC tint. | Foobar NPCs use the existing white fallback tint. |
+| `EmotionItem.SetRarity` | Map Foobar to an `ItemRarityID`. | Foobar-aware items keep their otherwise configured rarity. |
+| `EmotionProjectile.MakeDust` | Add a Foobar dust-color case. | Calling `MakeDust` for Foobar spawns no particle. |
+
+The `EmotionPlayer` and `EmotionNPC` reset assignments, and the `ApplyEmotion` guard against `EmotionType.None`, should remain unchanged.
+
+#### 8. Add typed item and projectile bases
+
+If multiple items or projectiles represent Foobar, add small typed bases so their identity cannot be forgotten:
+
+```csharp
+public abstract class FoobarItem : EmotionItem
+{
+    protected FoobarItem() => SetEmotionType(EmotionType.Foobar);
+}
+
+public abstract class FoobarProjectile : EmotionProjectile
+{
+    protected FoobarProjectile() => SetEmotionType(EmotionType.Foobar);
+}
+```
+
+Directly deriving a one-off item from `EmotionItem` or projectile from `EmotionProjectile` also works when its constructor calls `SetEmotionType(EmotionType.Foobar)`.
+
+#### 9. Add an application source
+
+A timed player-buff item should check eligibility and then use the family type for application:
+
+```csharp
+public override bool CanUseItemEmotionBuffItem(Player player)
+{
+    return EmotionSystem.CanApplyOrPromoteEmotion<FoobarEmotionBase>(player);
+}
+
+public override bool? UseItemEmotionBuffItem(Player player)
+{
+    return EmotionSystem.ApplyOrPromoteEmotion<FoobarEmotionBase>(
+        player,
+        EmotionStatTuning.EmotionTimeInSeconds * 60);
+}
+```
+
+Using the family base lets the same call promote through future Foobar tiers. For a direct `Foobar : EmotionBuff` implementation with no family base, the generic calls can use `Foobar`, but shared behavior and future variants must then be reorganized if the family grows.
+
+NPC application and emotion-aware items or projectiles use the existing generic APIs. `EmotionSystem.ApplyEmotion(npc, EmotionType.Foobar, duration)` selects registered standard tier one automatically.
+
+#### 10. Add optional no-time variants
+
+For an accessory or another persistent source, derive a separate buff from `FoobarEmotionBase`, declare its tier, and set `Main.buffNoTimeDisplay[Type] = true` in `SetStaticDefaults`. Reapply it for a short duration from the persistent source. No-time variants are registered separately and never participate in promotion, maximum-tier calculation, or retained final-tier player scaling.
+
+#### 11. Verify the integration
+
+Build and load the mod, then verify:
+
+1. Registry setup accepts the contiguous standard tiers and consistent scaling mode.
+2. The application source adds Foobar for the requested duration and reapplication refreshes it.
+3. Disabled families remain at their registered tier without a scaling suffix; capped families stop at level 43.
+4. Changing to another emotion removes Foobar according to the compatibility policy.
+5. Player and NPC stat effects use the correct tuning and hooks.
+6. Every intended advantage matchup works in both attacker directions, including PvP.
+7. NPC tint, item rarity, projectile dust, buff texture, and localization appear correctly.
+8. On-hit application works for both Foobar items and Foobar projectiles.
+9. No-time variants neither promote nor retain scaling state.
+10. NPC application and removal behave correctly in single-player and multiplayer.
 
 ## Public API guidance
 
@@ -319,9 +474,9 @@ After changing the system:
 1. Build the mod and confirm registry validation succeeds.
 2. Apply each tier in sequence and confirm incompatible families are removed.
 3. Confirm normal items stop before the final tier and the amplifier crosses into it.
-4. Reapply the final tier and confirm scaling level, tooltip text, and cap behavior.
+4. Reapply capped and disabled final tiers and confirm their level, duration refresh, tooltip text, and cap behavior.
 5. Test all three advantage pairings in both attacker directions.
 6. Test player-to-NPC, NPC-to-player, NPC-to-NPC, and PvP combat paths.
 7. Test a vanilla boss, a normal vanilla NPC, and an `OmoriModNPC` for immunity behavior.
-8. Test no-time accessory emotions and ensure they do not promote.
+8. Test no-time accessory emotions and ensure they neither promote nor retain player scaling state.
 9. Repeat NPC buff application and removal in multiplayer when networking behavior changes.
