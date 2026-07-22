@@ -457,6 +457,10 @@ Items: {
 		Tooltip: ""
 	}
 }
+	RabbitsFoot: {
+		DisplayName: Rabbits Foot
+		Tooltip: increases your Jump and Speed by 2%
+	}
 
 Buffs: {
 	AngryNoTime: {
@@ -556,6 +560,7 @@ NPCs: {
 	YeOldSprout.DisplayName: Ye Old Sprout
 	SweetHeart.DisplayName: Sweetheart
 	SproutMoleOld.DisplayName: Sprout Mole Old
+	ForestBunny.DisplayName: Forest Bunny
 }
 
 Projectiles: {
