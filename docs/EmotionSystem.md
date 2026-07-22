@@ -157,13 +157,15 @@ EmotionSystem.ApplyOrPromoteEmotion<AngryEmotionBase>(
     EmotionStatTuning.EmotionTimeInSeconds * 60);
 ```
 
-The operation removes incompatible emotions, then follows one of three paths:
+After eligibility succeeds, the operation follows one of three paths:
 
 1. If no matching family is active, apply its standard tier-one buff.
 2. If a non-final standard tier is active, replace it with the next tier.
-3. If promotion is blocked or the final tier is active, reapply the current buff to refresh it.
+3. If promotion is blocked, reapply the current non-final buff to refresh it. A disabled final tier can also be refreshed normally.
 
-Normal emotion items pass `canPromoteToFinalTier: false`. They can reach the penultimate tier but cannot cross into the final tier. `EmotionalAmplifier` calls `ApplyFinalTierEmotion`, which promotes a penultimate standard emotion to the final tier or reapplies an existing final-tier emotion.
+Normal emotion items pass `canPromoteToFinalTier: false`. They can reach and refresh the penultimate tier but cannot cross into the final tier. Once a capped final tier such as `Hysterical` is active, its normal family item is no longer eligible and a direct regular application returns `false` before changing any buffs. `EmotionalAmplifier` calls `ApplyFinalTierEmotion`, which promotes a penultimate standard emotion to the final tier or reapplies an existing final-tier emotion.
+
+Passing `canPromoteToFinalTier: true` directly grants amplifier-equivalent behavior. Normal emotion items should not use this override.
 
 No-time variants cannot participate in this promotion path.
 
@@ -175,8 +177,8 @@ The available policies are:
 
 | Mode | Final-tier level behavior | Reapplication behavior |
 | --- | --- | --- |
-| `Disabled` | Remains fixed at the registered final tier. | Refreshes the timed buff without retaining or incrementing a scaling level. |
-| `Capped` | Can rise above the registered final tier. | Refreshes the timed buff and increments the retained level through `EmotionStatTuning.PlayerMaxEmotionLevel` (currently 43). |
+| `Disabled` | Remains fixed at the registered final tier. | Its normal emotion item can refresh the timed buff without retaining or incrementing a scaling level. |
+| `Capped` | Can rise above the registered final tier. | Normal emotion items are blocked; an amplifier refreshes the buff and increments the retained level through `EmotionStatTuning.PlayerMaxEmotionLevel` (currently 43). |
 
 Endless or unbounded scaling is not supported. Registry setup rejects a standard emotion family whose tiers declare different scaling modes. No-time variants and NPCs do not participate in final-tier player scaling.
 
@@ -187,7 +189,7 @@ Capped final-tier scaling separates the number of concrete buff classes from the
 - `ScalingEmotion`, the family being scaled; and
 - `ScalingEmotionLevel`, the current effective level.
 
-When a capped final-tier buff becomes active, `EnsureScalingEmotion` initializes the scaling level to at least the registered final tier. Reapplying that buff increments the level by one until `EmotionStatTuning.PlayerMaxEmotionLevel` is reached. The same buff type remains active throughout this process.
+When a capped final-tier buff becomes active, `EnsureScalingEmotion` initializes the scaling level to at least the registered final tier. Reapplying it through an amplifier increments the level by one until `EmotionStatTuning.PlayerMaxEmotionLevel` is reached. At the cap, amplifiers can still refresh its duration without raising the level. The same buff type remains active throughout this process.
 
 Changing families, losing the final-tier buff, or activating a disabled, non-final, or non-standard emotion clears the retained scaling state. Capped tooltips use the effective scaling level and append the level reached beyond the final tier. Disabled families do not show that suffix.
 
@@ -466,6 +468,7 @@ Build and load the mod, then verify:
 - Use registry-backed lookup methods instead of hard-coding concrete buff type IDs.
 - Pass durations in ticks to application methods. Convert seconds using Terraria's 60-ticks-per-second rate where appropriate.
 - Call the matching `Can...` method from item eligibility hooks before calling an application or promotion method from the use hook.
+- Reserve `canPromoteToFinalTier: true` for amplifier-equivalent content. It permits crossing into and reapplying capped final tiers.
 
 ## Verification checklist
 
@@ -474,9 +477,10 @@ After changing the system:
 1. Build the mod and confirm registry validation succeeds.
 2. Apply each tier in sequence and confirm incompatible families are removed.
 3. Confirm normal items stop before the final tier and the amplifier crosses into it.
-4. Reapply capped and disabled final tiers and confirm their level, duration refresh, tooltip text, and cap behavior.
-5. Test all three advantage pairings in both attacker directions.
-6. Test player-to-NPC, NPC-to-player, NPC-to-NPC, and PvP combat paths.
-7. Test a vanilla boss, a normal vanilla NPC, and an `OmoriModNPC` for immunity behavior.
-8. Test no-time accessory emotions and ensure they neither promote nor retain player scaling state.
-9. Repeat NPC buff application and removal in multiplayer when networking behavior changes.
+4. Confirm normal items are blocked while capped final tiers are active, including at level 43, without changing level or duration.
+5. Confirm amplifiers reapply capped final tiers, while normal items can still refresh disabled final tiers.
+6. Test all three advantage pairings in both attacker directions.
+7. Test player-to-NPC, NPC-to-player, NPC-to-NPC, and PvP combat paths.
+8. Test a vanilla boss, a normal vanilla NPC, and an `OmoriModNPC` for immunity behavior.
+9. Test no-time accessory emotions and ensure they neither promote nor retain player scaling state.
+10. Repeat NPC buff application and removal in multiplayer when networking behavior changes.

@@ -371,13 +371,23 @@ public static class EmotionSystem
 
         foreach (int buffId in player.buffType)
         {
-            if (ModContent.GetModBuff(buffId) is T)
+            if (ModContent.GetModBuff(buffId) is T currentEmotion)
             {
-                return GetEmotionVariant(buffId) == EmotionBuffVariant.Standard;
+                return GetEmotionVariant(buffId) == EmotionBuffVariant.Standard
+                    && !IsCappedFinalTierEmotion(currentEmotion);
             }
         }
 
         return GetEmotionBuffType<T>(1).HasValue;
+    }
+
+    /// <summary>
+    /// Determines whether a buff is the final standard tier of a family that supports capped scaling.
+    /// </summary>
+    private static bool IsCappedFinalTierEmotion(EmotionBuff emotionBuff)
+    {
+        return emotionBuff.ScalingMode == EmotionScalingMode.Capped
+            && IsFinalEmotionTier(emotionBuff.Type);
     }
 
 
@@ -404,6 +414,11 @@ public static class EmotionSystem
 
         if (currentTier.Value == maxTier.Value)
         {
+            if (IsCappedFinalTierEmotion(currentEmotion) && !canPromoteToFinalTier)
+            {
+                return false;
+            }
+
             player.AddBuff(currentEmotion.Type, duration);
             return true;
         }
@@ -468,11 +483,24 @@ public static class EmotionSystem
     /// <param name="player">The player whose emotion should be changed.</param>
     /// <param name="duration">The applied or refreshed buff duration in ticks.</param>
     /// <param name="canPromoteToFinalTier">
-    /// Whether this operation may cross from the penultimate tier into the final tier.
+    /// Whether this operation may cross into or reapply a capped final tier. Passing
+    /// <see langword="true"/> grants amplifier-equivalent behavior.
     /// </param>
     /// <returns><see langword="true"/> when an emotion was applied, promoted, or refreshed.</returns>
     public static bool ApplyOrPromoteEmotion<T>(Player player, int duration, bool canPromoteToFinalTier = false) where T : EmotionBuff
     {
+        if (!canPromoteToFinalTier)
+        {
+            foreach (int buffId in player.buffType)
+            {
+                if (ModContent.GetModBuff(buffId) is T currentEmotion
+                    && IsCappedFinalTierEmotion(currentEmotion))
+                {
+                    return false;
+                }
+            }
+        }
+
         // first, remove incompatible emotions
         RemoveIncompatibleEmotions<T>(player);
 
