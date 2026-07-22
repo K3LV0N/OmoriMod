@@ -523,19 +523,3 @@ public static class EmotionSystem
 
     }
 }
-    /// <remarks>
-    /// A player's scaling level may continue increasing after the final tier; this method still
-    /// returns the final buff's declared tier so advantage calculations use tier progression only.
-    /// </remarks>
-    /// <returns>The registered tier, or zero when the entity has no active emotion.</returns>
-    /// <typeparam name="T">The emotion-buff family that should remain compatible.</typeparam>
-    /// <param name="entity">The player or NPC to update.</param>
-    /// <param name="target">The NPC that should receive the emotion.</param>
-    /// <param name="emotion">The emotion family to apply.</param>
-    /// <param name="duration">The buff duration in ticks.</param>
-    /// <returns><see langword="true"/> when the emotion was accepted and added.</returns>
-    /// <typeparam name="T">The emotion-buff family to test.</typeparam>
-    /// <param name="player">The player to inspect.</param>
-    /// <param name="player">The player whose active emotion should be promoted.</param>
-    /// <param name="duration">The new buff duration in ticks.</param>
-    /// <returns><see langword="true"/> when the final-tier promotion or refresh succeeds.</returns>
