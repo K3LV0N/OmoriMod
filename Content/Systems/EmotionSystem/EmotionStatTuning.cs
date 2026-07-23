@@ -103,6 +103,40 @@ internal static class EmotionStatTuning
     }
 
     /// <summary>
+    /// Contains tuning values for Fear stat effects.
+    /// </summary>
+    internal static class Fear
+    {
+        /// <summary>
+        /// Contains Fear stat scaling used by players.
+        /// </summary>
+        internal static class PlayerStats
+        {
+            /// <summary>The player's movement-speed increase.</summary>
+            internal static readonly EmotionStatScaling MovementSpeedIncrease = new(20f, 2f, 2.5f);
+            /// <summary>The player's chance for an attack to deal no damage.</summary>
+            internal static readonly EmotionStatScaling MissChance = new(90f, 10.5f, 4f);
+            /// <summary>The player's outgoing-damage decrease.</summary>
+            internal static readonly EmotionStatScaling DamageDecrease = new(120f, 70f, 5f);
+            /// <summary>The player's life-regen increase, in raw lifeRegen units.</summary>
+            internal static readonly EmotionStatScaling LifeRegenIncrease = new(40f, 15f, 1f);
+        }
+
+        /// <summary>
+        /// Contains Fear stat scaling used by NPCs.
+        /// </summary>
+        internal static class NpcStats
+        {
+            /// <summary>The NPC's movement-speed increase.</summary>
+            internal static readonly EmotionStatScaling MovementSpeedIncrease = new(15f, 1.5f, 2f);
+            /// <summary>The NPC's chance for an attack to deal no damage.</summary>
+            internal static readonly EmotionStatScaling MissChance = new(55f, 8f, 4f);
+            /// <summary>The NPC's outgoing-damage decrease.</summary>
+            internal static readonly EmotionStatScaling DamageDecrease = new(35f, 4f, 4f);
+        }
+    }
+
+    /// <summary>
     /// Contains tuning values for Sad stat effects.
     /// </summary>
     internal static class Sad

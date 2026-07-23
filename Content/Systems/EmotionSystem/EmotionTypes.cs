@@ -9,6 +9,7 @@ public enum EmotionType
     Sad = 1,
     Angry = 2,
     Happy = 3,
+    Fear = 4,
 }
 
 /// <summary>
