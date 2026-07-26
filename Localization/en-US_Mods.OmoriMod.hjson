@@ -456,6 +456,11 @@ Items: {
 		DisplayName: Test Bat
 		Tooltip: ""
 	}
+
+	Firecracker: {
+		Tooltip: ""
+		DisplayName: Firecracker
+	}
 }
 
 Buffs: {
@@ -547,6 +552,11 @@ Buffs: {
 	DummyBuff: {
 		DisplayName: You are not supposed to see this.
 		Description: Stop looking :(
+	}
+
+	Fear: {
+		Description: Mods.OmoriMod.Buffs.Fear.Description
+		DisplayName: Fear
 	}
 }
 
