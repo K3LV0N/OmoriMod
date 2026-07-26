@@ -456,6 +456,11 @@ Items: {
 		DisplayName: Test Bat
 		Tooltip: ""
 	}
+
+	SproutMoleBanner: {
+		DisplayName: Sprout Mole Banner
+		Tooltip: ""
+	}
 }
 
 Buffs: {
