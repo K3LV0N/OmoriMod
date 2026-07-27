@@ -3,7 +3,6 @@
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>OmoriMod</AssemblyName>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Systems\AbilitySystem\ItemAbilities\Actives\" />

@@ -97,7 +97,7 @@ public abstract class SadEmotionBase : EmotionBuff
         float conversionPercent = GetHealthDamageToManaDamageConversionPercent(emotionLevel);
         EmotionPlayer emotionPlayer = player.GetModPlayer<EmotionPlayer>();
 
-        modifiers.ModifyHurtInfo += (ref hurtInfo) =>
+        modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
         {
             int requestedManaDamage = (int)MathF.Round(
                 hurtInfo.Damage * conversionPercent,
