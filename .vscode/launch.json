@@ -81,7 +81,7 @@
         "artifacts/test-results",
         "--logger",
         "console;verbosity=normal",
-        "--collect:XPlat Code Coverage"
+        "--collect:\"XPlat Code Coverage\""
       ],
       "cwd": "${workspaceFolder}",
       "postDebugTask": "generate and open coverage report"
