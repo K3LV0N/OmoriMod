@@ -45,16 +45,35 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "clear": true,
+        "showReuseMessage": false,
+        "close": true
+      }
     },
     {
       "label": "open coverage report",
       "type": "process",
-      "command": "explorer.exe",
+      "command": "powershell.exe",
       "args": [
-        "${workspaceFolder}\\artifacts\\coverage\\index.html"
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        "$reportPath = (Resolve-Path 'artifacts/coverage/index.html').Path; $reportUri = [System.Uri]::new($reportPath).AbsoluteUri; Start-Process ($reportUri + '?v=' + [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())"
       ],
-      "problemMatcher": []
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "close": true
+      }
     },
     {
       "label": "generate and open coverage report",
@@ -73,7 +92,6 @@
         "generate and open coverage report"
       ],
       "problemMatcher": []
-    },
-    
+    }
   ]
 }
