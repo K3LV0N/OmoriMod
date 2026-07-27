@@ -23,8 +23,8 @@ public class OmoriMod : Mod
     {
         if (ModLoader.TryGetMod("dementiaMod", out Mod dementiaMod))
         {
-            dementiaMod.Call("AddBossSummon", ModContent.ItemType<MegaTofu>(), new int[] { ModContent.NPCType<YeOldSprout>() });
-            dementiaMod.Call("AddBossSummon", ModContent.ItemType<SplinteredSweet>(), new int[] { ModContent.NPCType<SweetHeart>() });
+            dementiaMod.Call("AddBossSummon", ModContent.ItemType<MegaTofu>(), new[] { ModContent.NPCType<YeOldSprout>() });
+            dementiaMod.Call("AddBossSummon", ModContent.ItemType<SplinteredSweet>(), new[] { ModContent.NPCType<SweetHeart>() });
         }
     }
 }
