@@ -43,7 +43,7 @@ namespace OmoriMod.Content.Summons.Summons.Projectiles
             Projectile.DamageType = DamageClass.Summon;
         }
 
-        private bool CheckActive(Player owner)
+        public override bool CheckActive(Player owner)
         {
             if (owner.dead || !owner.active)
             {

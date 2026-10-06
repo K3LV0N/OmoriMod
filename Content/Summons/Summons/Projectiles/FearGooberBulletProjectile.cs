@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using OmoriMod.Content.Projectiles.Abstract_Classes;
-using OmoriMod.Content.Buffs.AngryBuff;
+using OmoriMod.Content.Buffs.FearBuff;
 
 
 namespace OmoriMod.Content.Summons.Summons.Projectiles
