@@ -457,9 +457,14 @@ Items: {
 		Tooltip: ""
 	}
 
-	SproutMoleBanner: {
-		DisplayName: Sprout Mole Banner
-		Tooltip: ""
+		SproutMoleBanner: {
+			DisplayName: Sprout Mole Banner
+			Tooltip: ""
+		}
+		Firecracker: {
+			Tooltip: ""
+			DisplayName: Firecracker
+		}
 	}
 }
 
@@ -552,6 +557,11 @@ Buffs: {
 	DummyBuff: {
 		DisplayName: You are not supposed to see this.
 		Description: Stop looking :(
+	}
+
+	Fear: {
+		Description: Mods.OmoriMod.Buffs.Fear.Description
+		DisplayName: Fear
 	}
 }
 
