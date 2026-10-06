@@ -6,3 +6,6 @@ bin/
 
 ## compiled mod ##
 *.dll
+
+## testing artifacts
+/artifacts/

@@ -1,3 +1,5 @@
+using System;
+
 using OmoriMod.Content.Buffs.Abstract;
 using OmoriMod.Content.Systems.EmotionSystem;
 using OmoriMod.Content.Systems.EmotionSystem.Interfaces;
@@ -40,6 +42,9 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
     /// <summary>The progression midpoint selected for the current world difficulty.</summary>
     public int MidEmotionLevel;
 
+    /// <summary>The mana cost reserved by Sad mitigation for the current incoming hit.</summary>
+    internal int PendingSadManaDamage { get; set; }
+
     private void ResetMidEmotionLevel()
     {
         MidEmotionLevel = Main.hardMode ? 10 : 6;
@@ -52,11 +57,74 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
     /// <param name="finalTier">The minimum scaling level declared by that emotion's final tier.</param>
     public void EnsureScalingEmotion(EmotionType emotion, int finalTier)
     {
-        if (ScalingEmotion != emotion || ScalingEmotionLevel < finalTier)
+        int boundedFinalTier = Math.Clamp(
+            finalTier,
+            1,
+            EmotionStatTuning.PlayerMaxEmotionLevel);
+        if (ScalingEmotion != emotion || ScalingEmotionLevel < boundedFinalTier)
         {
             ScalingEmotion = emotion;
-            ScalingEmotionLevel = finalTier;
+            ScalingEmotionLevel = boundedFinalTier;
+            return;
         }
+
+        ScalingEmotionLevel = Math.Min(
+            ScalingEmotionLevel,
+            EmotionStatTuning.PlayerMaxEmotionLevel);
+    }
+
+    /// <summary>
+    /// Explicitly increases a capped final-tier emotion by one effective level.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> when the level increased; otherwise <see langword="false"/> at the cap.
+    /// </returns>
+    internal bool TryAmplifyEmotion(EmotionType emotion, int finalTier)
+    {
+        EnsureScalingEmotion(emotion, finalTier);
+        if (ScalingEmotionLevel >= EmotionStatTuning.PlayerMaxEmotionLevel)
+        {
+            EmotionLevel = ScalingEmotionLevel;
+            return false;
+        }
+
+        ScalingEmotionLevel++;
+        EmotionLevel = ScalingEmotionLevel;
+        return true;
+    }
+
+    internal bool TryApplySyncedScalingState(
+        EmotionType emotion,
+        int scalingLevel,
+        bool requireActiveBuff)
+    {
+        int? activeBuffType = null;
+        EmotionScalingMode activeScalingMode = EmotionScalingMode.Disabled;
+        if (requireActiveBuff)
+        {
+            activeBuffType = EmotionSystem.GetEmotionType(Player);
+            if (activeBuffType.HasValue
+                && ModContent.GetModBuff(activeBuffType.Value) is EmotionBuff activeEmotion)
+            {
+                activeScalingMode = activeEmotion.ScalingMode;
+            }
+        }
+
+        if (!EmotionSystem.IsValidScalingSync(
+                emotion,
+                scalingLevel,
+                ScalingEmotion,
+                ScalingEmotionLevel,
+                activeBuffType,
+                activeScalingMode,
+                requireActiveBuff))
+        {
+            return false;
+        }
+
+        ScalingEmotion = emotion;
+        ScalingEmotionLevel = scalingLevel;
+        return true;
     }
 
     private void ResetScalingEmotionLevel()
@@ -98,12 +166,47 @@ public class EmotionPlayer : ModPlayer, IEmotionEntity
     /// <summary>Applies incoming-damage behavior supplied by the active emotion.</summary>
     public override void ModifyHurt(ref Player.HurtModifiers modifiers)
     {
-        ActiveEmotionBuff?.ModifyPlayerIncomingDamage(EmotionLevel, ref modifiers);
+        PendingSadManaDamage = 0;
+        ActiveEmotionBuff?.ModifyPlayerIncomingDamage(Player, EmotionLevel, ref modifiers);
     }
 
     /// <summary>Dispatches post-damage behavior supplied by the active emotion.</summary>
     public override void OnHurt(Player.HurtInfo info)
     {
-        EmotionSystem.HandlePlayerHurt(Player, info);
+        try
+        {
+            EmotionSystem.HandlePlayerHurt(Player, info);
+        }
+        finally
+        {
+            PendingSadManaDamage = 0;
+        }
+    }
+
+    public override void CopyClientState(ModPlayer targetCopy)
+    {
+        var clone = (EmotionPlayer)targetCopy;
+        clone.ScalingEmotion = ScalingEmotion;
+        clone.ScalingEmotionLevel = ScalingEmotionLevel;
+    }
+
+    public override void SendClientChanges(ModPlayer clientPlayer)
+    {
+        var oldState = (EmotionPlayer)clientPlayer;
+        if (oldState.ScalingEmotion != ScalingEmotion
+            || oldState.ScalingEmotionLevel != ScalingEmotionLevel)
+        {
+            SyncPlayer(toWho: -1, fromWho: Main.myPlayer, newPlayer: false);
+        }
+    }
+
+    public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+    {
+        ModPacket packet = global::OmoriMod.OmoriMod.Mod.GetPacket();
+        packet.Write((byte)OmoriModMessageType.SyncEmotionPlayer);
+        packet.Write((byte)Player.whoAmI);
+        packet.Write((byte)ScalingEmotion);
+        packet.Write((byte)ScalingEmotionLevel);
+        packet.Send(toWho, fromWho);
     }
 }
