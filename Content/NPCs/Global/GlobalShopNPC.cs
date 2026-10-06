@@ -17,6 +17,7 @@ public class GlobalShopNPC : GlobalNPC
             shop.Add<PartyPopper>();
             shop.Add<RainCloud>();
             shop.Add<AirHorn>();
+            shop.Add<Firecracker>();
             shop.Add<Something>();
         }
 

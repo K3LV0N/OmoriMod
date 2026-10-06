@@ -70,6 +70,9 @@ public abstract class EmotionItem : AbilityItem, IOnHitEmotionObject
             case EmotionType.Happy:
                 Item.rare = ItemRarityID.Yellow;
                 break;
+            case EmotionType.Fear:
+                Item.rare = ItemRarityID.Purple;
+                break;
             case EmotionType.None:
             default:
                 break;
