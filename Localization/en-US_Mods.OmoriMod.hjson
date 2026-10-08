@@ -457,94 +457,49 @@ Items: {
 		Tooltip: ""
 	}
 
-	OrangeJuice: {
-		DisplayName: Orange Juice
-		Tooltip: Apparently better than Apple Juice
-	}
-
-	AppleJuice: {
-		DisplayName: Apple Juice
-		Tooltip: Apparently better than orange juice.
-	}
-
-	RabbitsFoot: {
-		DisplayName: Rabbits Foot
-		Tooltip: increases your Jump and Speed by 50%
-	}
-
-	RabbitsFootKeychain: {
-		DisplayName: Rabbits Foot Keychain
-		Tooltip: Brings forth a challenger from the depths of hell
-	}
-
-	RabbitBossBag: {
-		DisplayName: Rabbit Boss Bag
-		Tooltip: ""
-	}
-
-	RabbitGun: {
-		DisplayName: Rabbit Gun
-		Tooltip: ""
-	}
-
-	GShroober: {
-		DisplayName: G Shroober
-		Tooltip: ""
-	}
-
-	HeadspacePortalCan: {
-		DisplayName: Headspace Portal Can
-		Tooltip: ""
-	}
-
-	HeadspaceDirtBlockItem: {
-		DisplayName: Headspace Dirt Block Item
-		Tooltip: ""
-	}
-
-	HeadspaceGrassBlockItem: {
-		DisplayName: Headspace Grass Block Item
-		Tooltip: ""
-	}
-
-	HeadspaceStoneBlockItem: {
-		DisplayName: Headspace Stone Block Item
-		Tooltip: ""
-	}
-
-	HeadspaceWood: {
-		DisplayName: Headspace Wood
-		Tooltip: ""
-	}
-
 	Firecracker: {
-		DisplayName: Firecracker
 		Tooltip: ""
+		DisplayName: Firecracker
 	}
 
 	SproutMoleBanner: {
-		Tooltip: ""
 		DisplayName: Sprout Mole Banner
-	}
-
-	SproutMoleDish: {
-		Tooltip: ""
-		DisplayName: Sprout Mole Dish
-	}
-
-	SproutMoleMissileRemote: {
-		DisplayName: Sprout Mole Missile Remote
 		Tooltip: ""
 	}
 
-	FlyingSproutMole: {
-		DisplayName: Flying Sprout Mole
+	AngryGoober: {
+		DisplayName: Angry Goober
 		Tooltip: ""
 	}
 
-	PlantationSpear: {
+	FearGoober: {
+		DisplayName: Fear Goober
 		Tooltip: ""
-		DisplayName: Plantation Spear
+	}
+
+	HappyGoober: {
+		DisplayName: Happy Goober
+		Tooltip: ""
+	}
+
+	NeutralGoober: {
+		DisplayName: Neutral Goober
+		Tooltip: ""
+	}
+
+	PearGoober: {
+		DisplayName: Pear Goober
+		Tooltip: ""
+	}
+
+	SadGoober: {
+		DisplayName: Sad Goober
+		Tooltip: ""
+	}
+
+	SulfurGoober: {
+		DisplayName: Sulfur Goober
+		Tooltip: ""
 	}
 }
 
@@ -639,19 +594,44 @@ Buffs: {
 		Description: Stop looking :(
 	}
 
-	GShrooberBuff: {
-		DisplayName: G Shroober Buff
-		Description: Mods.OmoriMod.Buffs.GShrooberBuff.Description
-	}
-
 	Fear: {
-		DisplayName: Fear
 		Description: Mods.OmoriMod.Buffs.Fear.Description
+		DisplayName: Fear
 	}
 
-	FlyingSproutMoleBuff: {
-		DisplayName: Flying Sprout Mole Buff
-		Description: Mods.OmoriMod.Buffs.FlyingSproutMoleBuff.Description
+	AngryGooberBuff: {
+		DisplayName: Angry Goober Buff
+		Description: Mods.OmoriMod.Buffs.AngryGooberBuff.Description
+	}
+
+	FearGooberBuff: {
+		DisplayName: Fear Goober Buff
+		Description: Mods.OmoriMod.Buffs.FearGooberBuff.Description
+	}
+
+	HappyGooberBuff: {
+		DisplayName: Happy Goober Buff
+		Description: Mods.OmoriMod.Buffs.HappyGooberBuff.Description
+	}
+
+	NeutralGooberBuff: {
+		DisplayName: Neutral Goober Buff
+		Description: Mods.OmoriMod.Buffs.NeutralGooberBuff.Description
+	}
+
+	PearGooberBuff: {
+		DisplayName: Pear Goober Buff
+		Description: Mods.OmoriMod.Buffs.PearGooberBuff.Description
+	}
+
+	SadGooberBuff: {
+		DisplayName: Sad Goober Buff
+		Description: Mods.OmoriMod.Buffs.SadGooberBuff.Description
+	}
+
+	SulfurGooberBuff: {
+		DisplayName: Sulfur Goober Buff
+		Description: Mods.OmoriMod.Buffs.SulfurGooberBuff.Description
 	}
 }
 
@@ -760,13 +740,19 @@ Projectiles: {
 	SadBombPlusProjectile.DisplayName: Sad Bomb Plus Projectile
 	HomingHeart.DisplayName: Homing Heart
 	MaceWhip.DisplayName: Mace Whip
-	UFOLaser.DisplayName: U F O Laser
-	SquizzardBeam.DisplayName: Squizzard Beam
-	GShrooberProjectile.DisplayName: G Shroober Projectile
-	GShrooberPoisonProjectile.DisplayName: G Shroober Poison Projectile
-	SproutMoleMissileProjectile.DisplayName: Sprout Mole Missile Projectile
-	FlyingSproutMoleBulletProjectile.DisplayName: Flying Sprout Mole Bullet Projectile
-	FlyingSproutMoleProjectile.DisplayName: Flying Sprout Mole Projectile
+	AngryGooberBulletProjectile.DisplayName: Angry Goober Bullet Projectile
+	AngryGooberProjectile.DisplayName: Angry Goober Projectile
+	FearGooberBulletProjectile.DisplayName: Fear Goober Bullet Projectile
+	FearGooberProjectile.DisplayName: Fear Goober Projectile
+	HappyGooberBulletProjectile.DisplayName: Happy Goober Bullet Projectile
+	HappyGooberProjectile.DisplayName: Happy Goober Projectile
+	NeutralGooberProjectile.DisplayName: Neutral Goober Projectile
+	PearGooberBulletProjectile.DisplayName: Pear Goober Bullet Projectile
+	PearGooberProjectile.DisplayName: Pear Goober Projectile
+	SadGooberBulletProjectile.DisplayName: Sad Goober Bullet Projectile
+	SadGooberProjectile.DisplayName: Sad Goober Projectile
+	SulfurGooberBulletProjectile.DisplayName: Sulfur Goober Bullet Projectile
+	SulfurGooberProjectile.DisplayName: Sulfur Goober Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage
