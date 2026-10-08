@@ -11,15 +11,13 @@ using OmoriMod.Content.Items.Health;
 using OmoriMod.Content.NPCs.Classes;
 using OmoriMod.Content.NPCs.General_Behaviours.Actives;
 using OmoriMod.Content.NPCs.General_Behaviours.Backgrounds;
-using OmoriMod.Systems.State_Management.NPCs;
+using OmoriMod.Content.Systems.State_Management.NPCs;
 
 namespace OmoriMod.Content.NPCs.Enemies.Regular.ForestBunny
 {
     public class ForestBunny : OmoriBehaviourNPC
     {
-        int frameIndex = 0;
-
-        ref float JumpTimer => ref NPC.ai[0];
+        private ref float JumpTimer => ref NPC.ai[0];
 
         public override void SetStaticDefaults()
         {

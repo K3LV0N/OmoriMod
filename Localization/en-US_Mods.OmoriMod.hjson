@@ -501,11 +501,17 @@ Items: {
 		DisplayName: Sulfur Goober
 		Tooltip: ""
 	}
-}
+
 	RabbitsFoot: {
+		Tooltip: ""
 		DisplayName: Rabbits Foot
-		Tooltip: increases your Jump and Speed by 2%
 	}
+}
+
+RabbitsFoot: {
+	DisplayName: Rabbits Foot
+	Tooltip: increases your Jump and Speed by 2%
+}
 
 Buffs: {
 	AngryNoTime: {
