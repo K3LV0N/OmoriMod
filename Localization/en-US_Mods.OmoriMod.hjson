@@ -605,43 +605,43 @@ Buffs: {
 	}
 
 	Fear: {
-		Description: Mods.OmoriMod.Buffs.Fear.Description
+		Description: Speed up! Hit chance down! Damage down! Regenerating life!
 		DisplayName: Fear
 	}
 
 	AngryGooberBuff: {
 		DisplayName: Angry Goober Buff
-		Description: Mods.OmoriMod.Buffs.AngryGooberBuff.Description
+		Description: An Angry Goober is fighting for you
 	}
 
 	FearGooberBuff: {
 		DisplayName: Fear Goober Buff
-		Description: Mods.OmoriMod.Buffs.FearGooberBuff.Description
+		Description: A Fear Goober is fighting for you
 	}
 
 	HappyGooberBuff: {
 		DisplayName: Happy Goober Buff
-		Description: Mods.OmoriMod.Buffs.HappyGooberBuff.Description
+		Description: A Happy Goober is fighting for you
 	}
 
 	NeutralGooberBuff: {
 		DisplayName: Neutral Goober Buff
-		Description: Mods.OmoriMod.Buffs.NeutralGooberBuff.Description
+		Description: A Neutral Goober is fighting for you
 	}
 
 	PearGooberBuff: {
 		DisplayName: Pear Goober Buff
-		Description: Mods.OmoriMod.Buffs.PearGooberBuff.Description
+		Description: A Pear Goober is fighting for you
 	}
 
 	SadGooberBuff: {
 		DisplayName: Sad Goober Buff
-		Description: Mods.OmoriMod.Buffs.SadGooberBuff.Description
+		Description: A Sad Goober is fighting for you
 	}
 
 	SulfurGooberBuff: {
 		DisplayName: Sulfur Goober Buff
-		Description: Mods.OmoriMod.Buffs.SulfurGooberBuff.Description
+		Description: A Sulfur Goober is fighting for you
 	}
 }
 
