@@ -501,6 +501,21 @@ Items: {
 		DisplayName: Sulfur Goober
 		Tooltip: ""
 	}
+
+	RabbitsFoot: {
+		Tooltip: ""
+		DisplayName: Rabbits Foot
+	}
+
+	GShroober: {
+		Tooltip: ""
+		DisplayName: G Shroober
+	}
+}
+
+RabbitsFoot: {
+	DisplayName: Rabbits Foot
+	Tooltip: increases your Jump and Speed by 2%
 }
 
 Buffs: {
@@ -633,6 +648,11 @@ Buffs: {
 		DisplayName: Sulfur Goober Buff
 		Description: Mods.OmoriMod.Buffs.SulfurGooberBuff.Description
 	}
+
+	GShrooberBuff: {
+		Description: Mods.OmoriMod.Buffs.GShrooberBuff.Description
+		DisplayName: G Shroober Buff
+	}
 }
 
 NPCs: {
@@ -642,40 +662,6 @@ NPCs: {
 	SweetHeart.DisplayName: Sweetheart
 	SproutMoleOld.DisplayName: Sprout Mole Old
 	ForestBunny.DisplayName: Forest Bunny
-	UFO.DisplayName: U.F.O
-	Squizzard.DisplayName: Squizzard
-	Rabbit.DisplayName: Rabbit?
-	Snaley.DisplayName: Snaley
-
-	Basil: {
-		TownNPCMood: {
-			Princess_LovesNPC: I like {NPCName}.
-			LikeNPC_Princess: I like {NPCName}.
-			HateCrowded: I hate how crowded I am.
-			DislikeCrowded: I dislike how crowded I am.
-			LoveSpace: I love having so much space.
-			FarFromHome: I am too far from home.
-			NoHome: I hate not having a home.
-			Content: I am content.
-		}
-
-		DisplayName: Basil
-	}
-
-	Mari: {
-		TownNPCMood: {
-			Princess_LovesNPC: I like {NPCName}.
-			LikeNPC_Princess: I like {NPCName}.
-			HateCrowded: I hate how crowded I am.
-			DislikeCrowded: I dislike how crowded I am.
-			LoveSpace: I love having so much space.
-			FarFromHome: I am too far from home.
-			NoHome: I hate not having a home.
-			Content: I am content.
-		}
-
-		DisplayName: Mari
-	}
 }
 
 Projectiles: {
@@ -753,6 +739,8 @@ Projectiles: {
 	SadGooberProjectile.DisplayName: Sad Goober Projectile
 	SulfurGooberBulletProjectile.DisplayName: Sulfur Goober Bullet Projectile
 	SulfurGooberProjectile.DisplayName: Sulfur Goober Projectile
+	GShrooberProjectile.DisplayName: G Shroober Projectile
+	GShrooberPoisonProjectile.DisplayName: G Shroober Poison Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage
@@ -769,16 +757,3 @@ Configs: {
 }
 
 RecipeCondition.DevMode: Requires Dev Mode
-
-BossChecklist: {
-	YeOldSprout.SpawnInfo: Use a Mega Tofu to summon Ye Old Sprout.
-	SweetHeart.SpawnInfo: Use a Splintered Sweet to summon Sweetheart.
-	Rabbit.SpawnInfo: Use a Rabbit's Foot Keychain to summon the Rabbit.
-}
-
-Biomes: {
-	HeadspaceBiome: {
-		DisplayName: Headspace Biome
-		TownNPCDialogueName: the Headspace Biome
-	}
-}
