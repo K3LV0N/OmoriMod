@@ -506,6 +506,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Rabbits Foot
 	}
+
+	GShroober: {
+		Tooltip: ""
+		DisplayName: G Shroober
+	}
 }
 
 RabbitsFoot: {
@@ -643,6 +648,11 @@ Buffs: {
 		DisplayName: Sulfur Goober Buff
 		Description: Mods.OmoriMod.Buffs.SulfurGooberBuff.Description
 	}
+
+	GShrooberBuff: {
+		Description: Mods.OmoriMod.Buffs.GShrooberBuff.Description
+		DisplayName: G Shroober Buff
+	}
 }
 
 NPCs: {
@@ -729,6 +739,8 @@ Projectiles: {
 	SadGooberProjectile.DisplayName: Sad Goober Projectile
 	SulfurGooberBulletProjectile.DisplayName: Sulfur Goober Bullet Projectile
 	SulfurGooberProjectile.DisplayName: Sulfur Goober Projectile
+	GShrooberProjectile.DisplayName: G Shroober Projectile
+	GShrooberPoisonProjectile.DisplayName: G Shroober Poison Projectile
 }
 
 DamageClasses.FocusDamage.DisplayName: Focus Damage
